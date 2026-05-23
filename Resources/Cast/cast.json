@@ -1,0 +1,25 @@
+{
+  "app": "voicetale",
+  "format": "webp",
+  "source": "labsmith scripts/copy_cast_to_repos.sh (from spark-anvil-site/public/cast/)",
+  "characters": [
+    {
+      "slug": "lean",
+      "portrait": "lean.webp"
+    },
+    {
+      "slug": "pivot",
+      "portrait": "pivot.webp"
+    },
+    {
+      "slug": "refrain",
+      "portrait": "refrain.webp"
+    },
+    {
+      "slug": "slow",
+      "portrait": "slow.webp"
+    }
+  ],
+  "count": 4,
+  "loading_hint": "Load via Bundle.module.url(forResource: slug, withExtension: \"webp\"). Each entry's slug matches the character's dnCast.members[].slug in spark-anvil-site/src/data/apps.generated.ts."
+}
