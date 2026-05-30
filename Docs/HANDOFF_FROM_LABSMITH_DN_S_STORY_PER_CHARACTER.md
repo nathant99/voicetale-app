@@ -1,11 +1,11 @@
 ---
-status: OPEN-NEEDS-APP-REVIEW
+status: SHIPPED
 date: 2026-05-30
-round: Round 228 #662
+round: Round 229 #663 (kickoff R228 #662)
 direction: labsmith → app
 freshness-horizon: 60d
 parent-decision: labsmith/Docs/PLAN_DN_S_STORY_PER_CHARACTER_WAVES.md (R170 #604 + R172 #606 chapter depth)
-sibling-impl: Wave 3 — 7 apps 100% complete; VoiceTale is Wave 3 8th app
+sibling-impl: Wave 3 — 8 apps 100% complete (QuillSpell + GrammarForge + LyricForge + HaikuQuest + MotifLab + CharacterForge + DialogueQuest + VoiceTale)
 ---
 
 # Handoff from Labsmith — VoiceTale DN-S Chapter-per-Character Authoring
@@ -37,11 +37,11 @@ This kickoff round (R228) ships:
 | Character | Status | File |
 |---|---|---|
 | Lean | ✅ FULL CHAPTER | `Docs/dn-s/chapters/lean.md` (~835 words, R228) |
-| Slow | OUTLINE | R229+ |
-| Pivot | OUTLINE | R229+ |
-| Refrain | OUTLINE | R229+ |
+| Slow | ✅ FULL CHAPTER | `Docs/dn-s/chapters/slow.md` (~805 words, R229) |
+| Pivot | ✅ FULL CHAPTER | `Docs/dn-s/chapters/pivot.md` (~800 words, R229) |
+| Refrain | ✅ FULL CHAPTER | `Docs/dn-s/chapters/refrain.md` (~795 words, R229) |
 
-**Progress**: 🚧 **1 of 4 cast at full chapter depth (25%)**. Total ~835 words. Disposition: VoiceTale DN-S kickoff shipped; R229+ continues authoring.
+**Progress**: 🎉 **4 of 4 cast at full chapter depth (100% — VOICETALE DN-S COMPLETE)**. Total ~3,235 words. Disposition: VoiceTale DN-S SHIPPED.
 
 ## Cast OUTLINES
 
@@ -82,4 +82,4 @@ Per `.claude/rules/distributed-narrative.md` § DN-S: warmly absurd with subtext
 
 ---
 
-**Disposition**: 🚧 OPEN — 1 full reference chapter (Lean) + 3 outlines + relationship matrix + multi-tradition cultural-sensitivity gate. R229+ authors remaining 3 chapters.
+**Disposition**: ✅ SHIPPED — 4 of 4 cast at full chapter depth. VoiceTale DN-S COMPLETE.
