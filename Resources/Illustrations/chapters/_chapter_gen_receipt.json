@@ -1,0 +1,70 @@
+{
+  "app": "voicetale",
+  "mode": "chapters",
+  "generated_at": "2026-06-01T17:56:17",
+  "total_estimated_cost_usd": 0.716,
+  "actual_cost_usd": 0.7160000000000001,
+  "chapters_count": 4,
+  "results": [
+    {
+      "asset": "chapters/lean_opener",
+      "model": "gemini-3-pro-image-preview",
+      "cost": 0.134,
+      "ok": true,
+      "path": "/Volumes/Data/Projects/GitHub/voicetale-app/Resources/Illustrations/chapters/chapter_lean_opener.png"
+    },
+    {
+      "asset": "chapters/lean_spot",
+      "model": "gemini-3.1-flash-image-preview",
+      "cost": 0.045,
+      "ref_locked": true,
+      "ok": true,
+      "path": "/Volumes/Data/Projects/GitHub/voicetale-app/Resources/Illustrations/chapters/chapter_lean_spot.png"
+    },
+    {
+      "asset": "chapters/pivot_opener",
+      "model": "gemini-3-pro-image-preview",
+      "cost": 0.134,
+      "ok": true,
+      "path": "/Volumes/Data/Projects/GitHub/voicetale-app/Resources/Illustrations/chapters/chapter_pivot_opener.png"
+    },
+    {
+      "asset": "chapters/pivot_spot",
+      "model": "gemini-3.1-flash-image-preview",
+      "cost": 0.045,
+      "ref_locked": true,
+      "ok": true,
+      "path": "/Volumes/Data/Projects/GitHub/voicetale-app/Resources/Illustrations/chapters/chapter_pivot_spot.png"
+    },
+    {
+      "asset": "chapters/refrain_opener",
+      "model": "gemini-3-pro-image-preview",
+      "cost": 0.134,
+      "ok": true,
+      "path": "/Volumes/Data/Projects/GitHub/voicetale-app/Resources/Illustrations/chapters/chapter_refrain_opener.png"
+    },
+    {
+      "asset": "chapters/refrain_spot",
+      "model": "gemini-3.1-flash-image-preview",
+      "cost": 0.045,
+      "ref_locked": true,
+      "ok": true,
+      "path": "/Volumes/Data/Projects/GitHub/voicetale-app/Resources/Illustrations/chapters/chapter_refrain_spot.png"
+    },
+    {
+      "asset": "chapters/slow_opener",
+      "model": "gemini-3-pro-image-preview",
+      "cost": 0.134,
+      "ok": true,
+      "path": "/Volumes/Data/Projects/GitHub/voicetale-app/Resources/Illustrations/chapters/chapter_slow_opener.png"
+    },
+    {
+      "asset": "chapters/slow_spot",
+      "model": "gemini-3.1-flash-image-preview",
+      "cost": 0.045,
+      "ref_locked": true,
+      "ok": true,
+      "path": "/Volumes/Data/Projects/GitHub/voicetale-app/Resources/Illustrations/chapters/chapter_slow_spot.png"
+    }
+  ]
+}
