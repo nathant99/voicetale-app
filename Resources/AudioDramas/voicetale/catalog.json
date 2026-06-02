@@ -1,0 +1,17 @@
+{
+  "dramas": [
+    {
+      "id": "2d62ea01-360c-431f-b9dc-eb427c8ff64e",
+      "title": "Lean \u2014 The Tipping-Forward at Second Five",
+      "appSlug": "voicetale",
+      "sourceChapterSlugs": [
+        "lean"
+      ],
+      "durationSeconds": 288.67,
+      "bundlePath": "AudioDramas/voicetale/lean-tipping-forward.caf",
+      "chapters": [],
+      "moderationSensitivity": "normal",
+      "traumaConstraints": null
+    }
+  ]
+}
