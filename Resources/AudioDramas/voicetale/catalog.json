@@ -3,15 +3,299 @@
     {
       "id": "2d62ea01-360c-431f-b9dc-eb427c8ff64e",
       "title": "Lean \u2014 The Tipping-Forward at Second Five",
+      "titleSlug": "lean-tipping-forward",
       "appSlug": "voicetale",
       "sourceChapterSlugs": [
         "lean"
       ],
-      "durationSeconds": 288.67,
+      "durationSeconds": 385.62,
       "bundlePath": "AudioDramas/voicetale/lean-tipping-forward.caf",
-      "chapters": [],
+      "webM4APath": "AudioDramas/voicetale/lean-tipping-forward.m4a",
+      "webVTTPath": "AudioDramas/voicetale/lean-tipping-forward.vtt",
+      "chapters": [
+        {
+          "index": 1,
+          "startMs": 0,
+          "endMs": 7610,
+          "character": "NARRATOR"
+        },
+        {
+          "index": 2,
+          "startMs": 7610,
+          "endMs": 14861,
+          "character": "NARRATOR"
+        },
+        {
+          "index": 3,
+          "startMs": 14861,
+          "endMs": 25912,
+          "character": "NARRATOR"
+        },
+        {
+          "index": 4,
+          "startMs": 25912,
+          "endMs": 38043,
+          "character": "NARRATOR"
+        },
+        {
+          "index": 5,
+          "startMs": 38043,
+          "endMs": 49814,
+          "character": "NARRATOR"
+        },
+        {
+          "index": 6,
+          "startMs": 49814,
+          "endMs": 60665,
+          "character": "NARRATOR"
+        },
+        {
+          "index": 7,
+          "startMs": 60665,
+          "endMs": 69836,
+          "character": "NARRATOR"
+        },
+        {
+          "index": 8,
+          "startMs": 69836,
+          "endMs": 78367,
+          "character": "NARRATOR"
+        },
+        {
+          "index": 9,
+          "startMs": 78367,
+          "endMs": 112778,
+          "character": "LEAN"
+        },
+        {
+          "index": 10,
+          "startMs": 112778,
+          "endMs": 114349,
+          "character": "BRAMBLE"
+        },
+        {
+          "index": 11,
+          "startMs": 114349,
+          "endMs": 127280,
+          "character": "LEAN"
+        },
+        {
+          "index": 12,
+          "startMs": 127280,
+          "endMs": 130011,
+          "character": "BRAMBLE"
+        },
+        {
+          "index": 13,
+          "startMs": 130011,
+          "endMs": 155662,
+          "character": "LEAN"
+        },
+        {
+          "index": 14,
+          "startMs": 155662,
+          "endMs": 157433,
+          "character": "BRAMBLE"
+        },
+        {
+          "index": 15,
+          "startMs": 157433,
+          "endMs": 163204,
+          "character": "NARRATOR"
+        },
+        {
+          "index": 16,
+          "startMs": 163204,
+          "endMs": 172095,
+          "character": "BRAMBLE"
+        },
+        {
+          "index": 17,
+          "startMs": 172095,
+          "endMs": 184026,
+          "character": "LEAN"
+        },
+        {
+          "index": 18,
+          "startMs": 184026,
+          "endMs": 191437,
+          "character": "BRAMBLE"
+        },
+        {
+          "index": 19,
+          "startMs": 191437,
+          "endMs": 194448,
+          "character": "LEAN"
+        },
+        {
+          "index": 20,
+          "startMs": 194448,
+          "endMs": 202219,
+          "character": "BRAMBLE"
+        },
+        {
+          "index": 21,
+          "startMs": 202219,
+          "endMs": 214310,
+          "character": "LEAN"
+        },
+        {
+          "index": 22,
+          "startMs": 214310,
+          "endMs": 229521,
+          "character": "NARRATOR"
+        },
+        {
+          "index": 23,
+          "startMs": 229521,
+          "endMs": 237212,
+          "character": "BRAMBLE"
+        },
+        {
+          "index": 24,
+          "startMs": 237212,
+          "endMs": 243223,
+          "character": "LEAN"
+        },
+        {
+          "index": 25,
+          "startMs": 243223,
+          "endMs": 246713,
+          "character": "NARRATOR"
+        },
+        {
+          "index": 26,
+          "startMs": 246713,
+          "endMs": 262964,
+          "character": "BRAMBLE"
+        },
+        {
+          "index": 27,
+          "startMs": 262964,
+          "endMs": 270015,
+          "character": "NARRATOR"
+        },
+        {
+          "index": 28,
+          "startMs": 270015,
+          "endMs": 278706,
+          "character": "BRAMBLE"
+        },
+        {
+          "index": 29,
+          "startMs": 278706,
+          "endMs": 285237,
+          "character": "BRAMBLE"
+        },
+        {
+          "index": 30,
+          "startMs": 285237,
+          "endMs": 290728,
+          "character": "BRAMBLE"
+        },
+        {
+          "index": 31,
+          "startMs": 290728,
+          "endMs": 304139,
+          "character": "BRAMBLE"
+        },
+        {
+          "index": 32,
+          "startMs": 304139,
+          "endMs": 319070,
+          "character": "BRAMBLE"
+        },
+        {
+          "index": 33,
+          "startMs": 319070,
+          "endMs": 341121,
+          "character": "BRAMBLE"
+        },
+        {
+          "index": 34,
+          "startMs": 341121,
+          "endMs": 350172,
+          "character": "LEAN"
+        },
+        {
+          "index": 35,
+          "startMs": 350172,
+          "endMs": 359063,
+          "character": "NARRATOR"
+        },
+        {
+          "index": 36,
+          "startMs": 359063,
+          "endMs": 367834,
+          "character": "NARRATOR"
+        },
+        {
+          "index": 37,
+          "startMs": 367834,
+          "endMs": 372925,
+          "character": "NARRATOR"
+        },
+        {
+          "index": 38,
+          "startMs": 372925,
+          "endMs": 385616,
+          "character": "NARRATOR"
+        }
+      ],
       "moderationSensitivity": "normal",
-      "traumaConstraints": null
+      "traumaConstraints": null,
+      "attributionVersion": "v2",
+      "version": "2026-06-05",
+      "releaseDate": "2026-06-05",
+      "aiContentDisclosure": {
+        "vendor": "Gemini 2.5 Flash TTS",
+        "model": "gemini-2.5-flash-preview-tts",
+        "voiceSource": "synthetic",
+        "humanVoiceCloned": false
+      },
+      "coppaDisclosure": {
+        "childVoiceDataCollected": false,
+        "dataRetention": "n/a"
+      },
+      "curriculumAlignment": [
+        "Common Core English Language Arts"
+      ],
+      "ageRecommendation": "9-14",
+      "license": "CC BY-NC-SA 4.0",
+      "studio": "Spark and Anvil",
+      "studioStatus": "501(c)(3) public charity (pending)",
+      "traumaAxis": null,
+      "traumaResources": null,
+      "sensitivityReviewer": null,
+      "culturalAdvisor": null,
+      "funder": null,
+      "writingCredit": "Spark and Anvil writing team",
+      "musicCredit": "Spark and Anvil brand sting (pending)",
+      "episodeArtworkAttribution": "Gemini 2.5 Pro illustration pipeline",
+      "cohortDiscoveryUrl": "https://spark-and-anvil.com/cast/voicetale/lean",
+      "versions": [
+        {
+          "vendor": "Gemini 2.5 Flash TTS",
+          "tier": "flash",
+          "dateGenerated": "2026-06-05",
+          "attributionVersion": "v1-pre-2026-06-04",
+          "durationMs": 288670,
+          "bundlePath": "AudioDramas/voicetale/lean-tipping-forward-v1-2026-06-05.caf",
+          "webM4APath": "AudioDramas/voicetale/lean-tipping-forward-v1-2026-06-05.m4a",
+          "webVTTPath": "AudioDramas/voicetale/lean-tipping-forward-v1-2026-06-05.vtt"
+        },
+        {
+          "vendor": "Gemini 2.5 Flash TTS",
+          "tier": "flash",
+          "dateGenerated": "2026-06-05",
+          "attributionVersion": "v2",
+          "durationMs": 385616,
+          "bundlePath": "AudioDramas/voicetale/lean-tipping-forward.caf",
+          "webM4APath": "AudioDramas/voicetale/lean-tipping-forward.m4a",
+          "webVTTPath": "AudioDramas/voicetale/lean-tipping-forward.vtt"
+        }
+      ],
+      "canonicalVersionIndex": 1
     }
   ]
 }
