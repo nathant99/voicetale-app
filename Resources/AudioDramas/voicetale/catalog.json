@@ -296,6 +296,692 @@
         }
       ],
       "canonicalVersionIndex": 1
+    },
+    {
+      "id": "10d85dc3-465a-47c1-a700-04f4cc8bed02",
+      "title": "Lean \u2014 The Opening Seconds Of A Told Story",
+      "titleSlug": "lean-hook-leanability",
+      "appSlug": "voicetale",
+      "sourceChapterSlugs": [
+        "lean"
+      ],
+      "durationSeconds": 160.69,
+      "bundlePath": "AudioDramas/voicetale/lean-hook-leanability.caf",
+      "webM4APath": "AudioDramas/voicetale/lean-hook-leanability.m4a",
+      "webVTTPath": "AudioDramas/voicetale/lean-hook-leanability.vtt",
+      "chapters": [
+        {
+          "index": 1,
+          "startMs": 0,
+          "endMs": 7690,
+          "character": "NARRATOR"
+        },
+        {
+          "index": 2,
+          "startMs": 7690,
+          "endMs": 14541,
+          "character": "NARRATOR"
+        },
+        {
+          "index": 3,
+          "startMs": 14541,
+          "endMs": 22272,
+          "character": "NARRATOR"
+        },
+        {
+          "index": 4,
+          "startMs": 22272,
+          "endMs": 28003,
+          "character": "NARRATOR"
+        },
+        {
+          "index": 5,
+          "startMs": 28003,
+          "endMs": 34454,
+          "character": "LEAN"
+        },
+        {
+          "index": 6,
+          "startMs": 34454,
+          "endMs": 41665,
+          "character": "NARRATOR"
+        },
+        {
+          "index": 7,
+          "startMs": 41665,
+          "endMs": 47836,
+          "character": "LEAN"
+        },
+        {
+          "index": 8,
+          "startMs": 47836,
+          "endMs": 62767,
+          "character": "LEAN"
+        },
+        {
+          "index": 9,
+          "startMs": 62767,
+          "endMs": 69098,
+          "character": "NARRATOR"
+        },
+        {
+          "index": 10,
+          "startMs": 69098,
+          "endMs": 76269,
+          "character": "NARRATOR"
+        },
+        {
+          "index": 11,
+          "startMs": 76269,
+          "endMs": 91760,
+          "character": "LEAN"
+        },
+        {
+          "index": 12,
+          "startMs": 91760,
+          "endMs": 104131,
+          "character": "NARRATOR"
+        },
+        {
+          "index": 13,
+          "startMs": 104131,
+          "endMs": 110422,
+          "character": "LEAN"
+        },
+        {
+          "index": 14,
+          "startMs": 110422,
+          "endMs": 118633,
+          "character": "NARRATOR"
+        },
+        {
+          "index": 15,
+          "startMs": 118633,
+          "endMs": 126884,
+          "character": "NARRATOR"
+        },
+        {
+          "index": 16,
+          "startMs": 126884,
+          "endMs": 136055,
+          "character": "NARRATOR"
+        },
+        {
+          "index": 17,
+          "startMs": 136055,
+          "endMs": 144506,
+          "character": "NARRATOR"
+        },
+        {
+          "index": 18,
+          "startMs": 144506,
+          "endMs": 149397,
+          "character": "NARRATOR"
+        },
+        {
+          "index": 19,
+          "startMs": 149397,
+          "endMs": 160688,
+          "character": "NARRATOR"
+        }
+      ],
+      "moderationSensitivity": "normal",
+      "traumaConstraints": null,
+      "attributionVersion": "v2",
+      "version": "2026-06-07",
+      "releaseDate": "2026-06-07",
+      "aiContentDisclosure": {
+        "vendor": "Gemini 2.5 Flash TTS",
+        "model": "gemini-2.5-flash-preview-tts",
+        "voiceSource": "synthetic",
+        "humanVoiceCloned": false
+      },
+      "coppaDisclosure": {
+        "childVoiceDataCollected": false,
+        "dataRetention": "n/a"
+      },
+      "curriculumAlignment": [
+        "Common Core English Language Arts"
+      ],
+      "ageRecommendation": "9-14",
+      "license": "CC BY-NC-SA 4.0",
+      "studio": "Spark and Anvil",
+      "studioStatus": "501(c)(3) public charity (pending)",
+      "traumaAxis": null,
+      "traumaResources": null,
+      "sensitivityReviewer": null,
+      "culturalAdvisor": null,
+      "funder": null,
+      "writingCredit": "Spark and Anvil writing team",
+      "musicCredit": "Spark and Anvil brand sting (pending)",
+      "episodeArtworkAttribution": "Gemini 2.5 Pro illustration pipeline",
+      "cohortDiscoveryUrl": "https://spark-and-anvil.com/cast/voicetale/lean",
+      "versions": [
+        {
+          "vendor": "Gemini 2.5 Flash TTS",
+          "tier": "flash",
+          "dateGenerated": "2026-06-07",
+          "attributionVersion": "v2",
+          "durationMs": 160688,
+          "bundlePath": "AudioDramas/voicetale/lean-hook-leanability.caf",
+          "webM4APath": "AudioDramas/voicetale/lean-hook-leanability.m4a",
+          "webVTTPath": "AudioDramas/voicetale/lean-hook-leanability.vtt"
+        }
+      ],
+      "canonicalVersionIndex": 0
+    },
+    {
+      "id": "68096d5b-d494-4717-b1ca-2066bd15b7c6",
+      "title": "Pivot \u2014 The Moment In A Told Tale",
+      "titleSlug": "pivot-the-turn",
+      "appSlug": "voicetale",
+      "sourceChapterSlugs": [
+        "pivot"
+      ],
+      "durationSeconds": 191.41,
+      "bundlePath": "AudioDramas/voicetale/pivot-the-turn.caf",
+      "webM4APath": "AudioDramas/voicetale/pivot-the-turn.m4a",
+      "webVTTPath": "AudioDramas/voicetale/pivot-the-turn.vtt",
+      "chapters": [
+        {
+          "index": 1,
+          "startMs": 0,
+          "endMs": 7970,
+          "character": "NARRATOR"
+        },
+        {
+          "index": 2,
+          "startMs": 7970,
+          "endMs": 14261,
+          "character": "NARRATOR"
+        },
+        {
+          "index": 3,
+          "startMs": 14261,
+          "endMs": 26072,
+          "character": "NARRATOR"
+        },
+        {
+          "index": 4,
+          "startMs": 26072,
+          "endMs": 39283,
+          "character": "NARRATOR"
+        },
+        {
+          "index": 5,
+          "startMs": 39283,
+          "endMs": 45174,
+          "character": "PIVOT"
+        },
+        {
+          "index": 6,
+          "startMs": 45174,
+          "endMs": 53465,
+          "character": "NARRATOR"
+        },
+        {
+          "index": 7,
+          "startMs": 53465,
+          "endMs": 69156,
+          "character": "PIVOT"
+        },
+        {
+          "index": 8,
+          "startMs": 69156,
+          "endMs": 85727,
+          "character": "PIVOT"
+        },
+        {
+          "index": 9,
+          "startMs": 85727,
+          "endMs": 93178,
+          "character": "NARRATOR"
+        },
+        {
+          "index": 10,
+          "startMs": 93178,
+          "endMs": 107149,
+          "character": "PIVOT"
+        },
+        {
+          "index": 11,
+          "startMs": 107149,
+          "endMs": 115000,
+          "character": "NARRATOR"
+        },
+        {
+          "index": 12,
+          "startMs": 115000,
+          "endMs": 120491,
+          "character": "NARRATOR"
+        },
+        {
+          "index": 13,
+          "startMs": 120491,
+          "endMs": 138342,
+          "character": "PIVOT"
+        },
+        {
+          "index": 14,
+          "startMs": 138342,
+          "endMs": 148193,
+          "character": "PIVOT"
+        },
+        {
+          "index": 15,
+          "startMs": 148193,
+          "endMs": 157324,
+          "character": "NARRATOR"
+        },
+        {
+          "index": 16,
+          "startMs": 157324,
+          "endMs": 166935,
+          "character": "NARRATOR"
+        },
+        {
+          "index": 17,
+          "startMs": 166935,
+          "endMs": 174746,
+          "character": "NARRATOR"
+        },
+        {
+          "index": 18,
+          "startMs": 174746,
+          "endMs": 179317,
+          "character": "NARRATOR"
+        },
+        {
+          "index": 19,
+          "startMs": 179317,
+          "endMs": 191408,
+          "character": "NARRATOR"
+        }
+      ],
+      "moderationSensitivity": "normal",
+      "traumaConstraints": null,
+      "attributionVersion": "v2",
+      "version": "2026-06-07",
+      "releaseDate": "2026-06-07",
+      "aiContentDisclosure": {
+        "vendor": "Gemini 2.5 Flash TTS",
+        "model": "gemini-2.5-flash-preview-tts",
+        "voiceSource": "synthetic",
+        "humanVoiceCloned": false
+      },
+      "coppaDisclosure": {
+        "childVoiceDataCollected": false,
+        "dataRetention": "n/a"
+      },
+      "curriculumAlignment": [
+        "Common Core English Language Arts"
+      ],
+      "ageRecommendation": "9-14",
+      "license": "CC BY-NC-SA 4.0",
+      "studio": "Spark and Anvil",
+      "studioStatus": "501(c)(3) public charity (pending)",
+      "traumaAxis": null,
+      "traumaResources": null,
+      "sensitivityReviewer": null,
+      "culturalAdvisor": null,
+      "funder": null,
+      "writingCredit": "Spark and Anvil writing team",
+      "musicCredit": "Spark and Anvil brand sting (pending)",
+      "episodeArtworkAttribution": "Gemini 2.5 Pro illustration pipeline",
+      "cohortDiscoveryUrl": "https://spark-and-anvil.com/cast/voicetale/pivot",
+      "versions": [
+        {
+          "vendor": "Gemini 2.5 Flash TTS",
+          "tier": "flash",
+          "dateGenerated": "2026-06-07",
+          "attributionVersion": "v2",
+          "durationMs": 191408,
+          "bundlePath": "AudioDramas/voicetale/pivot-the-turn.caf",
+          "webM4APath": "AudioDramas/voicetale/pivot-the-turn.m4a",
+          "webVTTPath": "AudioDramas/voicetale/pivot-the-turn.vtt"
+        }
+      ],
+      "canonicalVersionIndex": 0
+    },
+    {
+      "id": "13408dcc-40cd-49ef-982d-79a5abcd3826",
+      "title": "Refrain \u2014 Repeating One Phrase Identically At The Closing,",
+      "titleSlug": "refrain-callback-refrain",
+      "appSlug": "voicetale",
+      "sourceChapterSlugs": [
+        "refrain"
+      ],
+      "durationSeconds": 191.96,
+      "bundlePath": "AudioDramas/voicetale/refrain-callback-refrain.caf",
+      "webM4APath": "AudioDramas/voicetale/refrain-callback-refrain.m4a",
+      "webVTTPath": "AudioDramas/voicetale/refrain-callback-refrain.vtt",
+      "chapters": [
+        {
+          "index": 1,
+          "startMs": 0,
+          "endMs": 8290,
+          "character": "NARRATOR"
+        },
+        {
+          "index": 2,
+          "startMs": 8290,
+          "endMs": 15581,
+          "character": "NARRATOR"
+        },
+        {
+          "index": 3,
+          "startMs": 15581,
+          "endMs": 25032,
+          "character": "NARRATOR"
+        },
+        {
+          "index": 4,
+          "startMs": 25032,
+          "endMs": 33843,
+          "character": "NARRATOR"
+        },
+        {
+          "index": 5,
+          "startMs": 33843,
+          "endMs": 53814,
+          "character": "REFRAIN"
+        },
+        {
+          "index": 6,
+          "startMs": 53814,
+          "endMs": 72825,
+          "character": "REFRAIN"
+        },
+        {
+          "index": 7,
+          "startMs": 72825,
+          "endMs": 87396,
+          "character": "REFRAIN"
+        },
+        {
+          "index": 8,
+          "startMs": 87396,
+          "endMs": 95367,
+          "character": "NARRATOR"
+        },
+        {
+          "index": 9,
+          "startMs": 95367,
+          "endMs": 98858,
+          "character": "NARRATOR"
+        },
+        {
+          "index": 10,
+          "startMs": 98858,
+          "endMs": 119109,
+          "character": "REFRAIN"
+        },
+        {
+          "index": 11,
+          "startMs": 119109,
+          "endMs": 125760,
+          "character": "NARRATOR"
+        },
+        {
+          "index": 12,
+          "startMs": 125760,
+          "endMs": 134531,
+          "character": "NARRATOR"
+        },
+        {
+          "index": 13,
+          "startMs": 134531,
+          "endMs": 146022,
+          "character": "REFRAIN"
+        },
+        {
+          "index": 14,
+          "startMs": 146022,
+          "endMs": 156313,
+          "character": "NARRATOR"
+        },
+        {
+          "index": 15,
+          "startMs": 156313,
+          "endMs": 165684,
+          "character": "NARRATOR"
+        },
+        {
+          "index": 16,
+          "startMs": 165684,
+          "endMs": 173295,
+          "character": "NARRATOR"
+        },
+        {
+          "index": 17,
+          "startMs": 173295,
+          "endMs": 178066,
+          "character": "NARRATOR"
+        },
+        {
+          "index": 18,
+          "startMs": 178066,
+          "endMs": 191957,
+          "character": "NARRATOR"
+        }
+      ],
+      "moderationSensitivity": "normal",
+      "traumaConstraints": null,
+      "attributionVersion": "v2",
+      "version": "2026-06-07",
+      "releaseDate": "2026-06-07",
+      "aiContentDisclosure": {
+        "vendor": "Gemini 2.5 Flash TTS",
+        "model": "gemini-2.5-flash-preview-tts",
+        "voiceSource": "synthetic",
+        "humanVoiceCloned": false
+      },
+      "coppaDisclosure": {
+        "childVoiceDataCollected": false,
+        "dataRetention": "n/a"
+      },
+      "curriculumAlignment": [
+        "Common Core English Language Arts"
+      ],
+      "ageRecommendation": "9-14",
+      "license": "CC BY-NC-SA 4.0",
+      "studio": "Spark and Anvil",
+      "studioStatus": "501(c)(3) public charity (pending)",
+      "traumaAxis": null,
+      "traumaResources": null,
+      "sensitivityReviewer": null,
+      "culturalAdvisor": null,
+      "funder": null,
+      "writingCredit": "Spark and Anvil writing team",
+      "musicCredit": "Spark and Anvil brand sting (pending)",
+      "episodeArtworkAttribution": "Gemini 2.5 Pro illustration pipeline",
+      "cohortDiscoveryUrl": "https://spark-and-anvil.com/cast/voicetale/refrain",
+      "versions": [
+        {
+          "vendor": "Gemini 2.5 Flash TTS",
+          "tier": "flash",
+          "dateGenerated": "2026-06-07",
+          "attributionVersion": "v2",
+          "durationMs": 191957,
+          "bundlePath": "AudioDramas/voicetale/refrain-callback-refrain.caf",
+          "webM4APath": "AudioDramas/voicetale/refrain-callback-refrain.m4a",
+          "webVTTPath": "AudioDramas/voicetale/refrain-callback-refrain.vtt"
+        }
+      ],
+      "canonicalVersionIndex": 0
+    },
+    {
+      "id": "159371ef-7cf8-4d56-a1be-b254f771d03f",
+      "title": "Slow \u2014 The Deliberate Variation Of Tempo Across The",
+      "titleSlug": "slow-pacing",
+      "appSlug": "voicetale",
+      "sourceChapterSlugs": [
+        "slow"
+      ],
+      "durationSeconds": 176.05,
+      "bundlePath": "AudioDramas/voicetale/slow-pacing.caf",
+      "webM4APath": "AudioDramas/voicetale/slow-pacing.m4a",
+      "webVTTPath": "AudioDramas/voicetale/slow-pacing.vtt",
+      "chapters": [
+        {
+          "index": 1,
+          "startMs": 0,
+          "endMs": 8730,
+          "character": "NARRATOR"
+        },
+        {
+          "index": 2,
+          "startMs": 8730,
+          "endMs": 15701,
+          "character": "NARRATOR"
+        },
+        {
+          "index": 3,
+          "startMs": 15701,
+          "endMs": 25952,
+          "character": "NARRATOR"
+        },
+        {
+          "index": 4,
+          "startMs": 25952,
+          "endMs": 34643,
+          "character": "NARRATOR"
+        },
+        {
+          "index": 5,
+          "startMs": 34643,
+          "endMs": 42374,
+          "character": "SLOW"
+        },
+        {
+          "index": 6,
+          "startMs": 42374,
+          "endMs": 51065,
+          "character": "NARRATOR"
+        },
+        {
+          "index": 7,
+          "startMs": 51065,
+          "endMs": 65156,
+          "character": "SLOW"
+        },
+        {
+          "index": 8,
+          "startMs": 65156,
+          "endMs": 76327,
+          "character": "SLOW"
+        },
+        {
+          "index": 9,
+          "startMs": 76327,
+          "endMs": 84218,
+          "character": "NARRATOR"
+        },
+        {
+          "index": 10,
+          "startMs": 84218,
+          "endMs": 94589,
+          "character": "SLOW"
+        },
+        {
+          "index": 11,
+          "startMs": 94589,
+          "endMs": 106680,
+          "character": "NARRATOR"
+        },
+        {
+          "index": 12,
+          "startMs": 106680,
+          "endMs": 118331,
+          "character": "NARRATOR"
+        },
+        {
+          "index": 13,
+          "startMs": 118331,
+          "endMs": 126782,
+          "character": "SLOW"
+        },
+        {
+          "index": 14,
+          "startMs": 126782,
+          "endMs": 137233,
+          "character": "NARRATOR"
+        },
+        {
+          "index": 15,
+          "startMs": 137233,
+          "endMs": 144284,
+          "character": "NARRATOR"
+        },
+        {
+          "index": 16,
+          "startMs": 144284,
+          "endMs": 152775,
+          "character": "NARRATOR"
+        },
+        {
+          "index": 17,
+          "startMs": 152775,
+          "endMs": 160306,
+          "character": "NARRATOR"
+        },
+        {
+          "index": 18,
+          "startMs": 160306,
+          "endMs": 164397,
+          "character": "NARRATOR"
+        },
+        {
+          "index": 19,
+          "startMs": 164397,
+          "endMs": 176048,
+          "character": "NARRATOR"
+        }
+      ],
+      "moderationSensitivity": "normal",
+      "traumaConstraints": null,
+      "attributionVersion": "v2",
+      "version": "2026-06-07",
+      "releaseDate": "2026-06-07",
+      "aiContentDisclosure": {
+        "vendor": "Gemini 2.5 Flash TTS",
+        "model": "gemini-2.5-flash-preview-tts",
+        "voiceSource": "synthetic",
+        "humanVoiceCloned": false
+      },
+      "coppaDisclosure": {
+        "childVoiceDataCollected": false,
+        "dataRetention": "n/a"
+      },
+      "curriculumAlignment": [
+        "Common Core English Language Arts"
+      ],
+      "ageRecommendation": "9-14",
+      "license": "CC BY-NC-SA 4.0",
+      "studio": "Spark and Anvil",
+      "studioStatus": "501(c)(3) public charity (pending)",
+      "traumaAxis": null,
+      "traumaResources": null,
+      "sensitivityReviewer": null,
+      "culturalAdvisor": null,
+      "funder": null,
+      "writingCredit": "Spark and Anvil writing team",
+      "musicCredit": "Spark and Anvil brand sting (pending)",
+      "episodeArtworkAttribution": "Gemini 2.5 Pro illustration pipeline",
+      "cohortDiscoveryUrl": "https://spark-and-anvil.com/cast/voicetale/slow",
+      "versions": [
+        {
+          "vendor": "Gemini 2.5 Flash TTS",
+          "tier": "flash",
+          "dateGenerated": "2026-06-07",
+          "attributionVersion": "v2",
+          "durationMs": 176048,
+          "bundlePath": "AudioDramas/voicetale/slow-pacing.caf",
+          "webM4APath": "AudioDramas/voicetale/slow-pacing.m4a",
+          "webVTTPath": "AudioDramas/voicetale/slow-pacing.vtt"
+        }
+      ],
+      "canonicalVersionIndex": 0
     }
   ]
 }
