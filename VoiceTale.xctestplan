@@ -18,7 +18,6 @@
   },
   "testTargets" : [
     {
-      "parallelizable" : true,
       "target" : {
         "containerPath" : "container:VoiceTale.xcodeproj",
         "identifier" : "FBBBCA3D2FE62B7400EB978A",
@@ -26,7 +25,6 @@
       }
     },
     {
-      "parallelizable" : true,
       "target" : {
         "containerPath" : "container:VoiceTale.xcodeproj",
         "identifier" : "FBBBCA472FE62B7400EB978A",
