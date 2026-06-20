@@ -1,10 +1,14 @@
 import Foundation
 import Models
 
+/// Session-level coordinator for a told tale. Holds the simple time-of-day
+/// state — the actual AVAudio capture lives in ``AudioRecorder`` (an
+/// `@MainActor` class so it can drive `AVAudioEngine`).
+///
+/// Static beat lookups forward to ``BeatTimer`` so callers and tests don't
+/// need to instantiate the actor for pure math.
 public actor VoiceAuthoringActor {
     public enum AuthoringError: Error, Sendable {
-        case microphonePermissionDenied
-        case missingUsageDescription
         case recordingInProgress
         case noActiveRecording
     }
@@ -27,20 +31,21 @@ public actor VoiceAuthoringActor {
         return now.timeIntervalSince(startedAt)
     }
 
+    public func currentElapsedSeconds(at now: Date = Date()) -> Double {
+        guard let startedAt else { return 0 }
+        return now.timeIntervalSince(startedAt)
+    }
+
     public var currentBeat: ArcBeat? {
         guard let startedAt else { return nil }
         let elapsed = Date().timeIntervalSince(startedAt)
-        return Self.beat(forElapsedSeconds: elapsed)
+        return BeatTimer.beat(forElapsedSeconds: elapsed)
     }
 
+    /// Convenience forwarder so callers can do
+    /// `VoiceAuthoringActor.beat(forElapsedSeconds:)` without instantiating
+    /// the actor. The canonical implementation lives in ``BeatTimer``.
     nonisolated public static func beat(forElapsedSeconds elapsed: Double) -> ArcBeat? {
-        var runningTotal: Double = 0
-        for beat in ArcBeat.allCases {
-            runningTotal += beat.targetSeconds
-            if elapsed <= runningTotal {
-                return beat
-            }
-        }
-        return nil
+        BeatTimer.beat(forElapsedSeconds: elapsed)
     }
 }
