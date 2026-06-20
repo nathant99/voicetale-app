@@ -67,6 +67,6 @@ When students ask Bramble whether callback craft is hard, Bramble says — quoti
 - **Alliance**: Bramble.
 - **Tension**: None.
 
-## Cultural-context note
+## cultural context
 
-The morning-listening-circle setting is a deliberate gentle pastoral framing. Refrain is rendered as an anthropomorphic mockingbird-tween in the chunky-cartoon visual register. The carved-wood phrase-token is consistent with the hands-on register. The multi-tradition cultural-sensitivity gate is maintained: Refrain is named with an English sensory-noun; callback / refrain craft across oral traditions (West African griot's repeated formulas, Irish seanchaí's closing-rhymes, slam-poetry's anchor lines) is attributed in kit framing.
+The morning-listening-circle setting is a deliberate gentle pastoral framing. Refrain is rendered as an anthropomorphic mockingbird-tween in the chunky-cartoon visual register. The carved-wood phrase-token is consistent with the hands-on register. The multi-tradition cultural sensitivity is maintained: Refrain is named with an English sensory-noun; callback / refrain craft across oral traditions (West African griot's repeated formulas, Irish seanchaí's closing-rhymes, slam-poetry's anchor lines) is attributed in kit framing.

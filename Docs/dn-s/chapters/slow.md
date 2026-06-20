@@ -70,6 +70,6 @@ When students ask Bramble whether pacing is hard, Bramble says — quoting Slow 
 - **Alliance**: Bramble.
 - **Tension**: None.
 
-## Cultural-context note
+## cultural context
 
-The hedgerow-evening-fire setting is a deliberate gentle pastoral framing. Slow is rendered as an anthropomorphic tortoise-elder in the chunky-cartoon visual register. The wooden hourglass + visible tempo-trail are kid-friendly visual devices. The multi-tradition cultural-sensitivity gate is maintained: Slow is named with an English sensory-verb; oral-storytelling pacing traditions across cultures are attributed in kit framing.
+The hedgerow-evening-fire setting is a deliberate gentle pastoral framing. Slow is rendered as an anthropomorphic tortoise-elder in the chunky-cartoon visual register. The wooden hourglass + visible tempo-trail are kid-friendly visual devices. The multi-tradition cultural sensitivity is maintained: Slow is named with an English sensory-verb; oral-storytelling pacing traditions across cultures are attributed in kit framing.

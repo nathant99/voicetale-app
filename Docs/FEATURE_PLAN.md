@@ -8,13 +8,16 @@ Core 60-120 second record-a-tale loop with 5-beat timer skeleton, on-device tran
 
 ### Scaffolding
 
-- [ ] Create Xcode project with thin app shell (`VoiceTale/VoiceTaleApp.swift`)
-- [ ] Create `Libraries/Package.swift` with 6 targets (Models, Services, SharedUI, GameEngine, AIMentor, AppFeature)
-- [ ] Add ForgeKit dependency (remote GitHub URL, `from: "0.99.0"`)
-- [ ] Create stub source files for all targets
-- [ ] Verify build succeeds with zero warnings
-- [ ] Create `.xcworkspace` with Libraries as workspace member
-- [ ] Add `NSMicrophoneUsageDescription` + `NSSpeechRecognitionUsageDescription` to Info.plist with kid-readable copy
+- [x] Create Xcode project with thin app shell (`Apps/VoiceTale/VoiceTale/VoiceTaleApp.swift`) — 2026-06-19, user-generated via Xcode (synchronized-folder pattern)
+- [x] Create `Packages/Libraries/Package.swift` with 6 targets (Models, Services, VoiceAuthoring, SharedUI, AIMentor, AppFeature) — `GameEngine` slot replaced with `VoiceAuthoring` per `Docs/TECHNICAL_DESIGN.md` (no SpriteKit surface)
+- [x] Add ForgeKit dependency (remote GitHub URL, `from: "0.99.0"`)
+- [x] Create stub source files for all targets — Phase 0 close-out 2026-06-19
+- [ ] Verify build succeeds with zero warnings — blocked on Xcode-UI Steps 1–3 per `Docs/HANDOFF_TO_USER_XCODE_WORKSPACE_INTEGRATION.md`
+- [x] Create `.xcworkspace` referencing `Apps/VoiceTale/VoiceTale.xcodeproj` (user-generated)
+- [ ] Add `Packages/Libraries` to the workspace via `File > Add Package Dependencies > Add Local...` — blocked on user (Xcode UI; `.claude/rules/xcode-agent-safety.md`)
+- [ ] Link `AppFeature` library into `VoiceTale` app target → `General > Frameworks` — blocked on user (Xcode UI)
+- [ ] Add 7 SPM test targets to `VoiceTale.xctestplan` via Edit Scheme → Test → Test Plans — blocked on user (Xcode UI)
+- [ ] Add `NSMicrophoneUsageDescription` + `NSSpeechRecognitionUsageDescription` to Info.plist with kid-readable copy — blocked on user (Xcode UI; `.claude/rules/xcode-agent-safety.md` + `.claude/rules/warnings.md` § Privacy-Gated Frameworks)
 
 ### Data Layer
 

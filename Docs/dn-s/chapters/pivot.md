@@ -66,6 +66,6 @@ When students ask Bramble whether crafting a turn is hard, Bramble says — quot
 - **Alliance**: Bramble.
 - **Tension**: None.
 
-## Cultural-context note
+## cultural context
 
-The fence-post-at-edge-of-fire setting is a deliberate gentle pastoral framing. Pivot is rendered as an anthropomorphic barn-owl-tween with the characteristic heart-shaped face in the chunky-cartoon visual register. The 180-degree head rotation is a real anatomical feature of barn owls (they have ~270° head rotation capability) — used here as a visible-feedback teaching device. The multi-tradition cultural-sensitivity gate is maintained: Pivot is named with an English sensory-verb; oral-storytelling turn-craft across cultures is attributed in kit framing.
+The fence-post-at-edge-of-fire setting is a deliberate gentle pastoral framing. Pivot is rendered as an anthropomorphic barn-owl-tween with the characteristic heart-shaped face in the chunky-cartoon visual register. The 180-degree head rotation is a real anatomical feature of barn owls (they have ~270° head rotation capability) — used here as a visible-feedback teaching device. The multi-tradition cultural sensitivity is maintained: Pivot is named with an English sensory-verb; oral-storytelling turn-craft across cultures is attributed in kit framing.
