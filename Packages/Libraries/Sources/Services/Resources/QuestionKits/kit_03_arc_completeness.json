@@ -1,0 +1,42 @@
+{
+  "kit": 3,
+  "title": "The 5-Beat Arc",
+  "primitive": "arc completeness (hook / setup / rising / turn / close)",
+  "anchorCharacterSlug": "pivot",
+  "summary": "A 60-to-120-second told tale has a shape — Hook, Setup, Rising, Turn, Close. This kit listens for whether the shape was complete: did the turn turn? did the close close?",
+  "questions": [
+    {
+      "id": "k3q1",
+      "kind": "reflection",
+      "prompt": "Listen back to your tale. Where was your TURN? Is it a moment where the meaning rotates — or just a louder version of the same moment?"
+    },
+    {
+      "id": "k3q2",
+      "kind": "choice",
+      "prompt": "Which version is a TURN, not just a louder middle?",
+      "options": [
+        "I ran faster, and then faster, and then faster.",
+        "I had been running away the whole time — and at the fence, I realized I was running toward.",
+        "It got really intense."
+      ],
+      "correctIndex": 1,
+      "rationale": "A true turn rotates the meaning. The kid wasn't running away; they were running toward. That's a 180. Pivot's head rotates."
+    },
+    {
+      "id": "k3q3",
+      "kind": "reflection",
+      "prompt": "Did your Close try to wrap everything up with a lesson? Or did it land on one specific image and stop? Which felt more honest?"
+    },
+    {
+      "id": "k3q4",
+      "kind": "rewrite",
+      "prompt": "Take a tale that ends 'and that's why you should always be honest.' Replace the moral with a single concrete image that lets the listener feel what you mean."
+    }
+  ],
+  "castCameos": [
+    { "slug": "pivot", "line": "My head rotated. The turn landed. The story turned. The listener turned." },
+    { "slug": "lean", "line": "Your hook promised a turn. You delivered. The body tipped forward twice." },
+    { "slug": "slow", "line": "Turn sharpens. You let the pace tighten right before it. That's why it cut." },
+    { "slug": "refrain", "line": "If the close echoes a phrase from the hook, the arc closes itself. Try it." }
+  ]
+}

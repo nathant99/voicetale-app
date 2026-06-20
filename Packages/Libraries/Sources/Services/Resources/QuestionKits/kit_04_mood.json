@@ -1,0 +1,42 @@
+{
+  "kit": 4,
+  "title": "Mood Tag",
+  "primitive": "mood control (funny / scary / tender / wild)",
+  "anchorCharacterSlug": "refrain",
+  "summary": "A told tale carries a mood whether the teller plans it or not. This kit listens for the difference between a stated mood ('this is scary!') and a felt mood (the room's quiet at the right moment).",
+  "questions": [
+    {
+      "id": "k4q1",
+      "kind": "reflection",
+      "prompt": "What mood did you tag your tale? Funny, scary, tender, or wild? Now play back the first 20 seconds. Could a listener tell the mood without you naming it?"
+    },
+    {
+      "id": "k4q2",
+      "kind": "choice",
+      "prompt": "Which line makes the mood FELT, not just stated?",
+      "options": [
+        "It was really sad when grandma left.",
+        "The kitchen kept being the same kitchen, and grandma's spot at the table kept being empty.",
+        "I felt very tender about my grandma."
+      ],
+      "correctIndex": 1,
+      "rationale": "Tender moods land in the specific image, not the word 'tender'. The empty spot does the work."
+    },
+    {
+      "id": "k4q3",
+      "kind": "reflection",
+      "prompt": "Tell the same 30-second story with a different mood. Same events, different room temperature. What changed in your voice?"
+    },
+    {
+      "id": "k4q4",
+      "kind": "rewrite",
+      "prompt": "Take a funny moment from your tale and write a 'wild' version of the same moment. Keep the events; change the energy."
+    }
+  ],
+  "castCameos": [
+    { "slug": "refrain", "line": "Saying the mood-image twice — once at the open, once at the close — locks the mood in. Try it." },
+    { "slug": "lean", "line": "When the mood is felt and not stated, my body still tips forward — sometimes harder." },
+    { "slug": "pivot", "line": "A mood-flip is its own kind of turn. Watch for it." },
+    { "slug": "slow", "line": "Close slows. A tender mood needs the last line to land softly, not punch." }
+  ]
+}

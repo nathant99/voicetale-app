@@ -22,6 +22,91 @@ struct VoiceTalePersistenceTests {
     }
 }
 
+@Suite("TraditionCatalogLoader")
+struct TraditionCatalogLoaderTests {
+    @Test func loadsAllFiveBundledEntries() throws {
+        let catalog = try TraditionCatalogLoader.loadBundled()
+        #expect(catalog.version == 1)
+        #expect(catalog.entries.count == 5)
+        let slugs = Set(catalog.entries.map(\.slug))
+        let expected: Set<String> = [
+            "griot",
+            "indigenous-american-oral-history",
+            "seanchai",
+            "rakugo",
+            "slam-poetry",
+        ]
+        #expect(slugs == expected)
+    }
+
+    @Test func everyEntryCarriesACulturalCreditNote() throws {
+        let catalog = try TraditionCatalogLoader.loadBundled()
+        for entry in catalog.entries {
+            #expect(entry.culturalCreditNote.isEmpty == false,
+                    "Missing cultural-credit note for slug=\(entry.slug)")
+        }
+    }
+
+    @Test func indigenousEntryHasContentWarning() throws {
+        let catalog = try TraditionCatalogLoader.loadBundled()
+        let entry = catalog.entries.first { $0.slug == "indigenous-american-oral-history" }
+        #expect(entry?.contentWarning?.isEmpty == false)
+    }
+
+    @Test func crisisResourcesArePresent() throws {
+        let catalog = try TraditionCatalogLoader.loadBundled()
+        let resources = catalog.crisisResources?.us ?? []
+        #expect(resources.contains { $0.name.contains("988") })
+        #expect(resources.contains { $0.name.contains("Crisis Text Line") })
+        #expect(resources.contains { $0.name.contains("Childhelp") })
+    }
+}
+
+@Suite("QuestionKitLoader")
+struct QuestionKitLoaderTests {
+    @Test func loadsAllFourPhase1Kits() throws {
+        let kits = try QuestionKitLoader.loadAllPhase1Kits()
+        #expect(kits.count == 4)
+        #expect(kits.map(\.kit) == [1, 2, 3, 4])
+    }
+
+    @Test func kit1IsAnchoredToLean() throws {
+        let kit = try QuestionKitLoader.loadKit(named: "kit_01_hook")
+        #expect(kit.anchorCharacterSlug == "lean")
+        #expect(kit.questions.isEmpty == false)
+        #expect(kit.castCameos.count == 4)
+    }
+
+    @Test func everyKitHasAllFourCastCameos() throws {
+        let kits = try QuestionKitLoader.loadAllPhase1Kits()
+        let expected: Set<String> = ["lean", "pivot", "refrain", "slow"]
+        for kit in kits {
+            let slugs = Set(kit.castCameos.map(\.slug))
+            #expect(slugs == expected, "Kit \(kit.kit) missing one of the 4 cameos: \(slugs.symmetricDifference(expected))")
+        }
+    }
+
+    @Test func choiceQuestionsHaveCorrectIndex() throws {
+        let kits = try QuestionKitLoader.loadAllPhase1Kits()
+        for kit in kits {
+            for question in kit.questions where question.kind == .choice {
+                #expect(question.options != nil)
+                #expect(question.correctIndex != nil)
+                if let options = question.options, let index = question.correctIndex {
+                    #expect(index >= 0)
+                    #expect(index < options.count)
+                }
+            }
+        }
+    }
+
+    @Test func missingResourceThrows() {
+        #expect(throws: QuestionKitLoader.LoaderError.self) {
+            _ = try QuestionKitLoader.loadKit(named: "does_not_exist")
+        }
+    }
+}
+
 @MainActor
 @Suite("VoiceTaleStore")
 struct VoiceTaleStoreTests {

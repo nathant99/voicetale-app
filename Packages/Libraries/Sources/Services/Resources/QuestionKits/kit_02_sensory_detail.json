@@ -1,0 +1,42 @@
+{
+  "kit": 2,
+  "title": "Sensory Detail",
+  "primitive": "sensory detail / concrete imagery",
+  "anchorCharacterSlug": "slow",
+  "summary": "A told tale lives or dies on whether the listener can SEE the room. This kit listens for the one or two details that put a body in a body, a place in a place.",
+  "questions": [
+    {
+      "id": "k2q1",
+      "kind": "reflection",
+      "prompt": "Pick one moment in your tale. What did your character SEE, SMELL, HEAR, or TOUCH? Name one of those four. Just one."
+    },
+    {
+      "id": "k2q2",
+      "kind": "choice",
+      "prompt": "Which line gives the listener more to picture?",
+      "options": [
+        "It was a nice day outside.",
+        "The sidewalk smelled like wet pavement and bus exhaust, and the sun was already too high.",
+        "The weather was good."
+      ],
+      "correctIndex": 1,
+      "rationale": "Two senses (smell + sight), one moving image, no judgment words ('nice', 'good'). The listener now stands on that sidewalk."
+    },
+    {
+      "id": "k2q3",
+      "kind": "reflection",
+      "prompt": "Listen back. Where did you say 'really' or 'super' or 'so' as a stand-in for a real detail? Pick one. Replace it with the actual thing."
+    },
+    {
+      "id": "k2q4",
+      "kind": "rewrite",
+      "prompt": "Rewrite this line so the listener can stand inside the moment: 'It was super hot at the bus stop.' Use one sense, not three."
+    }
+  ],
+  "castCameos": [
+    { "slug": "slow", "line": "Setup steady. You gave the room one detail to settle into before you moved. That's pacing." },
+    { "slug": "lean", "line": "Specificity pulled me forward again. The sidewalk-and-bus-exhaust line — my body tipped." },
+    { "slug": "pivot", "line": "Hold this detail. When the turn comes, you can rotate it." },
+    { "slug": "refrain", "line": "If you said this detail twice — once at the open, once at the close — it would carry more weight the second time." }
+  ]
+}
