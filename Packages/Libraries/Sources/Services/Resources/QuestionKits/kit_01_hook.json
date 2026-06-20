@@ -1,0 +1,42 @@
+{
+  "kit": 1,
+  "title": "The Hook",
+  "primitive": "hook / leanability",
+  "anchorCharacterSlug": "lean",
+  "summary": "The first 5 to 10 seconds of a told tale decide whether the listener leans in or rocks back. This kit listens for what made a body tip forward.",
+  "questions": [
+    {
+      "id": "k1q1",
+      "kind": "reflection",
+      "prompt": "Play back the first 10 seconds of your tale. What did you give the listener first — a person, a place, or a problem?"
+    },
+    {
+      "id": "k1q2",
+      "kind": "choice",
+      "prompt": "Which of these makes a stronger hook?",
+      "options": [
+        "A boy went to the store.",
+        "There were three boys at the store that morning, and only one of them was going home.",
+        "Once upon a time, in a kingdom far away…"
+      ],
+      "correctIndex": 1,
+      "rationale": "Specificity (\"three\", \"that morning\") plus stakes (\"only one was going home\") makes the listener lean in. Lean's body would tip forward at second 5."
+    },
+    {
+      "id": "k1q3",
+      "kind": "reflection",
+      "prompt": "Tell the same tale's hook a second time. Pick one detail that wasn't in the first try and lead with it. Did the energy of the room change?"
+    },
+    {
+      "id": "k1q4",
+      "kind": "rewrite",
+      "prompt": "Take this hook and make it leanable in 12 words or fewer: 'So, um, my dog Otis got into the trash again last weekend.'"
+    }
+  ],
+  "castCameos": [
+    { "slug": "lean", "line": "I leaned forward at the second the room got specific. You felt it too." },
+    { "slug": "slow", "line": "Hook fast. You had ten seconds and you used eight. Good shape." },
+    { "slug": "pivot", "line": "A hook is not yet a turn — but it has to promise that a turn is coming." },
+    { "slug": "refrain", "line": "Whatever short, slightly mysterious phrase your hook used — save it. We'll bring it back at the close." }
+  ]
+}

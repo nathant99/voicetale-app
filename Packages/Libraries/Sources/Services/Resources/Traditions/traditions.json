@@ -1,0 +1,65 @@
+{
+  "version": 1,
+  "schemaNote": "Tradition catalog for VoiceTale. Phase 1 kid-readable explainers + cultural-credit notes. Per `.claude/rules/trauma-informed-content.md` § Cultural-sensitivity gates — Indigenous oral histories are credited explicitly, not mascotized; cast members never embody source-community tradition; oral-tradition entries cite source communities. Audio-sample filenames are TBD until the labsmith pipeline ships public-domain or community-licensed CAFs (per portfolio `.claude/rules/audio-pipeline.md` § Pre-gen).",
+  "approvalNote": "Authored under ADR-016 standing user-direct approval per `.claude/rules/trauma-informed-content.md` § DN-S trauma-gated story authoring. Each entry uses validate-then-inform register, holds space without resolving, and names structural/historical context without mascotizing.",
+  "entries": [
+    {
+      "slug": "griot",
+      "displayName": "Griot — West African oral storytellers",
+      "region": "West Africa (Mali, Senegal, Gambia, Mauritania, Guinea — historically the Mandé peoples)",
+      "summary": "In many parts of West Africa, a griot is a kid's neighbor and a king's advisor at the same time. A griot remembers a family's whole story — names, songs, victories, mistakes — and tells it back so the family can hear who they are. Sometimes a griot tells a story with a kora (a 21-string harp). Sometimes just with their voice. The point is the same: the listener leaves knowing something true that was almost forgotten.",
+      "craftPrimitive": "memory + responsibility — the teller carries a community's truth and gives it back",
+      "culturalCreditNote": "Griot traditions belong to the Mandé peoples of West Africa and have been practiced for at least 800 years. They are sacred professional roles — not a kid's costume. When we listen to a griot, we honor a real living tradition. We do not pretend to be griots ourselves.",
+      "audioSampleFilename": null,
+      "contentWarning": null
+    },
+    {
+      "slug": "indigenous-american-oral-history",
+      "displayName": "Indigenous American oral histories",
+      "region": "Turtle Island (the lands now called North, Central, and South America) — many distinct nations across thousands of years",
+      "summary": "Long before paper, the peoples of Turtle Island told their histories aloud. Some told stories at the fire in winter. Some told them while walking the land they belonged to. Each nation has its own way — its own keepers, its own seasons, its own stories that belong only to certain listeners. When a story has been carried by voice for a thousand years and is still being told tonight, you are hearing something living.",
+      "craftPrimitive": "lineage — a story is alive because the teller before you kept it alive",
+      "culturalCreditNote": "These traditions belong to specific Indigenous nations. They have survived through centuries of colonial violence that tried to silence them — boarding schools, forced relocation, language bans. We honor the survival, we credit the nations, and we do not retell sacred stories that belong to them. The teller chooses what is theirs to tell.",
+      "audioSampleFilename": null,
+      "contentWarning": "This explainer mentions historical violence Indigenous peoples have lived through. You can skip it and read a one-paragraph summary instead, or come back to it another day."
+    },
+    {
+      "slug": "seanchai",
+      "displayName": "Seanchaí — Irish storytellers at the hearth",
+      "region": "Ireland — a tradition stretching back over a thousand years",
+      "summary": "A seanchaí (say it 'shan-uh-KEE') was the storyteller welcomed into a kitchen at the end of the day. The seanchaí brought news from the next village, fables that explained why the hills looked the way they did, and stories that turned a hard winter into a long laugh. The seanchaí's tools were memory, timing, and a clear listener — the same tools you have when you tell a tale.",
+      "craftPrimitive": "rhythm + welcome — a story is shaped by the room it is told in",
+      "culturalCreditNote": "The seanchaí tradition belongs to Ireland — to Irish-speaking communities especially. It has been written down by folklorists, but it stayed alive because real people kept telling stories around real fires. When you tell a tale, you are joining a very old room.",
+      "audioSampleFilename": null,
+      "contentWarning": null
+    },
+    {
+      "slug": "rakugo",
+      "displayName": "Rakugo — Japanese sit-down storytelling",
+      "region": "Japan — a tradition formed in the 1600s and still practiced today",
+      "summary": "A rakugoka (a rakugo storyteller) sits on a small cushion and tells a story alone. No costume changes, no other actors — only a folding fan, a small towel, and a voice that can become twenty different characters in the same scene. The audience leans in not because the storyteller is loud, but because the storyteller chose every word and every silence on purpose.",
+      "craftPrimitive": "economy + control — every move and every pause is on purpose",
+      "culturalCreditNote": "Rakugo is a living Japanese performance art. Rakugoka train for years before their first solo performance. We honor the form by listening, not by pretending to perform it ourselves.",
+      "audioSampleFilename": null,
+      "contentWarning": null
+    },
+    {
+      "slug": "slam-poetry",
+      "displayName": "Slam poetry — modern told poems",
+      "region": "United States (originated in Chicago in 1986) — now practiced in countries around the world",
+      "summary": "Slam poetry is poetry told aloud — not read silently from a page. Slam poets work for months on a three-minute piece, then perform it in front of strangers who score the performance out of ten. The point is not winning. The point is that a kid who has never been heard before stands up and gets the room to listen. Slam is the youngest tradition on this list, and one of the most direct heirs to all the others.",
+      "craftPrimitive": "honesty + presence — the teller does not hide behind a character; the teller is the story",
+      "culturalCreditNote": "Slam poetry was started in 1986 by Marc Smith and grew through Black, Latine, Indigenous, and queer poets who used the form to speak truth in their own voices. The tradition belongs to the communities that built it; everyone can listen, and many can write a slam piece — but the spirit is honest voice, not performance.",
+      "audioSampleFilename": null,
+      "contentWarning": null
+    }
+  ],
+  "crisisResources": {
+    "note": "Per `.claude/rules/trauma-informed-content.md` § Refer up: if a kid's tale surfaces distress signals, surface these resources via SettingsView.",
+    "us": [
+      { "name": "988 Suicide & Crisis Lifeline", "phone": "988", "text": "988", "url": "https://988lifeline.org" },
+      { "name": "Crisis Text Line", "phone": null, "text": "HOME to 741741", "url": "https://www.crisistextline.org" },
+      { "name": "Childhelp National Child Abuse Hotline", "phone": "1-800-422-4453", "text": null, "url": "https://www.childhelp.org" }
+    ]
+  }
+}
