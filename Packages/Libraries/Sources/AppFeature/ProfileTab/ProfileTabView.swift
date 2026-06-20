@@ -9,6 +9,7 @@ import SharedUI
 public struct ProfileTabView: View {
     @State private var showingTraditions: Bool = false
     @State private var showingSettings: Bool = false
+    @State private var showingCompanionPack: Bool = false
 
     public init() {}
 
@@ -31,6 +32,11 @@ public struct ProfileTabView: View {
                     } label: {
                         Label("Parent + privacy settings", systemImage: "person.crop.circle.badge.checkmark")
                     }
+                    Button {
+                        showingCompanionPack = true
+                    } label: {
+                        Label("Print + share companion pack", systemImage: "printer.fill")
+                    }
                 }
             }
             .voiceTaleNavigationTitle("Profile")
@@ -39,6 +45,9 @@ public struct ProfileTabView: View {
             }
             .sheet(isPresented: $showingSettings) {
                 SettingsView()
+            }
+            .sheet(isPresented: $showingCompanionPack) {
+                CompanionPackView()
             }
         }
     }

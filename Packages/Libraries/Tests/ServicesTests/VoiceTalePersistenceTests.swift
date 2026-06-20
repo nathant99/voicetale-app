@@ -62,6 +62,41 @@ struct TraditionCatalogLoaderTests {
     }
 }
 
+@Suite("CompanionPackLoader")
+struct CompanionPackLoaderTests {
+    @Test func manifestLoadsCleanly() throws {
+        let manifest = try CompanionPackLoader.loadManifest()
+        #expect(manifest.app == "voicetale")
+        #expect(manifest.format == "pdf")
+        #expect(manifest.pdfs.isEmpty == false)
+        #expect(manifest.count == manifest.pdfs.count)
+    }
+
+    @Test func everyManifestPDFExists() throws {
+        let manifest = try CompanionPackLoader.loadManifest()
+        for fileName in manifest.pdfs {
+            let url = try CompanionPackLoader.url(forPDF: fileName)
+            #expect(FileManager.default.fileExists(atPath: url.path))
+        }
+    }
+
+    @Test func loadEntriesReturnsUIShape() throws {
+        let entries = try CompanionPackLoader.loadEntries()
+        #expect(entries.isEmpty == false)
+        for entry in entries {
+            #expect(entry.title.isEmpty == false)
+            #expect(entry.summary.isEmpty == false)
+            #expect(entry.systemImage.isEmpty == false)
+        }
+    }
+
+    @Test func missingPDFThrows() {
+        #expect(throws: CompanionPackLoader.LoaderError.self) {
+            _ = try CompanionPackLoader.url(forPDF: "does_not_exist.pdf")
+        }
+    }
+}
+
 @Suite("QuestionKitLoader")
 struct QuestionKitLoaderTests {
     @Test func loadsAllFourPhase1Kits() throws {
