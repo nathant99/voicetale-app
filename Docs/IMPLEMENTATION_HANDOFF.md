@@ -2,6 +2,8 @@
 
 **Status**: ACTIVE — Phase 0 fill-in (2026-06-19). Replaces the 2026-05-22 scaffold stub per `Docs/HANDOFF_FROM_HUB_ENGINEERING_KICKOFF.md`.
 
+> 🛑 **Load-bearing pre-read for every implementing session**: `@.claude/rules/xcode-agent-safety.md` + `@CLAUDE.md` § Xcode File Safety. The agent runs **inside** the Xcode workspace; writing to Xcode-managed files (`.xcworkspace` / `.xcodeproj/project.pbxproj` / `.xcscheme` / `.xctestplan` / `Info.plist` / `.entitlements` / `.xcassets/Contents.json` / `.xcdatamodeld/`) can terminate the agent session mid-task. **File a `Docs/HANDOFF_TO_USER_<TOPIC>.md` instead.** Phase 0 close-out left 4 such steps pending in `Docs/HANDOFF_TO_USER_XCODE_WORKSPACE_INTEGRATION.md` — those gate clean workspace-level build but do NOT gate SPM-package-level work (the agent can author SPM source + tests + resources freely).
+
 ## 1. Overview
 
 VoiceTale is a **voice-first oral-storytelling workshop for tweens (ages 9–14)**. The core loop is a 60–120-second told tale across a 5-beat arc (Hook · Setup · Rising · Turn · Close), with on-device transcript-based AI listening-coach reflection (Bramble), a cultural-tradition layer that honors oral-storytelling lineages (West African griot · Indigenous American oral history · Irish seanchaí · Japanese rakugo · modern slam poetry) without appropriation, and an anthology of mood-tagged tales the kid curates over time.

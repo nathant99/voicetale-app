@@ -68,12 +68,81 @@ The agent must **never** write these directly. Even reads are fine; writes are d
 
 ## Safe escape hatches
 
-When the agent legitimately needs to add a file that Xcode would normally have to register:
+When the agent legitimately needs to add a file that Xcode would normally have to register, follow these in order — **the handoff-doc pattern is the canonical fallback**.
 
-1. **Use synchronized folders (Xcode 16+)** — if the target is configured with a synchronized folder, the agent just writes the `.swift` file in the right directory and Xcode auto-includes it on next build. **Always check** `[AppName].xcodeproj/project.pbxproj` for `<FileSystemSynchronizedRootGroup>` markers; if present, the target uses synchronized folders.
-2. **Use SPM source layout** — files under `Libraries/Sources/<Target>/` and `Libraries/Tests/<Target>Tests/` are auto-discovered by SPM. No `project.pbxproj` edit needed. **All new code should land in SPM targets**, not the app shell
-3. **Defer Xcode-bound changes to a human task** — if the agent legitimately needs to add an entitlement, register a new app icon imageset, or create a new scheme, write a `Docs/HANDOFF_TO_USER_<TOPIC>.md` describing the GUI steps the user should take. Don't try to edit the Xcode-owned files directly
-4. **Use MCP `xcode-tools`** — `XcodeWrite`, `XcodeMakeDir`, etc. — when available, the MCP tools route through Xcode's APIs instead of writing to disk directly. This avoids the External Changes dialog because Xcode is the one writing the file. **Prefer MCP tools** over filesystem `Write`/`Edit` for any Xcode-bound operation
+### 1. File a handoff doc (CANONICAL for Xcode-bound work)
+
+For anything that touches `Info.plist` / `*.entitlements` / `*.xcscheme` / `*.xctestplan` / `*.xcdatamodeld/` / `*.xcassets/Contents.json` / `project.pbxproj` / `*.xcworkspace/contents.xcworkspacedata`: **author a `Docs/HANDOFF_TO_USER_<TOPIC>.md`** describing the GUI steps the user takes in Xcode.
+
+This is not a workaround — it's the canonical agent workflow for Xcode-bound changes. The user does the Xcode-UI step; the agent commits whatever the Xcode UI generates.
+
+Required structure:
+
+```markdown
+---
+status: ACTIVE
+date: YYYY-MM-DD
+direction: agent → user
+intent: <one-line summary of the Xcode-UI step the user must perform>
+freshness-horizon: 30 days
+---
+
+# Handoff to User — <topic>
+
+Direction: **agent → user**. <Brief framing: why the agent cannot do this from disk + which rule clause forbids it.>
+
+## Step 1 — <action>
+1. <numbered Xcode-UI step>
+2. <click sequence>
+...
+**Expected result**: <what the user should see after>.
+
+## Why this step requires the user, not the agent
+
+| File the step touches | Why the agent cannot write it |
+|---|---|
+| <file path> | <which rule clause + risk class> |
+
+Codified in `.claude/rules/xcode-agent-safety.md`.
+
+## Cross-references
+- `.claude/rules/xcode-agent-safety.md`
+- <related handoff or design doc>
+```
+
+After the user completes the Xcode-UI step, the agent stages + commits whatever files Xcode regenerated (this is fine — Xcode-generated content is canonical; what's forbidden is the agent **authoring the bytes**).
+
+Reference impls (in this repo and the portfolio):
+
+- `voicetale-app/Docs/HANDOFF_TO_USER_XCODE_WORKSPACE_INTEGRATION.md` — 4 Xcode-UI steps for Phase 0 close-out (add local package / link AppFeature / add SPM test targets to test plan / add Info.plist usage descriptions)
+- The pattern propagates to every portfolio app via labsmith's `scripts/copy_rules_to_repos.sh`.
+
+### 2. Use synchronized folders (Xcode 16+)
+
+If the target is configured with a synchronized folder, the agent just writes the `.swift` file in the right directory and Xcode auto-includes it on next build. **Always check** `[AppName].xcodeproj/project.pbxproj` for `<FileSystemSynchronizedRootGroup>` markers; if present, the target uses synchronized folders.
+
+### 3. Use SPM source layout (canonical for new code)
+
+Files under `Packages/Libraries/Sources/<Target>/` and `Packages/Libraries/Tests/<Target>Tests/` are auto-discovered by SPM. No `project.pbxproj` edit needed. **All new code should land in SPM targets**, not the app shell — this is the standard portfolio pattern.
+
+Standard SPM folder structure per target:
+
+```
+Packages/Libraries/
+├── Package.swift
+├── Sources/
+│   └── <TargetName>/
+│       ├── <SourceFiles>.swift     # flat or subfoldered; SPM auto-discovers
+│       └── Resources/              # `.process("Resources")` in Package.swift
+│           └── <resource files>
+└── Tests/
+    └── <TargetName>Tests/
+        └── <TargetName>Tests.swift
+```
+
+### 4. Use MCP `xcode-tools`
+
+`XcodeWrite`, `XcodeMakeDir`, etc. — when available, the MCP tools route through Xcode's APIs instead of writing to disk directly. This avoids the External Changes dialog because Xcode is the one writing the file. **Prefer MCP tools** over filesystem `Write`/`Edit` for any Xcode-bound operation that is not handled by the handoff-doc pattern (#1).
 
 ## Cross-references
 
