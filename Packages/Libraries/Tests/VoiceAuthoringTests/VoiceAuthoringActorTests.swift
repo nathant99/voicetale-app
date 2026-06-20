@@ -144,4 +144,72 @@ struct PermissionGateTests {
             #expect(granted == false)
         }
     }
+
+    @Test func speechRequestRefusesWhenDescriptionMissing() async {
+        if !PermissionGate.hasSpeechRecognitionUsageDescription {
+            let granted = await PermissionGate.requestSpeechRecognitionPermission()
+            #expect(granted == false)
+        }
+    }
+
+    @Test func speechAuthorizationWhenDescriptionMissingIsNotDetermined() {
+        if !PermissionGate.hasSpeechRecognitionUsageDescription {
+            #expect(PermissionGate.currentSpeechAuthorization == .notDetermined)
+        }
+    }
+}
+
+@Suite("TranscriptPipeline")
+struct TranscriptPipelineTests {
+    @Test func chunkByBeatBoundariesAssignsSegmentsToBeats() {
+        // Tale timeline: hook 10s, setup 20s, rising 30s, turn 30s, close 20s
+        let timeline: [BeatSegment] = ArcBeat.allCases.map {
+            BeatSegment(beat: $0, targetSeconds: $0.targetSeconds, actualSeconds: $0.targetSeconds)
+        }
+        let segments: [TranscriptSegment] = [
+            TranscriptSegment(startSeconds: 2, endSeconds: 5, text: "Once"),
+            TranscriptSegment(startSeconds: 15, endSeconds: 18, text: "upon a time"),
+            TranscriptSegment(startSeconds: 45, endSeconds: 50, text: "things rose"),
+            TranscriptSegment(startSeconds: 80, endSeconds: 85, text: "the turn arrived"),
+            TranscriptSegment(startSeconds: 100, endSeconds: 105, text: "and then it ended"),
+        ]
+        let chunks = TranscriptPipeline.chunkByBeatBoundaries(segments: segments, timeline: timeline)
+        #expect(chunks.count == 5)
+        #expect(chunks.first { $0.beat == .hook }?.text == "Once")
+        #expect(chunks.first { $0.beat == .setup }?.text == "upon a time")
+        #expect(chunks.first { $0.beat == .rising }?.text == "things rose")
+        #expect(chunks.first { $0.beat == .turn }?.text == "the turn arrived")
+        #expect(chunks.first { $0.beat == .close }?.text == "and then it ended")
+    }
+
+    @Test func chunkSegmentsBeyondTimelineLandInLastBeat() {
+        let timeline: [BeatSegment] = ArcBeat.allCases.map {
+            BeatSegment(beat: $0, targetSeconds: $0.targetSeconds, actualSeconds: $0.targetSeconds)
+        }
+        let overflow = [TranscriptSegment(startSeconds: 200, endSeconds: 201, text: "overshoot")]
+        let chunks = TranscriptPipeline.chunkByBeatBoundaries(segments: overflow, timeline: timeline)
+        #expect(chunks.first { $0.beat == .close }?.text == "overshoot")
+    }
+
+    @Test func transcribeWithoutDescriptionThrows() async {
+        if !PermissionGate.hasSpeechRecognitionUsageDescription {
+            let pipeline = TranscriptPipeline()
+            let bogus = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent("nonexistent.m4a")
+            await #expect(throws: TranscriptPipeline.TranscriptError.self) {
+                _ = try await pipeline.transcribe(fileURL: bogus)
+            }
+        }
+    }
+
+    @Test func transcriptResultCodableRoundtrip() throws {
+        let result = TranscriptResult(
+            text: "hello world",
+            segments: [TranscriptSegment(startSeconds: 0, endSeconds: 1, text: "hello"),
+                       TranscriptSegment(startSeconds: 1, endSeconds: 2, text: "world")]
+        )
+        let data = try JSONEncoder().encode(result)
+        let decoded = try JSONDecoder().decode(TranscriptResult.self, from: data)
+        #expect(decoded.text == "hello world")
+        #expect(decoded.segments.count == 2)
+    }
 }
