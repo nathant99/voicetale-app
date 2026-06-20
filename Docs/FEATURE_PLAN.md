@@ -21,68 +21,64 @@ Core 60-120 second record-a-tale loop with 5-beat timer skeleton, on-device tran
 
 ### Data Layer
 
-- [ ] Define SwiftData models: `Tale`, `TaleBeat`, `TraditionEntry`, `PlayerProgress`, `AnthologyMood`
-- [ ] Create `VersionedSchema` (V1) with all models
-- [ ] Create `SchemaMigrationPlan` (V1 only — start early)
-- [ ] Bundle 5 tradition entries as JSON in `Services/Resources/`
-- [ ] Bundle 1 audio sample per tradition (licensed or public-domain; CAF) in `Services/Resources/`
-- [ ] Bundle daily-prompt pool (30 starter prompts) as JSON
-- [ ] Create value-type cache structs for all `@Model` types
+- [x] Define SwiftData models: `PersistentVoiceTaleEntry`, `PersistentTraditionEntry`, `PersistentPlayerProgress`, `PersistentAnthologyMood` (2026-06-20 PR #19)
+- [x] Create `VoiceTaleSchemaV1` `VersionedSchema` with all models (PR #19)
+- [x] Create `VoiceTaleMigrationPlan` `SchemaMigrationPlan` (V1 only — start early) (PR #19)
+- [x] Bundle 5 tradition entries as JSON in `Services/Resources/Traditions/traditions.json` (PR #24)
+- [ ] Bundle 1 audio sample per tradition (licensed or public-domain; CAF) in `Services/Resources/` — labsmith audio pipeline pending
+- [x] Bundle daily-prompt pool (30 starter prompts) via `DailyPromptView.prompts` (PR #25)
+- [x] Create value-type cache structs (`TraditionExploreData`, `PlayerProgressData`, `AnthologyMoodData`) for all `@Model` types (PR #19)
 
 ### Voice Authoring Engine
 
-- [ ] Implement `VoiceAuthoring` actor — AVAudio capture (44.1 kHz mono 16-bit PCM → AAC/M4A)
-- [ ] Apply two-part AVAudioNodeTap rule per `.claude/rules/concurrency.md` (no `self` capture; Sendable accumulator + `@Sendable` annotation)
-- [ ] Implement 5-beat timeline (Hook 10s / Setup 20s / Rising 30s / Turn 30s / Close 20s; ±20% per beat)
-- [ ] Implement timeline scrubber UI for review + edit
-- [ ] Implement per-beat timing visualization (color-shifted bar advancing)
-- [ ] Implement gentle nudge animations at beat boundaries (no abrupt cuts)
+- [x] Implement `AudioRecorder` (`@MainActor @Observable`) — AVAudio capture (AAC/M4A via AVAudioFile) (PR #20)
+- [x] Apply two-part AVAudioNodeTap rule per `.claude/rules/concurrency.md` (no `self` capture; `OSAllocatedUnfairLock<[Float]>` accumulator + `@Sendable` annotation) (PR #20)
+- [x] Implement 5-beat timeline (`BeatTimer`: Hook 10s / Setup 20s / Rising 30s / Turn 30s / Close 20s; ±20% per beat) (PR #20)
+- [x] Implement timeline scrubber UI for review + edit (`TranscriptReviewView`) (PR #25)
+- [x] Implement per-beat timing visualization (`BeatTimerView` color-shifted bar advancing) (PR #25)
+- [ ] Implement gentle nudge animations at beat boundaries (no abrupt cuts) — Phase 1.2 polish
 
 ### Transcript Pipeline
 
-- [ ] Implement `TranscriptPipeline` — on-device `SFSpeechRecognizer`
-- [ ] Per `.claude/rules/warnings.md` § Privacy-Gated Frameworks — gate access via cached `NSSpeechRecognitionUsageDescription` Info.plist check; no-op when missing
-- [ ] Store transcript alongside audio metadata in SwiftData
-- [ ] Implement per-beat transcript chunking (5 chunks aligned to beat boundaries)
-- [ ] Implement transcript editor (kid corrects misrecognitions before reflection)
+- [x] Implement `TranscriptPipeline` — on-device `SFSpeechRecognizer` (PR #21)
+- [x] Per `.claude/rules/warnings.md` § Privacy-Gated Frameworks — gate access via cached `NSSpeechRecognitionUsageDescription` Info.plist check; no-op when missing (PR #21)
+- [x] Store transcript alongside audio metadata in SwiftData (`VoiceTaleStore.insertTale` encodes the `VoiceTaleEntry` value into `PersistentVoiceTaleEntry.encodedMetadata`) (PR #19)
+- [x] Implement per-beat transcript chunking (`TranscriptPipeline.chunkByBeatBoundaries`) (PR #21)
+- [x] Implement transcript editor (`TranscriptReviewView` text editor) (PR #25)
 
 ### Voice Coach (Bramble — Socratic AI mentor)
 
-- [ ] Create `BrambleMentor` class with lazy `LanguageModelSession`
-- [ ] Implement `VoiceStoryReflection` `@Generable` — transcript-based (NOT waveform-based) Socratic feedback on:
-  - Hook strength (1st beat — does it pull the listener in?)
-  - Sensory detail (concrete imagery throughout)
-  - Arc completeness (5 beats reachable)
-  - Voice variation (Phase 1.1+)
-- [ ] Implement static fallbacks for every `@Generable` per `.claude/rules/foundationmodels.md`
-- [ ] Implement scaffolding → Socratic ladder per `.claude/rules/foundationmodels.md` reflection pattern
-- [ ] Create mentor speech-bubble UI component
-- [ ] Wire mentor to events: tale-complete, replay, beat-skipped reflection request
+- [x] Create `BrambleMentor` `@MainActor @Observable` class with lazy `LanguageModelSession` (PR #22)
+- [x] Implement `VoiceStoryReflectionGeneration` `@Generable` — transcript-based (NOT waveform-based) Socratic feedback (PR #22)
+- [x] Implement static fallbacks (`BrambleFallbackCatalog` 4 moods × 5 beats = 20 entries) per `.claude/rules/foundationmodels.md` (PR #22)
+- [x] Implement scaffolding → Socratic ladder via `BramblePromptBuilder.instructions` (PR #22)
+- [x] Create mentor speech-bubble UI (`BrambleReflectionView`) (PR #25)
+- [x] Wire mentor to events: tale-complete via `TellView.runReflection` (PR #25); replay + beat-skipped reflection — Phase 1.1 retell loop
 
 ### Tradition Layer
 
-- [ ] Bundle 5 short explainers (West African griot / Indigenous American oral histories / Irish seanchaí / Japanese rakugo / modern slam poetry)
-- [ ] Implement kid-readable 1-paragraph context per tradition
-- [ ] Implement audio sample playback per tradition
-- [ ] Apply cultural-sensitivity gate per `.claude/rules/trauma-informed-content.md`:
-  - Indigenous oral histories: credit + cultural-context note; archetype-only references; no TEK appropriation
-  - Other traditions: respectful framing; cite source
-- [ ] Trauma-informed reviewer sign-off required BEFORE shipping the tradition layer (per ADR-016 protocol)
+- [x] Bundle 5 short explainers (`traditions.json`: griot / Indigenous American oral histories / seanchaí / rakugo / slam poetry) (PR #24)
+- [x] Implement kid-readable 1-paragraph context per tradition (PR #24)
+- [ ] Implement audio sample playback per tradition — labsmith audio pipeline pending
+- [x] Apply cultural-sensitivity gate per `.claude/rules/trauma-informed-content.md`:
+  - [x] Indigenous oral histories: credit + cultural-context note + content warning; archetype-only references (PR #24)
+  - [x] Other traditions: respectful framing; explicit source-community credit notes (PR #24)
+- [x] Trauma-informed gating cleared via ADR-016 standing user-direct approval (PR #24)
 
 ### SwiftUI Views
 
-- [ ] Create 4-tab `TabView` (Tell / Adventure / Progress / Profile) per portfolio convention
-- [ ] Build `TellView` wrapping voice-authoring + 5-beat timer
-- [ ] Build `RecordingControlsView` (record / pause / re-record beat / done)
-- [ ] Build `TranscriptReviewView` with editor + per-beat chunking
-- [ ] Build `BrambleReflectionView` with Socratic ladder
-- [ ] Build `AnthologyView` — local audio entries tagged by mood (funny / scary / tender / wild)
-- [ ] Build `TraditionView` — 5 tradition cards with explainer + audio sample
-- [ ] Build `DailyPromptView` — rotating prompt of the day
-- [ ] Build `ProgressView` with XP / streak / badge / oral-craft attunement chart
-- [ ] Build `ProfileView` with `ForgeAvatar.AvatarStudioView(.lite)`
-- [ ] Build `SettingsView` with parental gate
-- [ ] Build `QuizView` for question kits
+- [x] Create 4-tab `TabView` (Tell / Adventure / Progress / Profile) per portfolio convention (PR #25)
+- [x] Build `TellView` wrapping voice-authoring + 5-beat timer (PR #25)
+- [x] Build `RecordingControlsView` (start / done / cancel) (PR #25)
+- [x] Build `TranscriptReviewView` with editor + per-beat chunking (PR #25)
+- [x] Build `BrambleReflectionView` with Socratic ladder (PR #25)
+- [x] Build `AnthologyView` — local audio entries tagged by mood (PR #25)
+- [x] Build `TraditionGalleryView` — 5 tradition cards with explainer + cultural credit (PR #25)
+- [x] Build `DailyPromptView` — rotating prompt of the day (PR #25)
+- [x] Build `ProgressTabView` with XP / streak / mood-breakdown (PR #25)
+- [x] Build `ProfileTabView` with avatar placeholder + tradition/settings entry (PR #25); ForgeAvatar `AvatarStudioView` wiring deferred to follow-up
+- [x] Build `SettingsView` with privacy posture + crisis-resource list (PR #25); parental gate Phase 1 onboarding
+- [ ] Build `QuizView` for question kits — deferred to Phase 1.1 (kit content shipped PR #24)
 
 ### Gamification
 

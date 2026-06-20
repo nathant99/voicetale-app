@@ -1,8 +1,12 @@
 import SwiftUI
+import SwiftData
 import Models
-import SharedUI
-import AIMentor
+import Services
 
+/// Top-level app shell. Hosts a 4-tab `TabView` (Tell / Adventure / Progress
+/// / Profile) per `@Docs/TECHNICAL_DESIGN.md` § Home Screen & Navigation.
+/// Liquid Glass adoption is automatic — no `toolbarBackground` overrides
+/// per `@.claude/rules/liquid-glass.md`.
 public struct AppRootView: View {
     public enum AppTab: String, Hashable, CaseIterable {
         case tell, adventure, progress, profile
@@ -33,57 +37,49 @@ public struct AppRootView: View {
     public var body: some View {
         TabView(selection: $selectedTab) {
             Tab(AppTab.tell.title, systemImage: AppTab.tell.systemImage, value: AppTab.tell) {
-                TellPlaceholderView()
+                TellView()
             }
             Tab(AppTab.adventure.title, systemImage: AppTab.adventure.systemImage, value: AppTab.adventure) {
-                AdventurePlaceholderView()
+                AdventureTabView()
             }
             Tab(AppTab.progress.title, systemImage: AppTab.progress.systemImage, value: AppTab.progress) {
-                ProgressPlaceholderView()
+                AnthologyAndProgressTabView()
             }
             Tab(AppTab.profile.title, systemImage: AppTab.profile.systemImage, value: AppTab.profile) {
-                ProfilePlaceholderView()
+                ProfileTabView()
             }
         }
     }
 }
 
-struct TellPlaceholderView: View {
-    var body: some View {
-        ContentUnavailableView(
-            "Tell a tale",
-            systemImage: "mic.circle",
-            description: Text("Phase 1 record-a-tale loop lands here.")
-        )
+/// Composite Progress tab: anthology gallery + progress card. The original
+/// 4-tab spec assigns one tab to "Progress" — for Phase 1 the anthology
+/// gallery + XP/streak card share the tab via a segmented switcher so the
+/// kid has one place to look at every tale they've told.
+private struct AnthologyAndProgressTabView: View {
+    enum Pane: String, CaseIterable, Hashable {
+        case anthology = "Anthology"
+        case progress = "Progress"
     }
-}
 
-struct AdventurePlaceholderView: View {
-    var body: some View {
-        ContentUnavailableView(
-            "Word Workshop",
-            systemImage: "map",
-            description: Text("Phase 1 Word Workshop hub mode-cards land here.")
-        )
-    }
-}
+    @State private var pane: Pane = .anthology
 
-struct ProgressPlaceholderView: View {
     var body: some View {
-        ContentUnavailableView(
-            "Progress",
-            systemImage: "chart.bar",
-            description: Text("XP, streak, and oral-craft attunement chart land here.")
-        )
-    }
-}
-
-struct ProfilePlaceholderView: View {
-    var body: some View {
-        ContentUnavailableView(
-            "Profile",
-            systemImage: "person.circle",
-            description: Text("AvatarStudioView (R3 segmented .lite + .full) lands here.")
-        )
+        VStack(spacing: 0) {
+            Picker("Pane", selection: $pane) {
+                ForEach(Pane.allCases, id: \.self) { p in
+                    Text(p.rawValue).tag(p)
+                }
+            }
+            .pickerStyle(.segmented)
+            .padding(.horizontal)
+            .padding(.top, 8)
+            Group {
+                switch pane {
+                case .anthology: AnthologyView()
+                case .progress:  ProgressTabView()
+                }
+            }
+        }
     }
 }
