@@ -1,6 +1,22 @@
 import Foundation
+import FoundationModels
 import Models
 
+/// Bramble — the listening coach. Real `LanguageModelSession`-backed
+/// reflection with a static fallback dictionary for every (mood, beat)
+/// combination. Per `@.claude/rules/foundationmodels.md`:
+///
+/// - "Always check first": availability is observed at init and via
+///   ``refreshAvailability()`` before every call
+/// - "Lazy session": ``LanguageModelSession`` is created on first reflect
+///   and reused
+/// - "Always provide fallbacks": every call routes to ``staticFallback`` when
+///   the model is unavailable OR the session throws
+///
+/// Bramble is `@MainActor @Observable` so SwiftUI views can observe
+/// availability transitions; the `@ObservationIgnored private` session is
+/// kept off the observation graph so reuse doesn't trigger re-renders.
+@MainActor
 @Observable
 public final class BrambleMentor {
     public enum Availability: Sendable, Equatable {
@@ -12,29 +28,115 @@ public final class BrambleMentor {
     }
 
     public private(set) var availability: Availability = .unknown
+    public private(set) var lastReflection: VoiceStoryReflection?
 
-    public init() {}
+    @ObservationIgnored
+    private let model = SystemLanguageModel.default
 
-    public func staticFallback(for mood: VoiceTaleMood, beat: ArcBeat) -> VoiceStoryReflection {
-        let observation: String
-        let prompt: String
-        switch (mood, beat) {
-        case (.funny, .hook):
-            observation = "Your opening landed like a small joke I wanted to hear the rest of."
-            prompt = "What was the moment in the day that made you want to start there?"
-        case (.scary, .turn):
-            observation = "You held the turn long enough for me to feel the cold air change."
-            prompt = "What did you notice when you slowed down right before it?"
-        case (.tender, .close):
-            observation = "The last line stayed in the room after you stopped."
-            prompt = "Did you mean it to land that way, or did it surprise you too?"
-        case (.wild, .rising):
-            observation = "The rising section ran fast — I felt the world spilling outward."
-            prompt = "What would happen if you let one image hang for a full breath?"
-        default:
-            observation = "I heard you choose your pace on the \(beat.displayLabel.lowercased())."
-            prompt = "Was that the listener you were telling it to?"
+    @ObservationIgnored
+    private var session: LanguageModelSession?
+
+    public init() {
+        refreshAvailability()
+    }
+
+    /// Updates ``availability`` to mirror the model's current state. Cheap;
+    /// safe to call on every screen appear.
+    public func refreshAvailability() {
+        switch model.availability {
+        case .available:
+            availability = .available
+        case .unavailable(.deviceNotEligible):
+            availability = .unavailableDeviceNotEligible
+        case .unavailable(.appleIntelligenceNotEnabled):
+            availability = .unavailableAppleIntelligenceNotEnabled
+        case .unavailable(.modelNotReady):
+            availability = .unavailableModelNotReady
+        case .unavailable:
+            availability = .unknown
         }
-        return VoiceStoryReflection(craftObservations: [observation], socraticPrompt: prompt)
+    }
+
+    /// Produces a craft observation + Socratic prompt for the tale at the
+    /// given beat. Always succeeds; falls back to the static dictionary when
+    /// the model is unavailable or the session throws.
+    public func reflect(
+        transcript: String,
+        mood: VoiceTaleMood,
+        beat: ArcBeat
+    ) async -> VoiceStoryReflection {
+        let fallback = staticFallback(for: mood, beat: beat)
+        guard availability == .available else {
+            lastReflection = fallback
+            return fallback
+        }
+        let workingSession = ensureSession()
+        let prompt = BramblePromptBuilder.reflectionPrompt(
+            transcript: transcript,
+            mood: mood,
+            beat: beat
+        )
+        do {
+            let response = try await workingSession.respond(
+                to: prompt,
+                generating: VoiceStoryReflectionGeneration.self
+            )
+            let generated = response.content
+            let reflection = VoiceStoryReflection(
+                craftObservations: sanitizeObservations(generated.craftObservations, fallback: fallback),
+                socraticPrompt: sanitizePrompt(generated.socraticPrompt, fallback: fallback)
+            )
+            lastReflection = reflection
+            return reflection
+        } catch {
+            lastReflection = fallback
+            return fallback
+        }
+    }
+
+    /// Look up the hand-authored fallback for a given mood + beat. Public so
+    /// previews + tests can pin Bramble's voice without needing the model.
+    nonisolated public func staticFallback(
+        for mood: VoiceTaleMood,
+        beat: ArcBeat
+    ) -> VoiceStoryReflection {
+        BrambleFallbackCatalog.reflection(for: mood, beat: beat)
+    }
+
+    // MARK: - Internals
+
+    private func ensureSession() -> LanguageModelSession {
+        if let session { return session }
+        let instructions = Instructions(BramblePromptBuilder.instructions)
+        let created = LanguageModelSession(model: model, instructions: instructions)
+        session = created
+        return created
+    }
+
+    /// Defensive trim — strip empties, cap at two entries, swap to fallback
+    /// if the model produced nothing useful.
+    private nonisolated func sanitizeObservations(
+        _ raw: [String],
+        fallback: VoiceStoryReflection
+    ) -> [String] {
+        let cleaned = raw
+            .map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
+            .filter { !$0.isEmpty }
+            .prefix(2)
+        if cleaned.isEmpty {
+            return fallback.craftObservations
+        }
+        return Array(cleaned)
+    }
+
+    private nonisolated func sanitizePrompt(
+        _ raw: String?,
+        fallback: VoiceStoryReflection
+    ) -> String? {
+        let trimmed = raw?.trimmingCharacters(in: .whitespacesAndNewlines)
+        if let trimmed, !trimmed.isEmpty {
+            return trimmed
+        }
+        return fallback.socraticPrompt
     }
 }
