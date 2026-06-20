@@ -63,9 +63,9 @@ Lean's body tipped forward. Just a little. "Forward. Mild pull," she said. Pip's
 The students watch her. They see how well their story-openings work. The feedback is fast. It's right there in Lean's posture. It's like magic.
 
 Bramble then teaches the three ways to make a **hook** strong. He learned them from watching Lean.
-1.  **Specificity**: This means using concrete details. A real place. A certain time. Something you can see or touch. Instead of "a tree," say "the old oak tree with the crooked branch." That's specific.
-2.  **Stakes**: This means something is at risk. Something to lose. Something to gain. Like a secret treasure. Or a race to win. Or a friend in danger.
-3.  **Movement**: This means action is happening. Not just describing things. It's something moving, changing, or starting. "The hero ran" is movement. "The hero was brave" is just description.
+1. **Specificity**: This means using concrete details. A real place. A certain time. Something you can see or touch. Instead of "a tree," say "the old oak tree with the crooked branch." That's specific.
+2. **Stakes**: This means something is at risk. Something to lose. Something to gain. Like a secret treasure. Or a race to win. Or a friend in danger.
+3. **Movement**: This means action is happening. Not just describing things. It's something moving, changing, or starting. "The hero ran" is movement. "The hero was brave" is just description.
 
 A **hook** with all three makes Lean tip sharply forward. A **hook** with two makes her tip forward. A **hook** with one or none leaves her still.
 
@@ -98,6 +98,6 @@ Bramble always adds this part. "We remember that many cultures have used these w
 - **Alliance**: Bramble.
 - **Tension**: None.
 
-## Cultural-context note
+## cultural context
 
-The hedgerow-autumn-fire setting is a deliberate gentle pastoral framing for the listening-circle. Lean is rendered as an anthropomorphic badger-tween in soft striped coat in the chunky-cartoon visual register. **Critical cultural-sensitivity gate**: oral storytelling traditions (West African griot / Irish seanchaí / Japanese rakugo / Indigenous American oral histories / modern slam) are attributed to source communities in kit framing copy — they are NEVER mascotized as cast characters. Lean's English name (sensory-verb *lean*) is intentionally generic and tradition-free. R0 sensitivity-reviewer signoff is the preferred path for Bramble-mascot work and for Kit 12 (Indigenous American Oral Histories — *required*, not optional, per `apps.generated.ts dnCast.intro`).
+The hedgerow-autumn-fire setting is a deliberate gentle pastoral framing for the listening-circle. Lean is rendered as an anthropomorphic badger-tween in soft striped coat in the chunky-cartoon visual register. **Critical cultural sensitivity**: oral storytelling traditions (West African griot / Irish seanchaí / Japanese rakugo / Indigenous American oral histories / modern slam) are attributed to source communities in kit framing copy — they are NEVER mascotized as cast characters. Lean's English name (sensory-verb *lean*) is intentionally generic and tradition-free. R0 sensitivity-reviewer signoff is the preferred path for Bramble-mascot work and for Kit 12 (Indigenous American Oral Histories — *required*, not optional, per `apps.generated.ts dnCast.intro`).

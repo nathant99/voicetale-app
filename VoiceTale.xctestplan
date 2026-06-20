@@ -1,0 +1,38 @@
+{
+  "configurations" : [
+    {
+      "id" : "561F80FB-9795-44FA-9F86-6F54B9613DC4",
+      "name" : "Test Scheme Action",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "performanceAntipatternCheckerEnabled" : true,
+    "targetForVariableExpansion" : {
+      "containerPath" : "container:VoiceTale.xcodeproj",
+      "identifier" : "FBBBCA302FE62B7300EB978A",
+      "name" : "VoiceTale"
+    }
+  },
+  "testTargets" : [
+    {
+      "parallelizable" : true,
+      "target" : {
+        "containerPath" : "container:VoiceTale.xcodeproj",
+        "identifier" : "FBBBCA3D2FE62B7400EB978A",
+        "name" : "VoiceTaleTests"
+      }
+    },
+    {
+      "parallelizable" : true,
+      "target" : {
+        "containerPath" : "container:VoiceTale.xcodeproj",
+        "identifier" : "FBBBCA472FE62B7400EB978A",
+        "name" : "VoiceTaleUITests"
+      }
+    }
+  ],
+  "version" : 1
+}

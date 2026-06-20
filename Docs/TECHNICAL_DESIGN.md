@@ -8,7 +8,7 @@
 
 ## SPM Module Architecture
 
-Per `.claude/rules/spm-architecture.md`. Standard targets:
+Per `.claude/rules/spm-architecture.md` § "Apps/Packages/Server monorepo". Package lives at `Packages/Libraries/Package.swift`; app shell lives at `Apps/VoiceTale/VoiceTale.xcodeproj`. Standard targets:
 
 | Target | Purpose | Dependencies |
 |---|---|---|
@@ -114,7 +114,7 @@ See @Docs/FEATURE_PLAN.md for the full phased roadmap.
 
 ## Adventure Mode Integration
 
-Contributes to **Word Workshop** zone in AdventureHub. Level 1 config (canonical JSON) lives at `labsmith/Resources/HubContributions/voicetale.json`; Level 2 Swift overlay (this repo) lives at `Libraries/Sources/AppFeature/HubContribution/VoiceTaleHubContribution.swift` per `Docs/AMENDMENTS_ADVENTUREHUB_SOURCE_OWNED_UI.md`.
+Contributes to **Word Workshop** zone in AdventureHub. Level 1 config (canonical JSON) lives at `labsmith/Resources/HubContributions/voicetale.json`; Level 2 Swift overlay (this repo) lives at `Packages/Libraries/Sources/AppFeature/HubContribution/VoiceTaleHubContribution.swift` per `Docs/AMENDMENTS_ADVENTUREHUB_SOURCE_OWNED_UI.md`.
 
 ## Home Screen & Navigation
 

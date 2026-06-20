@@ -12,7 +12,7 @@ Voice-first oral storytelling workshop for tweens — 60-120 second told tales a
 - **Persistence**: SwiftData
 - **Testing**: Swift Testing (`@Test`, `#expect`)
 - **Min Target**: iOS 26 / Xcode 26
-- **Architecture**: App shell + local Swift Package (`Libraries/Package.swift`)
+- **Architecture**: App shell + local Swift Package — monorepo layout: `Apps/VoiceTale/` (xcodeproj) + `Packages/Libraries/Package.swift` (SPM)
 - **Framework**: ForgeKit (pinned via `.package(url:, from: "0.99.0")`)
 
 Portfolio-wide tech stack rules live in `@.claude/rules/forgekit.md` + `@.claude/rules/concurrency.md` + `@.claude/rules/swiftui.md` + `@.claude/rules/swiftdata.md` + `@.claude/rules/spritekit.md` + `@.claude/rules/foundationmodels.md`. All auto-load with this file.
@@ -20,7 +20,7 @@ Portfolio-wide tech stack rules live in `@.claude/rules/forgekit.md` + `@.claude
 ## Commands
 
 ```bash
-# Build (iOS Simulator)
+# Build (iOS Simulator) — always open VoiceTale.xcworkspace, NEVER Apps/VoiceTale/VoiceTale.xcodeproj directly
 xcodebuild -workspace VoiceTale.xcworkspace -scheme VoiceTale \
   -destination 'platform=iOS Simulator,name=iPhone 17' build
 
@@ -30,6 +30,21 @@ xcodebuild test -workspace VoiceTale.xcworkspace -scheme VoiceTale \
 ```
 
 Prefer MCP `BuildProject` / `RunSomeTests` over `xcodebuild` when Xcode is open (per `@.claude/rules/workflow.md` § "MCP-First Testing Workflow").
+
+## Xcode File Safety (load-bearing)
+
+**DO NOT WRITE Xcode-managed files from disk** — the agent operates from inside Xcode. Direct edits to any of these can corrupt the workspace, force a workspace reload, or terminate the agent session mid-task:
+
+- `*.xcodeproj/project.pbxproj`
+- `*.xcworkspace/contents.xcworkspacedata`
+- `*.xcscheme`
+- `*.xctestplan` (the file Xcode generates IS canonical and committed; what's forbidden is hand-authoring the JSON)
+- `*.xcassets/Contents.json`
+- `Info.plist` / `*.entitlements` / `*.xcdatamodeld/`
+
+**INSTEAD**: file `Docs/HANDOFF_TO_USER_<TOPIC>.md` describing the GUI steps. Staging + committing files the user generated via the Xcode UI is fine.
+
+Full canonical rule + recovery steps: `@.claude/rules/xcode-agent-safety.md`.
 
 ## App-Specific Conventions
 
