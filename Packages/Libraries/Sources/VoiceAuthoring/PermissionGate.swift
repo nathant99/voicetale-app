@@ -1,5 +1,6 @@
 import Foundation
 import AVFoundation
+import Speech
 
 /// Defensive gate around microphone-permission paths. Per
 /// `@.claude/rules/warnings.md` § "Privacy-Gated Frameworks", iOS hard-crashes
@@ -33,5 +34,35 @@ nonisolated public enum PermissionGate {
     public static var currentMicrophoneAuthorization: AVAudioApplication.recordPermission {
         guard hasMicrophoneUsageDescription else { return .undetermined }
         return AVAudioApplication.shared.recordPermission
+    }
+
+    // MARK: - Speech recognition
+
+    /// True if `NSSpeechRecognitionUsageDescription` is present in `Info.plist`.
+    public static let hasSpeechRecognitionUsageDescription: Bool = {
+        guard
+            let value = Bundle.main.object(forInfoDictionaryKey: "NSSpeechRecognitionUsageDescription") as? String,
+            !value.isEmpty
+        else { return false }
+        return true
+    }()
+
+    /// Asks the OS for speech-recognition permission via `SFSpeechRecognizer`.
+    /// Returns false (without prompting) when the usage description is missing.
+    public static func requestSpeechRecognitionPermission() async -> Bool {
+        guard hasSpeechRecognitionUsageDescription else { return false }
+        return await withCheckedContinuation { continuation in
+            SFSpeechRecognizer.requestAuthorization { status in
+                continuation.resume(returning: status == .authorized)
+            }
+        }
+    }
+
+    /// Current speech-recognition authorization state without prompting.
+    /// Returns `.notDetermined` when the usage description is missing so the
+    /// caller can degrade gracefully without ever touching the Speech APIs.
+    public static var currentSpeechAuthorization: SFSpeechRecognizerAuthorizationStatus {
+        guard hasSpeechRecognitionUsageDescription else { return .notDetermined }
+        return SFSpeechRecognizer.authorizationStatus()
     }
 }
