@@ -73,6 +73,84 @@ nonisolated public struct VoiceStoryReflection: Codable, Sendable, Hashable {
     }
 }
 
+// MARK: - Tradition
+
+/// Value-type cache for ``PersistentTraditionEntry``. Read in `onAppear`, never
+/// in `body` (per `@.claude/rules/swiftdata.md` § "Zero @Query in Views").
+nonisolated public struct TraditionExploreData: Codable, Sendable, Hashable {
+    public let slug: String
+    public let firstExploredAt: Date?
+    public let lastListenedAt: Date?
+    public let listenCount: Int
+
+    public init(
+        slug: String,
+        firstExploredAt: Date? = nil,
+        lastListenedAt: Date? = nil,
+        listenCount: Int = 0
+    ) {
+        self.slug = slug
+        self.firstExploredAt = firstExploredAt
+        self.lastListenedAt = lastListenedAt
+        self.listenCount = listenCount
+    }
+}
+
+// MARK: - Player progress
+
+/// Value-type cache for ``PersistentPlayerProgress``.
+nonisolated public struct PlayerProgressData: Codable, Sendable, Hashable {
+    public let xpTotal: Int
+    public let currentStreakDays: Int
+    public let maxStreakDays: Int
+    public let availableStreakFreezes: Int
+    public let lastSessionAt: Date?
+    public let tutorialCompletedAt: Date?
+
+    public init(
+        xpTotal: Int = 0,
+        currentStreakDays: Int = 0,
+        maxStreakDays: Int = 0,
+        availableStreakFreezes: Int = 2,
+        lastSessionAt: Date? = nil,
+        tutorialCompletedAt: Date? = nil
+    ) {
+        self.xpTotal = xpTotal
+        self.currentStreakDays = currentStreakDays
+        self.maxStreakDays = maxStreakDays
+        self.availableStreakFreezes = availableStreakFreezes
+        self.lastSessionAt = lastSessionAt
+        self.tutorialCompletedAt = tutorialCompletedAt
+    }
+}
+
+// MARK: - Anthology mood
+
+/// Value-type cache for ``PersistentAnthologyMood``.
+nonisolated public struct AnthologyMoodData: Codable, Sendable, Hashable, Identifiable {
+    public var id: VoiceTaleMood { mood }
+    public let mood: VoiceTaleMood
+    public let customLabel: String?
+    public let taleCount: Int
+    public let lastTaleAt: Date?
+
+    public init(
+        mood: VoiceTaleMood,
+        customLabel: String? = nil,
+        taleCount: Int = 0,
+        lastTaleAt: Date? = nil
+    ) {
+        self.mood = mood
+        self.customLabel = customLabel
+        self.taleCount = taleCount
+        self.lastTaleAt = lastTaleAt
+    }
+
+    public var displayLabel: String {
+        customLabel ?? mood.displayLabel
+    }
+}
+
 // MARK: - Voice tale entry
 
 nonisolated public struct VoiceTaleEntry: Codable, Sendable, Identifiable, Hashable {
