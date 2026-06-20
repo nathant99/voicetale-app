@@ -38,4 +38,37 @@ struct VoiceTaleDomainTests {
         #expect(decoded.title == "Test")
         #expect(decoded.mood == .funny)
     }
+
+    @Test func schemaV1ContainsAllExpectedModels() {
+        let names = Set(VoiceTaleSchemaV1.models.map { String(describing: $0) })
+        #expect(names.contains("PersistentVoiceTaleEntry"))
+        #expect(names.contains("PersistentTraditionEntry"))
+        #expect(names.contains("PersistentPlayerProgress"))
+        #expect(names.contains("PersistentAnthologyMood"))
+    }
+
+    @Test func migrationPlanStartsWithV1Only() {
+        #expect(VoiceTaleMigrationPlan.schemas.count == 1)
+        #expect(VoiceTaleMigrationPlan.stages.isEmpty)
+    }
+
+    @Test func anthologyMoodDataPrefersCustomLabel() {
+        let custom = AnthologyMoodData(mood: .scary, customLabel: "Spooky stories")
+        #expect(custom.displayLabel == "Spooky stories")
+        let defaulted = AnthologyMoodData(mood: .scary)
+        #expect(defaulted.displayLabel == "Scary")
+    }
+
+    @Test func traditionExploreDataIsCodable() throws {
+        let value = TraditionExploreData(
+            slug: "griot",
+            firstExploredAt: Date(timeIntervalSince1970: 1_700_000_000),
+            lastListenedAt: Date(timeIntervalSince1970: 1_700_001_000),
+            listenCount: 3
+        )
+        let encoded = try JSONEncoder().encode(value)
+        let decoded = try JSONDecoder().decode(TraditionExploreData.self, from: encoded)
+        #expect(decoded.slug == "griot")
+        #expect(decoded.listenCount == 3)
+    }
 }
