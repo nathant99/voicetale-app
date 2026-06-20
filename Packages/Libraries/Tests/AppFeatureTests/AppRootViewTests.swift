@@ -74,6 +74,40 @@ struct TellMachineTests {
     }
 }
 
+@Suite("VoiceTaleHubContribution")
+struct VoiceTaleHubContributionTests {
+    @Test func sourceAppMetadataIsStable() {
+        let contribution = VoiceTaleHubContribution()
+        #expect(contribution.sourceAppID == "voicetale")
+        #expect(contribution.sourceAppDisplayName == "VoiceTale")
+    }
+
+    @Test func contributesToWordWoodsZone() {
+        let contribution = VoiceTaleHubContribution()
+        #expect(contribution.zone.rawValue == "word-woods")
+    }
+
+    @Test func supportsQuestEngineInPhase1() {
+        let contribution = VoiceTaleHubContribution()
+        #expect(contribution.supportedEngines.map(\.rawValue) == ["quest"])
+    }
+
+    @Test func mentorPersonaIsBramble() {
+        let contribution = VoiceTaleHubContribution()
+        #expect(contribution.mentorPersona.id == "bramble")
+        #expect(contribution.mentorPersona.systemPromptHeader.contains("Bramble"))
+    }
+
+    @Test func kitResourcesCoverAllFourPhase1Kits() {
+        let contribution = VoiceTaleHubContribution()
+        let kitIDs = contribution.kitResources.map(\.kitID)
+        #expect(kitIDs.contains("kit_01_hook"))
+        #expect(kitIDs.contains("kit_02_sensory_detail"))
+        #expect(kitIDs.contains("kit_03_arc_completeness"))
+        #expect(kitIDs.contains("kit_04_mood"))
+    }
+}
+
 @Suite("DailyPromptView")
 struct DailyPromptTests {
     @Test func promptPoolHasThirtyEntries() {
