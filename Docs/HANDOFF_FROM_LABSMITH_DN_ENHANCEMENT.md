@@ -2,7 +2,13 @@
 
 Direction: **labsmith → voicetale-app**. Companion to (not replacement of) the 2026-05-22 `HANDOFF_FROM_LABSMITH_DISTRIBUTED_NARRATIVE_RETROFIT.md` (Wave 9). Expands the named cast from 4 LESSONS-layer + Bramble mentor → 7 (4 LESSONS preserved + 2 net-new cluster-shared WORLD-layer voice-register characters + 1 optional flag). Bramble remains the protagonist + listener-anchor (Pattern B preserved with VoiceTale's listener-inversion intact).
 
-**Status**: Specification handoff. Phase D asset generation INHERITED from LyricForge handoff #304 — VoiceTale consumes 2 of the 4 cluster-shared WORLD-layer assets (Heralda + Vesperline) at **$0 marginal cost**. Existing 4-character LESSONS-layer cast assets (Lean / Slow / Pivot / Refrain) PRESERVED — no regeneration required. **Optional Narrator META char defer recommended (see § 3.3) — net cluster cost target: $0.**
+**Status**: Specification handoff — type-layer DONE (2026-06-21 PR #31). Phase D asset generation INHERITED from LyricForge handoff #304 — VoiceTale consumes 2 of the 4 cluster-shared WORLD-layer assets (Heralda + Vesperline) at **$0 marginal cost**. Existing 4-character LESSONS-layer cast assets (Lean / Slow / Pivot / Refrain) PRESERVED — no regeneration required. **Optional Narrator META char defer recommended (see § 3.3) — net cluster cost target: $0.**
+
+**Implementation status (2026-06-21)**:
+- ✅ `Models.VoiceTaleCastDirectory` ships all 7 characters (Bramble + 4 LESSONS + 2 WORLD) with explicit `Layer` / `Role` discriminators per § 3.5 (15 tests in `VoiceTaleCastDirectoryTests`).
+- ✅ `Models.VoiceTaleGuestTellerCatalog` ships Heralda + Vesperline demo tales (each ≤ 3 lines per § 3.1 + structural-register-only per § 3.2, asserted via test).
+- ✅ Cluster-shared asset slugs (`voice_epic` / `voice_tragic`) consumed via `Character.assetSlug` and ready for `ForgeIllustrations` multi-bundle resolution when the cluster-shared WebPs ship from LyricForge handoff #304.
+- ⏳ Kit content + Bramble cameo wiring (Heralda in kit 3 / Vesperline in kit 9) is per-kit JSON authoring — deferred until the kit content series passes kit 02.
 
 **Round**: 59 · **Queue item**: #318 · **Date**: 2026-05-23 · **Wave**: Writing-craft cluster layered-DN Wave 1, Session 2
 **Source plan**: `labsmith/Docs/PLAN_DN_ENHANCEMENT_WRITING_CRAFT_CLUSTER.md` (queue #279)
