@@ -30,6 +30,55 @@
         "identifier" : "FBBBCA472FE62B7400EB978A",
         "name" : "VoiceTaleUITests"
       }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:..\/..\/Packages\/Libraries",
+        "identifier" : "ForgeKitIntegrationTests",
+        "name" : "ForgeKitIntegrationTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:..\/..\/Packages\/Libraries",
+        "identifier" : "ModelsTests",
+        "name" : "ModelsTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:..\/..\/Packages\/Libraries",
+        "identifier" : "VoiceAuthoringTests",
+        "name" : "VoiceAuthoringTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:..\/..\/Packages\/Libraries",
+        "identifier" : "AIMentorTests",
+        "name" : "AIMentorTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:..\/..\/Packages\/Libraries",
+        "identifier" : "AppFeatureTests",
+        "name" : "AppFeatureTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:..\/..\/Packages\/Libraries",
+        "identifier" : "SharedUITests",
+        "name" : "SharedUITests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:..\/..\/Packages\/Libraries",
+        "identifier" : "ServicesTests",
+        "name" : "ServicesTests"
+      }
     }
   ],
   "version" : 1
