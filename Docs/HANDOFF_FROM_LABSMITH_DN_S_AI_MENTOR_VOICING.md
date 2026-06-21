@@ -43,11 +43,12 @@ Follow `labsmith/Docs/TEMPLATE_HANDOFF_FROM_LABSMITH_DN_S_AI_MENTOR_VOICING.md` 
 
 1. [x] Derive `CastVoiceProfile` per chapter using `labsmith/Docs/SCHEMA_CAST_VOICE_REGISTRY.md` — DONE (PR #22 shipped `AIMentor.CastVoiceRegistry` with all 4 profiles)
 2. [x] Build `CastVoiceRegistry` at app launch — DONE (`CastVoiceRegistry.register(into:)` exposed; awaiting `BrambleMentor` `CastDialog` wiring per Phase 1.1)
-3. [ ] Wire AI mentor call sites to invoke `castDialog.respondAs(.character(slug), prompt:, context:)` — deferred to Phase 1.1 (requires `BrambleMentor` to upgrade from `LanguageModelSession` → `CastDialog`-backed session)
-4. [ ] Feature-flag via `ForgeExperiments.castVoicing` (default off; TestFlight enable) — deferred (depends on step 3)
-5. [ ] Regression-test moderation pipeline (100 sample interactions across diverse contexts) — deferred (depends on step 3 + 4)
+3. [~] Wire AI mentor call sites to invoke `castDialog.respondAs(.character(slug), prompt:, context:)` — **groundwork shipped PR #41 via `AIMentor.CastVoicingService`** (actor wrapper auto-registers all 4 profiles + exposes a `respond(as:trigger:kitNumber:topic:)` API with default-off feature flag); BrambleMentor's structured-reflection path stays unchanged for now. Phase 1.1 will surface live voicing at the Bramble call sites.
+4. [~] Feature-flag via `ForgeExperiments.castVoicing` (default off; TestFlight enable) — **app-local flag shipped PR #41** on `CastVoicingService.isLiveVoicingEnabled` (replaces `ForgeExperiments.castVoicing` which isn't pinned; same default-off behavior).
+5. [ ] Regression-test moderation pipeline (100 sample interactions across diverse contexts) — deferred (depends on step 3 + 4 toggle being flipped on)
 
-**PR 4 (2026-06-21) status**: steps 1 + 2 complete and tested (6 tests in `CastVoiceRegistryTests` + 4 profiles registered via `CastDialog`). Steps 3-5 are scoped to Phase 1.1 / 1D-follow-on PR — the existing `BrambleMentor.LanguageModelSession` path stays in place; the upgrade to `CastDialog` is a non-trivial mentor-API swap that warrants its own PR and ~14d telemetry observation per the parent decision.
+**PR 4 (2026-06-21) status**: steps 1 + 2 complete and tested (6 tests in `CastVoiceRegistryTests` + 4 profiles registered via `CastDialog`).
+**PR 5 (2026-06-21) status**: steps 3 + 4 groundwork shipped via `CastVoicingService` (4 tests covering default-disabled fallback / toggle / idempotent registration / static fallback per slug). Step 5 deferred to actual rollout. The existing `BrambleMentor.LanguageModelSession` path stays in place; the upgrade to `CastDialog`-backed Bramble is a non-trivial mentor-API swap that warrants its own PR and ~14d telemetry observation per the parent decision.
 
 ## Pilot-derived learnings (codified per `DECISION_DN_S_AI_MENTOR_PORTFOLIO_ROLLOUT.md`)
 
