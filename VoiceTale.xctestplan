@@ -19,6 +19,20 @@
   "testTargets" : [
     {
       "target" : {
+        "containerPath" : "container:VoiceTale.xcodeproj",
+        "identifier" : "FBBBCA3D2FE62B7400EB978A",
+        "name" : "VoiceTaleTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:VoiceTale.xcodeproj",
+        "identifier" : "FBBBCA472FE62B7400EB978A",
+        "name" : "VoiceTaleUITests"
+      }
+    },
+    {
+      "target" : {
         "containerPath" : "container:..\/..\/Packages\/Libraries",
         "identifier" : "ForgeKitIntegrationTests",
         "name" : "ForgeKitIntegrationTests"
@@ -64,20 +78,6 @@
         "containerPath" : "container:..\/..\/Packages\/Libraries",
         "identifier" : "ServicesTests",
         "name" : "ServicesTests"
-      }
-    },
-    {
-      "target" : {
-        "containerPath" : "container:VoiceTale.xcodeproj",
-        "identifier" : "FBBBCA3D2FE62B7400EB978A",
-        "name" : "VoiceTaleTests"
-      }
-    },
-    {
-      "target" : {
-        "containerPath" : "container:VoiceTale.xcodeproj",
-        "identifier" : "FBBBCA472FE62B7400EB978A",
-        "name" : "VoiceTaleUITests"
       }
     }
   ],
