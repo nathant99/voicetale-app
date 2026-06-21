@@ -76,7 +76,7 @@ Core 60-120 second record-a-tale loop with 5-beat timer skeleton, on-device tran
 - [x] Build `TraditionGalleryView` — 5 tradition cards with explainer + cultural credit (PR #25)
 - [x] Build `DailyPromptView` — rotating prompt of the day (PR #25)
 - [x] Build `ProgressTabView` with XP / streak / mood-breakdown (PR #25)
-- [x] Build `ProfileTabView` with avatar placeholder + tradition/settings entry (PR #25); ForgeAvatar `AvatarStudioView` wiring deferred to follow-up
+- [x] Build `ProfileTabView` with avatar placeholder + tradition/settings entry (PR #25); ForgeAvatar `AvatarStudioView` R3 segmented `.lite`+`.full` wiring shipped 2026-06-21 via `AvatarStudioSheet` (App Group entitlement is optional; see `Docs/HANDOFF_TO_USER_APP_GROUP_ENTITLEMENT.md` for cross-portfolio propagation)
 - [x] Build `SettingsView` with privacy posture + crisis-resource list (PR #25); parental gate Phase 1 onboarding
 - [ ] Build `QuizView` for question kits — deferred to Phase 1.1 (kit content shipped PR #24)
 

@@ -2,14 +2,15 @@ import SwiftUI
 import Models
 import SharedUI
 
-/// Phase 1 Profile tab — surfaces a soft avatar placeholder + entry points
-/// to traditions / settings. Avatar editor wiring lands once the ForgeAvatar
-/// 1.0-rc.1 `AvatarStudioView` Contacts-style migration handoff is wired per
-/// `@Docs/HANDOFF_FROM_LABSMITH_AVATAR_SIMPLIFIED_MIGRATION.md`.
+/// Phase 1 Profile tab — surfaces the ForgeAvatar editor (R3 segmented
+/// `.lite`+`.full` toggle per writing-craft cluster pattern in
+/// `@.claude/rules/forgekit.md` § Avatar Edit Authority) + entry points to
+/// traditions / settings / companion pack.
 public struct ProfileTabView: View {
     @State private var showingTraditions: Bool = false
     @State private var showingSettings: Bool = false
     @State private var showingCompanionPack: Bool = false
+    @State private var showingAvatarStudio: Bool = false
 
     public init() {}
 
@@ -49,30 +50,43 @@ public struct ProfileTabView: View {
             .sheet(isPresented: $showingCompanionPack) {
                 CompanionPackView()
             }
+            .sheet(isPresented: $showingAvatarStudio) {
+                AvatarStudioSheet(onDismiss: { showingAvatarStudio = false })
+            }
         }
     }
 
     private var avatarSection: some View {
-        HStack(spacing: 12) {
-            ZStack {
-                Circle()
-                    .fill(.tint.opacity(0.18))
-                    .frame(width: 64, height: 64)
-                Image(systemName: "person.fill")
-                    .font(.system(size: 28))
-                    .foregroundStyle(.tint)
-            }
-            VStack(alignment: .leading, spacing: 2) {
-                Text("Storyteller")
-                    .font(.headline)
-                Text("Your avatar lives across the Forge family of apps.")
-                    .font(.caption)
+        Button {
+            showingAvatarStudio = true
+        } label: {
+            HStack(spacing: 12) {
+                ZStack {
+                    Circle()
+                        .fill(.tint.opacity(0.18))
+                        .frame(width: 64, height: 64)
+                    Image(systemName: "person.fill")
+                        .font(.system(size: 28))
+                        .foregroundStyle(.tint)
+                }
+                VStack(alignment: .leading, spacing: 2) {
+                    Text("Storyteller")
+                        .font(.headline)
+                        .foregroundStyle(.primary)
+                    Text("Tap to change your look.")
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                }
+                Spacer()
+                Image(systemName: "chevron.right")
+                    .font(.footnote)
                     .foregroundStyle(.secondary)
             }
+            .padding(.vertical, 6)
         }
-        .padding(.vertical, 6)
+        .buttonStyle(.plain)
         .accessibilityElement(children: .combine)
-        .accessibilityHint("Avatar settings open in a future build.")
+        .accessibilityHint("Open the avatar editor — simple or all-options view.")
     }
 }
 

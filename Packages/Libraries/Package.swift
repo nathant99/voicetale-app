@@ -131,6 +131,8 @@ let package = Package(
                 .product(name: "ForgeAdventure", package: "forgekit"),
                 .product(name: "ForgeAvatar", package: "forgekit"),
                 .product(name: "ForgeCelebration", package: "forgekit"),
+                .product(name: "ForgeModels", package: "forgekit"),
+                .product(name: "ForgeSync", package: "forgekit"),
             ],
             resources: [
                 .process("Resources"),
