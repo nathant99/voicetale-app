@@ -167,6 +167,7 @@ Plus the 7-module canonical bootstrap from `@Docs/HANDOFF_FROM_LABSMITH_FORGEKIT
 | Tradition-layer cultural-sensitivity gate per ADR-016 standing approval | `.claude/rules/trauma-informed-content.md` § ADR-016 carve-out |
 | No third-party analytics SDKs — no Firebase / Mixpanel / Amplitude | `@Docs/TECHNICAL_DESIGN.md` § Analytics |
 | Hub Contribution Level 1 JSON at `spark-anvil-hub/Resources/HubContributions/voicetale.json`; Level 2 Swift overlay in `Packages/Libraries/Sources/AppFeature/HubContribution/VoiceTaleHubContribution.swift` | `@Docs/TECHNICAL_DESIGN.md` § Adventure Mode |
+| **SPM folder convention** — foundational targets (`Models` / `Services` / `VoiceAuthoring` / `SharedUI` / `AIMentor`) ship FLAT under `Packages/Libraries/Sources/<Target>/`; the integrating target (`AppFeature`) ships SUBFOLDERED by feature area (`TellTab/` / `AdventureTab/` / `Anthology/` / `CompanionPack/` / `HubContribution/` / `ProfileTab/` / `ProgressTab/` / `TraditionLayer/`). Both layouts are SPM-standard; the mix matches the portfolio convention (CuriosityQuest, QuillSpell). New files land in the existing convention for their target. | `.claude/rules/spm-architecture.md` § Standard SPM folder structure per target |
 
 ## 9. Definition of Done (Phase 1)
 
