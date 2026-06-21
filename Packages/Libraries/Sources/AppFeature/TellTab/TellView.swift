@@ -18,6 +18,11 @@ public struct TellView: View {
 
     @State private var transcriptDraft: String = ""
     @State private var timerTick: Date = Date()
+    /// Per `@Docs/HANDOFF_FROM_LABSMITH_DN_S_AI_MENTOR_VOICING.md` Move B,
+    /// the post-tale reflection surfaces a per-kit cast cameo strip. The kit
+    /// rotates per tale so the kid hears a different cast voice across
+    /// sessions.
+    @State private var activeKit: QuestionKit?
 
     private let pipeline = TranscriptPipeline()
 
@@ -57,6 +62,7 @@ public struct TellView: View {
             BrambleReflectionView(
                 reflection: machine.reflection,
                 isThinking: machine.phase == .awaitingReflection,
+                kit: activeKit,
                 onSave: saveToAnthology,
                 onRetell: retellFromScratch
             )
@@ -283,12 +289,23 @@ public struct TellView: View {
 
     private func runReflection() async {
         let beatForReflection = machine.beatTimeline.last?.beat ?? .close
+        activeKit = loadActiveKit()
         let reflection = await mentor.reflect(
             transcript: machine.transcript,
             mood: machine.draftMood,
             beat: beatForReflection
         )
         machine.presentReflection(reflection)
+    }
+
+    /// Pick one of the 4 Phase 1 kits to surface the DN-S Move B cameo strip
+    /// alongside Bramble's reflection. Seed rotates by `recordedAt` minute so
+    /// successive tales surface different cast voices. Silent failure here
+    /// degrades gracefully — the reflection view simply omits the strip.
+    private func loadActiveKit() -> QuestionKit? {
+        let seed = Calendar.current.component(.minute, from: Date())
+            ^ machine.transcript.count
+        return try? QuestionKitLoader.loadKitForRotation(seed: seed)
     }
 
     private func saveToAnthology() {

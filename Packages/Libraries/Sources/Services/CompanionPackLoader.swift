@@ -14,7 +14,7 @@ public enum CompanionPackLoader {
     }
 
     public static func loadManifest() throws -> CompanionPackManifest {
-        guard let url = Bundle.module.url(
+        guard let url = ResourceLookup.url(
             forResource: "companion_pack",
             withExtension: "json",
             subdirectory: "CompanionPack"
@@ -33,7 +33,7 @@ public enum CompanionPackLoader {
         // Bundle.module.url(forResource:withExtension:) wants name without
         // extension. The manifest uses canonical `<name>.pdf` filenames.
         let stem = (fileName as NSString).deletingPathExtension
-        guard let url = Bundle.module.url(
+        guard let url = ResourceLookup.url(
             forResource: stem,
             withExtension: "pdf",
             subdirectory: "CompanionPack"

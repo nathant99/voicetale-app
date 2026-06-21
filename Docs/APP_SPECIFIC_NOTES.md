@@ -9,6 +9,10 @@ preserved-to-v2: CLAUDE.md (v2, 5-section template) per Docs/RESEARCH_CLAUDE_MD_
 
 This file holds content preserved from the pre-2026-06-08 CLAUDE.md (the 18-section v1 template). Per the CLAUDE.md best-practices research, the v2 template delegates portfolio-wide content to `@.claude/rules/` (auto-loaded) and per-app design content to per-app `Docs/*.md` files referenced via `@import`. This file holds the latter pending per-section review + relocation to the right destination.
 
+## Things That Will Bite You (current learnings)
+
+- **`Bundle.module.url(forResource:withExtension:subdirectory:)` is flaky for SPM `.process("Resources")` bundles in test targets** (Xcode 26 / Swift 6.2). The API returns `nil` even when the file is at the expected bundle path. All Phase 1 loaders (`QuestionKitLoader`, `CompanionPackLoader`, `TraditionCatalogLoader`) route through `Services/ResourceLookup.swift` which retries via flat lookup + direct path under `resourceURL`. New loaders that need bundled resources MUST go through `ResourceLookup` — do not call `Bundle.module.url(...subdirectory:)` directly. Discovered 2026-06-21 when the Phase 1 test plan finally exercised the loaders for the first time (4 loaders × subdirectory: returned nil; flat + direct-path fallback recovered them).
+
 **Recommended next steps for this file**:
 
 1. Identify which sections of the preserved content are genuinely app-specific (architecture / domain patterns / app-specific gotchas / app-specific limitations) and KEEP them here OR migrate them to topic-specific docs:

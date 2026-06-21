@@ -21,7 +21,7 @@ public enum QuestionKitLoader {
     ]
 
     public static func loadKit(named name: String) throws -> QuestionKit {
-        guard let url = Bundle.module.url(
+        guard let url = ResourceLookup.url(
             forResource: name,
             withExtension: "json",
             subdirectory: "QuestionKits"
@@ -38,5 +38,14 @@ public enum QuestionKitLoader {
 
     public static func loadAllPhase1Kits() throws -> [QuestionKit] {
         try phase1Filenames.map { try loadKit(named: $0) }
+    }
+
+    /// Pick one of the 4 Phase 1 kits based on a stable input — typically the
+    /// current tale's session index or the recorded mood — so each saved
+    /// tale's reflection surfaces a different cast voice without random churn.
+    /// Phase 1 DN-S Move B per `@Docs/HANDOFF_FROM_LABSMITH_DN_S_AI_MENTOR_VOICING.md`.
+    public static func loadKitForRotation(seed: Int) throws -> QuestionKit {
+        let index = abs(seed) % phase1Filenames.count
+        return try loadKit(named: phase1Filenames[index])
     }
 }
