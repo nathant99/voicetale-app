@@ -3,6 +3,13 @@ import SwiftData
 import Models
 import Services
 
+/// Environment slot for the shared ``GamificationService`` instance. Views
+/// award XP / record sessions / evaluate achievements via this key per
+/// `@.claude/rules/swiftui.md` § `@Entry` macro.
+extension EnvironmentValues {
+    @Entry public var gamificationService: GamificationService = GamificationService()
+}
+
 /// Top-level app shell. Hosts a 4-tab `TabView` (Tell / Adventure / Progress
 /// / Profile) per `@Docs/TECHNICAL_DESIGN.md` § Home Screen & Navigation.
 /// Liquid Glass adoption is automatic — no `toolbarBackground` overrides
@@ -31,6 +38,7 @@ public struct AppRootView: View {
     }
 
     @State private var selectedTab: AppTab = .tell
+    @State private var gamification = GamificationService()
 
     public init() {}
 
@@ -49,6 +57,7 @@ public struct AppRootView: View {
                 ProfileTabView()
             }
         }
+        .environment(\.gamificationService, gamification)
     }
 }
 

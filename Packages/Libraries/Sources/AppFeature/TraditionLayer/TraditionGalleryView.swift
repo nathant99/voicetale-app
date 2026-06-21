@@ -11,6 +11,7 @@ import SharedUI
 /// histories card defaults to its content warning expanded.
 public struct TraditionGalleryView: View {
     @Environment(\.modelContext) private var modelContext
+    @Environment(\.gamificationService) private var gamification
     @State private var catalog: TraditionCatalog?
     @State private var loadError: String?
 
@@ -33,6 +34,10 @@ public struct TraditionGalleryView: View {
                     ForEach(catalog.entries) { entry in
                         TraditionCard(entry: entry, onExplore: {
                             VoiceTaleStore.recordTraditionExplored(slug: entry.slug, in: modelContext)
+                            gamification.awardXP(
+                                for: .traditionExplored(slug: entry.slug),
+                                in: modelContext
+                            )
                         })
                     }
                 }
