@@ -12,11 +12,11 @@ Core 60-120 second record-a-tale loop with 5-beat timer skeleton, on-device tran
 - [x] Create `Packages/Libraries/Package.swift` with 6 targets (Models, Services, VoiceAuthoring, SharedUI, AIMentor, AppFeature) — `GameEngine` slot replaced with `VoiceAuthoring` per `Docs/TECHNICAL_DESIGN.md` (no SpriteKit surface)
 - [x] Add ForgeKit dependency (remote GitHub URL, `from: "0.99.0"`)
 - [x] Create stub source files for all targets — Phase 0 close-out 2026-06-19
-- [ ] Verify build succeeds with zero warnings — blocked on Xcode-UI Steps 1–3 per `Docs/HANDOFF_TO_USER_XCODE_WORKSPACE_INTEGRATION.md`
+- [x] Verify build succeeds with zero warnings — Xcode-UI Steps 1–4 closed 2026-06-21 per `Docs/HANDOFF_TO_USER_XCODE_WORKSPACE_INTEGRATION.md` (status: CLOSED)
 - [x] Create `.xcworkspace` referencing `Apps/VoiceTale/VoiceTale.xcodeproj` (user-generated)
-- [ ] Add `Packages/Libraries` to the workspace via `File > Add Package Dependencies > Add Local...` — blocked on user (Xcode UI; `.claude/rules/xcode-agent-safety.md`)
-- [ ] Link `AppFeature` library into `VoiceTale` app target → `General > Frameworks` — blocked on user (Xcode UI)
-- [ ] Add 7 SPM test targets to `VoiceTale.xctestplan` via Edit Scheme → Test → Test Plans — blocked on user (Xcode UI)
+- [x] Add `Packages/Libraries` to the workspace via `File > Add Package Dependencies > Add Local...` (user-completed 2026-06-20)
+- [x] Link `AppFeature` library into `VoiceTale` app target → `General > Frameworks` (user-completed 2026-06-20; commit `c67ee1a`)
+- [x] Add 7 SPM test targets to `VoiceTale.xctestplan` via Edit Scheme → Test → Test Plans (user-completed 2026-06-20; commit `c67ee1a`)
 - [x] Add `NSMicrophoneUsageDescription` + `NSSpeechRecognitionUsageDescription` to Info.plist with kid-readable copy — DONE 2026-06-21 via Xcode UI (set as `INFOPLIST_KEY_NS*` in both build configs)
 
 ### Data Layer
@@ -105,10 +105,10 @@ Core 60-120 second record-a-tale loop with 5-beat timer skeleton, on-device tran
 
 ### Quality
 
-- [ ] Unit tests for 5-beat timer + boundary nudge logic
-- [ ] Unit tests for transcript pipeline fallback when permission denied
-- [ ] Unit tests for `VoiceStoryReflection` static fallbacks
-- [ ] Unit tests for tradition catalog loading
+- [x] Unit tests for 5-beat timer + boundary nudge logic (`BeatTimer` suite in `VoiceAuthoringActorTests.swift` — totalSeconds / startOffset / progressWithinBeat / isWithinTolerance / buildTimeline)
+- [x] Unit tests for transcript pipeline fallback when permission denied (`TranscriptPipeline.transcribeWithoutDescriptionThrows` + `PermissionGate` suite in `VoiceAuthoringActorTests.swift`)
+- [x] Unit tests for `VoiceStoryReflection` static fallbacks (`BrambleFallbackCatalog` suite in `BrambleMentorTests.swift` — covers all 4 moods × 5 beats = 20 entries + open-ended-prompt check)
+- [x] Unit tests for tradition catalog loading (`TraditionCatalogLoaderTests` suite in `VoiceTalePersistenceTests.swift` — 5 Phase-1 slugs + cultural-credit + Indigenous content-warning + crisis-resources + audio-sample-filename schema contract)
 - [ ] UI tests for record → review → reflect flow
 - [ ] UI tests for anthology + tradition + daily prompt flows
 - [ ] Accessibility audit (VoiceOver / Dynamic Type / color contrast; mic-recording status spoken)
