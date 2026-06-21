@@ -1,3 +1,12 @@
+---
+status: NO-ACTION
+date: 2026-06-02
+classified: 2026-06-21
+direction: labsmith → app
+intent: heads-up about avatar API simplification — VoiceTale pinned to ForgeKit 0.99 (legacy composable API) per IMPLEMENTATION_HANDOFF.md § 7; adopt the simplified Contacts-style API when (if) pin bumps to 1.0.0-rc.1+
+freshness-horizon: 365 days
+---
+
 # Handoff from Labsmith — Avatar system simplified (Contacts-style)
 
 Direction: **labsmith → app**. ForgeAvatar's composable chunky-cartoon avatar system has been replaced with a simplified Contacts-style design (tint circle + initial / SF Symbol / emoji glyph + optional per-app themed glyph override). Per ADR-022 (**ACCEPTED 2026-06-02** — founder ACK). **ForgeKit 1.0.0-rc.1 SHIPPED 2026-06-02** — tag pushed, 29 ForgeAvatarTests + 103 ForgeSyncTests green, API conforms to spec exactly. CQ + CubeSensei sessions are now UNBLOCKED to execute their per-app migration handoffs. This handoff is distributed to every app repo as a heads-up; the **action required** column below tells each app what (if anything) it needs to do.

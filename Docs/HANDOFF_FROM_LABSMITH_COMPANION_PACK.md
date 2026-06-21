@@ -1,3 +1,12 @@
+---
+status: ASSETS-SHIPPED-INTEGRATION-PARTIAL
+date: 2026-06-04
+classified: 2026-06-21
+direction: labsmith → app
+intent: Companion Pack PDFs bundled (4 PDFs + manifest); CompanionPackLoader shipped; CompanionPackView fully wired pending
+freshness-horizon: 60 days
+---
+
 # Implementation Handoff — Companion Pack PDFs
 
 This app repo's `Resources/CompanionPack/` was bundled by the labsmith companion-pack PDF pipeline (queue #332, per `Docs/RESEARCH_STORYTIME_LEARNING_GENERALIZATION.md` § 5.4). This doc tells the implementing Claude Code session what's in the bundle, how to surface it in-app, and how to keep it in sync with the website.

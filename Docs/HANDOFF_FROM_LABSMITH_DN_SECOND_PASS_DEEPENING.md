@@ -1,3 +1,12 @@
+---
+status: METHODOLOGY-SHIPPED
+date: 2026-05-26
+classified: 2026-06-21
+direction: labsmith → app
+intent: DN-D second-pass deepening methodology — applies as a design lens during Phase 1 implementation; not a discrete app-side ticket
+freshness-horizon: 365 days
+---
+
 # Handoff from Labsmith — DN Second-Pass Deepening (VoiceTale)
 
 Direction: **labsmith → app**. Codifies the DN-D second-pass deepening moves for VoiceTale per `labsmith/Docs/AMENDMENTS_DN_METHODOLOGY_SECOND_PASS_DEEPENING.md` (Round 83 #432) — the methodology amendment that opened the depth axis after Round 73 closed the breadth axis at 100% first-pass DN coverage.

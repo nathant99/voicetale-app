@@ -1,3 +1,12 @@
+---
+status: ASSETS-SHIPPED
+date: 2026-06-19
+classified: 2026-06-21
+direction: hub → app
+intent: dual-tier book covers shipped to Resources/CustomArt/voicetale/ + spark-anvil-site/public/books/covers/voicetale/; FYI handoff, no app-side action required
+freshness-horizon: 365 days
+---
+
 # Handoff from Hub — Voicetale Book Covers (dual-tier)
 
 Direction: **hub → app**. Per-tier book cover assets shipped to the app repo + distributed to spark-anvil-site `/books` rendering surface.

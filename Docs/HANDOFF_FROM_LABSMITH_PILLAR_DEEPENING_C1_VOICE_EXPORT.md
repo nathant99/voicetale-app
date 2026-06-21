@@ -1,3 +1,12 @@
+---
+status: PHASE-A-DESIGN-PENDING
+date: 2026-05-26
+classified: 2026-06-21
+direction: labsmith → app
+intent: C1 voice-export deepening — Phase A design questions (recording length cap; CAF vs MP3 export; cast-anchored prompts) need user input before Phase B core wiring
+freshness-horizon: 90 days
+---
+
 # Handoff from Labsmith — Pillar Deepening: VoiceTale (C1 Shippable Artifact (CAF voice export))
 
 Direction: **labsmith → voicetale-app**. Round 82 #425 Wave 1 ships **C1 (Shippable Artifact (CAF voice export))** as the recommended Writing-craft / audio cluster deepening move for VoiceTale. Voice-narrated story recordings are the canonical use case for C1 per `PLAN_PILLAR_DEEPENING_METHODOLOGY.md` § 2.2. This handoff specifies how to wire the move against VoiceTale's existing surfaces.

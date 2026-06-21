@@ -1,3 +1,12 @@
+---
+status: TYPE-LAYER-SHIPPED
+date: 2026-06-21
+classified: 2026-06-21
+direction: labsmith → app
+intent: layered DN enhancement (4 LESSONS preserved + 2 WORLD-layer cluster-shared + 1 optional META) — type-layer shipped PR #31; Phase D inherits from LyricForge handoff
+freshness-horizon: 365 days
+---
+
 # Handoff from Labsmith — Distributed-Narrative ENHANCEMENT (Layered Methodology)
 
 Direction: **labsmith → voicetale-app**. Companion to (not replacement of) the 2026-05-22 `HANDOFF_FROM_LABSMITH_DISTRIBUTED_NARRATIVE_RETROFIT.md` (Wave 9). Expands the named cast from 4 LESSONS-layer + Bramble mentor → 7 (4 LESSONS preserved + 2 net-new cluster-shared WORLD-layer voice-register characters + 1 optional flag). Bramble remains the protagonist + listener-anchor (Pattern B preserved with VoiceTale's listener-inversion intact).
