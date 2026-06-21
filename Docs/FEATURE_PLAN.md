@@ -17,7 +17,7 @@ Core 60-120 second record-a-tale loop with 5-beat timer skeleton, on-device tran
 - [ ] Add `Packages/Libraries` to the workspace via `File > Add Package Dependencies > Add Local...` — blocked on user (Xcode UI; `.claude/rules/xcode-agent-safety.md`)
 - [ ] Link `AppFeature` library into `VoiceTale` app target → `General > Frameworks` — blocked on user (Xcode UI)
 - [ ] Add 7 SPM test targets to `VoiceTale.xctestplan` via Edit Scheme → Test → Test Plans — blocked on user (Xcode UI)
-- [ ] Add `NSMicrophoneUsageDescription` + `NSSpeechRecognitionUsageDescription` to Info.plist with kid-readable copy — blocked on user (Xcode UI; `.claude/rules/xcode-agent-safety.md` + `.claude/rules/warnings.md` § Privacy-Gated Frameworks)
+- [x] Add `NSMicrophoneUsageDescription` + `NSSpeechRecognitionUsageDescription` to Info.plist with kid-readable copy — DONE 2026-06-21 via Xcode UI (set as `INFOPLIST_KEY_NS*` in both build configs)
 
 ### Data Layer
 
