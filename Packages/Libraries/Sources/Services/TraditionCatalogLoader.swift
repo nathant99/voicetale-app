@@ -11,7 +11,7 @@ public enum TraditionCatalogLoader {
     }
 
     public static func loadBundled() throws -> TraditionCatalog {
-        guard let url = Bundle.module.url(
+        guard let url = ResourceLookup.url(
             forResource: "traditions",
             withExtension: "json",
             subdirectory: "Traditions"

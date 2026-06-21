@@ -122,6 +122,25 @@ struct QuestionKitLoaderTests {
         }
     }
 
+    @Test func rotationSeedIsStableAndCoversAllKits() throws {
+        // Rotation must be deterministic for the same seed AND must cover the
+        // full 4-kit space across consecutive seeds so the cast cameo strip
+        // surfaces variety per `@Docs/HANDOFF_FROM_LABSMITH_DN_S_AI_MENTOR_VOICING.md` Move B.
+        let kit0 = try QuestionKitLoader.loadKitForRotation(seed: 0)
+        let kit0Again = try QuestionKitLoader.loadKitForRotation(seed: 0)
+        #expect(kit0.kit == kit0Again.kit)
+
+        let kitNumbers = try (0..<4).map { try QuestionKitLoader.loadKitForRotation(seed: $0).kit }
+        #expect(Set(kitNumbers) == Set([1, 2, 3, 4]))
+    }
+
+    @Test func rotationHandlesNegativeSeeds() throws {
+        // Hash-style seeds can be negative — `loadKitForRotation` MUST use
+        // `abs(_)` (verified by ensuring a negative seed doesn't throw).
+        let kit = try QuestionKitLoader.loadKitForRotation(seed: -17)
+        #expect((1...4).contains(kit.kit))
+    }
+
     @Test func choiceQuestionsHaveCorrectIndex() throws {
         let kits = try QuestionKitLoader.loadAllPhase1Kits()
         for kit in kits {

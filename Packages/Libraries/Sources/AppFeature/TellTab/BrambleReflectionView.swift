@@ -1,24 +1,33 @@
 import SwiftUI
 import Models
+import SharedUI
 
 /// Presents Bramble's listening-coach reflection — one to two craft
 /// observations + one open-ended Socratic prompt. Designed to be the
 /// terminal screen of the record → review → reflect flow; callers wire
 /// ``onSave`` / ``onRetell`` for the next-step affordances.
+///
+/// Phase 1 DN-S Move B per
+/// `@Docs/HANDOFF_FROM_LABSMITH_DN_S_AI_MENTOR_VOICING.md`: when callers pass
+/// a non-nil ``kit``, the view appends a cast-cameo strip surfacing the kit's
+/// four `CastCameo` lines beneath the Socratic prompt.
 public struct BrambleReflectionView: View {
     public let reflection: VoiceStoryReflection?
     public let isThinking: Bool
+    public let kit: QuestionKit?
     public let onSave: () -> Void
     public let onRetell: () -> Void
 
     public init(
         reflection: VoiceStoryReflection?,
         isThinking: Bool,
+        kit: QuestionKit? = nil,
         onSave: @escaping () -> Void,
         onRetell: @escaping () -> Void
     ) {
         self.reflection = reflection
         self.isThinking = isThinking
+        self.kit = kit
         self.onSave = onSave
         self.onRetell = onRetell
     }
@@ -30,6 +39,13 @@ public struct BrambleReflectionView: View {
                 thinkingState
             } else if let reflection {
                 reflectionBody(reflection)
+                if let kit {
+                    CastCameoStripView(
+                        cameos: kit.castCameos,
+                        anchorSlug: kit.anchorCharacterSlug,
+                        kitTitle: kit.title
+                    )
+                }
             } else {
                 ContentUnavailableView(
                     "No reflection yet",
