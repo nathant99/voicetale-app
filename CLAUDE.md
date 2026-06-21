@@ -34,6 +34,8 @@ Prefer MCP `BuildProject` / `RunSomeTests` over `xcodebuild` when Xcode is open 
 ## Xcode File Safety (LOAD-BEARING — read before any write)
 
 > 🛑 **CRITICAL**: The Claude agent runs **inside Xcode** (Coding Assistant integration). Writing to any Xcode-managed file can force a workspace reload that **terminates the agent session mid-task**. This rule is non-negotiable — file a handoff doc instead.
+>
+> **User direction (load-bearing, 2026-06-20)**: *"Do not author or edit Xcode-managed files — including the Xcode **workspace** file and the Xcode **scheme / test plan** files. Instead, file a handoff doc with the user to do Xcode-UI work. Staging and committing Xcode-managed files (after the user generates them via Xcode) is OK; **authoring the bytes from disk is not**."* Codified as durable preference in agent memory + `.claude/rules/xcode-agent-safety.md`.
 
 ### Never write these from disk
 

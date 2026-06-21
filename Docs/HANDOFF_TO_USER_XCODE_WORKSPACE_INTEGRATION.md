@@ -1,6 +1,6 @@
 ---
 status: ACTIVE
-date: 2026-06-19
+date: 2026-06-20
 direction: agent → user
 intent: ask the user to perform the Xcode-UI steps the agent cannot do safely (workspace add-package, target framework link, scheme test-plan add, Info.plist usage descriptions)
 freshness-horizon: 30 days
@@ -10,7 +10,16 @@ freshness-horizon: 30 days
 
 Direction: **agent → user**. The Phase 0 ForgeKit bootstrap PR landed `Packages/Libraries/Package.swift` + 6 SPM targets + tests + stub Swift files + documentation. The remaining steps require Xcode UI — the agent cannot write `.xcworkspace` / `.pbxproj` / `.xcscheme` / `Info.plist` from disk (would corrupt the workspace or terminate the agent session per `@.claude/rules/xcode-agent-safety.md`).
 
-Please do the following 4 steps in Xcode. Each is reversible.
+## Status (as of 2026-06-20)
+
+| Step | Status | Evidence |
+|---|---|---|
+| Step 1 — Add `Packages/Libraries` to workspace | ✅ DONE | Workspace resolves package; `Libraries` is a member of `VoiceTale.xcworkspace`. |
+| Step 2 — Link `AppFeature` into VoiceTale app target | ✅ DONE | Per commit `c67ee1a` (Xcode-UI linkage). |
+| Step 3 — Add SPM test targets to `VoiceTale.xctestplan` | ✅ DONE | Per commit `c67ee1a` — 7 SPM test targets now referenced via `container:../../Packages/Libraries`. |
+| **Step 4 — Add Info.plist usage descriptions** | **❌ PENDING** | `NSMicrophoneUsageDescription` + `NSSpeechRecognitionUsageDescription` not yet present. Defensive gates in `SpeechRecognitionService` no-op until added; record/transcript features stay dark until then. |
+
+Please do the remaining step in Xcode. Each is reversible.
 
 ## Step 1 — Add `Packages/Libraries` as a local SPM package in the workspace
 
