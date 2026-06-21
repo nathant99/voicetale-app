@@ -61,6 +61,24 @@ struct TraditionCatalogLoaderTests {
         #expect(resources.contains { $0.name.contains("Crisis Text Line") })
         #expect(resources.contains { $0.name.contains("Childhelp") })
     }
+
+    /// Phase 1 ship-blocker per `Docs/FEATURE_PLAN.md` lines 28 + 62: each
+    /// entry MUST eventually carry an `audioSampleFilename` pointing to a
+    /// bundled CAF. Until the labsmith handoff
+    /// (`Docs/HANDOFF_FROM_APP_TRADITION_AUDIO_SAMPLES.md`) lands the audio,
+    /// the field stays `nil` and the gallery view shows "Audio coming soon."
+    /// This test pins the contract so future PRs that bundle audio also
+    /// update the manifest correctly (verified by changing this test to
+    /// `expect != nil` once the audio ships).
+    @Test func audioSampleFilenamesFollowExpectedSchema() throws {
+        let catalog = try TraditionCatalogLoader.loadBundled()
+        for entry in catalog.entries {
+            if let filename = entry.audioSampleFilename {
+                #expect(filename.hasSuffix(".caf"),
+                        "Audio samples must be CAF per .claude/rules/audio-pipeline.md; \(entry.slug) ships \(filename)")
+            }
+        }
+    }
 }
 
 @Suite("CompanionPackLoader")
