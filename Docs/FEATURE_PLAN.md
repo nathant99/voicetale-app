@@ -105,11 +105,12 @@ Core 60-120 second record-a-tale loop with 5-beat timer skeleton, on-device tran
 
 ### Onboarding
 
-- [ ] Create 5-step onboarding flow (welcome, mic permission, first 30-second tale, transcript review, Bramble first reflection)
-- [ ] Implement aha moment: first Socratic reflection that surfaces something the kid didn't realize they did
-- [ ] Implement progressive disclosure (Session 1: free-form tell, beat timer optional)
-- [ ] Implement parent handoff flow (30s setup; explicit on mic permission)
-- [ ] Implement Apple Declared Age Range API gate (iOS 26+)
+- [x] Create 5-step onboarding flow (welcome / mic permission / 5-beat arc primer / transcript review / Bramble first reflection) via `OnboardingFlowView` wrapping `ForgeUI.ForgeOnboardingFlow`
+- [x] Implement aha moment framing on page 5 ("Bramble will share one or two small things they noticed — and ask you a single open question. There are no grades.")
+- [x] Implement parent handoff flow on page 2 (mic permission page flagged `isParentHandoff: true` so ForgeOnboardingFlow surfaces the parent callout)
+- [x] Gate onboarding behind `@AppStorage("voicetale.hasCompletedOnboarding")` in `AppRootView` so returning users see the 4-tab TabView directly
+- [ ] Implement progressive disclosure (Session 1: free-form tell, beat timer optional) — Phase 1.2 polish
+- [ ] Implement Apple Declared Age Range API gate (iOS 26+) — Phase 1.2; needs COPPA parental-consent flow + Info.plist work (Xcode-UI gated)
 
 ### Quality
 

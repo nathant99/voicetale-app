@@ -39,10 +39,16 @@ public struct AppRootView: View {
         }
     }
 
+    /// Persistence key for the onboarding-completion gate. Co-located here so
+    /// tests + UI-test launch arguments can flip the state without reaching
+    /// into a separate constants file.
+    public static let onboardingCompletedKey = "voicetale.hasCompletedOnboarding"
+
     @State private var selectedTab: AppTab = .tell
     @State private var gamification = GamificationService()
     @State private var analytics = AnalyticsService()
     @State private var hasBootstrapped = false
+    @AppStorage(AppRootView.onboardingCompletedKey) private var hasCompletedOnboarding: Bool = false
 
     /// Shared registry the source-app's ``VoiceTaleHubContribution`` registers
     /// with on launch. Other portfolio surfaces (e.g., AdventureHub) read from
@@ -53,6 +59,27 @@ public struct AppRootView: View {
     public init() {}
 
     public var body: some View {
+        Group {
+            if hasCompletedOnboarding {
+                tabSurface
+            } else {
+                OnboardingFlowView {
+                    hasCompletedOnboarding = true
+                }
+            }
+        }
+        .environment(\.gamificationService, gamification)
+        .environment(\.analyticsService, analytics)
+        .task {
+            guard !hasBootstrapped else { return }
+            hasBootstrapped = true
+            analytics.startSession()
+            analytics.track(.sessionStarted)
+            await hubRegistry.register(VoiceTaleHubContribution())
+        }
+    }
+
+    private var tabSurface: some View {
         TabView(selection: $selectedTab) {
             Tab(AppTab.tell.title, systemImage: AppTab.tell.systemImage, value: AppTab.tell) {
                 TellView()
@@ -66,15 +93,6 @@ public struct AppRootView: View {
             Tab(AppTab.profile.title, systemImage: AppTab.profile.systemImage, value: AppTab.profile) {
                 ProfileTabView()
             }
-        }
-        .environment(\.gamificationService, gamification)
-        .environment(\.analyticsService, analytics)
-        .task {
-            guard !hasBootstrapped else { return }
-            hasBootstrapped = true
-            analytics.startSession()
-            analytics.track(.sessionStarted)
-            await hubRegistry.register(VoiceTaleHubContribution())
         }
     }
 }
