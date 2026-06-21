@@ -1,11 +1,25 @@
 import SwiftUI
+import SwiftData
 import Models
+import Services
 import SharedUI
+import ForgeProgression
+import ForgeAdventure
+import ForgeModels
 
-/// Phase 1 Adventure tab — surfaces the Word Workshop zone as placeholder
-/// mode-card stubs until the Level 2 `VoiceTaleHubContribution` overlay
-/// lands per `@Docs/TECHNICAL_DESIGN.md` § Adventure Mode.
+/// Phase 1 Adventure tab — surfaces the Word Workshop zone as 4 mode-cards
+/// driven by a ``ForgeProgressionManager`` so the unlock thresholds match
+/// `@Docs/FEATURE_PLAN.md` § Adventure Mode (3 / 5 / 7 saved tales).
+///
+/// The cards are kept hand-authored at Phase 1 because the Level-2
+/// ``VoiceTaleHubContribution`` Quest-engine surface is the canonical entry
+/// point (registered on the shared ``HubContributionRegistry`` at app launch
+/// via ``AppRootView``); future Phase 1.1 / 2 work will surface mode-cards
+/// directly from the contribution's `kitResources`.
 public struct AdventureTabView: View {
+    @Environment(\.modelContext) private var modelContext
+    @State private var talesSavedCount: Int = 0
+
     public init() {}
 
     public var body: some View {
@@ -13,13 +27,17 @@ public struct AdventureTabView: View {
             ScrollView {
                 VStack(alignment: .leading, spacing: 16) {
                     header
-                    ForEach(modes, id: \.title) { mode in
-                        modeCard(mode)
+                    let manager = VoiceTaleProgressionGate.makeManager(
+                        talesSavedCount: talesSavedCount
+                    )
+                    ForEach(modes, id: \.gateID) { mode in
+                        modeCard(mode, manager: manager)
                     }
                 }
                 .padding()
             }
             .voiceTaleNavigationTitle("Word Workshop")
+            .onAppear(perform: refreshTalesCount)
         }
     }
 
@@ -33,8 +51,10 @@ public struct AdventureTabView: View {
         }
     }
 
-    private func modeCard(_ mode: ModeCard) -> some View {
-        HStack(alignment: .top, spacing: 14) {
+    private func modeCard(_ mode: ModeCard, manager: ForgeProgressionManager) -> some View {
+        let isUnlocked = manager.isUnlocked(mode.gateID)
+        let unlockHint = manager.unlockHint(for: mode.gateID) ?? ""
+        return HStack(alignment: .top, spacing: 14) {
             ZStack {
                 Circle()
                     .fill(mode.color.opacity(0.18))
@@ -47,7 +67,7 @@ public struct AdventureTabView: View {
                 HStack {
                     Text(mode.title)
                         .font(.headline)
-                    if mode.isLocked {
+                    if !isUnlocked {
                         Image(systemName: "lock.fill")
                             .foregroundStyle(.secondary)
                             .accessibilityHidden(true)
@@ -56,8 +76,8 @@ public struct AdventureTabView: View {
                 Text(mode.subtitle)
                     .font(.subheadline)
                     .foregroundStyle(.secondary)
-                if mode.isLocked {
-                    Text(mode.unlockHint)
+                if !isUnlocked {
+                    Text(unlockHint)
                         .font(.caption)
                         .foregroundStyle(.secondary)
                 }
@@ -66,54 +86,53 @@ public struct AdventureTabView: View {
         }
         .padding(16)
         .background(.thinMaterial, in: RoundedRectangle(cornerRadius: 16))
-        .opacity(mode.isLocked ? 0.6 : 1)
-        .accessibilityHint(mode.isLocked ? "Locked: \(mode.unlockHint)" : "Open this Word Workshop mode")
+        .opacity(isUnlocked ? 1 : 0.6)
+        .accessibilityHint(isUnlocked ? "Open this Word Workshop mode" : "Locked: \(unlockHint)")
+    }
+
+    private func refreshTalesCount() {
+        talesSavedCount = VoiceTaleStore.fetchTales(in: modelContext).count
     }
 
     private var modes: [ModeCard] {
         [
             ModeCard(
+                gateID: VoiceTaleProgressionGate.hookBuilderID,
                 title: "Hook Builder",
                 subtitle: "Tell 30-second openers; Lean's body shows whether the hook pulled.",
                 systemImage: "leaf.circle.fill",
-                color: .orange,
-                isLocked: false,
-                unlockHint: ""
+                color: .orange
             ),
             ModeCard(
+                gateID: VoiceTaleProgressionGate.pacingWalkID,
                 title: "Pacing Walk",
                 subtitle: "Tell your story to Slow's walking — pacing matches.",
                 systemImage: "tortoise.fill",
-                color: .green,
-                isLocked: true,
-                unlockHint: "Unlocks after 3 saved tales."
+                color: .green
             ),
             ModeCard(
+                gateID: VoiceTaleProgressionGate.turnDrillID,
                 title: "Turn Drill",
                 subtitle: "Set up beats 1-3 so beat 4 rotates the meaning. Pivot watches.",
                 systemImage: "arrow.triangle.2.circlepath",
-                color: .teal,
-                isLocked: true,
-                unlockHint: "Unlocks after 5 saved tales."
+                color: .teal
             ),
             ModeCard(
+                gateID: VoiceTaleProgressionGate.callbackRefrainID,
                 title: "Callback Refrain",
                 subtitle: "A phrase at the open, the same phrase at the close. Refrain keeps score.",
                 systemImage: "repeat",
-                color: .pink,
-                isLocked: true,
-                unlockHint: "Unlocks after 7 saved tales."
+                color: .pink
             ),
         ]
     }
 
     private struct ModeCard {
+        let gateID: String
         let title: String
         let subtitle: String
         let systemImage: String
         let color: Color
-        let isLocked: Bool
-        let unlockHint: String
     }
 }
 

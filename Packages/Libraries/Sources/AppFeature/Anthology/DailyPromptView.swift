@@ -4,6 +4,7 @@ import SwiftUI
 /// a soft nudge. Phase 1 uses a hand-authored prompt pool seeded by the
 /// current ordinal day; Phase 2 will rotate from a bundled JSON.
 public struct DailyPromptView: View {
+    @Environment(\.analyticsService) private var analytics
     public let prompt: String
 
     public init(prompt: String = DailyPromptView.todaysPrompt()) {
@@ -22,6 +23,7 @@ public struct DailyPromptView: View {
         .frame(maxWidth: .infinity, alignment: .leading)
         .background(.thinMaterial, in: RoundedRectangle(cornerRadius: 12))
         .padding(.horizontal)
+        .onAppear { analytics.track(.dailyPromptViewed) }
     }
 
     /// Returns a prompt selected by the day-of-year — stable per day, rotates

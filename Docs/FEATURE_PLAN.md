@@ -80,6 +80,13 @@ Core 60-120 second record-a-tale loop with 5-beat timer skeleton, on-device tran
 - [x] Build `SettingsView` with privacy posture + crisis-resource list (PR #25); parental gate Phase 1 onboarding
 - [ ] Build `QuizView` for question kits — deferred to Phase 1.1 (kit content shipped PR #24)
 
+### Analytics (on-device, COPPA-safe)
+
+- [x] Wire `ForgeAnalytics.AnalyticsEngine` via app-local `AnalyticsService` (`@Observable @MainActor` wrapper; environment-injected from `AppRootView`)
+- [x] Author `VoiceTaleAnalyticsEvent` typed enum (9 events: session-started / tale-recording-started / tale-recording-completed / tale-saved / tale-retold / reflection-shown / tradition-explored / daily-prompt-viewed / avatar-sheet-opened) with categorical-only properties (mood / beat / character slug; transcript never emitted; duration bucketed)
+- [x] Emit at user-action sites: `TellView` (start / completed / save / retell / reflection-shown), `TraditionGalleryView` (tradition-explored), `DailyPromptView` (daily-prompt-viewed)
+- [x] AnalyticsService + event vocabulary unit tests (`AnalyticsServiceTests`)
+
 ### Gamification
 
 - [x] Integrate ForgeGamification `XPEngine` for leveling (PR #30 via `Services.GamificationService`)
@@ -90,10 +97,11 @@ Core 60-120 second record-a-tale loop with 5-beat timer skeleton, on-device tran
 
 ### Adventure Mode
 
-- [ ] Wire Level 1 config from `spark-anvil-hub/Resources/HubContributions/voicetale.json` (Word Workshop zone)
-- [ ] Implement `VoiceTaleHubContribution` Level 2 Swift overlay in `Libraries/Sources/AppFeature/HubContribution/`
-- [ ] Register mode-cards in `AdventureView`
-- [ ] Wire `ForgeProgressionManager` gating
+- [ ] Wire Level 1 config from `spark-anvil-hub/Resources/HubContributions/voicetale.json` (Word Workshop zone) — pending hub repo handoff
+- [x] Implement `VoiceTaleHubContribution` Level 2 Swift overlay in `Libraries/Sources/AppFeature/HubContribution/` (Bramble mentor persona + Quest engine + 4 kit resources)
+- [x] Register mode-cards in `AdventureView` (Hook Builder / Pacing Walk / Turn Drill / Callback Refrain — driven from `VoiceTaleProgressionGate`)
+- [x] Wire `ForgeProgressionManager` gating (3 / 5 / 7 saved-tales metric thresholds via `SecondaryCriterion`; manager built per-render from live anthology count)
+- [x] Register `VoiceTaleHubContribution` on `HubContributionRegistry` at app launch (`AppRootView.task`)
 
 ### Onboarding
 

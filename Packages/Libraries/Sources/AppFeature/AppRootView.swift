@@ -2,12 +2,14 @@ import SwiftUI
 import SwiftData
 import Models
 import Services
+import ForgeAdventure
 
 /// Environment slot for the shared ``GamificationService`` instance. Views
 /// award XP / record sessions / evaluate achievements via this key per
 /// `@.claude/rules/swiftui.md` § `@Entry` macro.
 extension EnvironmentValues {
     @Entry public var gamificationService: GamificationService = GamificationService()
+    @Entry public var analyticsService: AnalyticsService = AnalyticsService()
 }
 
 /// Top-level app shell. Hosts a 4-tab `TabView` (Tell / Adventure / Progress
@@ -39,6 +41,14 @@ public struct AppRootView: View {
 
     @State private var selectedTab: AppTab = .tell
     @State private var gamification = GamificationService()
+    @State private var analytics = AnalyticsService()
+    @State private var hasBootstrapped = false
+
+    /// Shared registry the source-app's ``VoiceTaleHubContribution`` registers
+    /// with on launch. Other portfolio surfaces (e.g., AdventureHub) read from
+    /// the same registry once VoiceTale is opted-in cross-app. Stored as an
+    /// actor reference so registration can happen off the main actor.
+    private let hubRegistry = HubContributionRegistry()
 
     public init() {}
 
@@ -58,6 +68,14 @@ public struct AppRootView: View {
             }
         }
         .environment(\.gamificationService, gamification)
+        .environment(\.analyticsService, analytics)
+        .task {
+            guard !hasBootstrapped else { return }
+            hasBootstrapped = true
+            analytics.startSession()
+            analytics.track(.sessionStarted)
+            await hubRegistry.register(VoiceTaleHubContribution())
+        }
     }
 }
 
