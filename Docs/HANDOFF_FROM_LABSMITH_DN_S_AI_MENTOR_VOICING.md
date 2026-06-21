@@ -1,6 +1,7 @@
 ---
-status: NEW
+status: PARTIALLY-DONE
 date: 2026-06-01
+implementation-status-updated: 2026-06-21
 round: Round 405 #828 (labsmith DN-S Integration Phase 1D portfolio rollout — voicetale)
 parent-decision: labsmith/Docs/DECISION_DN_S_AI_MENTOR_PORTFOLIO_ROLLOUT.md
 parent-plan: labsmith/Docs/PLAN_DN_S_PORTFOLIO_ROLLOUT_WAVES_2026-06-01.md
@@ -40,11 +41,13 @@ A per-app `CastVoiceRegistry` (Swift) mapping voicetale's 4 cast members' chapte
 
 Follow `labsmith/Docs/TEMPLATE_HANDOFF_FROM_LABSMITH_DN_S_AI_MENTOR_VOICING.md` § Implementation, customized to voicetale's cast:
 
-1. Derive `CastVoiceProfile` per chapter using `labsmith/Docs/SCHEMA_CAST_VOICE_REGISTRY.md`
-2. Build `CastVoiceRegistry` at app launch
-3. Wire AI mentor call sites to invoke `castDialog.respondAs(.character(slug), prompt:, context:)`
-4. Feature-flag via `ForgeExperiments.castVoicing` (default off; TestFlight enable)
-5. Regression-test moderation pipeline (100 sample interactions across diverse contexts)
+1. [x] Derive `CastVoiceProfile` per chapter using `labsmith/Docs/SCHEMA_CAST_VOICE_REGISTRY.md` — DONE (PR #22 shipped `AIMentor.CastVoiceRegistry` with all 4 profiles)
+2. [x] Build `CastVoiceRegistry` at app launch — DONE (`CastVoiceRegistry.register(into:)` exposed; awaiting `BrambleMentor` `CastDialog` wiring per Phase 1.1)
+3. [ ] Wire AI mentor call sites to invoke `castDialog.respondAs(.character(slug), prompt:, context:)` — deferred to Phase 1.1 (requires `BrambleMentor` to upgrade from `LanguageModelSession` → `CastDialog`-backed session)
+4. [ ] Feature-flag via `ForgeExperiments.castVoicing` (default off; TestFlight enable) — deferred (depends on step 3)
+5. [ ] Regression-test moderation pipeline (100 sample interactions across diverse contexts) — deferred (depends on step 3 + 4)
+
+**PR 4 (2026-06-21) status**: steps 1 + 2 complete and tested (6 tests in `CastVoiceRegistryTests` + 4 profiles registered via `CastDialog`). Steps 3-5 are scoped to Phase 1.1 / 1D-follow-on PR — the existing `BrambleMentor.LanguageModelSession` path stays in place; the upgrade to `CastDialog` is a non-trivial mentor-API swap that warrants its own PR and ~14d telemetry observation per the parent decision.
 
 ## Pilot-derived learnings (codified per `DECISION_DN_S_AI_MENTOR_PORTFOLIO_ROLLOUT.md`)
 
