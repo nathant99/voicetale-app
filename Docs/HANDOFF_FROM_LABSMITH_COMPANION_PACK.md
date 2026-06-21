@@ -1,10 +1,11 @@
 ---
-status: ASSETS-SHIPPED-INTEGRATION-PARTIAL
+status: SHIPPED
 date: 2026-06-04
+shipped: 2026-06-21
 classified: 2026-06-21
 direction: labsmith → app
-intent: Companion Pack PDFs bundled (4 PDFs + manifest); CompanionPackLoader shipped; CompanionPackView fully wired pending
-freshness-horizon: 60 days
+intent: Companion Pack end-to-end — PDFs bundled (4 PDFs + manifest) → CompanionPackLoader → CompanionPackView (QLPreviewController) → ProfileTab "Print + share companion pack" row. ResourceLookup fix (PR #38) unblocked the runtime path.
+freshness-horizon: 365 days
 ---
 
 # Implementation Handoff — Companion Pack PDFs
