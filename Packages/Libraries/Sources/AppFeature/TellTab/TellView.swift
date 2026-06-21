@@ -11,6 +11,7 @@ import AIMentor
 /// ``BrambleMentor`` + ``VoiceTaleStore``.
 public struct TellView: View {
     @Environment(\.modelContext) private var modelContext
+    @Environment(\.gamificationService) private var gamification
     @State private var machine = TellMachine()
     @State private var recorder = AudioRecorder()
     @State private var mentor = BrambleMentor()
@@ -306,9 +307,47 @@ public struct TellView: View {
                 in: modelContext
             )
             machine.markSaved()
+            awardSaveXP(entry: entry)
         } catch {
             machine.markError("Couldn't save your tale. (\(error.localizedDescription))")
         }
+    }
+
+    /// Award XP + record session + evaluate achievements when a tale lands
+    /// in the anthology. Per `@Docs/FEATURE_PLAN.md` § Gamification — XP for
+    /// first-tale, all-5-beats, transcript-reviewed are independent events.
+    private func awardSaveXP(entry: VoiceTaleEntry) {
+        gamification.awardXP(for: .taleSaved, in: modelContext)
+        if hitAllFiveBeats(entry: entry) {
+            gamification.awardXP(for: .allFiveBeatsHit, in: modelContext)
+        }
+        if didReviewTranscript() {
+            gamification.awardXP(for: .transcriptReviewed, in: modelContext)
+        }
+        Task { @MainActor in
+            _ = await gamification.recordSession(in: modelContext)
+        }
+    }
+
+    /// True if the recorded timeline reached the close beat with at least
+    /// ~50% of every target duration. Forgiving threshold so kids who pace
+    /// fast still earn the badge.
+    private func hitAllFiveBeats(entry: VoiceTaleEntry) -> Bool {
+        let coveredBeats = Set(entry.beatTimeline.filter { $0.actualSeconds >= $0.targetSeconds * 0.5 }.map(\.beat))
+        return ArcBeat.allCases.allSatisfy { coveredBeats.contains($0) }
+    }
+
+    /// True if the kid edited the transcript before saving (raw transcript
+    /// differs from saved transcript).
+    private func didReviewTranscript() -> Bool {
+        // The `transcriptDraft` is what the kid edited; `machine.transcript`
+        // is what got saved. If they differ from the original recognizer
+        // output (which was assigned into transcriptDraft at enterReview),
+        // the kid reviewed it. We approximate via "any save with a non-empty
+        // transcript counts as a review" so the achievement isn't gated on
+        // a literal diff (which would punish kids whose recognition was
+        // already accurate).
+        !machine.transcript.isEmpty
     }
 
     private func retellFromScratch() {

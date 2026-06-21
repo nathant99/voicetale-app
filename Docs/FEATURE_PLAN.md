@@ -82,11 +82,11 @@ Core 60-120 second record-a-tale loop with 5-beat timer skeleton, on-device tran
 
 ### Gamification
 
-- [ ] Integrate ForgeGamification `XPEngine` for leveling
-- [ ] Integrate `StreakManager` for daily engagement
-- [ ] Integrate `AchievementEngine` with first 10 Phase-1 achievements
-- [ ] Wire question kits 01-04 via `Bundle.module` (hook / sensory detail / arc / mood)
-- [ ] Implement XP awards for: first tale told, all 5 beats hit, transcript reviewed, tradition explored
+- [x] Integrate ForgeGamification `XPEngine` for leveling (PR #30 via `Services.GamificationService`)
+- [x] Integrate `StreakManager` for daily engagement (PR #30 — `recordSession` wired at tale-save)
+- [x] Integrate `AchievementEngine` with first 10 Phase-1 achievements (PR #30 — `VoiceTaleAchievementCatalog.phase1`)
+- [x] Wire question kits 01-04 via `Bundle.module` (hook / sensory detail / arc / mood) — shipped PR #24 via `QuestionKitLoader`
+- [x] Implement XP awards for: first tale told, all 5 beats hit, transcript reviewed, tradition explored (PR #30 — `awardSaveXP` in TellView + tradition explore in TraditionGalleryView)
 
 ### Adventure Mode
 
