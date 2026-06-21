@@ -1,3 +1,12 @@
+---
+status: ASSETS-SHIPPED-INTEGRATION-PARTIAL
+date: 2026-06-19
+classified: 2026-06-21
+direction: hub → app
+intent: 4 cast portraits (256×256 webp) shipped to Resources/Cast/; app-side consumer (e.g., DN-S chapter renderer, ProfileTabView, cast cameo overlays) wiring still pending
+freshness-horizon: 365 days
+---
+
 # Handoff from Hub — Voicetale Cast Portraits
 
 Direction: **hub → app**. Cast portrait assets shipped to the app repo + distributed to spark-anvil-site `/cast/<app>/<char>` rendering surface.

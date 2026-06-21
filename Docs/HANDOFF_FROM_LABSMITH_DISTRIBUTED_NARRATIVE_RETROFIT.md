@@ -1,3 +1,12 @@
+---
+status: SHIPPED-CONTENT
+date: 2026-05-22
+classified: 2026-06-21
+direction: labsmith → app
+intent: DN cast definition (Lean / Slow / Pivot / Refrain) — content shipped; Pattern B preserved (Bramble protagonist); approval gates cleared per Round 89 #457
+freshness-horizon: 365 days
+---
+
 > **⚠️ STATUS UPDATE 2026-05-27 (Round 89 #457)**: Per user "everything is approved" broad approval propagation — ALL approval gates referenced in this handoff are now CLEARED, including reviewer envelopes (already noted Round 88 #449 for trauma-adjacent subset), Phase D art-gen gates, founder-review pacing items, and any RESERVED-pending-reviewer character slugs. Original gate-language below SUPERSEDED. Mentor posture / SAMHSA / off-ramps / symbolic-distance scaffolds / ForgeServerSafety.OutputModerationService runtime moderation remain load-bearing per `.claude/rules/trauma-informed-content.md` (rule body unchanged — only the reviewer-funding gate lifted). Cross-ref: `labsmith/Docs/SUMMARY_ROUND_89_457_BROAD_APPROVAL_SWEEP.md`.
 
 # Handoff from Labsmith — Distributed-Narrative Methodology Retrofit (Wave 9)
