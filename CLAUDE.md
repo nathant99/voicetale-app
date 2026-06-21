@@ -35,7 +35,7 @@ Prefer MCP `BuildProject` / `RunSomeTests` over `xcodebuild` when Xcode is open 
 
 > 🛑 **CRITICAL**: The Claude agent runs **inside Xcode** (Coding Assistant integration). Writing to any Xcode-managed file can force a workspace reload that **terminates the agent session mid-task**. This rule is non-negotiable — file a handoff doc instead.
 >
-> **User direction (load-bearing, 2026-06-20)**: *"Do not author or edit Xcode-managed files — including the Xcode **workspace** file and the Xcode **scheme / test plan** files. Instead, file a handoff doc with the user to do Xcode-UI work. Staging and committing Xcode-managed files (after the user generates them via Xcode) is OK; **authoring the bytes from disk is not**."* Codified as durable preference in agent memory + `.claude/rules/xcode-agent-safety.md`.
+> **User direction (load-bearing, 2026-06-20; re-affirmed 2026-06-21)**: *"Do not author or edit Xcode-managed files — including the Xcode **workspace** file and the Xcode **scheme / test plan** files. Instead, file a handoff doc with the user to do Xcode-UI work. Staging and committing Xcode-managed files (after the user generates them via Xcode) is OK; **authoring the bytes from disk is not**."* Codified as durable preference in agent memory + `.claude/rules/xcode-agent-safety.md`. The re-affirmation came alongside the auto-cycle pre-approval for multi-commit work (feature branch → PR → merge → verify without per-step confirmation prompts on labsmith-owned + this repo) — see `.claude/rules/workflow.md` § Auto-Cycle Default.
 
 ### Never write these from disk
 
