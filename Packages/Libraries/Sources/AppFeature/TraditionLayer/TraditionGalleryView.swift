@@ -12,6 +12,7 @@ import SharedUI
 public struct TraditionGalleryView: View {
     @Environment(\.modelContext) private var modelContext
     @Environment(\.gamificationService) private var gamification
+    @Environment(\.analyticsService) private var analytics
     @State private var catalog: TraditionCatalog?
     @State private var loadError: String?
 
@@ -38,6 +39,7 @@ public struct TraditionGalleryView: View {
                                 for: .traditionExplored(slug: entry.slug),
                                 in: modelContext
                             )
+                            analytics.track(.traditionExplored(slug: entry.slug))
                         })
                     }
                 }

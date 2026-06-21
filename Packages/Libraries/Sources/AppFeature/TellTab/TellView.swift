@@ -12,6 +12,7 @@ import AIMentor
 public struct TellView: View {
     @Environment(\.modelContext) private var modelContext
     @Environment(\.gamificationService) private var gamification
+    @Environment(\.analyticsService) private var analytics
     @State private var machine = TellMachine()
     @State private var recorder = AudioRecorder()
     @State private var mentor = BrambleMentor()
@@ -228,6 +229,7 @@ public struct TellView: View {
             machine.markError("VoiceTale doesn't have permission to use the mic yet. Ask a grown-up to enable it in Settings.")
             return
         }
+        analytics.track(.taleRecordingStarted(mood: machine.draftMood))
         machine.phase = .requestingPermission
         Task { @MainActor in
             do {
@@ -255,6 +257,7 @@ public struct TellView: View {
                 if let captured = capturePerBeatActualSeconds(totalDuration: result.duration) {
                     timeline = captured
                 }
+                analytics.track(.taleRecordingCompleted(durationSeconds: result.duration, mood: machine.draftMood))
                 let transcript = await runTranscription(fileURL: result.fileURL)
                 machine.enterReview(transcript: transcript, timeline: timeline, audioFileURL: result.fileURL)
                 transcriptDraft = transcript
@@ -296,6 +299,11 @@ public struct TellView: View {
             beat: beatForReflection
         )
         machine.presentReflection(reflection)
+        analytics.track(.reflectionShown(
+            mood: machine.draftMood,
+            beat: beatForReflection,
+            modelAvailable: mentor.availability == .available
+        ))
     }
 
     /// Pick one of the 4 Phase 1 kits to surface the DN-S Move B cameo strip
@@ -324,6 +332,10 @@ public struct TellView: View {
                 in: modelContext
             )
             machine.markSaved()
+            analytics.track(.taleSavedToAnthology(
+                mood: entry.mood,
+                hitAllBeats: hitAllFiveBeats(entry: entry)
+            ))
             awardSaveXP(entry: entry)
         } catch {
             machine.markError("Couldn't save your tale. (\(error.localizedDescription))")
@@ -368,6 +380,7 @@ public struct TellView: View {
     }
 
     private func retellFromScratch() {
+        analytics.track(.taleRetold)
         machine.reset()
         transcriptDraft = ""
     }
