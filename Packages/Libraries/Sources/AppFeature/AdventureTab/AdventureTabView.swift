@@ -18,6 +18,7 @@ import ForgeModels
 /// directly from the contribution's `kitResources`.
 public struct AdventureTabView: View {
     @Environment(\.modelContext) private var modelContext
+    @Environment(\.accessibilityReduceTransparency) private var reduceTransparency
     @State private var talesSavedCount: Int = 0
 
     public init() {}
@@ -85,7 +86,7 @@ public struct AdventureTabView: View {
             Spacer()
         }
         .padding(16)
-        .background(.thinMaterial, in: RoundedRectangle(cornerRadius: 16))
+        .modifier(NavGridCardSurface(tint: mode.color, reduceTransparency: reduceTransparency))
         .opacity(isUnlocked ? 1 : 0.6)
         .accessibilityHint(isUnlocked ? "Open this Word Workshop mode" : "Locked: \(unlockHint)")
     }

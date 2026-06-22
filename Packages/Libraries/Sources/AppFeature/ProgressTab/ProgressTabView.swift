@@ -12,6 +12,7 @@ public struct ProgressTabView: View {
     @Environment(\.modelContext) private var modelContext
     @Environment(\.gamificationService) private var gamification
     @Environment(\.sessionTimer) private var sessionTimer
+    @Environment(\.accessibilityReduceTransparency) private var reduceTransparency
     @State private var progress: PlayerProgressData = PlayerProgressData()
     @State private var moods: [AnthologyMoodData] = []
     @State private var totalTales: Int = 0
@@ -68,7 +69,7 @@ public struct ProgressTabView: View {
                     .foregroundStyle(.secondary)
             }
             .padding(16)
-            .background(.thinMaterial, in: RoundedRectangle(cornerRadius: 16))
+            .navGridCardSurface(tint: .accentColor, reduceTransparency: reduceTransparency)
         }
         .buttonStyle(.plain)
         .accessibilityHint(Text("Open this week's practice kit. Four questions; no grades."))
