@@ -11,6 +11,7 @@ import ForgeGamification
 public struct ProgressTabView: View {
     @Environment(\.modelContext) private var modelContext
     @Environment(\.gamificationService) private var gamification
+    @Environment(\.sessionTimer) private var sessionTimer
     @State private var progress: PlayerProgressData = PlayerProgressData()
     @State private var moods: [AnthologyMoodData] = []
     @State private var totalTales: Int = 0
@@ -27,6 +28,7 @@ public struct ProgressTabView: View {
                 VStack(spacing: 16) {
                     xpCard
                     streakCard
+                    listeningTimeCard
                     practiceCard
                     badgeShelf
                     moodBreakdown
@@ -94,6 +96,48 @@ public struct ProgressTabView: View {
         }
         .padding(16)
         .background(.thinMaterial, in: RoundedRectangle(cornerRadius: 16))
+    }
+
+    /// COPPA-aligned "today's listening time" surface — reads from the
+    /// shared ``SessionTimerCoordinator`` so a single source-of-truth drives
+    /// both the daily-cap warnings (5/1 min) and this informational row.
+    /// Surface is intentionally low-stakes — kid-readable, no number bigger
+    /// than the 30-minute daily cap. Per `@.claude/rules/forgekit.md`
+    /// § ForgeAccessibility § session timer.
+    private var listeningTimeCard: some View {
+        HStack(spacing: 16) {
+            Image(systemName: "ear.fill")
+                .font(.title2)
+                .foregroundStyle(.tint)
+                .frame(width: 44, height: 44)
+                .background(.thinMaterial, in: Circle())
+                .accessibilityHidden(true)
+            VStack(alignment: .leading, spacing: 4) {
+                Text("Today's listening time")
+                    .font(.headline)
+                Text(listeningTimeSubtitle)
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+            }
+            Spacer()
+            Text(sessionTimer.timer.formattedRemaining)
+                .font(.callout.monospacedDigit())
+                .foregroundStyle(sessionTimer.timer.isApproachingLimit ? .orange : .secondary)
+                .accessibilityLabel(Text("\(sessionTimer.timer.formattedRemaining) remaining today"))
+        }
+        .padding(16)
+        .background(.thinMaterial, in: RoundedRectangle(cornerRadius: 16))
+        .accessibilityElement(children: .combine)
+    }
+
+    private var listeningTimeSubtitle: String {
+        if sessionTimer.timer.shouldEndSession {
+            return "You've reached today's cap. Try again tomorrow."
+        }
+        if sessionTimer.timer.isApproachingLimit {
+            return "Almost at today's cap — wrap up soon."
+        }
+        return "Daily cap is 30 minutes; you can pause anytime."
     }
 
     private var streakCard: some View {

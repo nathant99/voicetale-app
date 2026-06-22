@@ -159,6 +159,10 @@ Round 2026-06-22 (post-C1 Phase D) shipped 4 PRs maximizing ForgeKit integration
 
 **Net**: 0 Phase 1 quality boxes remaining (Apple Declared Age Range API gate excluded — Xcode-UI-gated). Phase 1.1 surface (QuizView) is shipping; voice-character chooser remains the next Phase 1.1 work item.
 
+### Round 2026-06-22 (post-#64) — ForgeAccessibility wire-up
+
+- [x] `ForgeAccessibility` wired via `SharedUI/SessionTimerCoordinator` (15-min soft session cap + 30-min daily cap; warnings at 5/1 min + 2 min before daily cap) + `SharedUI/HapticsBridge` (5 named entry points over `ForgeHapticEngine.shared.playSync`). `AppRootView` instantiates the coordinator, injects it via `@Entry`-backed env value, starts on bootstrap, pauses/resumes on `scenePhase` (background/inactive → pause; active → resume). `TellView` fires `HapticsBridge.fireRecordStart` on record start + `.fireTaleSaved` on save + `.fireLevelUp` alongside `CelebrationCoordinator.levelUp` when XP crosses a threshold. `ProgressTabView` surfaces today's listening time + cap-approach color shift via the coordinator. 4 new SharedUITests lock coordinator defaults + idempotent start/pause/resume + bridge callability. Closes 3rd of 6 declared-but-unused ForgeKit modules.
+
 ---
 
 ## Phase 1.1: Voice-Character Chooser

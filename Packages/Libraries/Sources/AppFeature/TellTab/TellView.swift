@@ -325,6 +325,7 @@ public struct TellView: View {
             machine.markError("VoiceTale doesn't have permission to use the mic yet. Ask a grown-up to enable it in Settings.")
             return
         }
+        HapticsBridge.fireRecordStart()
         analytics.track(.taleRecordingStarted(mood: machine.draftMood))
         machine.phase = .requestingPermission
         Task { @MainActor in
@@ -491,6 +492,7 @@ public struct TellView: View {
                 in: modelContext
             )
             machine.markSaved()
+            HapticsBridge.fireTaleSaved()
             analytics.track(.taleSavedToAnthology(
                 mood: entry.mood,
                 hitAllBeats: hitAllFiveBeats(entry: entry)
@@ -532,6 +534,7 @@ public struct TellView: View {
     private func fireCelebrationsIfAny(outcome: XPAwardOutcome) {
         if outcome.leveledUp {
             celebration.levelUp(newLevel: outcome.newLevel)
+            HapticsBridge.fireLevelUp()
         }
         for badge in outcome.newBadges {
             celebration.badgeEarned(title: badge.title)

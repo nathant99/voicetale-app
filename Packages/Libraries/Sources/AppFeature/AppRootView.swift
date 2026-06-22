@@ -2,6 +2,7 @@ import SwiftUI
 import SwiftData
 import Models
 import Services
+import SharedUI
 import ForgeAdventure
 import ForgeCelebration
 
@@ -16,6 +17,12 @@ extension EnvironmentValues {
     /// above every tab. Call sites fire celebrations via
     /// `coordinator.levelUp(newLevel:)` / `coordinator.badgeEarned(title:)`.
     @Entry public var celebrationCoordinator: CelebrationCoordinator = CelebrationCoordinator()
+    /// Shared ``SessionTimerCoordinator`` (ForgeAccessibility-backed) — daily
+    /// + per-session play-time observation per
+    /// `@.claude/rules/forgekit.md` § ForgeAccessibility. ProgressTabView reads
+    /// the observable surface to render today's listening-time row; AppRootView
+    /// drives `startIfNeeded` / `pause` / `resume` on `scenePhase`.
+    @Entry public var sessionTimer: SessionTimerCoordinator = SessionTimerCoordinator()
 }
 
 /// Top-level app shell. Hosts a 4-tab `TabView` (Tell / Adventure / Progress
@@ -54,7 +61,9 @@ public struct AppRootView: View {
     @State private var gamification = GamificationService()
     @State private var analytics = AnalyticsService()
     @State private var celebration = CelebrationCoordinator()
+    @State private var sessionTimer = SessionTimerCoordinator()
     @State private var hasBootstrapped = false
+    @Environment(\.scenePhase) private var scenePhase
     @AppStorage(AppRootView.onboardingCompletedKey) private var hasCompletedOnboarding: Bool = false
 
     /// Shared registry the source-app's ``VoiceTaleHubContribution`` registers
@@ -78,13 +87,28 @@ public struct AppRootView: View {
         .environment(\.gamificationService, gamification)
         .environment(\.analyticsService, analytics)
         .environment(\.celebrationCoordinator, celebration)
+        .environment(\.sessionTimer, sessionTimer)
         .celebrationOverlay(celebration)
         .task {
             guard !hasBootstrapped else { return }
             hasBootstrapped = true
             analytics.startSession()
             analytics.track(.sessionStarted)
+            await sessionTimer.startIfNeeded()
             await hubRegistry.register(VoiceTaleHubContribution())
+        }
+        .onChange(of: scenePhase) { _, newPhase in
+            // Pause the COPPA session timer when the app backgrounds so the
+            // clock doesn't accrue against the daily cap while the kid is
+            // away. Resume on foreground. Idempotent in the coordinator.
+            switch newPhase {
+            case .background, .inactive:
+                Task { @MainActor in await sessionTimer.pause() }
+            case .active:
+                Task { @MainActor in await sessionTimer.resume() }
+            @unknown default:
+                break
+            }
         }
     }
 
