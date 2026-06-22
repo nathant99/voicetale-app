@@ -84,4 +84,72 @@ struct AnalyticsServiceTests {
         let count = await engine.eventCount
         #expect(count >= 1)
     }
+
+    // MARK: - kitCompleted (Phase 1.1)
+
+    @Test func kitCompletedNameAndKitCarried() {
+        let event = VoiceTaleAnalyticsEvent.kitCompleted(kit: 3, accuracy: 1.0)
+        #expect(event.name == "kit_completed")
+        #expect(event.properties["kit"] == "3")
+    }
+
+    @Test func kitCompletedAccuracyBuckets() {
+        // 1.0 = perfect
+        let perfect = VoiceTaleAnalyticsEvent.kitCompleted(kit: 1, accuracy: 1.0)
+        #expect(perfect.properties["accuracy_bucket"] == "perfect")
+
+        // 0.5..<1.0 = majority_correct
+        let majority = VoiceTaleAnalyticsEvent.kitCompleted(kit: 2, accuracy: 0.75)
+        #expect(majority.properties["accuracy_bucket"] == "majority_correct")
+
+        // 0.0..<0.5 = minority_correct
+        let minority = VoiceTaleAnalyticsEvent.kitCompleted(kit: 2, accuracy: 0.25)
+        #expect(minority.properties["accuracy_bucket"] == "minority_correct")
+
+        // Negative (sentinel) = no_choice_items
+        let noChoice = VoiceTaleAnalyticsEvent.kitCompleted(kit: 4, accuracy: -1.0)
+        #expect(noChoice.properties["accuracy_bucket"] == "no_choice_items")
+    }
+
+    @Test func kitCompletedEmitsNoRawAccuracy() {
+        // Categorical-only payload — raw accuracy must never appear on the
+        // wire (approaches fingerprint territory if combined with other
+        // signals).
+        let event = VoiceTaleAnalyticsEvent.kitCompleted(kit: 1, accuracy: 0.83)
+        #expect(event.properties["accuracy"] == nil)
+        #expect(event.properties["accuracy_raw"] == nil)
+    }
+
+    // MARK: - Event-vocabulary exhaustiveness / uniqueness audit
+
+    @Test func everyDeclaredEventHasAUniqueNonEmptyName() {
+        // Centralized name-collision audit. New event cases must add an
+        // entry below; the test fails if the names collide OR if a case
+        // returns an empty string (e.g., a stray `default` arm).
+        let representativeEvents: [VoiceTaleAnalyticsEvent] = [
+            .sessionStarted,
+            .taleRecordingStarted(mood: .funny),
+            .taleRecordingCompleted(durationSeconds: 60, mood: .funny),
+            .taleSavedToAnthology(mood: .funny, hitAllBeats: false),
+            .taleRetold,
+            .reflectionShown(mood: .funny, beat: .hook, modelAvailable: true),
+            .traditionExplored(slug: "griot"),
+            .dailyPromptViewed,
+            .avatarSheetOpened,
+            .voiceRecordingShared(mood: .funny, durationSeconds: 60),
+            .kitCompleted(kit: 1, accuracy: 1.0),
+        ]
+        let names = representativeEvents.map(\.name)
+        // Uniqueness
+        #expect(Set(names).count == names.count)
+        // Non-empty
+        #expect(names.allSatisfy { !$0.isEmpty })
+        // snake_case (no uppercase, no spaces)
+        for name in names {
+            let hasUppercase = name.contains { $0.isUppercase }
+            let hasSpace = name.contains { $0 == " " }
+            #expect(!hasUppercase, "Event \(name) has uppercase characters; use snake_case")
+            #expect(!hasSpace, "Event \(name) has spaces; use snake_case")
+        }
+    }
 }
