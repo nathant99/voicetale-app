@@ -78,7 +78,7 @@ Core 60-120 second record-a-tale loop with 5-beat timer skeleton, on-device tran
 - [x] Build `ProgressTabView` with XP / streak / mood-breakdown (PR #25)
 - [x] Build `ProfileTabView` with avatar placeholder + tradition/settings entry (PR #25); ForgeAvatar `AvatarStudioView` R3 segmented `.lite`+`.full` wiring shipped 2026-06-21 via `AvatarStudioSheet` (App Group entitlement is optional; see `Docs/HANDOFF_TO_USER_APP_GROUP_ENTITLEMENT.md` for cross-portfolio propagation)
 - [x] Build `SettingsView` with privacy posture + crisis-resource list (PR #25); parental gate Phase 1 onboarding
-- [ ] Build `QuizView` for question kits — deferred to Phase 1.1 (kit content shipped PR #24)
+- [x] Build `QuizView` for question kits (Phase 1.1; 2026-06-22) — `AppFeature/QuizTab/QuizView.swift` walks the kid through the rotating Phase-1 kit (kit selected by `QuestionKitLoader.loadKitForRotation(seed:)` keyed off week-of-year). `.choice` items run through `ForgePedagogy.PedagogySession.recordAnswer` (concept-id `kit_<N>_<questionID>`) so future practice rounds can reason about per-question mastery; `.reflection`/`.rewrite` items capture a text response that's never persisted (Bramble keeps the listening private). Completion fires `XPEvent.kitCompleted(kit:)` + `VoiceTaleAnalyticsEvent.kitCompleted(kit:accuracy:)` with bucketed accuracy. New `QuizMachine` per `@.claude/rules/state-machines.md`. Entry surfaces from `ProgressTabView` as a "Practice with Bramble" card.
 
 ### Analytics (on-device, COPPA-safe)
 

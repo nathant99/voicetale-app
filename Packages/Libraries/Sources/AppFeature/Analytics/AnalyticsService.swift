@@ -22,6 +22,11 @@ public enum VoiceTaleAnalyticsEvent: Sendable, Hashable {
     /// Categorical-only payload (mood + bucketed duration); no PII, no tale
     /// title, no transcript, no file path.
     case voiceRecordingShared(mood: VoiceTaleMood, durationSeconds: Double)
+    /// Phase 1.1 — fires when the kid finishes a kit walk-through in
+    /// QuizView. `accuracy` is the fraction of choice questions answered
+    /// correctly (0.0 if the kit had no choice questions). Categorical only:
+    /// kit number + bucketed accuracy.
+    case kitCompleted(kit: Int, accuracy: Double)
 
     /// Event name in the underlying ForgeAnalytics store. Keep lowercase +
     /// snake_case so future analytics inspectors can grep cleanly.
@@ -37,6 +42,7 @@ public enum VoiceTaleAnalyticsEvent: Sendable, Hashable {
         case .dailyPromptViewed:             return "daily_prompt_viewed"
         case .avatarSheetOpened:             return "avatar_sheet_opened"
         case .voiceRecordingShared:          return "voice_recording_shared"
+        case .kitCompleted:                  return "kit_completed"
         }
     }
 
@@ -72,6 +78,22 @@ public enum VoiceTaleAnalyticsEvent: Sendable, Hashable {
                 "mood": mood.rawValue,
                 "duration_bucket": durationBucket(durationSeconds),
             ]
+        case .kitCompleted(let kit, let accuracy):
+            return [
+                "kit": String(kit),
+                "accuracy_bucket": accuracyBucket(accuracy),
+            ]
+        }
+    }
+
+    /// Bucketed accuracy so the property is categorical (not a raw 0.0-1.0
+    /// double, which approaches fingerprint territory).
+    private func accuracyBucket(_ fraction: Double) -> String {
+        switch fraction {
+        case 1.0:        return "perfect"
+        case 0.5..<1.0:  return "majority_correct"
+        case 0.0..<0.5:  return "minority_correct"
+        default:         return "no_choice_items"
         }
     }
 
