@@ -53,7 +53,7 @@ Core 60-120 second record-a-tale loop with 5-beat timer skeleton, on-device tran
 - [x] Implement static fallbacks (`BrambleFallbackCatalog` 4 moods × 5 beats = 20 entries) per `.claude/rules/foundationmodels.md` (PR #22)
 - [x] Implement scaffolding → Socratic ladder via `BramblePromptBuilder.instructions` (PR #22)
 - [x] Create mentor speech-bubble UI (`BrambleReflectionView`) (PR #25)
-- [x] Wire mentor to events: tale-complete via `TellView.runReflection` (PR #25); replay + beat-skipped reflection — Phase 1.1 retell loop
+- [x] Wire mentor to events: tale-complete via `TellView.runReflection` (PR #25); retell + beat-skipped reflection (PR for `feature/bramble-retell-and-beat-skipped-reflection`) — `BrambleMentor.reflectRetell` / `reflectBeatSkipped` + `BrambleFallbackCatalog.retellFallback` / `beatSkippedFallback` + `BramblePromptBuilder.retellPrompt` / `beatSkippedPrompt`; `TellView` preserves the previous transcript across "Tell another" so the next reflection pairs both tellings, and detects beats whose `actualSeconds < target * 0.5` to surface a brief-beat reflection
 
 ### Tradition Layer
 

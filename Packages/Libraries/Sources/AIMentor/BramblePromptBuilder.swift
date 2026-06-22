@@ -41,4 +41,57 @@ nonisolated public enum BramblePromptBuilder {
         Produce one or two craft observations (concrete moments you heard, not judgments), then one open-ended Socratic follow-up that invites the teller deeper into their own choice.
         """
     }
+
+    /// Per-call prompt used after a retell — the kid pressed "Tell another"
+    /// and just finished telling the same tale a second time. The reflection
+    /// pairs the two transcripts so Bramble can notice what changed between
+    /// the tellings, without grading either version.
+    public static func retellPrompt(
+        transcript: String,
+        previousTranscript: String,
+        mood: VoiceTaleMood,
+        beat: ArcBeat
+    ) -> String {
+        let trimmedCurrent = transcript.count > 800
+            ? String(transcript.prefix(800)) + "…"
+            : transcript
+        let trimmedPrevious = previousTranscript.count > 800
+            ? String(previousTranscript.prefix(800)) + "…"
+            : previousTranscript
+        return """
+        The teller just finished retelling the same tale a second time. Mood tag: \(mood.displayLabel.lowercased()). Final beat: \(beat.displayLabel).
+        First telling (on-device):
+        ---
+        \(trimmedPrevious)
+        ---
+        Second telling (on-device):
+        ---
+        \(trimmedCurrent)
+        ---
+        Produce one observation about what shifted between the two tellings (a detail added, a word chosen differently, a pause held longer). Then one open-ended Socratic follow-up that invites the teller to notice their own choice.
+        """
+    }
+
+    /// Per-call prompt used when one or more beats came in under ~50% of their
+    /// target duration. The prompt names the beats the listener noticed went by
+    /// briefly without framing them as "missed" or "wrong" — per
+    /// `@.claude/rules/trauma-informed-content.md` § Validate-then-inform.
+    public static func beatSkippedPrompt(
+        transcript: String,
+        mood: VoiceTaleMood,
+        skippedBeats: [ArcBeat]
+    ) -> String {
+        let truncated = transcript.count > 1000
+            ? String(transcript.prefix(1000)) + "…"
+            : transcript
+        let beatNames = skippedBeats.map { $0.displayLabel.lowercased() }.joined(separator: ", ")
+        return """
+        The teller just finished a told tale. Mood tag: \(mood.displayLabel.lowercased()). The listener noticed these beats went by very briefly: \(beatNames).
+        Transcript (on-device):
+        ---
+        \(truncated)
+        ---
+        Produce ONE craft observation that names a beat as brief — never as missed or wrong. Then ONE open-ended Socratic follow-up about what could change if the teller let that beat sit one breath longer. The whole tone is curious-listener, never coach-fixing.
+        """
+    }
 }

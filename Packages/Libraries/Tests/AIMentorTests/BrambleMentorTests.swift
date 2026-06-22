@@ -48,6 +48,61 @@ struct BrambleMentorTests {
         // unless the model genuinely reports unknown).
         #expect(before == after)
     }
+
+    @Test func reflectRetellFallsBackToRetellStaticEntry() async {
+        let mentor = BrambleMentor()
+        let reflection = await mentor.reflectRetell(
+            transcript: "Once upon a second time, the wind came back.",
+            previousTranscript: "Once upon a time, the wind came.",
+            mood: .funny,
+            beat: .close
+        )
+        let fallback = BrambleFallbackCatalog.retellFallback(mood: .funny, beat: .close)
+        #expect(reflection.craftObservations.isEmpty == false)
+        if mentor.availability != .available {
+            #expect(reflection == fallback)
+        }
+    }
+
+    @Test func reflectRetellDegradesGracefullyWithoutPreviousTranscript() async {
+        let mentor = BrambleMentor()
+        // Empty previous transcript MUST short-circuit to the fallback so a
+        // hypothetical UI bug doesn't leak an empty-baseline retell prompt.
+        let reflection = await mentor.reflectRetell(
+            transcript: "second telling",
+            previousTranscript: "",
+            mood: .tender,
+            beat: .hook
+        )
+        let fallback = BrambleFallbackCatalog.retellFallback(mood: .tender, beat: .hook)
+        #expect(reflection == fallback)
+    }
+
+    @Test func reflectBeatSkippedNamesSkippedBeatInFallback() async {
+        let mentor = BrambleMentor()
+        let reflection = await mentor.reflectBeatSkipped(
+            transcript: "We started fast. Then it was over.",
+            mood: .wild,
+            skippedBeats: [.rising, .turn]
+        )
+        let fallback = BrambleFallbackCatalog.beatSkippedFallback(skippedBeats: [.rising, .turn])
+        if mentor.availability != .available {
+            #expect(reflection == fallback)
+        }
+        #expect(reflection.craftObservations.first?.contains("rising") == true)
+    }
+
+    @Test func reflectBeatSkippedShortCircuitsWhenNoSkippedBeats() async {
+        let mentor = BrambleMentor()
+        let reflection = await mentor.reflectBeatSkipped(
+            transcript: "every beat hit",
+            mood: .scary,
+            skippedBeats: []
+        )
+        // Empty skipped-beat list → static fallback for [] (display "one beat")
+        let fallback = BrambleFallbackCatalog.beatSkippedFallback(skippedBeats: [])
+        #expect(reflection == fallback)
+    }
 }
 
 @Suite("BrambleFallbackCatalog")
@@ -104,5 +159,61 @@ struct BramblePromptBuilderTests {
         )
         #expect(prompt.contains("…"))
         #expect(prompt.count < huge.count + 600) // headroom for framing copy
+    }
+
+    @Test func retellPromptIncludesBothTranscripts() {
+        let prompt = BramblePromptBuilder.retellPrompt(
+            transcript: "second telling here",
+            previousTranscript: "first telling here",
+            mood: .scary,
+            beat: .turn
+        )
+        #expect(prompt.contains("first telling here"))
+        #expect(prompt.contains("second telling here"))
+        #expect(prompt.contains("scary"))
+        #expect(prompt.contains("Turn"))
+    }
+
+    @Test func beatSkippedPromptListsSkippedBeats() {
+        let prompt = BramblePromptBuilder.beatSkippedPrompt(
+            transcript: "short tale",
+            mood: .funny,
+            skippedBeats: [.hook, .close]
+        )
+        #expect(prompt.contains("hook"))
+        #expect(prompt.contains("close"))
+        // The prompt frames the brief beats as "noticed … went by very briefly"
+        // — listener-stance, not coach-grading. The prompt DOES contain
+        // "missed" + "wrong" because the instructions explicitly forbid the
+        // model from using those framings.
+        #expect(prompt.contains("briefly"))
+        #expect(prompt.contains("never as missed or wrong"))
+    }
+}
+
+@Suite("BrambleFallbackCatalog retell + beat-skipped")
+struct BrambleFallbackCatalogExtensionsTests {
+    @Test func retellFallbackVariesByBeat() {
+        let hook = BrambleFallbackCatalog.retellFallback(mood: .funny, beat: .hook)
+        let close = BrambleFallbackCatalog.retellFallback(mood: .funny, beat: .close)
+        #expect(hook != close)
+        #expect(hook.socraticPrompt?.contains("hook") == true)
+        #expect(close.socraticPrompt?.contains("close") == true)
+    }
+
+    @Test func beatSkippedFallbackOneBeatVsMany() {
+        let single = BrambleFallbackCatalog.beatSkippedFallback(skippedBeats: [.rising])
+        let multi = BrambleFallbackCatalog.beatSkippedFallback(skippedBeats: [.rising, .turn])
+        #expect(single.craftObservations.first?.contains("rising") == true)
+        #expect(multi.craftObservations.first?.contains("rising") == true)
+        #expect(multi.craftObservations.first?.contains("turn") == true)
+    }
+
+    @Test func beatSkippedFallbackEmptyBeatsStillSucceeds() {
+        let reflection = BrambleFallbackCatalog.beatSkippedFallback(skippedBeats: [])
+        // Empty list is unusual but must never crash + must produce non-empty
+        // observation per Bramble's "always succeed" mentor contract.
+        #expect(reflection.craftObservations.isEmpty == false)
+        #expect(reflection.socraticPrompt != nil)
     }
 }

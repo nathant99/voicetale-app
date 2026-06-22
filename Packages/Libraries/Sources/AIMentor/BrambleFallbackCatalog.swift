@@ -36,6 +36,39 @@ nonisolated public enum BrambleFallbackCatalog {
         )
     }
 
+    /// Fallback used after a retell — the kid told the tale, hit "Tell another",
+    /// and recorded the same arc a second time. The reflection notices the
+    /// retell rather than re-grading craft. Per `@Docs/FEATURE_PLAN.md` § Voice
+    /// Coach Phase 1.1 retell loop.
+    public static func retellFallback(mood: VoiceTaleMood, beat: ArcBeat) -> VoiceStoryReflection {
+        VoiceStoryReflection(
+            craftObservations: [
+                "I noticed you told this one a second time — and it sounded different from the first."
+            ],
+            socraticPrompt: "What changed about the \(beat.displayLabel.lowercased()) between the two tellings?"
+        )
+    }
+
+    /// Fallback used when one or more beats came in under ~50% of their target
+    /// duration. Bramble names that the beat felt brief — never as a "miss",
+    /// only as something the listener noticed. Per
+    /// `@.claude/rules/trauma-informed-content.md` § Validate-then-inform.
+    public static func beatSkippedFallback(skippedBeats: [ArcBeat]) -> VoiceStoryReflection {
+        let first = skippedBeats.first?.displayLabel.lowercased() ?? "one beat"
+        let count = skippedBeats.count
+        let observation: String
+        if count <= 1 {
+            observation = "I leaned in to hear the \(first) — it came and went faster than the others."
+        } else {
+            let names = skippedBeats.prefix(2).map { $0.displayLabel.lowercased() }.joined(separator: " and ")
+            observation = "The \(names) felt brief — like you were already on your way to the next one."
+        }
+        return VoiceStoryReflection(
+            craftObservations: [observation],
+            socraticPrompt: "What would change if you let the \(first) sit one breath longer?"
+        )
+    }
+
     // Hand-authored 20-entry table. Each `craftObservations` is exactly one
     // listener-stance sentence; `socraticPrompt` is open-ended (What / How /
     // When) and never leading.
