@@ -182,6 +182,43 @@ public final class BrambleMentor {
         }
     }
 
+    /// Produces a reflection about the kid's voice-character choices (Phase
+    /// 1.1 voice-character chooser). Returns `nil` when fewer than 2
+    /// distinct non-narrator presets appear — callers skip the secondary
+    /// reflection in that case. Always succeeds via the static fallback
+    /// when the model is unavailable.
+    public func reflectVoiceVariation(
+        transcript: String,
+        mood: VoiceTaleMood,
+        beatsByVoice: [String: [ArcBeat]]
+    ) async -> VoiceStoryReflection? {
+        guard let fallback = BrambleFallbackCatalog.voiceVariationFallback(beatsByVoice: beatsByVoice) else {
+            return nil
+        }
+        guard availability == .available else {
+            return fallback
+        }
+        let workingSession = ensureSession()
+        let prompt = BramblePromptBuilder.voiceVariationPrompt(
+            transcript: transcript,
+            mood: mood,
+            beatsByVoice: beatsByVoice
+        )
+        do {
+            let response = try await workingSession.respond(
+                to: prompt,
+                generating: VoiceStoryReflectionGeneration.self
+            )
+            let generated = response.content
+            return VoiceStoryReflection(
+                craftObservations: sanitizeObservations(generated.craftObservations, fallback: fallback),
+                socraticPrompt: sanitizePrompt(generated.socraticPrompt, fallback: fallback)
+            )
+        } catch {
+            return fallback
+        }
+    }
+
     // MARK: - Internals
 
     private func ensureSession() -> LanguageModelSession {

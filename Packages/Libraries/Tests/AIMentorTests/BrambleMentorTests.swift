@@ -217,3 +217,92 @@ struct BrambleFallbackCatalogExtensionsTests {
         #expect(reflection.socraticPrompt != nil)
     }
 }
+
+@Suite("Bramble voice-variation reflection")
+struct BrambleVoiceVariationTests {
+    @Test func fallbackReturnsNilForSingleVoice() {
+        // 1 distinct non-narrator slug → no variation reflection.
+        let beats: [String: [ArcBeat]] = ["hero": [.turn]]
+        #expect(BrambleFallbackCatalog.voiceVariationFallback(beatsByVoice: beats) == nil)
+    }
+
+    @Test func fallbackReturnsNilForOnlyNarratorBeats() {
+        let beats: [String: [ArcBeat]] = ["narrator": [.hook, .setup, .rising, .turn, .close]]
+        #expect(BrambleFallbackCatalog.voiceVariationFallback(beatsByVoice: beats) == nil)
+    }
+
+    @Test func fallbackHandlesTwoDistinctSlugs() throws {
+        let beats: [String: [ArcBeat]] = [
+            "hero": [.hook, .setup],
+            "sage": [.turn, .close],
+        ]
+        let reflection = try #require(BrambleFallbackCatalog.voiceVariationFallback(beatsByVoice: beats))
+        let observation = try #require(reflection.craftObservations.first)
+        #expect(observation.contains("Hero"))
+        #expect(observation.contains("Sage"))
+        #expect(reflection.socraticPrompt?.contains("voice") == true)
+    }
+
+    @Test func fallbackHandlesThreePlusDistinctSlugs() throws {
+        let beats: [String: [ArcBeat]] = [
+            "hero": [.hook],
+            "sage": [.setup],
+            "ogre": [.rising],
+            "sprite": [.turn],
+        ]
+        let reflection = try #require(BrambleFallbackCatalog.voiceVariationFallback(beatsByVoice: beats))
+        let observation = try #require(reflection.craftObservations.first)
+        // "4 different voices" — but the fallback formats this as `\(count)`
+        // so we just check for "4" + the "different voices" phrase.
+        #expect(observation.contains("4"))
+        #expect(observation.contains("different voices"))
+    }
+
+    @Test func voiceVariationPromptIncludesEverySlug() {
+        let beats: [String: [ArcBeat]] = [
+            "hero": [.hook, .setup],
+            "ogre": [.rising, .turn],
+        ]
+        let prompt = BramblePromptBuilder.voiceVariationPrompt(
+            transcript: "Once there was a hero who met an ogre.",
+            mood: .wild,
+            beatsByVoice: beats
+        )
+        #expect(prompt.contains("hero"))
+        #expect(prompt.contains("ogre"))
+        #expect(prompt.contains("hook"))
+        #expect(prompt.contains("turn"))
+        // The prompt forbids grading the kid's own voice.
+        #expect(prompt.contains("never grade") || prompt.contains("NEVER grade"))
+    }
+
+    @Test @MainActor func reflectVoiceVariationFallsBackWhenModelUnavailable() async {
+        let mentor = BrambleMentor()
+        // We can't deterministically force availability; only assert that
+        // when ≥ 2 distinct slugs are supplied, SOMETHING comes back.
+        let beats: [String: [ArcBeat]] = [
+            "hero": [.hook],
+            "sage": [.close],
+        ]
+        let reflection = await mentor.reflectVoiceVariation(
+            transcript: "test",
+            mood: .funny,
+            beatsByVoice: beats
+        )
+        // Either model produced a result OR we hit the fallback; both
+        // paths return non-nil for ≥ 2 distinct slugs.
+        #expect(reflection != nil)
+        #expect(reflection?.craftObservations.isEmpty == false)
+    }
+
+    @Test @MainActor func reflectVoiceVariationReturnsNilForSingleVoice() async {
+        let mentor = BrambleMentor()
+        let beats: [String: [ArcBeat]] = ["hero": [.hook]]
+        let reflection = await mentor.reflectVoiceVariation(
+            transcript: "test",
+            mood: .scary,
+            beatsByVoice: beats
+        )
+        #expect(reflection == nil)
+    }
+}

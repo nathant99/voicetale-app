@@ -1,0 +1,42 @@
+{
+  "kit": 5,
+  "title": "Voice Character",
+  "primitive": "voice variation in service of the tale (different rooms, different breaths)",
+  "anchorCharacterSlug": "pivot",
+  "summary": "A told tale can move through different rooms — and your voice can be the door between them. This kit listens for what changes when the teller picks a different voice for a beat: what the hero sounds like, what the sage holds back, what the ogre lets you say. Phase 1.1 voice-character chooser.",
+  "questions": [
+    {
+      "id": "k5q1",
+      "kind": "reflection",
+      "prompt": "Pick a 30-second moment in your tale and tell it twice — first as yourself, then as a different voice character (Hero, Sage, Sprite, or Ogre). What did the second voice let you say that the first couldn't?"
+    },
+    {
+      "id": "k5q2",
+      "kind": "choice",
+      "prompt": "Which moment is the strongest place to swap voices in a told tale?",
+      "options": [
+        "The Hook — set the room before anything happens.",
+        "The Turn — the meaning rotates, and a voice shift makes the rotation audible.",
+        "Every line — variety equals interest."
+      ],
+      "correctIndex": 1,
+      "rationale": "A voice swap at the Turn signals the rotation. Swapping every line dilutes the shift; swapping only at the Hook locks the room but doesn't move it."
+    },
+    {
+      "id": "k5q3",
+      "kind": "reflection",
+      "prompt": "Listen back to a tale you've already saved with a different voice character applied to one beat. Was the listener's experience louder, quieter, or different in shape?"
+    },
+    {
+      "id": "k5q4",
+      "kind": "rewrite",
+      "prompt": "Take the villain's line in any tale you've told and rewrite it for the Sage. Keep the meaning; change the room. Then read both aloud."
+    }
+  ],
+  "castCameos": [
+    { "slug": "pivot", "line": "Voice changes ARE pivots — when the room shifts, the rotation lands." },
+    { "slug": "lean", "line": "I lean forward when the voice changes — even before I know what's coming." },
+    { "slug": "slow", "line": "A new voice asks the listener to slow. Use it sparingly so the slow still counts." },
+    { "slug": "refrain", "line": "Picking ONE voice and returning to it through the tale gives the listener a home to leave and come back to." }
+  ]
+}

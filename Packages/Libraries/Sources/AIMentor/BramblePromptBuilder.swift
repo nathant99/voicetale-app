@@ -72,6 +72,36 @@ nonisolated public enum BramblePromptBuilder {
         """
     }
 
+    /// Per-call prompt used when the teller chose ≥ 2 distinct voice
+    /// characters across the tale (Phase 1.1 voice-character chooser). The
+    /// reflection names what voice variation DID for the listener — never
+    /// grades the choice or comments on the kid's own voice. Per
+    /// `@.claude/rules/trauma-informed-content.md` § Validate-then-inform.
+    public static func voiceVariationPrompt(
+        transcript: String,
+        mood: VoiceTaleMood,
+        beatsByVoice: [String: [ArcBeat]]
+    ) -> String {
+        let truncated = transcript.count > 1000
+            ? String(transcript.prefix(1000)) + "…"
+            : transcript
+        let sortedSlugs = beatsByVoice.keys.sorted()
+        let voiceSummaryLines = sortedSlugs.map { slug -> String in
+            let beats = beatsByVoice[slug] ?? []
+            let beatLabels = beats.map { $0.displayLabel.lowercased() }.joined(separator: ", ")
+            return "- \(slug): \(beatLabels)"
+        }.joined(separator: "\n")
+        return """
+        The teller just finished a told tale. Mood tag: \(mood.displayLabel.lowercased()). They picked different voice characters across the beats:
+        \(voiceSummaryLines)
+        Transcript (on-device):
+        ---
+        \(truncated)
+        ---
+        Produce ONE craft observation about what the voice shift did for the listener (NEVER grade the kid's own voice; NEVER comment on accent / fluency / articulation). Then ONE open-ended Socratic follow-up about what each voice let the teller say that their own couldn't. Curious-listener register only.
+        """
+    }
+
     /// Per-call prompt used when one or more beats came in under ~50% of their
     /// target duration. The prompt names the beats the listener noticed went by
     /// briefly without framing them as "missed" or "wrong" — per

@@ -46,6 +46,11 @@ public struct TellView: View {
     /// `CastPortraitCatalog` WebP portrait. `nil` while no voicing line is
     /// active OR when the slug doesn't resolve.
     @State private var castVoicingSlug: String?
+    /// Phase 1.1 voice-variation reflection — populated by ``runReflection``
+    /// when the tale spans ≥ 2 distinct non-narrator voice characters.
+    /// Cleared on retell / cancel / save so each tale gets a fresh
+    /// voice-variation pass.
+    @State private var voiceVariationReflection: VoiceStoryReflection?
     /// Experimental feature flag. `@AppStorage` is the source of truth so the
     /// SettingsView toggle and the TellView reading both observe the same key
     /// without an actor-bridging environment value. Default false per the DN-S
@@ -134,6 +139,7 @@ public struct TellView: View {
                 castVoicingLine: castVoicingLine,
                 castVoicingDisplayName: castVoicingDisplayName,
                 castVoicingSlug: castVoicingSlug,
+                voiceVariation: voiceVariationReflection,
                 onSave: saveToAnthology,
                 onRetell: retellFromScratch
             )
@@ -411,6 +417,7 @@ public struct TellView: View {
         castVoicingLine = nil
         castVoicingDisplayName = nil
         castVoicingSlug = nil
+        voiceVariationReflection = nil
     }
 
     private func tickRecorder() {
@@ -463,7 +470,42 @@ public struct TellView: View {
             beat: beatForReflection,
             modelAvailable: mentor.availability == .available
         ))
+        await runVoiceVariationReflectionIfNeeded()
         await runCastVoicingIfEnabled()
+    }
+
+    /// Phase 1.1 voice-variation reflection — runs after the main reflection
+    /// when the saved beat timeline spans ≥ 2 distinct non-narrator voice
+    /// characters. The reflection notices what the shift did for the
+    /// listener; never grades the kid's own voice. Skipped silently when
+    /// the timeline is single-voice OR the fallback yields nil.
+    private func runVoiceVariationReflectionIfNeeded() async {
+        let beatsByVoice = Self.beatsByVoiceCharacter(in: machine.beatTimeline)
+        let nonNarrator = beatsByVoice.filter { slug, _ in
+            slug != VoiceCharacterPreset.narrator.rawValue
+        }
+        guard nonNarrator.keys.count >= 2 else {
+            voiceVariationReflection = nil
+            return
+        }
+        let reflection = await mentor.reflectVoiceVariation(
+            transcript: machine.transcript,
+            mood: machine.draftMood,
+            beatsByVoice: beatsByVoice
+        )
+        voiceVariationReflection = reflection
+    }
+
+    /// Build `[slug: [beats]]` from a beat timeline. Beats without a slug
+    /// map to `.narrator`. Public on the type so unit tests can pin the
+    /// helper without bridging through ``TellView``.
+    nonisolated static func beatsByVoiceCharacter(in timeline: [BeatSegment]) -> [String: [ArcBeat]] {
+        var result: [String: [ArcBeat]] = [:]
+        for segment in timeline {
+            let slug = segment.voiceCharacterSlug ?? VoiceCharacterPreset.narrator.rawValue
+            result[slug, default: []].append(segment.beat)
+        }
+        return result
     }
 
     /// DN-S Move D step 3 — fetch a single in-character cast utterance and

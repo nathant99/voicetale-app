@@ -20,6 +20,13 @@ public enum QuestionKitLoader {
         "kit_04_mood",
     ]
 
+    /// Phase 1.1 kit filenames. Voice-character chooser; surfaces only when
+    /// the kid has reached the Phase 1.1 onboarding (sessionsCompleted ≥ 2)
+    /// per `@Docs/FEATURE_PLAN.md` § Phase 1.1.
+    public static let phase11Filenames: [String] = [
+        "kit_05_voice_character",
+    ]
+
     public static func loadKit(named name: String) throws -> QuestionKit {
         guard let url = ResourceLookup.url(
             forResource: name,
@@ -38,6 +45,12 @@ public enum QuestionKitLoader {
 
     public static func loadAllPhase1Kits() throws -> [QuestionKit] {
         try phase1Filenames.map { try loadKit(named: $0) }
+    }
+
+    /// Load every Phase 1.1 kit (currently kit 05). Throws on missing /
+    /// malformed JSON so QA catches drift between Models + bundled resources.
+    public static func loadAllPhase11Kits() throws -> [QuestionKit] {
+        try phase11Filenames.map { try loadKit(named: $0) }
     }
 
     /// Pick one of the 4 Phase 1 kits based on a stable input — typically the

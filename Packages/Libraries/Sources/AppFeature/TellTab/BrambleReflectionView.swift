@@ -29,6 +29,10 @@ public struct BrambleReflectionView: View {
     /// bundled WebP portrait instead of the SF-Symbol fallback. `nil` leaves
     /// the chip in the fallback state (still rendered, just with the icon).
     public let castVoicingSlug: String?
+    /// Phase 1.1 voice-variation reflection. Non-nil when the tale spans
+    /// ≥ 2 distinct non-narrator voice characters; renders below Bramble's
+    /// main reflection in a styled "Voice notes" callout.
+    public let voiceVariation: VoiceStoryReflection?
     public let onSave: () -> Void
     public let onRetell: () -> Void
 
@@ -39,6 +43,7 @@ public struct BrambleReflectionView: View {
         castVoicingLine: String? = nil,
         castVoicingDisplayName: String? = nil,
         castVoicingSlug: String? = nil,
+        voiceVariation: VoiceStoryReflection? = nil,
         onSave: @escaping () -> Void,
         onRetell: @escaping () -> Void
     ) {
@@ -48,6 +53,7 @@ public struct BrambleReflectionView: View {
         self.castVoicingLine = castVoicingLine
         self.castVoicingDisplayName = castVoicingDisplayName
         self.castVoicingSlug = castVoicingSlug
+        self.voiceVariation = voiceVariation
         self.onSave = onSave
         self.onRetell = onRetell
     }
@@ -59,6 +65,9 @@ public struct BrambleReflectionView: View {
                 thinkingState
             } else if let reflection {
                 reflectionBody(reflection)
+                if let voiceVariation {
+                    voiceVariationCallout(voiceVariation)
+                }
                 if let line = castVoicingLine, !line.isEmpty {
                     castVoicingChip(
                         line: line,
@@ -142,6 +151,36 @@ public struct BrambleReflectionView: View {
         }
         .padding(16)
         .background(.thinMaterial, in: RoundedRectangle(cornerRadius: 16))
+    }
+
+    /// Phase 1.1 voice-variation callout. Sits between Bramble's main
+    /// reflection and the cast-voicing chip; styled as a quieter sub-card
+    /// so it reads as a secondary note rather than a competing reflection.
+    @ViewBuilder
+    private func voiceVariationCallout(_ reflection: VoiceStoryReflection) -> some View {
+        VStack(alignment: .leading, spacing: 8) {
+            HStack(spacing: 8) {
+                Image(systemName: "waveform.and.person.filled")
+                    .foregroundStyle(.tint)
+                Text("Voice notes")
+                    .font(.caption.weight(.semibold))
+                    .foregroundStyle(.secondary)
+            }
+            ForEach(Array(reflection.craftObservations.enumerated()), id: \.offset) { _, observation in
+                Text(observation)
+                    .font(.body)
+                    .lineSpacing(3)
+            }
+            if let prompt = reflection.socraticPrompt, !prompt.isEmpty {
+                Text(prompt)
+                    .font(.body.italic())
+                    .foregroundStyle(.secondary)
+            }
+        }
+        .padding(14)
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .background(.thinMaterial, in: RoundedRectangle(cornerRadius: 14))
+        .accessibilityLabel(Text("Voice notes from Bramble"))
     }
 
     @ViewBuilder

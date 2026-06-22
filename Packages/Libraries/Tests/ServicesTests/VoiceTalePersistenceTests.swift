@@ -198,6 +198,34 @@ struct QuestionKitLoaderTests {
             _ = try QuestionKitLoader.loadKit(named: "does_not_exist")
         }
     }
+
+    // MARK: - Phase 1.1 — Kit 05 (voice character)
+
+    @Test func phase11ShipsKit05() throws {
+        let kits = try QuestionKitLoader.loadAllPhase11Kits()
+        #expect(kits.count == 1)
+        #expect(kits.first?.kit == 5)
+        #expect(kits.first?.title == "Voice Character")
+    }
+
+    @Test func kit05IsAnchoredToPivot() throws {
+        let kit = try QuestionKitLoader.loadKit(named: "kit_05_voice_character")
+        #expect(kit.anchorCharacterSlug == "pivot")
+        #expect(kit.questions.count == 4)
+        // Voice-character craft kit must include at least one rewrite + one
+        // choice question — same shape contract as Phase 1 kits.
+        let kinds = Set(kit.questions.map(\.kind))
+        #expect(kinds.contains(.reflection))
+        #expect(kinds.contains(.choice))
+        #expect(kinds.contains(.rewrite))
+    }
+
+    @Test func kit05IncludesAllFourCastCameos() throws {
+        let kit = try QuestionKitLoader.loadKit(named: "kit_05_voice_character")
+        let expected: Set<String> = ["lean", "pivot", "refrain", "slow"]
+        let slugs = Set(kit.castCameos.map(\.slug))
+        #expect(slugs == expected)
+    }
 }
 
 @MainActor
