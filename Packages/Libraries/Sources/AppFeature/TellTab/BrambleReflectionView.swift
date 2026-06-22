@@ -88,10 +88,7 @@ public struct BrambleReflectionView: View {
 
     private var mascotHeader: some View {
         HStack(spacing: 12) {
-            Image(systemName: "leaf.circle.fill")
-                .resizable()
-                .frame(width: 44, height: 44)
-                .foregroundStyle(.tint)
+            MascotPoseView(pose: currentMascotPose, dimension: 44)
             VStack(alignment: .leading, spacing: 2) {
                 Text("Bramble")
                     .font(.headline)
@@ -100,6 +97,17 @@ public struct BrambleReflectionView: View {
                     .foregroundStyle(.secondary)
             }
         }
+    }
+
+    /// Maps the reflection-view state to a Bramble pose so the mascot's
+    /// posture matches what's happening in the flow. `thinking` while
+    /// awaiting the reflection; `praising` once a reflection has landed
+    /// (Bramble's "I heard something good" register); `encouraging` for the
+    /// empty / pre-reflection idle path.
+    private var currentMascotPose: MascotPoseCatalog.Pose {
+        if isThinking { return .thinking }
+        if reflection != nil { return .praising }
+        return .encouraging
     }
 
     @ViewBuilder
