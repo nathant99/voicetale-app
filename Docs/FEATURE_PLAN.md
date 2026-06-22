@@ -172,9 +172,9 @@ Round 2026-06-22 (post-C1 Phase D) shipped 4 PRs maximizing ForgeKit integration
 
 Post-MVP voice-character recordings + light pitch/timbre shift presets.
 
-- [ ] Implement 2-3 voice-character recordings (kid records voices for narrator / hero / antagonist / etc.)
-- [ ] Implement light pitch + timbre shift presets (no full-voice-clone — on-device DSP only)
-- [ ] Implement per-character voice picker for each beat
+- [x] Foundation — `Models/VoiceCharacterPreset` value-type enum (5 presets: narrator / hero / sage / sprite / ogre) with pitch (`-2400 ... 2400` cents) + rate (`0.85 ... 1.18`) tunings calibrated for `AVAudioUnitTimePitch`. `VoiceCharacterCatalog.phase1` ships the canonical 5-preset list; `VoiceCharacterCatalog.preset(forSlug:)` falls back to `.narrator` on unknown input. New `SharedUI/VoiceCharacterPickerView` renders a horizontal chip strip with SF Symbol + display name per preset; selected chip fills with accent color. 9 tests lock preset count + tuning ranges + uniqueness + slug round-trip.
+- [ ] Implement light pitch + timbre shift presets (no full-voice-clone — on-device DSP only) — engine wiring per-beat picker
+- [ ] Implement per-character voice picker for each beat — TellView integration
 - [ ] Implement voice-variation Socratic reflection in Bramble
 - [ ] Add 1 voice-character question kit (kit 05)
 - [ ] Add 4 Phase-1.1 achievements
