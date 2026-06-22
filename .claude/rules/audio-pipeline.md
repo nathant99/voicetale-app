@@ -43,6 +43,91 @@ Gemini 2.5 TTS (and several other audio APIs) returns `audio/L16;codec=pcm;rate=
 
 **Status**: DEFERRED to dedicated ForgeKit-release round (likely R170+). Module work + tests + version bump + downstream CQ migration is too much scope for a typical lift round. Trigger to expedite: 2nd portfolio server adopts a raw-PCM TTS API (CQ is sole user today).
 
+## iOS: AVAudioFile `commonFormat` must match the write buffer (R-AVAUDIOFILE-COMMONFORMAT; 2026-06-22; voicetale-app)
+
+Codified after VoiceTale C1 voice CAF export (`Packages/Libraries/Sources/Services/VoiceTaleExporter.swift`, PR-4 round, 2026-06-22). The bug: calling `try AVAudioFile(forWriting: url, settings: pcmSettings)` (the **no-`commonFormat` initializer**) defaults the file's `processingFormat` to `.pcmFormatFloat32`. The `settings` dictionary describes what gets written to disk (PCM, 44.1 kHz, mono, 16-bit), but the `processingFormat` is the buffer format AVAudioFile expects on every `write(from:)` call. If your write buffer is Int16 + the file's processingFormat is Float32, AVAudioFile invokes its internal Float32→Int16 converter — and that converter trips `CAVerboseAbort` (`EXC_BREAKPOINT`) inside `ExtAudioFile::WriteInputProc` on the iOS simulator.
+
+### Symptom signature
+
+```
+* thread #7, name = '[Swift Testing] test ... - running'
+  frame #0: caulk`CAVerboseAbort + 64
+  frame #1: caulk`CAAssertRtn + 32
+  frame #2: AudioToolboxCore`ExtAudioFile::WriteInputProc(...) + 284
+  frame #3: AudioToolboxCore`caulk::expected... AudioConverterV2::fillComplexBuffer(...)
+  ...
+  frame #13: AVFAudio`-[AVAudioFile writeFromBuffer:error:] + 308
+  frame #14: YourCode.exportCAF(...) at YourFile.swift:NNN
+```
+
+Top frames inside `caulk` + `ExtAudioFile::WriteInputProc` + `AVAudioFile writeFromBuffer:` = format mismatch between the file's processingFormat and the buffer you handed to `write(from:)`.
+
+### Anti-pattern
+
+```swift
+// ❌ Crash: AVAudioFile defaults processingFormat to .pcmFormatFloat32;
+//    handing it an Int16 buffer triggers CAVerboseAbort on iOS sim.
+let outputFile = try AVAudioFile(forWriting: targetURL, settings: targetSettings)
+// ...
+let outputBuffer = AVAudioPCMBuffer(pcmFormat: int16Format, frameCapacity: ...)!
+try outputFile.write(from: outputBuffer)   // ← CAVerboseAbort
+```
+
+### Canonical
+
+```swift
+// ✅ Pass commonFormat: + interleaved: so processingFormat matches the buffer.
+let outputFile = try AVAudioFile(
+    forWriting: targetURL,
+    settings: targetSettings,
+    commonFormat: .pcmFormatInt16,
+    interleaved: true
+)
+let outputBuffer = AVAudioPCMBuffer(pcmFormat: int16Format, frameCapacity: ...)!
+try outputFile.write(from: outputBuffer)   // ← clean write
+```
+
+### Generalization
+
+The rule applies whenever you write a non-Float32 buffer (Int16, Int32, Float64) to AVAudioFile. Always reach for the 4-arg `init(forWriting:settings:commonFormat:interleaved:)` and pass a `commonFormat` that matches the buffer's `pcmFormat`. Float32 buffers + the 2-arg init are the only safe pairing without explicit `commonFormat:`.
+
+### Companion: single-shot read+convert+write for ≤ minutes-long audio
+
+For audio sources up to a few minutes (the VoiceTale 60-120s recording case), prefer **single-shot** read+convert+write over streaming-chunked. Pseudocode:
+
+```swift
+let inputBuffer = AVAudioPCMBuffer(pcmFormat: sourceProcessingFormat,
+                                   frameCapacity: AVAudioFrameCount(sourceFile.length))!
+try sourceFile.read(into: inputBuffer)
+
+let ratio = targetFormat.sampleRate / sourceProcessingFormat.sampleRate
+let outputCapacity = AVAudioFrameCount((Double(inputBuffer.frameLength) * ratio).rounded(.up)) + 1024
+let outputBuffer = AVAudioPCMBuffer(pcmFormat: targetFormat, frameCapacity: outputCapacity)!
+
+var error: NSError?
+var didDeliver = false
+let status = converter.convert(to: outputBuffer, error: &error) { _, outStatus in
+    if didDeliver { outStatus.pointee = .endOfStream; return nil }
+    didDeliver = true
+    outStatus.pointee = .haveData
+    return inputBuffer
+}
+try outputFile.write(from: outputBuffer)
+```
+
+**Why single-shot wins for short audio**: streaming-chunked AVAudioConverter is significantly trickier when sample-rate conversion is in the mix — resampler lookahead state spans chunks, the `.endOfStream` flag timing matters per-chunk, and `outputBuffer.frameCapacity` calibration is per-chunk arithmetic. A single-shot path eliminates the resampler-state-across-chunks problem entirely. Process memory budget at 120s × 48 kHz × Float32 × stereo ≈ 46 MB — well within an iPhone process budget.
+
+**When to revert to chunked**: source > 10 minutes, OR target file exceeds available memory, OR you need progress reporting. Otherwise single-shot.
+
+### Reference impl
+
+- `voicetale-app/Packages/Libraries/Sources/Services/VoiceTaleExporter.swift` — Pillar Deepening C1 CAF export. Single-shot read+convert+write; explicit `commonFormat: .pcmFormatInt16, interleaved: true` on the output AVAudioFile.
+- `voicetale-app/Packages/Libraries/Tests/ServicesTests/VoiceTaleExporterTests.swift` — exercises the sample-rate conversion path (16 kHz source → 44.1 kHz target) so a future regression that re-introduces the default-`commonFormat` crash is caught at test time.
+
+### Lift status
+
+SHIP-READY for next labsmith portfolio sync (`scripts/copy_rules_to_repos.sh --apply`). The bug class is portfolio-wide — any app that writes Int16 / Int32 PCM via AVAudioFile is exposed. The fix is a one-line argument addition + the streaming-vs-single-shot pattern is a stable mental model.
+
 ## iOS: OSStatus → ASCII FourCC for AVFoundation errors
 
 Multi-digit `Code=` values from `NSOSStatusErrorDomain` or `kAudioToolboxErrorDomain` are FourCC values cast to Int. Convert to hex, read as ASCII.

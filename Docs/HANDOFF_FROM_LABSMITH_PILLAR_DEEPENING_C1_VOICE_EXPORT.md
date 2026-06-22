@@ -1,10 +1,51 @@
 ---
-status: PHASE-A-DESIGN-PENDING
+status: PHASE-B-SHIPPED
 date: 2026-05-26
 classified: 2026-06-21
+phase-b-shipped: 2026-06-22
 direction: labsmith → app
-intent: C1 voice-export deepening — Phase A design questions (recording length cap; CAF vs MP3 export; cast-anchored prompts) need user input before Phase B core wiring
+intent: C1 voice-export deepening — Phase A design questions resolved + Phase B core wiring shipped; Phase C asset consumer audit grep complete; Phase D analytics + accessibility deferred to a Phase-1.1 follow-up round
 freshness-horizon: 90 days
+---
+
+## Phase A — Design decisions (resolved 2026-06-22)
+
+| Question | Resolution | Rationale |
+|---|---|---|
+| Recording length cap | **120 seconds** (matches the existing 60-120s VoiceTale spec) | The 5-beat arc already targets 60-120s; no per-export cap needed beyond what the recording UI enforces. |
+| Audio format | **44.1 kHz mono 16-bit PCM CAF**; MP3 conversion deferred to Phase 1.1 | CAF is portfolio-canonical per `.claude/rules/audio-pipeline.md`; opens natively in Files / GarageBand / QuickTime on every supported device. MP3 is a school-share enhancement, not a v1 requirement. |
+| Cast-anchored prompts | **Already shipped via the 4 Phase-1 kits' `castCameos[]` schema** (kit 01 hook / 02 sensory detail / 03 arc / 04 mood) | No new per-export prompt UI required; the kid hears one cast voice per kit via the existing CastCameoStripView. |
+| Parent-share flow | **Native iOS `ShareLink` from the per-tale row** — surfaces Files / AirDrop / Messages / Mail. No app-level parental gate added on top (iOS handles the share destinations transparently). | Adding a custom gate would duplicate iOS's share sheet UX without adding privacy. The audio is on-device; the share is user-initiated. |
+
+## Phase B — Core wiring (shipped 2026-06-22)
+
+- `Packages/Libraries/Sources/Services/VoiceTaleExporter.swift` — `actor VoiceTaleExporter` with `exportCAF(from:)` async function. Converts an AVAudioFile-readable source (`.m4a` / `.caf` / `.wav` / etc.) into canonical 44.1 kHz mono 16-bit PCM CAF via AVAudioConverter. Idempotent: returns the existing export URL if `<source-dir>/Exports/<base>.caf` already exists. Single-shot read+convert+write — `.claude/rules/audio-pipeline.md` § R-AVAUDIOFILE-COMMONFORMAT documents the design + the AVAudioFile gotcha hit during initial development.
+- `Packages/Libraries/Sources/Services/VoiceTaleStore.swift` — new `audioFileURL(for:in:)` helper that looks up the on-disk audio file URL from a `VoiceTaleEntry.id` (the AnthologyView path uses value-type entries; the persistent record carries the relative path).
+- `Packages/Libraries/Sources/AppFeature/Anthology/AnthologyView.swift` — per-tale "Share as audio" affordance with a 4-state machine (idle / exporting / ready / failed) + `ShareLink` integration. Retry on failure; idempotent on success.
+- `Packages/Libraries/Tests/ServicesTests/VoiceTaleExporterTests.swift` — 5 tests: URL derivation (2 cases) + source-missing throw + canonical-format CAF conversion + idempotency.
+
+## Phase C — Asset Consumer Audit (grep, 2026-06-22)
+
+Per `.claude/rules/portfolio.md` § Asset Consumer Audit, verified the C1 surface is actually consumed:
+
+```bash
+grep -rE 'VoiceTaleExporter|exportCAF|ShareLink' Packages/Libraries/Sources/
+```
+
+Hits:
+- `Sources/Services/VoiceTaleExporter.swift` (the exporter)
+- `Sources/AppFeature/Anthology/AnthologyView.swift` (the call site — `exportRow(for:)` invokes `runExport(taleID:sourceURL:)` and surfaces the ShareLink in `.ready(url)`)
+
+✅ Consumer site present. Registered ≠ wired check passes.
+
+## Phase D — Instrumentation + accessibility (DEFERRED to Phase 1.1 follow-up round)
+
+The methodology calls for:
+- `ForgeAnalytics` events: `voice.recording.shared`
+- Engagement claim copy ("VoiceTale kids share N tales per week")
+- VoiceOver hint for the recording booth (already present on the existing controls); waveform visual alternative
+
+These ride a future Phase 1.1 reflection-polish round alongside the explicit Apple Declared Age Range API gate + COPPA parental-consent flow. None of the Phase D items block the C1 user-facing surface from shipping; they're observability + a11y polish.
 ---
 
 # Handoff from Labsmith — Pillar Deepening: VoiceTale (C1 Shippable Artifact (CAF voice export))
