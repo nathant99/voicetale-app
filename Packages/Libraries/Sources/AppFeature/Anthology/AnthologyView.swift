@@ -9,6 +9,7 @@ import SharedUI
 /// `@.claude/rules/swiftdata.md` § "Zero @Query in Views".
 public struct AnthologyView: View {
     @Environment(\.modelContext) private var modelContext
+    @Environment(\.analyticsService) private var analytics
     @State private var tales: [VoiceTaleEntry] = []
     @State private var moods: [AnthologyMoodData] = []
     @State private var moodFilter: VoiceTaleMood?
@@ -132,8 +133,15 @@ public struct AnthologyView: View {
         if let audioURL = VoiceTaleStore.audioFileURL(for: tale.id, in: modelContext) {
             let state = exportState[tale.id] ?? .idle
             HStack(spacing: 8) {
+                // Waveform glyph is decorative — the adjacent button/share
+                // surfaces own the semantic labeling. Marking the icon hidden
+                // prevents VoiceOver from double-announcing. Per FEATURE_PLAN
+                // line 135 "waveform a11y alternative for the export button" —
+                // the ALTERNATIVE is the screen-reader-clean labeled control
+                // next to it, NOT a verbose label on the icon itself.
                 Image(systemName: "waveform")
                     .foregroundStyle(.tint)
+                    .accessibilityHidden(true)
                 switch state {
                 case .idle:
                     Button("Share as audio") {
@@ -148,6 +156,7 @@ public struct AnthologyView: View {
                     Text("Preparing audio…")
                         .font(.caption)
                         .foregroundStyle(.secondary)
+                        .accessibilityLabel("Preparing audio for sharing")
                 case .ready(let url):
                     ShareLink(item: url) {
                         Label("Share audio", systemImage: "square.and.arrow.up")
@@ -155,19 +164,38 @@ public struct AnthologyView: View {
                     }
                     .buttonStyle(.borderedProminent)
                     .controlSize(.small)
+                    .accessibilityHint("Share this tale's audio via the system share sheet.")
+                    .simultaneousGesture(
+                        TapGesture().onEnded {
+                            emitVoiceRecordingShared(for: tale)
+                        }
+                    )
                 case .failed(let message):
                     Text(message)
                         .font(.caption)
                         .foregroundStyle(.orange)
+                        .accessibilityLabel("Audio share failed: \(message)")
                     Button("Retry") {
                         runExport(taleID: tale.id, sourceURL: audioURL)
                     }
                     .buttonStyle(.bordered)
                     .controlSize(.small)
+                    .accessibilityHint("Try the audio export again.")
                 }
             }
             .padding(.top, 4)
         }
+    }
+
+    /// Fires `voiceRecordingShared` on the analytics engine when the user
+    /// taps the `ShareLink`. Categorical-only payload (mood + bucketed
+    /// duration); no PII per `Docs/TECHNICAL_DESIGN.md` § Analytics. Tap
+    /// detection uses `.simultaneousGesture` because `ShareLink` doesn't
+    /// expose an `onTap` callback in iOS 26.
+    private func emitVoiceRecordingShared(for tale: VoiceTaleEntry) {
+        analytics.track(
+            .voiceRecordingShared(mood: tale.mood, durationSeconds: tale.durationSeconds)
+        )
     }
 
     /// Kicks off the CAF export off the MainActor + folds the result into

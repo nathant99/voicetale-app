@@ -1,12 +1,21 @@
 ---
-status: PHASE-B-SHIPPED
+status: SHIPPED
 date: 2026-05-26
 classified: 2026-06-21
 phase-b-shipped: 2026-06-22
+phase-d-shipped: 2026-06-22
 direction: labsmith → app
-intent: C1 voice-export deepening — Phase A design questions resolved + Phase B core wiring shipped; Phase C asset consumer audit grep complete; Phase D analytics + accessibility deferred to a Phase-1.1 follow-up round
+intent: C1 voice-export deepening — Phase A design questions resolved + Phase B core wiring shipped + Phase C asset consumer audit grep complete + Phase D analytics (voice_recording_shared event) + accessibility (waveform a11y hide + export-control hint coverage) all shipped
 freshness-horizon: 90 days
 ---
+
+> **SHIPPED 2026-06-22**: Phase D wrap-up landed:
+> - `VoiceTaleAnalyticsEvent.voiceRecordingShared(mood:durationSeconds:)` added to the typed event vocabulary; categorical-only payload (`mood` + `duration_bucket` only); no PII per `Docs/TECHNICAL_DESIGN.md` § Analytics
+> - Emitted from `AnthologyView.exportRow` via `.simultaneousGesture(TapGesture())` on the `ShareLink` — Apple's `ShareLink` doesn't expose an `onTap` callback in iOS 26 so the gesture wrapper is the canonical detection pattern
+> - Waveform glyph in the export row marked `.accessibilityHidden(true)` — decorative; the labeled "Share as audio" / "Share audio" / "Preparing audio…" / "Retry" controls own the semantic surface so VoiceOver doesn't double-announce
+> - All 4 export-row states now have explicit `accessibilityHint` / `accessibilityLabel` coverage (idle button hint / exporting progress label / ready ShareLink hint / failed message label + retry hint)
+> - New test `AnalyticsServiceTests.voiceRecordingSharedCarriesMoodAndBucketedDuration` asserts categorical-only payload (no `tale_id` / `transcript` / raw `duration_seconds`)
+> - FEATURE_PLAN.md line 135 flipped from `[ ]` → `[x]`. C1 Pillar Deepening fully shipped.
 
 ## Phase A — Design decisions (resolved 2026-06-22)
 
