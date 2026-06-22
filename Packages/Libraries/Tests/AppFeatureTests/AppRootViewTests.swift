@@ -124,3 +124,44 @@ struct DailyPromptTests {
         #expect(first != nextDay)
     }
 }
+
+@MainActor
+@Suite("TellView progressive disclosure")
+struct TellViewProgressiveDisclosureTests {
+    private static func makeIsolatedDefaults() -> UserDefaults {
+        let suite = UserDefaults(suiteName: "TellViewProgressiveDisclosureTests-\(UUID().uuidString)")!
+        suite.removePersistentDomain(forName: "TellViewProgressiveDisclosureTests")
+        return suite
+    }
+
+    @Test func sessionsCompletedKeyMatchesAppStorageContract() {
+        // Public key is co-located on TellView for UI-test launch-argument
+        // wiring. Test pins the literal so a rename surfaces here.
+        #expect(TellView.sessionsCompletedKey == "voicetale.sessionsCompleted")
+    }
+
+    @Test func beatTimerThresholdGatesAtSecondSession() {
+        // Session 1 (count == 0) hides the scaffold; session 2 (count == 1)
+        // shows it. The threshold is the first session COMPLETED, not the
+        // first session STARTED, so the scaffold lights up after the kid
+        // ships their first tale.
+        #expect(TellView.beatTimerEnabledThreshold == 1)
+    }
+
+    @Test func freshInstallHidesBeatTimer() {
+        // Default AppStorage value is 0; isBeatTimerEnabled should be false.
+        // We can't observe @AppStorage values from a SwiftUI struct without
+        // a host view, but the computed `isBeatTimerEnabled` depends only
+        // on the stored value vs the threshold, so we test the comparison
+        // directly via the threshold constant.
+        let sessionsCompletedOnFreshInstall = 0
+        #expect(sessionsCompletedOnFreshInstall < TellView.beatTimerEnabledThreshold)
+    }
+
+    @Test func sessionTwoOnwardShowsBeatTimer() {
+        let sessionsCompletedAfterFirstSave = 1
+        #expect(sessionsCompletedAfterFirstSave >= TellView.beatTimerEnabledThreshold)
+        let sessionsCompletedAfterFiveSaves = 5
+        #expect(sessionsCompletedAfterFiveSaves >= TellView.beatTimerEnabledThreshold)
+    }
+}
