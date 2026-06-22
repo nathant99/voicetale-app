@@ -328,4 +328,27 @@ struct GamificationServiceTests {
         // Set semantics — only one 5 retained.
         #expect(snapshot.completedKitIDs == [5])
     }
+
+    // MARK: - Engagement Foundation — lapsed-return
+
+    @Test func recordLastActiveOnFreshInstallReturnsNil() throws {
+        let context = try newContext()
+        let service = GamificationService()
+        let lapsed = service.recordLastActive(now: Date(), in: context)
+        #expect(lapsed == nil)
+        let snapshot = VoiceTaleStore.progressSnapshot(in: context)
+        #expect(snapshot.lastActiveDate != nil)
+    }
+
+    @Test func recordLastActiveReturnsDaysSincePreviousActive() throws {
+        let context = try newContext()
+        let service = GamificationService()
+        let earlier = Date(timeIntervalSinceNow: -5 * 86400)
+        _ = service.recordLastActive(now: earlier, in: context)
+        let lapsed = service.recordLastActive(now: Date(), in: context)
+        // Calendar-day math depends on local time zone but for a 5-day
+        // delta on a non-DST boundary should always be 4 or 5.
+        #expect(lapsed != nil)
+        #expect((4...5).contains(lapsed!))
+    }
 }

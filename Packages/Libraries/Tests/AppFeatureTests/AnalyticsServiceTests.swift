@@ -138,6 +138,8 @@ struct AnalyticsServiceTests {
             .avatarSheetOpened,
             .voiceRecordingShared(mood: .funny, durationSeconds: 60),
             .kitCompleted(kit: 1, accuracy: 1.0),
+            .lapsedReturn(daysSinceActive: 5),
+            .rarePromptSurfaced(category: "hidden_tradition"),
         ]
         let names = representativeEvents.map(\.name)
         // Uniqueness

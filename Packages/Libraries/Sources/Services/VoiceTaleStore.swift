@@ -194,7 +194,8 @@ public enum VoiceTaleStore {
             availableStreakFreezes: record.availableStreakFreezes,
             lastSessionAt: record.lastSessionAt,
             tutorialCompletedAt: record.tutorialCompletedAt,
-            completedKitIDs: Set(record.completedKitIDsRaw)
+            completedKitIDs: Set(record.completedKitIDsRaw),
+            lastActiveDate: record.lastActiveDate
         )
     }
 
