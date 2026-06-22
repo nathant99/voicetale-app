@@ -82,6 +82,25 @@ nonisolated public enum BrambleFallbackCatalog {
         )
     }
 
+    /// Trauma-informed hold-space fallback. Used when
+    /// ``DistressSignalDetector`` surfaces a non-`nil` axis in the
+    /// transcript — Bramble holds space + refers up to a trusted adult
+    /// instead of running the LM-generated reflection.
+    ///
+    /// Per `@.claude/rules/trauma-informed-content.md` § "validate, then
+    /// inform / hold space, don't resolve / refer up" + SAMHSA TIP 57.
+    /// The fallback is INTENTIONALLY brief — Bramble names what was heard,
+    /// holds the space, and points to a grown-up + the crisis-resource
+    /// list the view surfaces below the bubble.
+    public static func holdSpaceFallback(
+        axis: DistressSignalDetector.Axis
+    ) -> VoiceStoryReflection {
+        VoiceStoryReflection(
+            craftObservations: [axis.holdSpaceFraming],
+            socraticPrompt: axis.referUpPrompt
+        )
+    }
+
     /// Fallback used when one or more beats came in under ~50% of their target
     /// duration. Bramble names that the beat felt brief — never as a "miss",
     /// only as something the listener noticed. Per

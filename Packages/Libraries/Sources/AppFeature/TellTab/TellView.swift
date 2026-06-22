@@ -51,6 +51,12 @@ public struct TellView: View {
     /// Cleared on retell / cancel / save so each tale gets a fresh
     /// voice-variation pass.
     @State private var voiceVariationReflection: VoiceStoryReflection?
+    /// Trauma-informed crisis-resource list. Populated when
+    /// ``BrambleMentor.lastDistressAxis`` is non-nil — the chip surfaces
+    /// below Bramble's bubble alongside the hold-space reflection.
+    /// Cleared on retell / cancel / save. Per
+    /// `@.claude/rules/trauma-informed-content.md` § "refer up" + ADR-016.
+    @State private var distressCrisisResources: [CrisisResource] = []
     /// Experimental feature flag. `@AppStorage` is the source of truth so the
     /// SettingsView toggle and the TellView reading both observe the same key
     /// without an actor-bridging environment value. Default false per the DN-S
@@ -140,6 +146,7 @@ public struct TellView: View {
                 castVoicingDisplayName: castVoicingDisplayName,
                 castVoicingSlug: castVoicingSlug,
                 voiceVariation: voiceVariationReflection,
+                crisisResources: distressCrisisResources,
                 onSave: saveToAnthology,
                 onRetell: retellFromScratch
             )
@@ -418,6 +425,7 @@ public struct TellView: View {
         castVoicingDisplayName = nil
         castVoicingSlug = nil
         voiceVariationReflection = nil
+        distressCrisisResources = []
     }
 
     private func tickRecorder() {
@@ -465,13 +473,38 @@ public struct TellView: View {
             )
         }
         machine.presentReflection(reflection)
+        // Trauma-informed gate: if Bramble's mentor surfaced a distress
+        // axis on this reflection, populate the crisis-resource list so
+        // BrambleReflectionView renders the refer-up chip alongside.
+        // Voice-variation + cast voicing are SUPPRESSED when distress is
+        // present — the hold-space register comes first, and surfacing
+        // a "voice notes" sub-card on top of a hold-space reflection
+        // would feel jarring.
+        if mentor.lastDistressAxis != nil {
+            distressCrisisResources = loadCrisisResources()
+            voiceVariationReflection = nil
+            clearCastVoicing()
+        } else {
+            distressCrisisResources = []
+        }
         analytics.track(.reflectionShown(
             mood: machine.draftMood,
             beat: beatForReflection,
             modelAvailable: mentor.availability == .available
         ))
+        guard mentor.lastDistressAxis == nil else { return }
         await runVoiceVariationReflectionIfNeeded()
         await runCastVoicingIfEnabled()
+    }
+
+    /// Load the crisis-resource list from the tradition catalog so the
+    /// trauma-informed chip surfaces the canonical resource set (988 /
+    /// Crisis Text Line / Childhelp / Trevor Project). Falls back to an
+    /// empty list if the catalog is unavailable — the chip simply doesn't
+    /// render.
+    private func loadCrisisResources() -> [CrisisResource] {
+        let catalog = try? TraditionCatalogLoader.loadBundled()
+        return catalog?.crisisResources?.us ?? []
     }
 
     /// Phase 1.1 voice-variation reflection — runs after the main reflection

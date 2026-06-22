@@ -29,6 +29,12 @@ public final class BrambleMentor {
 
     public private(set) var availability: Availability = .unknown
     public private(set) var lastReflection: VoiceStoryReflection?
+    /// The most recent distress signal Bramble detected in a transcript
+    /// (or `nil` when the last reflection was neutral). Surfaces to
+    /// ``BrambleReflectionView`` so the crisis-resource chip can render
+    /// below the bubble when an axis is non-nil. Cleared by callers
+    /// (TellView resets it on retell / cancel / save).
+    public private(set) var lastDistressAxis: DistressSignalDetector.Axis?
 
     @ObservationIgnored
     private let model = SystemLanguageModel.default
@@ -65,6 +71,17 @@ public final class BrambleMentor {
         mood: VoiceTaleMood,
         beat: ArcBeat
     ) async -> VoiceStoryReflection {
+        // Trauma-informed gate FIRST. Per
+        // `@.claude/rules/trauma-informed-content.md` § "refer up", any
+        // distress axis bypasses the LM entirely + uses the hold-space
+        // fallback. The view surfaces a crisis-resource chip alongside.
+        if let axis = DistressSignalDetector.detect(in: transcript) {
+            let holdSpace = BrambleFallbackCatalog.holdSpaceFallback(axis: axis)
+            lastReflection = holdSpace
+            lastDistressAxis = axis
+            return holdSpace
+        }
+        lastDistressAxis = nil
         let fallback = staticFallback(for: mood, beat: beat)
         guard availability == .available else {
             lastReflection = fallback
@@ -112,6 +129,17 @@ public final class BrambleMentor {
         mood: VoiceTaleMood,
         beat: ArcBeat
     ) async -> VoiceStoryReflection {
+        // Retell distress gate: check BOTH the current AND the previous
+        // transcript (a kid sometimes only surfaces the distress on the
+        // retake). First match wins.
+        if let axis = DistressSignalDetector.detect(in: transcript)
+            ?? DistressSignalDetector.detect(in: previousTranscript) {
+            let holdSpace = BrambleFallbackCatalog.holdSpaceFallback(axis: axis)
+            lastReflection = holdSpace
+            lastDistressAxis = axis
+            return holdSpace
+        }
+        lastDistressAxis = nil
         let fallback = BrambleFallbackCatalog.retellFallback(mood: mood, beat: beat)
         guard availability == .available, !previousTranscript.isEmpty else {
             lastReflection = fallback
@@ -153,6 +181,13 @@ public final class BrambleMentor {
         mood: VoiceTaleMood,
         skippedBeats: [ArcBeat]
     ) async -> VoiceStoryReflection {
+        if let axis = DistressSignalDetector.detect(in: transcript) {
+            let holdSpace = BrambleFallbackCatalog.holdSpaceFallback(axis: axis)
+            lastReflection = holdSpace
+            lastDistressAxis = axis
+            return holdSpace
+        }
+        lastDistressAxis = nil
         let fallback = BrambleFallbackCatalog.beatSkippedFallback(skippedBeats: skippedBeats)
         guard availability == .available, !skippedBeats.isEmpty else {
             lastReflection = fallback

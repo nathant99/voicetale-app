@@ -304,9 +304,9 @@ Audio/visual/haptic polish, parent-facing dashboards, and emotional design. Runs
 - [ ] Color-contrast audit (WCAG AA in default + dark + high-contrast themes)
 - [ ] Reduce-Motion variants for beat-timer animations + Bramble reflection flourishes
 - [ ] Reduce-Transparency variants for any glass UI (per portfolio Liquid Glass policy)
-- [ ] **Trauma-informed gate** for advanced tale content (scary mood / loss / family-conflict themes) — kid can disengage at any point; reflection never shames a "bad" tale
+- [x] **Trauma-informed gate** for advanced tale content (scary mood / loss / family-conflict themes) — kid can disengage at any point; reflection never shames a "bad" tale — `AIMentor/DistressSignalDetector` (`nonisolated enum`) runs a conservative kid-readable keyword pass over the transcript on every Bramble reflect path (`reflect` / `reflectRetell` / `reflectBeatSkipped`). On a non-nil axis (`selfHarm` / `abuse` / `loss`) the mentor SHORT-CIRCUITS to `BrambleFallbackCatalog.holdSpaceFallback(axis:)` — no LM call, no voice-variation reflection on top, no cast voicing chip. `TellView` populates `distressCrisisResources` from the bundled tradition catalog so `BrambleReflectionView.distressChip` renders the canonical resources (988 / Childhelp / Crisis Text Line / Trevor Project) below the hold-space bubble. 14 new tests across detector + hold-space catalog + mentor routing (`DistressSignalDetectorTests` + `BrambleHoldSpaceFallbackTests` + `BrambleMentorDistressRoutingTests`).
 - [ ] **Tradition layer cultural-sensitivity gate** — external reviewer sign-off per ADR-016 BEFORE Phase 1 ship
-- [ ] Crisis-resource list (988 / Childhelp / Crisis Text Line) surfaced from Settings + if mood-tagged tales surface distress signals
+- [x] Crisis-resource list (988 / Childhelp / Crisis Text Line) surfaced from Settings + if mood-tagged tales surface distress signals — `SharedUI/CrisisResourceListView` ships as the canonical surface; `SettingsView.crisisSection` adopts it; `BrambleReflectionView.distressChip` renders it when distress is detected on the tale. Per ADR-016 + `@.claude/rules/trauma-informed-content.md` § "refer up".
 
 **Exit criteria**: A11y audit PASS; cultural-sensitivity reviewer sign-off for tradition layer; trauma-gate review for mood-tagged tale storytelling.
 
