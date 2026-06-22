@@ -1,11 +1,14 @@
 ---
-status: ASSETS-SHIPPED-INTEGRATION-PARTIAL
+status: SHIPPED
 date: 2026-06-19
 classified: 2026-06-21
+shipped: 2026-06-22
 direction: hub → app
 intent: 4 cast portraits (256×256 webp) shipped to Resources/Cast/; app-side consumer (e.g., DN-S chapter renderer, ProfileTabView, cast cameo overlays) wiring still pending
 freshness-horizon: 365 days
 ---
+
+> **SHIPPED 2026-06-22**: integration-partial → SHIPPED via the cast-portrait wire-in PR. The 4 WebPs were copied into `Packages/Libraries/Sources/SharedUI/Resources/Cast/` (so `Bundle.module` resolves them); `CastPortraitCatalog.swift` + `CastPortraitView` ship parallel to the established `BookCoverCatalog.swift` pattern; `BrambleReflectionView.castVoicingChip` now renders the real WebP portrait whenever the cast slug resolves (Lean / Pivot / Refrain / Slow), falling back to the SF Symbol when the slug is unknown or the WebP is missing. Test coverage: 5 tests in `SharedUITests/CastPortraitCatalogTests.swift` covering slug identity + display name + slug-init-from-string + URL resolution per slug + canonical ordering. R-CAST-PORTRAIT-SLUG satisfied: portrait slugs match `Docs/dn-s/chapters/<char>.md` filenames + `CastVoiceRegistry.Slug` raw values.
 
 # Handoff from Hub — Voicetale Cast Portraits
 

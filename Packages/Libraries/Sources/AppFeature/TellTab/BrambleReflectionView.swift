@@ -23,6 +23,12 @@ public struct BrambleReflectionView: View {
     /// appears when the experimental toggle is on.
     public let castVoicingLine: String?
     public let castVoicingDisplayName: String?
+    /// Slug of the cast member being voiced (e.g. `"lean"` / `"pivot"` /
+    /// `"refrain"` / `"slow"`). When this resolves to a known
+    /// ``CastPortraitCatalog/Slug``, the cast-voicing chip surfaces the
+    /// bundled WebP portrait instead of the SF-Symbol fallback. `nil` leaves
+    /// the chip in the fallback state (still rendered, just with the icon).
+    public let castVoicingSlug: String?
     public let onSave: () -> Void
     public let onRetell: () -> Void
 
@@ -32,6 +38,7 @@ public struct BrambleReflectionView: View {
         kit: QuestionKit? = nil,
         castVoicingLine: String? = nil,
         castVoicingDisplayName: String? = nil,
+        castVoicingSlug: String? = nil,
         onSave: @escaping () -> Void,
         onRetell: @escaping () -> Void
     ) {
@@ -40,6 +47,7 @@ public struct BrambleReflectionView: View {
         self.kit = kit
         self.castVoicingLine = castVoicingLine
         self.castVoicingDisplayName = castVoicingDisplayName
+        self.castVoicingSlug = castVoicingSlug
         self.onSave = onSave
         self.onRetell = onRetell
     }
@@ -52,7 +60,11 @@ public struct BrambleReflectionView: View {
             } else if let reflection {
                 reflectionBody(reflection)
                 if let line = castVoicingLine, !line.isEmpty {
-                    castVoicingChip(line: line, name: castVoicingDisplayName)
+                    castVoicingChip(
+                        line: line,
+                        name: castVoicingDisplayName,
+                        portraitSlug: CastPortraitCatalog.Slug(slug: castVoicingSlug)
+                    )
                 }
                 if let kit {
                     CastCameoStripView(
@@ -125,11 +137,20 @@ public struct BrambleReflectionView: View {
     }
 
     @ViewBuilder
-    private func castVoicingChip(line: String, name: String?) -> some View {
-        VStack(alignment: .leading, spacing: 6) {
-            HStack(spacing: 8) {
-                Image(systemName: "person.wave.2.fill")
-                    .foregroundStyle(.tint)
+    private func castVoicingChip(
+        line: String,
+        name: String?,
+        portraitSlug: CastPortraitCatalog.Slug?
+    ) -> some View {
+        VStack(alignment: .leading, spacing: 8) {
+            HStack(spacing: 10) {
+                if let portraitSlug {
+                    CastPortraitView(slug: portraitSlug, dimension: 32)
+                } else {
+                    Image(systemName: "person.wave.2.fill")
+                        .foregroundStyle(.tint)
+                        .frame(width: 32, height: 32)
+                }
                 Text(name.map { "Hear from \($0)" } ?? "Hear from one of Bramble's friends")
                     .font(.caption.weight(.semibold))
                     .foregroundStyle(.secondary)
