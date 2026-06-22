@@ -27,6 +27,14 @@ public enum VoiceTaleAnalyticsEvent: Sendable, Hashable {
     /// correctly (0.0 if the kit had no choice questions). Categorical only:
     /// kit number + bucketed accuracy.
     case kitCompleted(kit: Int, accuracy: Double)
+    /// Engagement-Foundation phase — fires once per session when the
+    /// kid returns after a ≥ 3-day gap. Categorical: bucketed lapsed
+    /// days (3-6 / 7-13 / 14+).
+    case lapsedReturn(daysSinceActive: Int)
+    /// Engagement-Foundation phase — fires when the daily prompt surface
+    /// surfaces a "rare" prompt category as a variable reward (~1 in 5
+    /// sessions per `@Docs/FEATURE_PLAN.md` § "Variable rewards").
+    case rarePromptSurfaced(category: String)
 
     /// Event name in the underlying ForgeAnalytics store. Keep lowercase +
     /// snake_case so future analytics inspectors can grep cleanly.
@@ -43,6 +51,8 @@ public enum VoiceTaleAnalyticsEvent: Sendable, Hashable {
         case .avatarSheetOpened:             return "avatar_sheet_opened"
         case .voiceRecordingShared:          return "voice_recording_shared"
         case .kitCompleted:                  return "kit_completed"
+        case .lapsedReturn:                  return "lapsed_return"
+        case .rarePromptSurfaced:            return "rare_prompt_surfaced"
         }
     }
 
@@ -83,6 +93,20 @@ public enum VoiceTaleAnalyticsEvent: Sendable, Hashable {
                 "kit": String(kit),
                 "accuracy_bucket": accuracyBucket(accuracy),
             ]
+        case .lapsedReturn(let days):
+            return ["days_bucket": lapsedDaysBucket(days)]
+        case .rarePromptSurfaced(let category):
+            return ["category": category]
+        }
+    }
+
+    /// Bucketed lapsed-return days so the property is categorical.
+    private func lapsedDaysBucket(_ days: Int) -> String {
+        switch days {
+        case ..<3:    return "under_3"
+        case 3...6:   return "3_to_6"
+        case 7...13:  return "7_to_13"
+        default:      return "14_plus"
         }
     }
 

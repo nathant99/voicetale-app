@@ -123,6 +123,47 @@ struct DailyPromptTests {
         #expect(first == second)
         #expect(first != nextDay)
     }
+
+    // MARK: - Variable rewards (rare prompt)
+
+    @Test func rarePoolIsNonEmpty() {
+        #expect(DailyPromptView.rarePrompts.isEmpty == false)
+    }
+
+    @Test func rarePromptCategorySlugsAreUnique() {
+        let categories = DailyPromptView.rarePrompts.map(\.category)
+        #expect(Set(categories).count == categories.count)
+    }
+
+    @Test func standardSessionsReturnNilCategory() {
+        for n in [1, 2, 3, 4, 6, 7, 8, 9] {
+            let resolved = DailyPromptView.resolved(sessionCount: n)
+            #expect(resolved.rareCategory == nil, "session \(n) should be standard")
+        }
+    }
+
+    @Test func fifthSessionSurfacesRarePrompt() {
+        let resolved = DailyPromptView.resolved(sessionCount: 5)
+        #expect(resolved.rareCategory != nil)
+    }
+
+    @Test func everyFifthSessionSurfacesRare() {
+        for n in [5, 10, 15, 20, 25] {
+            let resolved = DailyPromptView.resolved(sessionCount: n)
+            #expect(resolved.rareCategory != nil, "session \(n) should be rare")
+        }
+    }
+
+    @Test func consecutiveRareSessionsRotateThroughThePool() {
+        let firstRare = DailyPromptView.resolved(sessionCount: 5)
+        let secondRare = DailyPromptView.resolved(sessionCount: 10)
+        #expect(firstRare.prompt != secondRare.prompt)
+    }
+
+    @Test func zeroSessionCountReturnsStandard() {
+        let resolved = DailyPromptView.resolved(sessionCount: 0)
+        #expect(resolved.rareCategory == nil)
+    }
 }
 
 @MainActor

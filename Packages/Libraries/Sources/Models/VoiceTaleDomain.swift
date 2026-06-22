@@ -145,6 +145,10 @@ nonisolated public struct PlayerProgressData: Codable, Sendable, Hashable {
     public let tutorialCompletedAt: Date?
     /// Phase 1.1 — kit IDs the kid has fully walked through.
     public let completedKitIDs: Set<Int>
+    /// Engagement-Foundation phase — bumps on every cold launch. Drives
+    /// the welcome-back flow when the gap exceeds the lapsed-return
+    /// threshold (3 days).
+    public let lastActiveDate: Date?
 
     public init(
         xpTotal: Int = 0,
@@ -153,7 +157,8 @@ nonisolated public struct PlayerProgressData: Codable, Sendable, Hashable {
         availableStreakFreezes: Int = 2,
         lastSessionAt: Date? = nil,
         tutorialCompletedAt: Date? = nil,
-        completedKitIDs: Set<Int> = []
+        completedKitIDs: Set<Int> = [],
+        lastActiveDate: Date? = nil
     ) {
         self.xpTotal = xpTotal
         self.currentStreakDays = currentStreakDays
@@ -162,6 +167,7 @@ nonisolated public struct PlayerProgressData: Codable, Sendable, Hashable {
         self.lastSessionAt = lastSessionAt
         self.tutorialCompletedAt = tutorialCompletedAt
         self.completedKitIDs = completedKitIDs
+        self.lastActiveDate = lastActiveDate
     }
 }
 

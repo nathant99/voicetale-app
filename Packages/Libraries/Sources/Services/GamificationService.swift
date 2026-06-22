@@ -74,6 +74,21 @@ public final class GamificationService {
 
     // MARK: - Streak
 
+    /// Record that the app was opened today. Distinct from
+    /// ``recordSession(in:)`` — `recordLastActive` bumps on every cold
+    /// launch (including sessions where no tale is saved). Returns the
+    /// number of whole days since the previous `lastActiveDate`, or
+    /// `nil` for a fresh install.
+    @discardableResult
+    public func recordLastActive(now: Date = Date(), in context: ModelContext) -> Int? {
+        let previousActive = VoiceTaleStore.progressSnapshot(in: context).lastActiveDate
+        let lapsed = LapsedReturnDetector.daysLapsed(lastActive: previousActive, now: now)
+        VoiceTaleStore.updateProgress({ record in
+            record.lastActiveDate = now
+        }, in: context)
+        return lapsed
+    }
+
     /// Record that the player engaged today. Returns the streak result for
     /// celebration UI (`.continued`, `.frozenAndContinued`, `.reset`,
     /// `.sameDay`).

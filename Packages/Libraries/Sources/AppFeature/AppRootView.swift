@@ -77,6 +77,12 @@ public struct AppRootView: View {
     @State private var anthologyPlayer = AnthologyAudioPlayer()
     @State private var router: ForgePhaseRouter<VoiceTalePhase> = AppRootView.makeRouter()
     @State private var hasBootstrapped = false
+    /// Engagement-Foundation welcome-back state. Populated once on
+    /// bootstrap when ``LapsedReturnDetector`` confirms a ≥ 3-day gap.
+    /// Cleared when the kid taps either CTA. Per `@Docs/FEATURE_PLAN.md`
+    /// § Phase: Onboarding & Child Safety § "Return loop".
+    @State private var welcomeBackContext: WelcomeBackContext?
+    @Environment(\.modelContext) private var modelContext
     @Environment(\.scenePhase) private var scenePhase
     @AppStorage(AppRootView.onboardingCompletedKey) private var hasCompletedOnboarding: Bool = false
 
@@ -125,6 +131,17 @@ public struct AppRootView: View {
         .environment(\.forgeAudio, forgeAudio)
         .environment(\.anthologyAudioPlayer, anthologyPlayer)
         .celebrationOverlay(celebration)
+        .sheet(item: $welcomeBackContext) { context in
+            WelcomeBackView(
+                daysLapsed: context.daysLapsed,
+                lastTale: context.lastTale,
+                onTellAnother: {
+                    welcomeBackContext = nil
+                    selectedTab = .tell
+                },
+                onJustLooking: { welcomeBackContext = nil }
+            )
+        }
         .task {
             guard !hasBootstrapped else { return }
             hasBootstrapped = true
@@ -139,6 +156,7 @@ public struct AppRootView: View {
             // `router.currentPhase` since the router is @Observable.
             await router.runStartupGates()
             await hubRegistry.register(VoiceTaleHubContribution())
+            evaluateWelcomeBack()
         }
         .onChange(of: scenePhase) { _, newPhase in
             // Pause the COPPA session timer when the app backgrounds so the
@@ -161,6 +179,31 @@ public struct AppRootView: View {
         }
     }
 
+    /// Compute the welcome-back context on bootstrap. Reads
+    /// `lastActiveDate` BEFORE the gamification service bumps it so the
+    /// gap reflects the previous session's date; if the gap is ≥ 3 days,
+    /// populates `welcomeBackContext` + emits an analytics event.
+    /// Per `@Docs/FEATURE_PLAN.md` § "Return loop".
+    private func evaluateWelcomeBack() {
+        // Skip the welcome-back surface during onboarding — a kid who's
+        // mid-onboarding hasn't yet "lapsed" in any meaningful sense.
+        guard hasCompletedOnboarding else {
+            _ = gamification.recordLastActive(in: modelContext)
+            return
+        }
+        let snapshot = VoiceTaleStore.progressSnapshot(in: modelContext)
+        let priorActive = snapshot.lastActiveDate
+        let days = LapsedReturnDetector.daysLapsed(lastActive: priorActive) ?? 0
+        // Bump the active date AFTER we read it so the gap reflects the
+        // previous session.
+        _ = gamification.recordLastActive(in: modelContext)
+        guard days >= LapsedReturnDetector.lapsedDayThreshold else { return }
+        // Surface the warm greeting + last-tale recap.
+        let lastTale = VoiceTaleStore.fetchTales(in: modelContext).first
+        welcomeBackContext = WelcomeBackContext(daysLapsed: days, lastTale: lastTale)
+        analytics.track(.lapsedReturn(daysSinceActive: days))
+    }
+
     private var tabSurface: some View {
         TabView(selection: $selectedTab) {
             Tab(AppTab.tell.title, systemImage: AppTab.tell.systemImage, value: AppTab.tell) {
@@ -177,6 +220,15 @@ public struct AppRootView: View {
             }
         }
     }
+}
+
+/// Identifiable wrapper carrying everything the welcome-back sheet needs.
+/// Stored as `Identifiable` so `.sheet(item:)` can drive presentation
+/// without a separate bool.
+struct WelcomeBackContext: Identifiable, Sendable {
+    let id = UUID()
+    let daysLapsed: Int
+    let lastTale: VoiceTaleEntry?
 }
 
 /// Composite Progress tab: anthology gallery + progress card. The original
