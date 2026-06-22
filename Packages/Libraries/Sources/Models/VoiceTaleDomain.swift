@@ -31,18 +31,55 @@ nonisolated public struct BeatSegment: Codable, Sendable, Hashable {
     public let targetSeconds: Double
     public let actualSeconds: Double
     public let tolerance: Double
+    /// Phase 1.1 voice-character attribution. `nil` means "no override" —
+    /// the beat plays back as the kid's natural voice (`.narrator`). The
+    /// field is Optional + additive so old persisted tales decode without
+    /// a custom Codable hop: Swift's synthesized `init(from:)` uses
+    /// `decodeIfPresent` for Optional properties, returning `nil` when the
+    /// key is missing.
+    public let voiceCharacterSlug: String?
 
-    public init(beat: ArcBeat, targetSeconds: Double, actualSeconds: Double, tolerance: Double = 0.20) {
+    public init(
+        beat: ArcBeat,
+        targetSeconds: Double,
+        actualSeconds: Double,
+        tolerance: Double = 0.20,
+        voiceCharacterSlug: String? = nil
+    ) {
         self.beat = beat
         self.targetSeconds = targetSeconds
         self.actualSeconds = actualSeconds
         self.tolerance = tolerance
+        self.voiceCharacterSlug = voiceCharacterSlug
     }
 
     public var isWithinTolerance: Bool {
         let lower = targetSeconds * (1 - tolerance)
         let upper = targetSeconds * (1 + tolerance)
         return actualSeconds >= lower && actualSeconds <= upper
+    }
+
+    /// Resolve the slug into a preset, falling back to `.narrator` when
+    /// nil or unrecognized. Mirrors ``VoiceCharacterCatalog.preset(forSlug:)``
+    /// so views can render the per-beat affordance without hand-rolling
+    /// the lookup.
+    public var voiceCharacterPreset: VoiceCharacterPreset {
+        guard let slug = voiceCharacterSlug else { return .narrator }
+        return VoiceCharacterCatalog.preset(forSlug: slug)
+    }
+
+    /// Produce a copy with a different voice-character attribution. Used
+    /// by the per-beat picker in the TranscriptReviewView — preserves the
+    /// timing fields so swapping a preset doesn't alter the recorded
+    /// duration / tolerance fields.
+    public func withVoiceCharacter(_ slug: String?) -> BeatSegment {
+        BeatSegment(
+            beat: beat,
+            targetSeconds: targetSeconds,
+            actualSeconds: actualSeconds,
+            tolerance: tolerance,
+            voiceCharacterSlug: slug
+        )
     }
 }
 

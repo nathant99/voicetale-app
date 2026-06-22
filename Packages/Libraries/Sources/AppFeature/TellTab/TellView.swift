@@ -18,6 +18,15 @@ public struct TellView: View {
     @State private var machine = TellMachine()
     @State private var recorder = AudioRecorder()
     @State private var mentor = BrambleMentor()
+    /// Phase 1.1 voice-character preview. Drives a single
+    /// ``AVAudioEngine``+``AVAudioUnitTimePitch`` graph so the kid can
+    /// audition picked presets per beat row in the TranscriptReviewView.
+    @State private var voicePlayback = VoiceCharacterPlayback()
+    /// Beat whose voice preset is currently auditioning, or `nil` when no
+    /// preview is in flight. Plumbed to ``TranscriptReviewView`` so the
+    /// row's play/stop affordance can flip without observing the engine
+    /// state directly.
+    @State private var activePreviewBeat: ArcBeat?
 
     @State private var transcriptDraft: String = ""
     @State private var timerTick: Date = Date()
@@ -107,11 +116,15 @@ public struct TellView: View {
         case .reviewingTranscript:
             TranscriptReviewView(
                 transcript: $transcriptDraft,
-                beatTimeline: machine.beatTimeline,
+                beatTimeline: $machine.beatTimeline,
                 onReflect: {
                     machine.transcript = transcriptDraft
+                    stopVoicePreview()
                     machine.enterAwaitingReflection()
-                }
+                },
+                onPreview: previewVoiceCharacter(for:),
+                onPreviewStop: stopVoicePreview,
+                activePreviewBeat: activePreviewBeat
             )
         case .awaitingReflection, .showingReflection:
             BrambleReflectionView(
@@ -366,9 +379,32 @@ public struct TellView: View {
 
     private func cancelRecording() {
         recorder.cancel()
+        stopVoicePreview()
         machine.reset()
         transcriptDraft = ""
         clearCastVoicing()
+    }
+
+    /// Audition the current voice-character pick for the given beat by
+    /// playing the entire recorded tale through the preset's pitch + rate
+    /// shift. Scope per `@Docs/FEATURE_PLAN.md` § Phase 1.1: whole-tale
+    /// single-preset preview; per-beat chunked playback ships in Phase 1.2.
+    /// Silently no-ops when the audio file URL isn't known yet (e.g.,
+    /// stale state right after `stopRecording`).
+    private func previewVoiceCharacter(for segment: BeatSegment) {
+        guard let url = machine.audioFileURL else { return }
+        let preset = segment.voiceCharacterPreset
+        voicePlayback.preview(fileURL: url, preset: preset)
+        activePreviewBeat = segment.beat
+    }
+
+    private func stopVoicePreview() {
+        guard activePreviewBeat != nil else {
+            voicePlayback.stop()
+            return
+        }
+        voicePlayback.stop()
+        activePreviewBeat = nil
     }
 
     private func clearCastVoicing() {
@@ -492,6 +528,7 @@ public struct TellView: View {
                 in: modelContext
             )
             machine.markSaved()
+            stopVoicePreview()
             HapticsBridge.fireTaleSaved()
             analytics.track(.taleSavedToAnthology(
                 mood: entry.mood,
@@ -570,6 +607,7 @@ public struct TellView: View {
         if !machine.transcript.isEmpty {
             previousTranscript = machine.transcript
         }
+        stopVoicePreview()
         machine.reset()
         transcriptDraft = ""
         clearCastVoicing()
