@@ -7,6 +7,7 @@ import SharedUI
 /// `@.claude/rules/forgekit.md` § Avatar Edit Authority) + entry points to
 /// traditions / settings / companion pack.
 public struct ProfileTabView: View {
+    @Environment(\.analyticsService) private var analytics
     @State private var showingTraditions: Bool = false
     @State private var showingSettings: Bool = false
     @State private var showingCompanionPack: Bool = false
@@ -58,6 +59,7 @@ public struct ProfileTabView: View {
 
     private var avatarSection: some View {
         Button {
+            analytics.track(.avatarSheetOpened)
             showingAvatarStudio = true
         } label: {
             HStack(spacing: 12) {

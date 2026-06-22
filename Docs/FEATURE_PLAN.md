@@ -85,7 +85,7 @@ Core 60-120 second record-a-tale loop with 5-beat timer skeleton, on-device tran
 - [x] Wire `ForgeAnalytics.AnalyticsEngine` via app-local `AnalyticsService` (`@Observable @MainActor` wrapper; environment-injected from `AppRootView`)
 - [x] Author `VoiceTaleAnalyticsEvent` typed enum (9 events: session-started / tale-recording-started / tale-recording-completed / tale-saved / tale-retold / reflection-shown / tradition-explored / daily-prompt-viewed / avatar-sheet-opened) with categorical-only properties (mood / beat / character slug; transcript never emitted; duration bucketed)
 - [x] Emit at user-action sites: `TellView` (start / completed / save / retell / reflection-shown), `TraditionGalleryView` (tradition-explored), `DailyPromptView` (daily-prompt-viewed)
-- [x] AnalyticsService + event vocabulary unit tests (`AnalyticsServiceTests`)
+- [x] AnalyticsService + event vocabulary unit tests (`AnalyticsServiceTests`) — extended 2026-06-22 with `kitCompleted` coverage (kit + accuracy-bucket + no-raw-accuracy) + an exhaustiveness audit (`everyDeclaredEventHasAUniqueNonEmptyName`) that enforces unique non-empty snake_case names. Closes a `avatarSheetOpened` declared-but-never-emitted gap surfaced via the audit at `Docs/AUDIT_ANALYTICS_EVENT_EMISSION_2026-06-22.md` — now wired from `ProfileTabView` avatar section button.
 
 ### Gamification
 
