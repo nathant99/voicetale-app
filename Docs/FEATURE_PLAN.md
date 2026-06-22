@@ -127,6 +127,25 @@ Core 60-120 second record-a-tale loop with 5-beat timer skeleton, on-device tran
 
 ---
 
+### Pillar Deepening — C1 Shippable Artifact (CAF voice export)
+
+- [x] Resolve Phase A design questions (recording length cap = 120s / canonical CAF native, MP3 deferred / cast-anchored prompts already shipped via Phase 1 kits / parent share via native iOS ShareLink) — `Docs/HANDOFF_FROM_LABSMITH_PILLAR_DEEPENING_C1_VOICE_EXPORT.md` Phase A table (2026-06-22)
+- [x] Phase B core wiring — `Services/VoiceTaleExporter.swift` (actor, single-shot read+convert+write via AVAudioConverter; 44.1 kHz / mono / 16-bit / PCM CAF target; idempotent), `Services/VoiceTaleStore.audioFileURL(for:in:)`, `AppFeature/Anthology/AnthologyView.exportRow(for:)` (4-state machine + ShareLink). Tests: 5 in `ServicesTests/VoiceTaleExporterTests` (URL derivation + source-missing throw + canonical-format conversion + idempotency).
+- [x] Phase C asset-consumer audit grep — `VoiceTaleExporter` is consumed at `AnthologyView.runExport(taleID:sourceURL:)`; ShareLink renders the canonical CAF URL on `.ready(url)`. Audit passes.
+- [ ] Phase D — `voice.recording.shared` analytics event + waveform a11y alternative for the export button — deferred to a Phase 1.1 follow-up alongside the COPPA-flow + Declared Age Range gate
+
+### DN-S Move D — Live cast voicing at the Bramble call site
+
+- [x] Step 3 live wire-up — `BrambleReflectionView` renders a "Hear from <name>" chip below the reflection when `CastVoicingService.respond(...)` returns. `TellView.runCastVoicingIfEnabled()` picks a cast slug via `CastVoicingService.slugForMood(_:)` (funny→Refrain / scary→Slow / tender→Lean / wild→Pivot) and fetches the line after each reflection lands. Chip clears on retell / cancel / save.
+- [x] Step 4 SettingsView experimental toggle bound to `@AppStorage("voicetale.castVoicing.live")` (default false)
+- [ ] Step 5 — 100-sample moderation regression test deferred to actual TestFlight rollout per the parent rollout decision
+
+### In-app surfacing of hub-shipped assets
+
+- [x] Book covers (dual-tier — Standard for ages 9-12 + Advanced for ages 11-14) surface in `CompanionPackView` as a "Featured books" section with a per-cover detail sheet linking to spark-and-anvil.com/books/voicetale (PR 2026-06-22). New `SharedUI/BookCoverCatalog.swift` resolves the WebPs from `SharedUI/Resources/CustomArt/voicetale/` via `Bundle.module`.
+
+---
+
 ## Phase 1.1: Voice-Character Chooser
 
 Post-MVP voice-character recordings + light pitch/timbre shift presets.
