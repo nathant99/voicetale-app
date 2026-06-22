@@ -144,6 +144,10 @@ Core 60-120 second record-a-tale loop with 5-beat timer skeleton, on-device tran
 
 - [x] Book covers (dual-tier — Standard for ages 9-12 + Advanced for ages 11-14) surface in `CompanionPackView` as a "Featured books" section with a per-cover detail sheet linking to spark-and-anvil.com/books/voicetale (PR 2026-06-22). New `SharedUI/BookCoverCatalog.swift` resolves the WebPs from `SharedUI/Resources/CustomArt/voicetale/` via `Bundle.module`.
 
+### ForgeCelebration wire-up (level-up + badge moments)
+
+- [x] Wire `ForgeCelebration.CelebrationCoordinator` into `AppRootView` via `@Entry`-backed env value; mount `.celebrationOverlay(coordinator)` on the root tab surface so the overlay floats above every tab (2026-06-22). `XPAwardOutcome` gains `previousLevel` + `leveledUp` so XP award sites (TellView `awardSaveXP`, TraditionGalleryView tradition-explored handler) can fire `coordinator.levelUp(newLevel:)` on threshold crossings + `coordinator.badgeEarned(title:)` for each new achievement. New unit tests (`awardOutcomeCapturesPreviousAndNewLevel` + `awardOutcomeReportsNoLevelUpBelowThreshold`) lock down the contract.
+
 ---
 
 ## Phase 1.1: Voice-Character Chooser

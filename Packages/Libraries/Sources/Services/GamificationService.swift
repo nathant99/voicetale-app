@@ -41,6 +41,10 @@ public final class GamificationService {
         for event: XPEvent,
         in context: ModelContext
     ) -> XPAwardOutcome {
+        // Snapshot level BEFORE the award so call sites can detect level-up
+        // transitions (e.g., to fire a ForgeCelebration overlay). Doing this
+        // here — rather than at every call site — keeps the contract local.
+        let previousLevel = xpEngine.level(for: VoiceTaleStore.progressSnapshot(in: context).xpTotal)
         var newTotal = 0
         var newLevel = 0
         VoiceTaleStore.updateProgress({ record in
@@ -48,11 +52,12 @@ public final class GamificationService {
             newTotal = record.xpTotal
             newLevel = self.xpEngine.level(for: newTotal)
         }, in: context)
-        DebugLog.state("GamificationService.awardXP — event=\(event) +\(event.points) XP → total=\(newTotal) lvl=\(newLevel)")
+        DebugLog.state("GamificationService.awardXP — event=\(event) +\(event.points) XP → total=\(newTotal) lvl=\(previousLevel)→\(newLevel)")
         let newBadges = evaluateAchievements(in: context)
         return XPAwardOutcome(
             xpAwarded: event.points,
             newTotal: newTotal,
+            previousLevel: previousLevel,
             newLevel: newLevel,
             newBadges: newBadges
         )
@@ -236,17 +241,24 @@ public enum XPEvent: Equatable, Sendable, CustomStringConvertible {
 public nonisolated struct XPAwardOutcome: Sendable {
     public let xpAwarded: Int
     public let newTotal: Int
+    public let previousLevel: Int
     public let newLevel: Int
     public let newBadges: [BadgeDisplayData]
+
+    /// True when the award crossed a level threshold. Call sites use this
+    /// to trigger a ForgeCelebration level-up overlay.
+    public var leveledUp: Bool { newLevel > previousLevel }
 
     public init(
         xpAwarded: Int,
         newTotal: Int,
+        previousLevel: Int,
         newLevel: Int,
         newBadges: [BadgeDisplayData]
     ) {
         self.xpAwarded = xpAwarded
         self.newTotal = newTotal
+        self.previousLevel = previousLevel
         self.newLevel = newLevel
         self.newBadges = newBadges
     }

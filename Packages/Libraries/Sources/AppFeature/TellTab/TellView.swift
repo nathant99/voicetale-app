@@ -5,6 +5,7 @@ import Services
 import VoiceAuthoring
 import SharedUI
 import AIMentor
+import ForgeCelebration
 
 /// Top-level Tell-tab screen. Coordinates the record → review → reflect
 /// flow against ``AudioRecorder`` + ``TranscriptPipeline`` +
@@ -13,6 +14,7 @@ public struct TellView: View {
     @Environment(\.modelContext) private var modelContext
     @Environment(\.gamificationService) private var gamification
     @Environment(\.analyticsService) private var analytics
+    @Environment(\.celebrationCoordinator) private var celebration
     @State private var machine = TellMachine()
     @State private var recorder = AudioRecorder()
     @State private var mentor = BrambleMentor()
@@ -508,15 +510,31 @@ public struct TellView: View {
     /// in the anthology. Per `@Docs/FEATURE_PLAN.md` § Gamification — XP for
     /// first-tale, all-5-beats, transcript-reviewed are independent events.
     private func awardSaveXP(entry: VoiceTaleEntry) {
-        gamification.awardXP(for: .taleSaved, in: modelContext)
+        let saveOutcome = gamification.awardXP(for: .taleSaved, in: modelContext)
+        fireCelebrationsIfAny(outcome: saveOutcome)
         if hitAllFiveBeats(entry: entry) {
-            gamification.awardXP(for: .allFiveBeatsHit, in: modelContext)
+            let beatsOutcome = gamification.awardXP(for: .allFiveBeatsHit, in: modelContext)
+            fireCelebrationsIfAny(outcome: beatsOutcome)
         }
         if didReviewTranscript() {
-            gamification.awardXP(for: .transcriptReviewed, in: modelContext)
+            let reviewOutcome = gamification.awardXP(for: .transcriptReviewed, in: modelContext)
+            fireCelebrationsIfAny(outcome: reviewOutcome)
         }
         Task { @MainActor in
             _ = await gamification.recordSession(in: modelContext)
+        }
+    }
+
+    /// Fire a level-up + per-badge celebration when the XP award crossed
+    /// either threshold. Level-up takes precedence (the coordinator collapses
+    /// lower-tier events while a higher-tier one is active per
+    /// ``CelebrationCoordinator.celebrate(_:message:emoji:slug:)``).
+    private func fireCelebrationsIfAny(outcome: XPAwardOutcome) {
+        if outcome.leveledUp {
+            celebration.levelUp(newLevel: outcome.newLevel)
+        }
+        for badge in outcome.newBadges {
+            celebration.badgeEarned(title: badge.title)
         }
     }
 

@@ -3,6 +3,7 @@ import SwiftData
 import Models
 import Services
 import ForgeAdventure
+import ForgeCelebration
 
 /// Environment slot for the shared ``GamificationService`` instance. Views
 /// award XP / record sessions / evaluate achievements via this key per
@@ -10,6 +11,11 @@ import ForgeAdventure
 extension EnvironmentValues {
     @Entry public var gamificationService: GamificationService = GamificationService()
     @Entry public var analyticsService: AnalyticsService = AnalyticsService()
+    /// Shared ``CelebrationCoordinator`` for level-up / badge-earned / first-tale
+    /// celebrations. The overlay is mounted at ``AppRootView`` so it floats
+    /// above every tab. Call sites fire celebrations via
+    /// `coordinator.levelUp(newLevel:)` / `coordinator.badgeEarned(title:)`.
+    @Entry public var celebrationCoordinator: CelebrationCoordinator = CelebrationCoordinator()
 }
 
 /// Top-level app shell. Hosts a 4-tab `TabView` (Tell / Adventure / Progress
@@ -47,6 +53,7 @@ public struct AppRootView: View {
     @State private var selectedTab: AppTab = .tell
     @State private var gamification = GamificationService()
     @State private var analytics = AnalyticsService()
+    @State private var celebration = CelebrationCoordinator()
     @State private var hasBootstrapped = false
     @AppStorage(AppRootView.onboardingCompletedKey) private var hasCompletedOnboarding: Bool = false
 
@@ -70,6 +77,8 @@ public struct AppRootView: View {
         }
         .environment(\.gamificationService, gamification)
         .environment(\.analyticsService, analytics)
+        .environment(\.celebrationCoordinator, celebration)
+        .celebrationOverlay(celebration)
         .task {
             guard !hasBootstrapped else { return }
             hasBootstrapped = true
