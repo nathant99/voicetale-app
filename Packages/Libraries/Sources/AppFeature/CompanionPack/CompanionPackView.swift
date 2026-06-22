@@ -13,8 +13,10 @@ public struct CompanionPackView: View {
     @State private var loadError: String?
     @State private var previewURL: URL?
     @State private var selectedCover: BookCoverCatalog.Tier?
+    @State private var selectedChapter: ChapterIllustrationCatalog.Chapter?
 
     private let bookCovers: [(tier: BookCoverCatalog.Tier, url: URL)] = BookCoverCatalog.availableCovers()
+    private let chapterIllustrations: [(chapter: ChapterIllustrationCatalog.Chapter, variant: ChapterIllustrationCatalog.Variant, url: URL)] = ChapterIllustrationCatalog.availableIllustrations()
 
     public init() {}
 
@@ -29,6 +31,9 @@ public struct CompanionPackView: View {
                 .sheet(item: $selectedCover) { tier in
                     BookCoverDetailSheet(tier: tier)
                 }
+                .sheet(item: $selectedChapter) { chapter in
+                    ChapterIllustrationDetailSheet(chapter: chapter)
+                }
         }
     }
 
@@ -40,6 +45,9 @@ public struct CompanionPackView: View {
                     intro
                     if !bookCovers.isEmpty {
                         booksSection
+                    }
+                    if !chapterOpeners.isEmpty {
+                        chaptersSection
                     }
                     ForEach(entries) { entry in
                         card(for: entry)
@@ -100,6 +108,55 @@ public struct CompanionPackView: View {
                 .foregroundStyle(.secondary)
                 .lineLimit(2, reservesSpace: true)
         }
+    }
+
+    /// Chapter openers, in canonical (Lean / Pivot / Refrain / Slow) order.
+    /// Empty list = the chapter WebPs aren't bundled yet, which gates the
+    /// section's render so the surface gracefully degrades.
+    private var chapterOpeners: [(chapter: ChapterIllustrationCatalog.Chapter, url: URL)] {
+        chapterIllustrations.filter { $0.variant == .opener }.map { ($0.chapter, $0.url) }
+    }
+
+    private var chaptersSection: some View {
+        VStack(alignment: .leading, spacing: 10) {
+            Text("DN-S chapter book")
+                .font(.title3.weight(.semibold))
+            Text("Each cast friend gets a chapter that teaches one oral-craft primitive. Tap a cover to read the chapter primer.")
+                .font(.subheadline)
+                .foregroundStyle(.secondary)
+            ScrollView(.horizontal, showsIndicators: false) {
+                HStack(spacing: 12) {
+                    ForEach(chapterOpeners, id: \.chapter) { entry in
+                        Button {
+                            selectedChapter = entry.chapter
+                        } label: {
+                            chapterThumbnail(chapter: entry.chapter)
+                        }
+                        .buttonStyle(.plain)
+                        .accessibilityHint("Open the \(entry.chapter.displayName) chapter primer.")
+                    }
+                }
+            }
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .padding(.bottom, 4)
+    }
+
+    @ViewBuilder
+    private func chapterThumbnail(chapter: ChapterIllustrationCatalog.Chapter) -> some View {
+        VStack(alignment: .leading, spacing: 6) {
+            ChapterIllustrationView(chapter: chapter, variant: .opener)
+                .aspectRatio(3 / 4, contentMode: .fit)
+                .frame(width: 132)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 12)
+                        .strokeBorder(.quaternary, lineWidth: 1)
+                )
+            Text(chapter.displayName)
+                .font(.caption.weight(.semibold))
+                .foregroundStyle(.primary)
+        }
+        .frame(width: 132, alignment: .leading)
     }
 
     private var intro: some View {
@@ -249,6 +306,66 @@ private struct BookCoverDetailSheet: View {
                 .padding()
             }
             .voiceTaleNavigationTitle("Featured book")
+            .toolbar {
+                ToolbarItem(placement: .confirmationAction) {
+                    Button("Done") { dismiss() }
+                }
+            }
+        }
+    }
+}
+
+/// Modal sheet showing the full-resolution chapter opener + spot illustration
+/// + the craft-primitive text per chapter. Links out to the spark-and-anvil.com
+/// chapter book PDF — same pattern as `BookCoverDetailSheet`.
+private struct ChapterIllustrationDetailSheet: View {
+    let chapter: ChapterIllustrationCatalog.Chapter
+
+    @Environment(\.dismiss) private var dismiss
+
+    var body: some View {
+        NavigationStack {
+            ScrollView {
+                VStack(alignment: .leading, spacing: 16) {
+                    ChapterIllustrationView(chapter: chapter, variant: .opener, cornerRadius: 16)
+                        .aspectRatio(3 / 4, contentMode: .fit)
+                        .frame(maxWidth: .infinity)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 16)
+                                .strokeBorder(.quaternary, lineWidth: 1)
+                        )
+                    VStack(alignment: .leading, spacing: 6) {
+                        Text(chapter.displayName)
+                            .font(.title2.weight(.semibold))
+                        Text(chapter.craftPrimitive)
+                            .font(.body)
+                            .foregroundStyle(.secondary)
+                    }
+                    if ChapterIllustrationCatalog.illustrationURL(chapter: chapter, variant: .spot) != nil {
+                        VStack(alignment: .leading, spacing: 8) {
+                            Text("In the chapter")
+                                .font(.subheadline.weight(.semibold))
+                            ChapterIllustrationView(chapter: chapter, variant: .spot, cornerRadius: 12)
+                                .aspectRatio(1, contentMode: .fit)
+                                .frame(maxWidth: .infinity)
+                        }
+                    }
+                    if let webURL = URL(string: "https://spark-and-anvil.com/cast/voicetale/\(chapter.rawValue)") {
+                        Link(destination: webURL) {
+                            Label("Read the full chapter", systemImage: "safari.fill")
+                                .frame(maxWidth: .infinity)
+                                .padding(.vertical, 6)
+                        }
+                        .buttonStyle(.borderedProminent)
+                        .accessibilityHint("Opens \(chapter.displayName)'s chapter on spark-and-anvil.com in your default browser.")
+                    }
+                    Text("Chapter text lives on the website (and inside the dual-tier PDF book) — these illustrations are the in-app primer that introduces what each friend teaches.")
+                        .font(.footnote)
+                        .foregroundStyle(.secondary)
+                }
+                .padding()
+            }
+            .voiceTaleNavigationTitle("Chapter primer")
             .toolbar {
                 ToolbarItem(placement: .confirmationAction) {
                     Button("Done") { dismiss() }
