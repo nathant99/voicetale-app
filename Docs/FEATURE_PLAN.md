@@ -180,6 +180,19 @@ Round 2026-06-22 (post-#65) shipped 6 PRs:
 
 **Net**: VoiceTale now imports + actively uses **every** ForgeKit module declared in Package.swift. Phase 1.1 voice-character chooser surface is opened. Liquid Glass Phase 1 + Phase 2 adopted per the portfolio Hybrid policy. 33 new tests landed across the round (cumulative across all 6 PRs). Apple Declared Age Range API gate remains the only outstanding Phase 1 item (Xcode-UI gated; tracked in `HANDOFF_TO_USER_XCODE_WORKSPACE_INTEGRATION.md` follow-on).
 
+### Round close-out 2026-06-22 (PRs #73–#78) — Phase 1.1 EXIT-COMPLETE + trauma-informed + a11y + engagement
+
+Round 2026-06-22 (post-#72) shipped 6 more PRs taking VoiceTale through Phase 1.1 exit + 3 of the long-tail Polish-phase chunks:
+
+- **PR #73** — Phase 1.1 A1 + A2: `VoiceCharacterPlayback` (`AVAudioEngine` + `AVAudioPlayerNode` + `AVAudioUnitTimePitch`) + per-beat picker in `TranscriptReviewView`. `BeatSegment` gains additive `voiceCharacterSlug: String?`; legacy persisted tales decode with nil per the synthesized `decodeIfPresent` path.
+- **PR #74** — Phase 1.1 A3 + A4: `BramblePromptBuilder.voiceVariationPrompt` + `BrambleFallbackCatalog.voiceVariationFallback` + `BrambleMentor.reflectVoiceVariation`; new `BrambleReflectionView.voiceVariationCallout` callout sub-card; `Services/Resources/QuestionKits/kit_05_voice_character.json` (4 questions anchored to `pivot` cast member; all 4 listener-cast cameos).
+- **PR #75** — Phase 1.1 A5: 4 achievements (`voice_first_swap` / `voice_all_five_presets` / `voice_kit_05_completed` / `voice_variation_tale`). `PersistentPlayerProgress` gains additive `completedKitIDsRaw: [Int]`. `CriteriaSnapshot.voiceCharacterSummary(from:)` pure-function helper derives the voice criteria from saved tales. **Phase 1.1 EXIT-COMPLETE**.
+- **PR #76** — Trauma-informed distress-signal gate: `AIMentor/DistressSignalDetector` (`nonisolated enum`; conservative word-boundary keyword pass classifying selfHarm / abuse / loss / nil); `BrambleFallbackCatalog.holdSpaceFallback(axis:)` per SAMHSA TIP 57 register; all 3 BrambleMentor reflect paths short-circuit on distress; `SharedUI/CrisisResourceListView` shared canonical view used by Settings + new `BrambleReflectionView.distressChip`.
+- **PR #77** — A11y sweep + Reduce-Motion + Reduce-Transparency: `MoodTagView` explicit `.accessibilityLabel("Mood: …")` + `.isSelected` trait; `TraditionGalleryView.TraditionCard` combined-element + computed label; `RecordingControlsView` hints enriched; `BrambleReflectionView.reflectionBody` combined-element label + Reduce-Transparency solid-background variant. Audit doc: `Docs/AUDIT_ACCESSIBILITY_2026-06-22.md`.
+- **PR #78** — Engagement Foundation return-loop + variable rewards: `Services/LapsedReturnDetector` (pure-function 3-day threshold); `PersistentPlayerProgress` gains additive `lastActiveDate: Date?`; `GamificationService.recordLastActive(now:in:)`; `AppFeature/WelcomeBack/WelcomeBackView` surfaces as a sheet on launch when daysLapsed ≥ 3. `DailyPromptView.resolved(sessionCount:)` returns rare-pool entries every 5th session with a "Rare" pill. Two new analytics events (`.lapsedReturn` + `.rarePromptSurfaced`).
+
+**Net**: Phase 1.1 EXIT-COMPLETE (all 5 boxes shipped). 5 boxes closed across the Phase Accessibility & Trauma-Informed Polish + Phase Engagement Foundation surfaces. ~110 new tests landed across the round. Apple Declared Age Range API gate + Dynamic Type AX5 audit + WCAG AA color-contrast audit + full simulator VoiceOver pass + D1/D7/D30 retention metrics remain outstanding (all Xcode-UI-gated OR hands-on-review-deferred).
+
 ---
 
 ## Phase 1.1: Voice-Character Chooser
