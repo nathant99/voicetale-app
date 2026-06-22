@@ -9,24 +9,29 @@ import SwiftUI
 import SwiftData
 import AppFeature
 import Models
+import Services
 
 @main
 struct VoiceTaleApp: App {
-    private let modelContainer: ModelContainer = {
+    private let modelContainer: ModelContainer
+
+    init() {
+        // Delegate to `VoiceTalePersistence.makeFailSafeContainer()` so a
+        // corrupted store auto-backs-up the `.store` / `.store-wal` /
+        // `.store-shm` triple to Application Support and recreates a fresh
+        // container per `.claude/rules/swiftdata.md` § "Fail-Safe Recovery
+        // Pattern". The recovery URL would normally surface in a parental
+        // log, but VoiceTale is on-device-only — we just continue on the
+        // fresh store rather than block the kid from telling a tale.
         do {
-            return try ModelContainer(
-                for: Schema(versionedSchema: VoiceTaleSchemaV1.self),
-                migrationPlan: VoiceTaleMigrationPlan.self,
-                configurations: []
-            )
+            let opened = try VoiceTalePersistence.makeFailSafeContainer()
+            self.modelContainer = opened.container
         } catch {
-            // Per `.claude/rules/swiftdata.md` § "Fail-Safe Recovery Pattern" —
-            // production code would back up the store + recreate fresh. For
-            // Phase 0 close-out we hard-fail so the misconfiguration is
-            // surfaced loudly during development.
+            // The fail-safe path itself failed — usually a schema
+            // misconfiguration during development. Hard-fail so it's loud.
             fatalError("Failed to initialize VoiceTale ModelContainer: \(error)")
         }
-    }()
+    }
 
     var body: some Scene {
         WindowGroup {
