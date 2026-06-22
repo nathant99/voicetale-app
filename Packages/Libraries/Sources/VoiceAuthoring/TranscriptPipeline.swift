@@ -24,9 +24,22 @@ public actor TranscriptPipeline {
     /// per-utterance segments. Resolves the continuation only on the final
     /// result (per Apple's `SFSpeechURLRecognitionRequest` example) so
     /// callers don't see partial drafts.
+    ///
+    /// Bracketed by `PerfSignposter.begin/end(.transcriptTurnaround)` so the
+    /// operation surfaces in Instruments + emits a `[PERF]` log line whenever
+    /// the elapsed time exceeds the Phase 1 < 2 s target (for 60 s audio).
     public func transcribe(
         fileURL: URL,
         locale: Locale = .current
+    ) async throws -> TranscriptResult {
+        let token = PerfSignposter.begin(.transcriptTurnaround)
+        defer { PerfSignposter.end(token) }
+        return try await transcribeInner(fileURL: fileURL, locale: locale)
+    }
+
+    private func transcribeInner(
+        fileURL: URL,
+        locale: Locale
     ) async throws -> TranscriptResult {
         guard PermissionGate.hasSpeechRecognitionUsageDescription else {
             throw TranscriptError.usageDescriptionMissing

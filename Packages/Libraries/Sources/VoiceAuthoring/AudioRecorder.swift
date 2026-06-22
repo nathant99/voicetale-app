@@ -53,7 +53,18 @@ public final class AudioRecorder {
 
     /// Starts a fresh capture session. Throws if microphone permission is
     /// missing or denied; throws if the audio engine refuses to start.
+    ///
+    /// Bracketed by `PerfSignposter.begin/end(.recordStart)` so the operation
+    /// surfaces in Instruments + emits a `[PERF]` log line whenever the
+    /// elapsed time exceeds the Phase 1 < 50 ms target. The `defer` ensures
+    /// the perf signal fires on the error path too.
     public func start(at now: Date = Date()) async throws {
+        let token = PerfSignposter.begin(.recordStart)
+        defer { PerfSignposter.end(token) }
+        try await startInner(at: now)
+    }
+
+    private func startInner(at now: Date) async throws {
         guard PermissionGate.hasMicrophoneUsageDescription else {
             lastError = .usageDescriptionMissing
             throw RecorderError.usageDescriptionMissing
