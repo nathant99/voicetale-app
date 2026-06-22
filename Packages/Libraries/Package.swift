@@ -135,6 +135,7 @@ let package = Package(
                 .product(name: "ForgeSync", package: "forgekit"),
                 .product(name: "ForgeAnalytics", package: "forgekit"),
                 .product(name: "ForgeProgression", package: "forgekit"),
+                .product(name: "ForgeAccessibility", package: "forgekit"),
             ],
             resources: [
                 .process("Resources"),
