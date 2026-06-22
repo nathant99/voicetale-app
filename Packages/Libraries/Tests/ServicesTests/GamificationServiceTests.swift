@@ -20,8 +20,9 @@ struct GamificationServiceTests {
 
     // MARK: - Catalog completeness
 
-    @Test func phase1CatalogShipsTenAchievements() {
-        #expect(VoiceTaleAchievementCatalog.phase1.count == 10)
+    @Test func phase1CatalogShipsFourteenAchievements() {
+        // 10 Phase 1 + 4 Phase 1.1 voice-character = 14 total.
+        #expect(VoiceTaleAchievementCatalog.phase1.count == 14)
     }
 
     @Test func catalogIDsAreUnique() {
@@ -41,7 +42,11 @@ struct GamificationServiceTests {
             funnyTales: 3,
             scaryTales: 3,
             tenderTales: 2,
-            wildTales: 2
+            wildTales: 2,
+            voiceSwapsEver: 5,
+            presetsEverUsed: ["hero", "sage", "sprite", "ogre"],
+            voiceVariationTalesCount: 2,
+            completedKitIDs: [5]
         )
         for definition in VoiceTaleAchievementCatalog.phase1 {
             #expect(snapshot.satisfies(definition.id),
@@ -186,5 +191,141 @@ struct GamificationServiceTests {
         let later = service.awardXP(for: .traditionExplored(slug: "x"), in: context) // +20 → 120 total
         #expect(later.newTotal == 120)
         #expect(later.newLevel >= 1)
+    }
+
+    // MARK: - Phase 1.1 — voice-character achievements
+
+    @Test func voiceCharacterSummaryFromEmptyTalesIsZero() {
+        let summary = CriteriaSnapshot.voiceCharacterSummary(from: [])
+        #expect(summary.voiceSwapsEver == 0)
+        #expect(summary.presetsEverUsed.isEmpty)
+        #expect(summary.voiceVariationTalesCount == 0)
+    }
+
+    @Test func voiceCharacterSummaryCountsTalesWithAnyOverride() {
+        let timeline = [
+            BeatSegment(beat: .hook, targetSeconds: 10, actualSeconds: 10, voiceCharacterSlug: "hero"),
+            BeatSegment(beat: .setup, targetSeconds: 20, actualSeconds: 20),
+        ]
+        let tale = VoiceTaleEntry(
+            title: "T", mood: .funny, durationSeconds: 30,
+            beatTimeline: timeline, transcript: "t"
+        )
+        let summary = CriteriaSnapshot.voiceCharacterSummary(from: [tale])
+        #expect(summary.voiceSwapsEver == 1)
+        #expect(summary.presetsEverUsed == ["hero"])
+        // Only 1 distinct non-narrator slug → not a variation tale.
+        #expect(summary.voiceVariationTalesCount == 0)
+    }
+
+    @Test func voiceCharacterSummaryDetectsVariationTale() {
+        let timeline = [
+            BeatSegment(beat: .hook, targetSeconds: 10, actualSeconds: 10, voiceCharacterSlug: "hero"),
+            BeatSegment(beat: .turn, targetSeconds: 30, actualSeconds: 30, voiceCharacterSlug: "ogre"),
+        ]
+        let tale = VoiceTaleEntry(
+            title: "T", mood: .wild, durationSeconds: 60,
+            beatTimeline: timeline, transcript: "t"
+        )
+        let summary = CriteriaSnapshot.voiceCharacterSummary(from: [tale])
+        #expect(summary.voiceSwapsEver == 1)
+        #expect(summary.voiceVariationTalesCount == 1)
+        #expect(summary.presetsEverUsed == ["hero", "ogre"])
+    }
+
+    @Test func voiceCharacterSummaryIgnoresNarratorOnlyTales() {
+        let timeline = [
+            BeatSegment(beat: .hook, targetSeconds: 10, actualSeconds: 10, voiceCharacterSlug: "narrator"),
+            BeatSegment(beat: .setup, targetSeconds: 20, actualSeconds: 20, voiceCharacterSlug: nil),
+        ]
+        let tale = VoiceTaleEntry(
+            title: "T", mood: .tender, durationSeconds: 30,
+            beatTimeline: timeline, transcript: "t"
+        )
+        let summary = CriteriaSnapshot.voiceCharacterSummary(from: [tale])
+        #expect(summary.voiceSwapsEver == 0)
+        #expect(summary.presetsEverUsed.isEmpty)
+    }
+
+    @Test func voiceFirstSwapBadgeUnlocksOnFirstVoiceTale() throws {
+        let context = try newContext()
+        let timeline = [
+            BeatSegment(beat: .hook, targetSeconds: 10, actualSeconds: 10, voiceCharacterSlug: "hero")
+        ]
+        let entry = VoiceTaleEntry(
+            title: "Voice tale", mood: .wild, durationSeconds: 30,
+            beatTimeline: timeline, transcript: "ok"
+        )
+        try VoiceTaleStore.insertTale(entry, audioFileRelativePath: "v.m4a", in: context)
+        let service = GamificationService()
+        let outcome = service.awardXP(for: .taleSaved, in: context)
+        let badgeIDs = Set(outcome.newBadges.map(\.id))
+        #expect(badgeIDs.contains("voice_first_swap"))
+    }
+
+    @Test func voiceVariationTaleBadgeUnlocksOnMultiVoiceTale() throws {
+        let context = try newContext()
+        let timeline = [
+            BeatSegment(beat: .hook, targetSeconds: 10, actualSeconds: 10, voiceCharacterSlug: "hero"),
+            BeatSegment(beat: .turn, targetSeconds: 30, actualSeconds: 30, voiceCharacterSlug: "ogre"),
+        ]
+        let entry = VoiceTaleEntry(
+            title: "Variation", mood: .wild, durationSeconds: 60,
+            beatTimeline: timeline, transcript: "ok"
+        )
+        try VoiceTaleStore.insertTale(entry, audioFileRelativePath: "var.m4a", in: context)
+        let service = GamificationService()
+        let outcome = service.awardXP(for: .taleSaved, in: context)
+        let badgeIDs = Set(outcome.newBadges.map(\.id))
+        #expect(badgeIDs.contains("voice_first_swap"))
+        #expect(badgeIDs.contains("voice_variation_tale"))
+    }
+
+    @Test func voiceAllFivePresetsBadgeUnlocksAfterUsingAllFour() throws {
+        let context = try newContext()
+        // Insert 4 separate tales, each using a different non-narrator preset.
+        for (i, slug) in ["hero", "sage", "sprite", "ogre"].enumerated() {
+            let timeline = [
+                BeatSegment(
+                    beat: .hook,
+                    targetSeconds: 10,
+                    actualSeconds: 10,
+                    voiceCharacterSlug: slug
+                )
+            ]
+            let entry = VoiceTaleEntry(
+                title: "Tale \(i)", mood: .funny, durationSeconds: 30,
+                beatTimeline: timeline, transcript: "ok"
+            )
+            try VoiceTaleStore.insertTale(entry, audioFileRelativePath: "t\(i).m4a", in: context)
+        }
+        let service = GamificationService()
+        let outcome = service.awardXP(for: .taleSaved, in: context)
+        let badgeIDs = Set(outcome.newBadges.map(\.id))
+        #expect(badgeIDs.contains("voice_all_five_presets"))
+    }
+
+    @Test func voiceKit05CompletedBadgeUnlocksOnKitCompletion() throws {
+        let context = try newContext()
+        let service = GamificationService()
+        // Awarding the kit 5 completion event must:
+        // (1) bump xpTotal by 15 (kitCompleted points)
+        // (2) append 5 to PersistentPlayerProgress.completedKitIDsRaw
+        // (3) trigger evaluateAchievements → voice_kit_05_completed earns.
+        let outcome = service.awardXP(for: .kitCompleted(kit: 5), in: context)
+        let badgeIDs = Set(outcome.newBadges.map(\.id))
+        #expect(badgeIDs.contains("voice_kit_05_completed"))
+        let snapshot = VoiceTaleStore.progressSnapshot(in: context)
+        #expect(snapshot.completedKitIDs.contains(5))
+    }
+
+    @Test func kitCompletionIsDedupedAcrossMultipleAwards() throws {
+        let context = try newContext()
+        let service = GamificationService()
+        _ = service.awardXP(for: .kitCompleted(kit: 5), in: context)
+        _ = service.awardXP(for: .kitCompleted(kit: 5), in: context)
+        let snapshot = VoiceTaleStore.progressSnapshot(in: context)
+        // Set semantics — only one 5 retained.
+        #expect(snapshot.completedKitIDs == [5])
     }
 }

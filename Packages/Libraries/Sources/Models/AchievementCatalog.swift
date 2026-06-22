@@ -125,5 +125,43 @@ public enum VoiceTaleAchievementCatalog {
             xpValue: 60,
             standard: nil
         ),
+
+        // MARK: - Phase 1.1 — voice-character chooser
+        // Authored per `@Docs/FEATURE_PLAN.md` § Phase 1.1 — the chooser
+        // ships 4 voice-character-specific achievements. Each one rewards
+        // a kind of voice-craft attention: the first try, the breadth,
+        // the kit completion, and the per-tale variation.
+        AchievementDefinition(
+            id: "voice_first_swap",
+            title: "First voice change",
+            description: "You picked a voice that wasn't your own. Bramble heard the room change.",
+            iconAssetName: "achievement_voice_first_swap",
+            xpValue: 30,
+            standard: nil
+        ),
+        AchievementDefinition(
+            id: "voice_all_five_presets",
+            title: "Five voices, one teller",
+            description: "Across your tales, you've spoken as every voice character. The room keeps shifting around you.",
+            iconAssetName: "achievement_voice_all_five",
+            xpValue: 75,
+            standard: nil
+        ),
+        AchievementDefinition(
+            id: "voice_kit_05_completed",
+            title: "Voice character craft",
+            description: "You walked through kit 5. Bramble took notes.",
+            iconAssetName: "achievement_voice_kit_05",
+            xpValue: 40,
+            standard: nil
+        ),
+        AchievementDefinition(
+            id: "voice_variation_tale",
+            title: "Two voices, one tale",
+            description: "A single tale carried more than one voice. The shift did the work.",
+            iconAssetName: "achievement_voice_variation_tale",
+            xpValue: 50,
+            standard: nil
+        ),
     ]
 }

@@ -193,7 +193,8 @@ public enum VoiceTaleStore {
             maxStreakDays: record.maxStreakDays,
             availableStreakFreezes: record.availableStreakFreezes,
             lastSessionAt: record.lastSessionAt,
-            tutorialCompletedAt: record.tutorialCompletedAt
+            tutorialCompletedAt: record.tutorialCompletedAt,
+            completedKitIDs: Set(record.completedKitIDsRaw)
         )
     }
 

@@ -143,6 +143,8 @@ nonisolated public struct PlayerProgressData: Codable, Sendable, Hashable {
     public let availableStreakFreezes: Int
     public let lastSessionAt: Date?
     public let tutorialCompletedAt: Date?
+    /// Phase 1.1 — kit IDs the kid has fully walked through.
+    public let completedKitIDs: Set<Int>
 
     public init(
         xpTotal: Int = 0,
@@ -150,7 +152,8 @@ nonisolated public struct PlayerProgressData: Codable, Sendable, Hashable {
         maxStreakDays: Int = 0,
         availableStreakFreezes: Int = 2,
         lastSessionAt: Date? = nil,
-        tutorialCompletedAt: Date? = nil
+        tutorialCompletedAt: Date? = nil,
+        completedKitIDs: Set<Int> = []
     ) {
         self.xpTotal = xpTotal
         self.currentStreakDays = currentStreakDays
@@ -158,6 +161,7 @@ nonisolated public struct PlayerProgressData: Codable, Sendable, Hashable {
         self.availableStreakFreezes = availableStreakFreezes
         self.lastSessionAt = lastSessionAt
         self.tutorialCompletedAt = tutorialCompletedAt
+        self.completedKitIDs = completedKitIDs
     }
 }
 
