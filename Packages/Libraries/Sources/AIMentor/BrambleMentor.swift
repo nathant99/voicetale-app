@@ -103,6 +103,85 @@ public final class BrambleMentor {
         BrambleFallbackCatalog.reflection(for: mood, beat: beat)
     }
 
+    /// Produces a retell-aware reflection. Pairs the previous transcript with
+    /// the current one so Bramble can notice what shifted between the two
+    /// tellings. Always succeeds via the retell static fallback.
+    public func reflectRetell(
+        transcript: String,
+        previousTranscript: String,
+        mood: VoiceTaleMood,
+        beat: ArcBeat
+    ) async -> VoiceStoryReflection {
+        let fallback = BrambleFallbackCatalog.retellFallback(mood: mood, beat: beat)
+        guard availability == .available, !previousTranscript.isEmpty else {
+            lastReflection = fallback
+            return fallback
+        }
+        let workingSession = ensureSession()
+        let prompt = BramblePromptBuilder.retellPrompt(
+            transcript: transcript,
+            previousTranscript: previousTranscript,
+            mood: mood,
+            beat: beat
+        )
+        do {
+            let response = try await workingSession.respond(
+                to: prompt,
+                generating: VoiceStoryReflectionGeneration.self
+            )
+            let generated = response.content
+            let reflection = VoiceStoryReflection(
+                craftObservations: sanitizeObservations(generated.craftObservations, fallback: fallback),
+                socraticPrompt: sanitizePrompt(generated.socraticPrompt, fallback: fallback)
+            )
+            lastReflection = reflection
+            return reflection
+        } catch {
+            lastReflection = fallback
+            return fallback
+        }
+    }
+
+    /// Produces a reflection that names beats the listener noticed went by
+    /// briefly (< 50% of their target duration). Per
+    /// `@.claude/rules/trauma-informed-content.md` § Validate-then-inform, the
+    /// reflection never frames a brief beat as missed or wrong — only as
+    /// something the listener noticed. Always succeeds via the static
+    /// fallback when the model is unavailable.
+    public func reflectBeatSkipped(
+        transcript: String,
+        mood: VoiceTaleMood,
+        skippedBeats: [ArcBeat]
+    ) async -> VoiceStoryReflection {
+        let fallback = BrambleFallbackCatalog.beatSkippedFallback(skippedBeats: skippedBeats)
+        guard availability == .available, !skippedBeats.isEmpty else {
+            lastReflection = fallback
+            return fallback
+        }
+        let workingSession = ensureSession()
+        let prompt = BramblePromptBuilder.beatSkippedPrompt(
+            transcript: transcript,
+            mood: mood,
+            skippedBeats: skippedBeats
+        )
+        do {
+            let response = try await workingSession.respond(
+                to: prompt,
+                generating: VoiceStoryReflectionGeneration.self
+            )
+            let generated = response.content
+            let reflection = VoiceStoryReflection(
+                craftObservations: sanitizeObservations(generated.craftObservations, fallback: fallback),
+                socraticPrompt: sanitizePrompt(generated.socraticPrompt, fallback: fallback)
+            )
+            lastReflection = reflection
+            return reflection
+        } catch {
+            lastReflection = fallback
+            return fallback
+        }
+    }
+
     // MARK: - Internals
 
     private func ensureSession() -> LanguageModelSession {

@@ -24,6 +24,12 @@ public struct TellView: View {
     /// rotates per tale so the kid hears a different cast voice across
     /// sessions.
     @State private var activeKit: QuestionKit?
+    /// Set when the kid pressed "Tell another" — captures the previous
+    /// telling so the next reflection pairs the two transcripts via
+    /// ``BrambleMentor/reflectRetell``. Cleared the moment the retell-aware
+    /// reflection runs OR a new save lands; kept off the machine because it
+    /// only matters for one reflection per retell.
+    @State private var previousTranscript: String?
 
     private let pipeline = TranscriptPipeline()
 
@@ -293,17 +299,45 @@ public struct TellView: View {
     private func runReflection() async {
         let beatForReflection = machine.beatTimeline.last?.beat ?? .close
         activeKit = loadActiveKit()
-        let reflection = await mentor.reflect(
-            transcript: machine.transcript,
-            mood: machine.draftMood,
-            beat: beatForReflection
-        )
+        let skipped = skippedBeats(in: machine.beatTimeline)
+        let reflection: VoiceStoryReflection
+        if let prior = previousTranscript, !prior.isEmpty {
+            reflection = await mentor.reflectRetell(
+                transcript: machine.transcript,
+                previousTranscript: prior,
+                mood: machine.draftMood,
+                beat: beatForReflection
+            )
+            // One retell-aware reflection per "Tell another" press.
+            previousTranscript = nil
+        } else if !skipped.isEmpty {
+            reflection = await mentor.reflectBeatSkipped(
+                transcript: machine.transcript,
+                mood: machine.draftMood,
+                skippedBeats: skipped
+            )
+        } else {
+            reflection = await mentor.reflect(
+                transcript: machine.transcript,
+                mood: machine.draftMood,
+                beat: beatForReflection
+            )
+        }
         machine.presentReflection(reflection)
         analytics.track(.reflectionShown(
             mood: machine.draftMood,
             beat: beatForReflection,
             modelAvailable: mentor.availability == .available
         ))
+    }
+
+    /// Beats whose `actualSeconds` came in under ~50% of their `targetSeconds`
+    /// — the same threshold ``hitAllFiveBeats`` uses for the all-5-beats XP
+    /// award. Empty timeline → empty list (no reflection downgrade).
+    nonisolated private func skippedBeats(in timeline: [BeatSegment]) -> [ArcBeat] {
+        timeline
+            .filter { $0.actualSeconds < $0.targetSeconds * 0.5 }
+            .map(\.beat)
     }
 
     /// Pick one of the 4 Phase 1 kits to surface the DN-S Move B cameo strip
@@ -381,6 +415,12 @@ public struct TellView: View {
 
     private func retellFromScratch() {
         analytics.track(.taleRetold)
+        // Preserve the previous telling so the next reflection can pair the
+        // two transcripts. Empty transcripts (cancelled retells) are filtered
+        // out at the reflection branch.
+        if !machine.transcript.isEmpty {
+            previousTranscript = machine.transcript
+        }
         machine.reset()
         transcriptDraft = ""
     }
