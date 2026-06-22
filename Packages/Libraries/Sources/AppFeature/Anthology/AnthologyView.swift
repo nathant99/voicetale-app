@@ -12,8 +12,21 @@ public struct AnthologyView: View {
     @State private var tales: [VoiceTaleEntry] = []
     @State private var moods: [AnthologyMoodData] = []
     @State private var moodFilter: VoiceTaleMood?
+    /// Pillar Deepening C1 — per-tale CAF export state. The exporter actor is
+    /// shared across cards; per-card state lives in the `exportState` dict
+    /// keyed by tale id so multiple cards can show "Exporting…" /
+    /// "Share as audio" independently.
+    @State private var exporter = VoiceTaleExporter()
+    @State private var exportState: [UUID: TaleExportState] = [:]
 
     public init() {}
+
+    private enum TaleExportState: Equatable {
+        case idle
+        case exporting
+        case ready(URL)
+        case failed(String)
+    }
 
     public var body: some View {
         NavigationStack {
@@ -99,9 +112,76 @@ public struct AnthologyView: View {
             }
             .font(.caption)
             .foregroundStyle(.secondary)
+            exportRow(for: tale)
         }
         .padding(16)
         .background(.thinMaterial, in: RoundedRectangle(cornerRadius: 16))
+    }
+
+    /// Pillar Deepening C1 export affordance. State machine:
+    ///
+    /// - `.idle`: shows "Share as audio" button → tap triggers export
+    /// - `.exporting`: shows a small ProgressView + "Preparing…"
+    /// - `.ready(url)`: surfaces a `ShareLink` with the canonical CAF
+    /// - `.failed(msg)`: shows a one-line apology + retry affordance
+    ///
+    /// Rendered only for tales that have an on-disk audio file (legacy
+    /// transcript-only saves silently omit the row).
+    @ViewBuilder
+    private func exportRow(for tale: VoiceTaleEntry) -> some View {
+        if let audioURL = VoiceTaleStore.audioFileURL(for: tale.id, in: modelContext) {
+            let state = exportState[tale.id] ?? .idle
+            HStack(spacing: 8) {
+                Image(systemName: "waveform")
+                    .foregroundStyle(.tint)
+                switch state {
+                case .idle:
+                    Button("Share as audio") {
+                        runExport(taleID: tale.id, sourceURL: audioURL)
+                    }
+                    .buttonStyle(.bordered)
+                    .controlSize(.small)
+                    .accessibilityHint("Convert this tale to a canonical CAF audio file and share via the system share sheet.")
+                case .exporting:
+                    ProgressView()
+                        .controlSize(.small)
+                    Text("Preparing audio…")
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                case .ready(let url):
+                    ShareLink(item: url) {
+                        Label("Share audio", systemImage: "square.and.arrow.up")
+                            .font(.caption.weight(.semibold))
+                    }
+                    .buttonStyle(.borderedProminent)
+                    .controlSize(.small)
+                case .failed(let message):
+                    Text(message)
+                        .font(.caption)
+                        .foregroundStyle(.orange)
+                    Button("Retry") {
+                        runExport(taleID: tale.id, sourceURL: audioURL)
+                    }
+                    .buttonStyle(.bordered)
+                    .controlSize(.small)
+                }
+            }
+            .padding(.top, 4)
+        }
+    }
+
+    /// Kicks off the CAF export off the MainActor + folds the result into
+    /// per-tale state. The exporter is idempotent so retries are cheap.
+    private func runExport(taleID: UUID, sourceURL: URL) {
+        exportState[taleID] = .exporting
+        Task {
+            do {
+                let url = try await exporter.exportCAF(from: sourceURL)
+                exportState[taleID] = .ready(url)
+            } catch {
+                exportState[taleID] = .failed("Couldn't prep audio (\(error.localizedDescription)).")
+            }
+        }
     }
 
     private var filteredTales: [VoiceTaleEntry] {

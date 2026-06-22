@@ -104,6 +104,14 @@ Reference impls already in this repo:
 
 `@.claude/rules/xcode-agent-safety.md` — exhaustive file classification, safe escape hatches, recovery procedures when the rule's been broken, MCP-vs-filesystem priorities.
 
+## Things That Will Bite You
+
+App-specific gotchas accumulated through implementation. Portfolio-wide gotchas live in `@.claude/rules/` (see § App-Specific Conventions below).
+
+- **`AVAudioFile(forWriting:settings:)` defaults `commonFormat` to `.pcmFormatFloat32`.** If you then call `write(from:)` with an Int16 PCM buffer, AVAudioFile invokes its internal Float32→Int16 converter (`ExtAudioFile::WriteInputProc` → `AudioConverterFillComplexBuffer`) which trips `CAVerboseAbort` (`EXC_BREAKPOINT`) on the iOS simulator. **Fix**: always pass `commonFormat:` + `interleaved:` to the AVAudioFile init so its processingFormat matches your write buffer. Discovered during the Pillar Deepening C1 CAF-export implementation (PR-4, 2026-06-22). Codified in `.claude/rules/audio-pipeline.md` § "iOS: AVAudioFile commonFormat must match the write buffer".
+- **AVAudioConverter callback shape: deliver once, then `.endOfStream` on the second call.** For a single-shot read+convert+write path the canonical pattern is: track `didDeliver` flag; first callback sets `outStatus = .haveData` + returns the source buffer; second callback sets `outStatus = .endOfStream` + returns `nil`. Streaming many small chunks via repeated `convert(to:)` calls is much harder to get right under sample-rate conversion because resampler lookahead state spans chunks. For our ≤120s recordings the single-shot pattern is more robust and within the process memory budget (~46 MB at 48 kHz Float32 stereo). See `Packages/Libraries/Sources/Services/VoiceTaleExporter.swift` for the reference impl.
+- **Test crash that says "Lost connection to testmanagerd" almost always means simulator brick, not real test failure.** Per `.claude/rules/test-crash-recovery.md` § "Detection signals" — first action is always `xcrun simctl shutdown all && xcrun simctl erase all`, NOT closing Xcode + NOT deleting DerivedData. After reset, re-run the suite. If it passes, the failure was a transient simulator state from a prior crash + we're back to the green path.
+
 ## App-Specific Conventions
 
 See `@Docs/APP_SPECIFIC_NOTES.md` for the preserved prior CLAUDE.md content (architecture / domain patterns / gotchas accumulated through development). Portfolio-wide rules — Swift 6 concurrency, SwiftData patterns, testing conventions, ForgeKit module APIs, Liquid Glass register, distributed-narrative methodology, trauma-informed gates, COPPA / age-assurance — auto-load from `@.claude/rules/` (24+ files synced from labsmith). Do NOT re-state portfolio-wide rules here.

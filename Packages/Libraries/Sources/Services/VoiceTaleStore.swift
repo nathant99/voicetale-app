@@ -71,6 +71,33 @@ public enum VoiceTaleStore {
         return decoded
     }
 
+    /// Returns the on-disk audio file URL for ``taleID`` if the persistent
+    /// record carries a `audioFileRelativePath`. The path is the bare
+    /// filename — tales live under `<Documents>/Tales/<filename>.m4a`. Returns
+    /// `nil` if the tale isn't found OR the relative path is empty (older
+    /// records that pre-dated the audio-file capture path).
+    public static func audioFileURL(for taleID: UUID, in context: ModelContext) -> URL? {
+        let descriptor = FetchDescriptor<PersistentVoiceTaleEntry>(
+            predicate: #Predicate { $0.id == taleID }
+        )
+        let record: PersistentVoiceTaleEntry?
+        do {
+            record = try context.fetch(descriptor).first
+        } catch {
+            DebugLog.data("VoiceTaleStore.audioFileURL — fetch failed", error: error)
+            return nil
+        }
+        guard let relative = record?.audioFileRelativePath, !relative.isEmpty else {
+            return nil
+        }
+        guard let docs = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else {
+            return nil
+        }
+        return docs
+            .appendingPathComponent("Tales", isDirectory: true)
+            .appendingPathComponent(relative)
+    }
+
     public static func deleteTale(id: UUID, in context: ModelContext) {
         let descriptor = FetchDescriptor<PersistentVoiceTaleEntry>(
             predicate: #Predicate { $0.id == id }
