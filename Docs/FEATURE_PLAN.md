@@ -36,7 +36,7 @@ Core 60-120 second record-a-tale loop with 5-beat timer skeleton, on-device tran
 - [x] Implement 5-beat timeline (`BeatTimer`: Hook 10s / Setup 20s / Rising 30s / Turn 30s / Close 20s; ±20% per beat) (PR #20)
 - [x] Implement timeline scrubber UI for review + edit (`TranscriptReviewView`) (PR #25)
 - [x] Implement per-beat timing visualization (`BeatTimerView` color-shifted bar advancing) (PR #25)
-- [ ] Implement gentle nudge animations at beat boundaries (no abrupt cuts) — Phase 1.2 polish
+- [x] Implement gentle nudge animations at beat boundaries (no abrupt cuts) — `BeatTimerView` adds a spring-eased `nudgeBeat` pulse (1.3× vertical scale on the active beat block + 1.18× scale on the label) when `currentBeat` transitions; held 0.45s, respects `accessibilityReduceMotion` (Reduce-Motion mode keeps full-opacity active beat with no scale change)
 
 ### Transcript Pipeline
 
