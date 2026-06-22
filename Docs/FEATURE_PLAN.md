@@ -109,7 +109,7 @@ Core 60-120 second record-a-tale loop with 5-beat timer skeleton, on-device tran
 - [x] Implement aha moment framing on page 5 ("Bramble will share one or two small things they noticed — and ask you a single open question. There are no grades.")
 - [x] Implement parent handoff flow on page 2 (mic permission page flagged `isParentHandoff: true` so ForgeOnboardingFlow surfaces the parent callout)
 - [x] Gate onboarding behind `@AppStorage("voicetale.hasCompletedOnboarding")` in `AppRootView` so returning users see the 4-tab TabView directly
-- [ ] Implement progressive disclosure (Session 1: free-form tell, beat timer optional) — Phase 1.2 polish
+- [x] Implement progressive disclosure (Session 1: free-form tell, beat timer optional) — `TellView` reads `@AppStorage("voicetale.sessionsCompleted")` and hides the `BeatTimerView` scaffold + per-beat hint on session 1, surfacing a free-form 30-second invitation instead. Sessions 2+ get the full 5-beat scaffold. Counter bumps in `saveToAnthology` after a successful insert.
 - [ ] Implement Apple Declared Age Range API gate (iOS 26+) — Phase 1.2; needs COPPA parental-consent flow + Info.plist work (Xcode-UI gated)
 
 ### Quality

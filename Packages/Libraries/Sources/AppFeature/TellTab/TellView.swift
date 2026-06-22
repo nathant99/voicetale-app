@@ -31,7 +31,33 @@ public struct TellView: View {
     /// only matters for one reflection per retell.
     @State private var previousTranscript: String?
 
+    /// Per `@Docs/FEATURE_PLAN.md` line 112 (Phase 1.2 polish — progressive
+    /// disclosure) + § Phase: Onboarding & Child Safety § "Progressive
+    /// disclosure", session 1 ships a free-form 30-second tell with the
+    /// beat-timer hidden so the kid hits the aha moment in ≤ 60 seconds
+    /// (Phase 1 exit criterion). Sessions 2+ get the full 5-beat scaffold.
+    /// Stored via `@AppStorage` so the count survives app relaunch + is
+    /// inspectable via UI-test launch arguments.
+    @AppStorage(TellView.sessionsCompletedKey) private var sessionsCompleted: Int = 0
+
     private let pipeline = TranscriptPipeline()
+
+    /// Persistence key for the progressive-disclosure session counter.
+    /// Co-located here so tests + UI-test launch arguments can flip the
+    /// state without depending on a separate constants file. Matches the
+    /// pattern ``AppRootView/onboardingCompletedKey`` establishes.
+    public static let sessionsCompletedKey = "voicetale.sessionsCompleted"
+
+    /// Session-count threshold at which the beat-timer scaffold becomes
+    /// visible. Session 1 is intentionally free-form. From session 2
+    /// onward the beat-timer + per-beat hints are shown.
+    public static let beatTimerEnabledThreshold = 1
+
+    /// Convenience computed for views + tests: should the full 5-beat
+    /// scaffold show on the recording surface?
+    public var isBeatTimerEnabled: Bool {
+        sessionsCompleted >= Self.beatTimerEnabledThreshold
+    }
 
     public init() {}
 
@@ -87,9 +113,9 @@ public struct TellView: View {
             Spacer(minLength: 24)
             mascot
             VStack(spacing: 8) {
-                Text("Ready when you are.")
+                Text(idleHeadline)
                     .font(.title2.weight(.semibold))
-                Text("Tell a 60-to-120-second tale. Bramble will listen.")
+                Text(idleSubtitle)
                     .font(.body)
                     .foregroundStyle(.secondary)
                     .multilineTextAlignment(.center)
@@ -108,6 +134,19 @@ public struct TellView: View {
         .padding(.bottom)
     }
 
+    /// Session-1 framing is intentionally smaller-stakes: a 30-second tale
+    /// invitation that gets the kid to the aha moment fastest. Session 2+
+    /// surfaces the full 60-to-120-second framing.
+    private var idleHeadline: String {
+        isBeatTimerEnabled ? "Ready when you are." : "Just tell me something."
+    }
+
+    private var idleSubtitle: String {
+        isBeatTimerEnabled
+            ? "Tell a 60-to-120-second tale. Bramble will listen."
+            : "Tell me about thirty seconds of your day. Bramble will listen."
+    }
+
     private var permissionPendingSurface: some View {
         VStack(spacing: 16) {
             ProgressView()
@@ -124,17 +163,21 @@ public struct TellView: View {
 
     private var recordingSurface: some View {
         VStack(spacing: 16) {
-            BeatTimerView(
-                elapsedSeconds: machine.elapsedSeconds,
-                currentBeat: machine.currentBeat,
-                isActivelyRecording: true
-            )
-            .padding(.horizontal)
-            Text(currentBeatHint)
-                .font(.callout)
-                .foregroundStyle(.secondary)
-                .multilineTextAlignment(.center)
+            if isBeatTimerEnabled {
+                BeatTimerView(
+                    elapsedSeconds: machine.elapsedSeconds,
+                    currentBeat: machine.currentBeat,
+                    isActivelyRecording: true
+                )
                 .padding(.horizontal)
+                Text(currentBeatHint)
+                    .font(.callout)
+                    .foregroundStyle(.secondary)
+                    .multilineTextAlignment(.center)
+                    .padding(.horizontal)
+            } else {
+                freeFormSessionOneCounter
+            }
             Spacer()
             RecordingControlsView(
                 isRecording: true,
@@ -187,6 +230,28 @@ public struct TellView: View {
             .buttonStyle(.borderedProminent)
         }
         .padding()
+    }
+
+    /// Session-1 fallback counter — replaces the 5-beat timeline with a
+    /// simple "I'm listening" line + monospaced elapsed-seconds counter so
+    /// the kid can focus on telling without the scaffold demanding attention.
+    private var freeFormSessionOneCounter: some View {
+        VStack(spacing: 6) {
+            Text("I'm listening.")
+                .font(.title3.weight(.semibold))
+            Text(formattedFreeFormElapsed)
+                .font(.system(.title2, design: .rounded).monospacedDigit())
+                .foregroundStyle(.secondary)
+                .accessibilityLabel("Elapsed seconds: \(Int(machine.elapsedSeconds))")
+        }
+        .padding(.top, 24)
+    }
+
+    private var formattedFreeFormElapsed: String {
+        let total = max(0, Int(machine.elapsedSeconds.rounded()))
+        let minutes = total / 60
+        let seconds = total % 60
+        return String(format: "%d:%02d", minutes, seconds)
     }
 
     private var mascot: some View {
@@ -371,6 +436,10 @@ public struct TellView: View {
                 hitAllBeats: hitAllFiveBeats(entry: entry)
             ))
             awardSaveXP(entry: entry)
+            // Progressive disclosure: bump the session counter so session 2+
+            // surfaces the full 5-beat scaffold. AppStorage handles the
+            // persistence + cross-launch state.
+            sessionsCompleted += 1
         } catch {
             machine.markError("Couldn't save your tale. (\(error.localizedDescription))")
         }
