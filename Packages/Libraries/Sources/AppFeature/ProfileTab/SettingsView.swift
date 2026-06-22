@@ -117,25 +117,7 @@ public struct SettingsView: View {
 
     private var crisisSection: some View {
         Section {
-            ForEach(crisisResources) { resource in
-                VStack(alignment: .leading, spacing: 4) {
-                    Text(resource.name)
-                        .font(.body.weight(.semibold))
-                    if let phone = resource.phone {
-                        Label(phone, systemImage: "phone.fill")
-                            .font(.caption)
-                    }
-                    if let text = resource.text {
-                        Label(text, systemImage: "message.fill")
-                            .font(.caption)
-                    }
-                    if let url = resource.url {
-                        Label(url, systemImage: "globe")
-                            .font(.caption)
-                    }
-                }
-                .padding(.vertical, 4)
-            }
+            CrisisResourceListView(resources: crisisResources)
         } header: {
             Text("If a tale brings something up")
         } footer: {

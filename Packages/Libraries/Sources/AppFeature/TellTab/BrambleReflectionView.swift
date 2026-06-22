@@ -33,6 +33,12 @@ public struct BrambleReflectionView: View {
     /// ≥ 2 distinct non-narrator voice characters; renders below Bramble's
     /// main reflection in a styled "Voice notes" callout.
     public let voiceVariation: VoiceStoryReflection?
+    /// Trauma-informed distress chip. When non-nil, the view surfaces the
+    /// crisis-resource list below Bramble's bubble so the kid + a grown-up
+    /// have a "refer up" affordance in the moment. Set by ``TellView`` from
+    /// ``BrambleMentor.lastDistressAxis``. Per `@.claude/rules/trauma-informed-content.md`
+    /// § "refer up" + ADR-016.
+    public let crisisResources: [CrisisResource]
     public let onSave: () -> Void
     public let onRetell: () -> Void
 
@@ -44,6 +50,7 @@ public struct BrambleReflectionView: View {
         castVoicingDisplayName: String? = nil,
         castVoicingSlug: String? = nil,
         voiceVariation: VoiceStoryReflection? = nil,
+        crisisResources: [CrisisResource] = [],
         onSave: @escaping () -> Void,
         onRetell: @escaping () -> Void
     ) {
@@ -54,6 +61,7 @@ public struct BrambleReflectionView: View {
         self.castVoicingDisplayName = castVoicingDisplayName
         self.castVoicingSlug = castVoicingSlug
         self.voiceVariation = voiceVariation
+        self.crisisResources = crisisResources
         self.onSave = onSave
         self.onRetell = onRetell
     }
@@ -65,6 +73,9 @@ public struct BrambleReflectionView: View {
                 thinkingState
             } else if let reflection {
                 reflectionBody(reflection)
+                if !crisisResources.isEmpty {
+                    distressChip
+                }
                 if let voiceVariation {
                     voiceVariationCallout(voiceVariation)
                 }
@@ -151,6 +162,28 @@ public struct BrambleReflectionView: View {
         }
         .padding(16)
         .background(.thinMaterial, in: RoundedRectangle(cornerRadius: 16))
+    }
+
+    /// Trauma-informed distress chip. Surfaces the crisis-resource list
+    /// alongside Bramble's hold-space reflection so the kid + a grown-up
+    /// have an immediate refer-up affordance. Per
+    /// `@.claude/rules/trauma-informed-content.md` § "refer up" + ADR-016.
+    @ViewBuilder
+    private var distressChip: some View {
+        VStack(alignment: .leading, spacing: 10) {
+            HStack(spacing: 8) {
+                Image(systemName: "heart.text.square")
+                    .foregroundStyle(.tint)
+                Text("If this is real, here's where to go")
+                    .font(.caption.weight(.semibold))
+                    .foregroundStyle(.secondary)
+            }
+            CrisisResourceListView(resources: crisisResources)
+        }
+        .padding(14)
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .background(.thinMaterial, in: RoundedRectangle(cornerRadius: 14))
+        .accessibilityLabel(Text("Crisis resources from Bramble"))
     }
 
     /// Phase 1.1 voice-variation callout. Sits between Bramble's main
