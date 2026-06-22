@@ -1,10 +1,13 @@
 ---
-status: ACTIVE
+status: CLOSED
 date: 2026-06-19
+closed: 2026-06-22
 direction: hub → app
 intent: engineering kickoff — voicetale sits in the Tier 3 ELA cluster cohort (composite 60.0) on the 2026-06-19 docs-only ranking; full docs-only content stack shipped but IMPLEMENTATION_HANDOFF.md is a stub awaiting Tier-2 doc-wave fill-in
 freshness-horizon: 14 days
 ---
+
+> **CLOSED 2026-06-22**: Phase 0 IMPLEMENTATION_HANDOFF.md fill-in shipped (engineering session authored, Option B per the original kickoff doc). Phase 1 substantially shipped per `Docs/FEATURE_PLAN.md`: data layer + voice authoring + transcript pipeline + Bramble + tradition layer + onboarding + analytics + gamification + adventure mode + Pillar Deepening C1 (Phase B) + DN-S Move D (Steps 1-4). Pattern B verification confirmed — Bramble stays protagonist; cast (Lean / Slow / Pivot / Refrain) frames as friends per `Docs/HANDOFF_FROM_LABSMITH_DISTRIBUTED_NARRATIVE_RETROFIT.md` (status SHIPPED-CONTENT). R-DN-PARITY swap test satisfied via DN handoff content axes. Open questions resolved in subsequent handoff close-outs (Phase 0 ownership → engineering; C1 voice export schema → Phase 1; cross-cluster voicing → adopt per-cluster siblings' schemas as they ship). Flipped to CLOSED in the same round as the FIFTH user-direct re-affirmation of the Xcode-managed file safety rule (per `CLAUDE.md` § "Xcode File Safety") to keep the doc surface clean.
 
 # Handoff from Hub — VoiceTale Engineering Kickoff
 

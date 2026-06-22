@@ -1,10 +1,13 @@
 ---
-status: ACTIVE
+status: CLOSED
 date: 2026-06-19
+closed: 2026-06-22
 direction: app → labsmith / hub
 intent: confirm ForgeKit bootstrap completion + Phase 0 close-out for voicetale-app; signal Phase 1 implementation can proceed
 freshness-horizon: 30 days
 ---
+
+> **CLOSED 2026-06-22**: Phase 0 fully landed — workspace integration commit `c67ee1a` (2026-06-20), all 7 SPM targets shipped, all 4 Xcode-UI prerequisites completed by user via `Docs/HANDOFF_TO_USER_XCODE_WORKSPACE_INTEGRATION.md` (status CLOSED 2026-06-21). Phase 1 substantially done: data layer + voice authoring engine + transcript pipeline + Bramble + tradition layer + onboarding + analytics + gamification + adventure mode all shipped per `Docs/FEATURE_PLAN.md`. This handoff served as the Phase 0 close-out signal; flipped to CLOSED in the same round as the FIFTH user-direct re-affirmation of the Xcode-managed file safety rule (per `CLAUDE.md` § "Xcode File Safety") to keep the doc surface clean.
 
 # Handoff from App — ForgeKit integration complete (Phase 0 close-out)
 
