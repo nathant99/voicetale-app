@@ -167,6 +167,19 @@ Round 2026-06-22 (post-C1 Phase D) shipped 4 PRs maximizing ForgeKit integration
 - [x] `ForgeNavigation.ForgePhaseRouter` + `StartupGate` wired in `AppRootView` — new `AppFeature/VoiceTalePhase` enum conforms to `ForgeNavigation.AppPhase` with `.onboarding` (`.fullScreen`) + `.tabs` (`.adaptive`) cases. AppRootView holds a `ForgePhaseRouter<VoiceTalePhase>` (factory via `makeRouter()`); the `body` switches on `router.currentPhase` instead of the prior `@AppStorage` `if` ladder. A single `StartupGate("onboarding-complete")` reads `UserDefaults.standard.bool(forKey: onboardingCompletedKey)` and redirects to `.onboarding` when false. Onboarding completion flips both the AppStorage flag AND calls `router.navigate(to: .tabs)`. 6 new AppFeatureTests (3 `VoiceTalePhaseTests` + 3 `VoiceTalePhaseRouterTests`) lock the gate's redirect + initial-phase + navigateBack semantics. Closes 6th and final declared-but-unused ForgeKit module — VoiceTale now imports + actively uses **every** ForgeKit module declared in Package.swift.
 - [x] Liquid Glass audit + nav-grid adoption per Portfolio Hybrid policy — `Docs/AUDIT_LIQUID_GLASS_ADOPTION_2026-06-22.md`. Phase 1 TabBar override grep clean (1 doc-comment hit; 0 live overrides). Phase 2 nav-grid card adoption: `AdventureTabView` mode-cards + `ProgressTabView.practiceCard` converted from `.thinMaterial` to interactive tinted glass via new shared `SharedUI/NavGridCardSurface` modifier — honors `@Environment(\.accessibilityReduceTransparency)` (collapses to solid tint). Phase 3 interactive controls untouched (existing CTA stance already matches policy). Phase 4 content-display cards explicitly NOT touched (anthology / tradition / hero / stat / prompt / Bramble bubble all KEEP SOLID per category-D rule). 4 new `NavGridCardSurfaceTests` lock the modifier surface.
 
+### Round close-out 2026-06-22 (PRs #66–#71)
+
+Round 2026-06-22 (post-#65) shipped 6 PRs:
+
+- **PR #66** — `ForgeAccessibility` wired (`SessionTimerCoordinator` + `HapticsBridge`). Closes 3rd of 6 declared-but-unused ForgeKit modules.
+- **PR #67** — `ForgePersistence.forgeFailSafeContainer` wired into `VoiceTalePersistence` + `VoiceTaleApp`. Closes 4th.
+- **PR #68** — `ForgeAudio.ForgeAudioEngine` wired via new `ForgeAudioBridge`; ships AnthologyView "Listen back" row via new `AnthologyAudioPlayer`. Closes 5th.
+- **PR #69** — `ForgeNavigation.ForgePhaseRouter` + `StartupGate` wired in `AppRootView` via new `VoiceTalePhase` enum. Closes 6th and **final** declared-but-unused ForgeKit module.
+- **PR #70** — Phase 1.1 voice-character preset foundation (5 presets + `VoiceCharacterPickerView`).
+- **PR #71** — Liquid Glass nav-grid adoption (AdventureTabView mode-cards + ProgressTabView.practiceCard).
+
+**Net**: VoiceTale now imports + actively uses **every** ForgeKit module declared in Package.swift. Phase 1.1 voice-character chooser surface is opened. Liquid Glass Phase 1 + Phase 2 adopted per the portfolio Hybrid policy. 33 new tests landed across the round (cumulative across all 6 PRs). Apple Declared Age Range API gate remains the only outstanding Phase 1 item (Xcode-UI gated; tracked in `HANDOFF_TO_USER_XCODE_WORKSPACE_INTEGRATION.md` follow-on).
+
 ---
 
 ## Phase 1.1: Voice-Character Chooser
