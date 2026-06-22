@@ -21,6 +21,14 @@ public struct BeatTimerView: View {
 
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
+    /// Tracks whether the active beat just changed so the nudge pulse can
+    /// briefly highlight the new beat without preventing subsequent renders
+    /// from settling back to the resting style. Per
+    /// `@Docs/TECHNICAL_DESIGN.md` § Full-App UI/UX Patterns — "gentle nudge
+    /// animations (no abrupt cuts)" at beat boundaries.
+    @State private var nudgeBeat: ArcBeat?
+    @State private var lastObservedBeat: ArcBeat?
+
     public var body: some View {
         VStack(spacing: 12) {
             elapsedReadout
@@ -28,6 +36,9 @@ public struct BeatTimerView: View {
             beatLabels
         }
         .padding(.vertical, 8)
+        .onChange(of: currentBeat) { _, newValue in
+            handleBeatBoundary(newBeat: newValue)
+        }
     }
 
     private var elapsedReadout: some View {
@@ -46,9 +57,17 @@ public struct BeatTimerView: View {
                     let offset = beatStartFraction(for: index)
                     let width = beat.targetSeconds / Self.totalSeconds
                     Capsule()
-                        .fill(color(for: beat).opacity(currentBeat == beat ? 0.85 : 0.35))
+                        .fill(color(for: beat).opacity(beatFillOpacity(for: beat)))
                         .frame(width: proxy.size.width * width)
                         .offset(x: proxy.size.width * offset)
+                        .scaleEffect(
+                            y: beatScale(for: beat),
+                            anchor: .center
+                        )
+                        .animation(
+                            reduceMotion ? nil : .spring(response: 0.32, dampingFraction: 0.55),
+                            value: nudgeBeat
+                        )
                 }
                 Capsule()
                     .fill(Color.accentColor)
@@ -60,6 +79,44 @@ public struct BeatTimerView: View {
         .clipShape(Capsule())
     }
 
+    /// Opacity for the beat-block fill. Active beat fades in; the brief
+    /// boundary nudge briefly brightens it. Reduce-Motion mode keeps the
+    /// active beat at full opacity — same visual signal, no pulse.
+    private func beatFillOpacity(for beat: ArcBeat) -> Double {
+        guard currentBeat == beat else { return 0.35 }
+        if reduceMotion { return 0.85 }
+        return nudgeBeat == beat ? 1.0 : 0.85
+    }
+
+    /// Vertical scale for the beat-block during the nudge window. 1.0 when
+    /// no nudge active or Reduce-Motion enabled. Only the newly-entered beat
+    /// scales — sibling blocks stay still.
+    private func beatScale(for beat: ArcBeat) -> CGFloat {
+        guard !reduceMotion else { return 1.0 }
+        return nudgeBeat == beat ? 1.3 : 1.0
+    }
+
+    /// Fires the beat-boundary nudge when ``currentBeat`` transitions to a
+    /// non-nil value that differs from the previously observed beat. Holds
+    /// the nudge briefly, then releases — the spring animation handles the
+    /// fade-back to resting. Idempotent: rapid same-beat ticks are no-ops.
+    private func handleBeatBoundary(newBeat: ArcBeat?) {
+        guard let newBeat else {
+            lastObservedBeat = nil
+            nudgeBeat = nil
+            return
+        }
+        guard newBeat != lastObservedBeat else { return }
+        lastObservedBeat = newBeat
+        guard !reduceMotion else { return }
+        nudgeBeat = newBeat
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.45) {
+            if nudgeBeat == newBeat {
+                nudgeBeat = nil
+            }
+        }
+    }
+
     private var beatLabels: some View {
         HStack(spacing: 0) {
             ForEach(ArcBeat.allCases, id: \.self) { beat in
@@ -67,11 +124,24 @@ public struct BeatTimerView: View {
                     .font(.caption2)
                     .fontWeight(currentBeat == beat ? .semibold : .regular)
                     .foregroundStyle(currentBeat == beat ? Color.primary : .secondary)
+                    .scaleEffect(labelScale(for: beat))
                     .frame(maxWidth: .infinity)
+                    .animation(
+                        reduceMotion ? nil : .spring(response: 0.32, dampingFraction: 0.55),
+                        value: nudgeBeat
+                    )
             }
         }
         .accessibilityElement(children: .combine)
         .accessibilityLabel(beatLabelsAccessibilityLabel)
+    }
+
+    /// Brief 1.18× pulse on the newly-entered beat label. Reduce-Motion keeps
+    /// every label at 1.0 — the foregroundStyle + fontWeight already convey
+    /// "active beat" without animation.
+    private func labelScale(for beat: ArcBeat) -> CGFloat {
+        guard !reduceMotion else { return 1.0 }
+        return nudgeBeat == beat ? 1.18 : 1.0
     }
 
     private var beatLabelsAccessibilityLabel: String {
