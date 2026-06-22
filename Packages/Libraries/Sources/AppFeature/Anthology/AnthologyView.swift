@@ -10,6 +10,8 @@ import SharedUI
 public struct AnthologyView: View {
     @Environment(\.modelContext) private var modelContext
     @Environment(\.analyticsService) private var analytics
+    @Environment(\.anthologyAudioPlayer) private var audioPlayer
+    @Environment(\.forgeAudio) private var forgeAudio
     @State private var tales: [VoiceTaleEntry] = []
     @State private var moods: [AnthologyMoodData] = []
     @State private var moodFilter: VoiceTaleMood?
@@ -113,10 +115,68 @@ public struct AnthologyView: View {
             }
             .font(.caption)
             .foregroundStyle(.secondary)
+            playbackRow(for: tale)
             exportRow(for: tale)
         }
         .padding(16)
         .background(.thinMaterial, in: RoundedRectangle(cornerRadius: 16))
+    }
+
+    /// "Listen back" row — plays the saved recording via
+    /// ``AnthologyAudioPlayer``. The shared player guarantees only one tale
+    /// plays at a time across the whole anthology; tapping a second card
+    /// stops the first. ``ForgeAudioBridge`` ducks any (future) ambient
+    /// music under the kid's voice for the duration of playback.
+    @ViewBuilder
+    private func playbackRow(for tale: VoiceTaleEntry) -> some View {
+        if let audioURL = VoiceTaleStore.audioFileURL(for: tale.id, in: modelContext) {
+            let isActive = audioPlayer.isActive(for: audioURL)
+            let isPlaying = isActive && audioPlayer.state == .playing
+            HStack(spacing: 10) {
+                Button {
+                    togglePlayback(for: tale, audioURL: audioURL)
+                } label: {
+                    Label(
+                        isPlaying ? "Pause" : "Listen back",
+                        systemImage: isPlaying ? "pause.circle.fill" : "play.circle.fill"
+                    )
+                    .font(.callout.weight(.semibold))
+                }
+                .buttonStyle(.bordered)
+                .controlSize(.small)
+                .accessibilityHint(isPlaying
+                    ? Text("Pause this tale.")
+                    : Text("Play this tale back to listen to it again."))
+                if isActive, audioPlayer.totalSeconds > 0 {
+                    ProgressView(value: audioPlayer.progressFraction)
+                        .progressViewStyle(.linear)
+                        .tint(Color.accentColor)
+                        .accessibilityLabel(Text("Playback progress"))
+                        .accessibilityValue(Text("\(Int(audioPlayer.progressFraction * 100)) percent"))
+                    Text(formattedTime(audioPlayer.elapsedSeconds))
+                        .font(.caption.monospacedDigit())
+                        .foregroundStyle(.secondary)
+                }
+            }
+            .padding(.top, 4)
+        }
+    }
+
+    private func togglePlayback(for tale: VoiceTaleEntry, audioURL: URL) {
+        if audioPlayer.isActive(for: audioURL), audioPlayer.state == .playing {
+            audioPlayer.pause()
+            forgeAudio.unduckIfNeeded()
+        } else {
+            forgeAudio.duckForSpeechIfNeeded()
+            audioPlayer.play(fileURL: audioURL)
+        }
+    }
+
+    private func formattedTime(_ seconds: TimeInterval) -> String {
+        let total = max(0, Int(seconds.rounded()))
+        let minutes = total / 60
+        let secs = total % 60
+        return String(format: "%d:%02d", minutes, secs)
     }
 
     /// Pillar Deepening C1 export affordance. State machine:
