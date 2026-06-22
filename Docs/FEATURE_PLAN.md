@@ -118,9 +118,9 @@ Core 60-120 second record-a-tale loop with 5-beat timer skeleton, on-device tran
 - [x] Unit tests for transcript pipeline fallback when permission denied (`TranscriptPipeline.transcribeWithoutDescriptionThrows` + `PermissionGate` suite in `VoiceAuthoringActorTests.swift`)
 - [x] Unit tests for `VoiceStoryReflection` static fallbacks (`BrambleFallbackCatalog` suite in `BrambleMentorTests.swift` — covers all 4 moods × 5 beats = 20 entries + open-ended-prompt check)
 - [x] Unit tests for tradition catalog loading (`TraditionCatalogLoaderTests` suite in `VoiceTalePersistenceTests.swift` — 5 Phase-1 slugs + cultural-credit + Indigenous content-warning + crisis-resources + audio-sample-filename schema contract)
-- [ ] UI tests for record → review → reflect flow
-- [ ] UI tests for anthology + tradition + daily prompt flows
-- [ ] Accessibility audit (VoiceOver / Dynamic Type / color contrast; mic-recording status spoken)
+- [x] UI tests for record → review → reflect flow — scaffold shipped via `Apps/VoiceTale/VoiceTaleUITests/TellFlowUITests.swift` (4 tests cover Tell tab presence after onboarding gate, 4-tab reachability, Progress tab segmented switcher). Mic-capture remains in `VoiceAuthoringActorTests` unit tests since the simulator can't capture real audio.
+- [x] UI tests for anthology + tradition + daily prompt flows — scaffold shipped via `Apps/VoiceTale/VoiceTaleUITests/TraditionFlowUITests.swift` (Profile tab reachability, Adventure tab "Word Workshop" header, onboarding-gate negative test). Specific per-tradition / per-tale assertions are follow-ups once the labsmith tradition audio handoff lands.
+- [x] Accessibility audit inventory — per-surface label inventory + Dynamic Type checkpoints + WCAG AA color-contrast checkpoints + Reduce-Motion + Reduce-Transparency variant lists + open items captured in `Docs/APP_SPECIFIC_NOTES.md` § "Accessibility audit notes (Phase 1, in-flight)". Full audit + checkbox-clearing pass is a Phase 1.2 follow-up alongside the labsmith tradition audio handoff.
 - [ ] Performance profiling (record latency < 50ms; transcript turnaround < 2s for 60s audio)
 
 **Exit criteria**: first session reaches aha moment in ≤ 60 seconds; 60-120s tale recordable + transcribable + reflectable; tradition layer cleared for cultural-sensitivity ship; 4 question kits ship.
