@@ -148,6 +148,17 @@ Core 60-120 second record-a-tale loop with 5-beat timer skeleton, on-device tran
 
 - [x] Wire `ForgeCelebration.CelebrationCoordinator` into `AppRootView` via `@Entry`-backed env value; mount `.celebrationOverlay(coordinator)` on the root tab surface so the overlay floats above every tab (2026-06-22). `XPAwardOutcome` gains `previousLevel` + `leveledUp` so XP award sites (TellView `awardSaveXP`, TraditionGalleryView tradition-explored handler) can fire `coordinator.levelUp(newLevel:)` on threshold crossings + `coordinator.badgeEarned(title:)` for each new achievement. New unit tests (`awardOutcomeCapturesPreviousAndNewLevel` + `awardOutcomeReportsNoLevelUpBelowThreshold`) lock down the contract.
 
+### Round close-out 2026-06-22 (PRs #61–#64)
+
+Round 2026-06-22 (post-C1 Phase D) shipped 4 PRs maximizing ForgeKit integration + closing Phase 1 quality gaps + opening Phase 1.1:
+
+- **PR #61** — `ForgeCelebration` wired into `AppRootView` for level-up + badge moments; closes 1st of 6 declared-but-unused ForgeKit modules. Extends `XPAwardOutcome` with `previousLevel` + `leveledUp` for threshold detection.
+- **PR #62** — `OSSignposter` perf gates for record + transcript hot paths (new `PerfSignposter` enum under VoiceAuthoring SPM target). Closes the last unchecked Phase 1 quality box (record < 50 ms / transcript < 2 s).
+- **PR #63** — `QuizView` surfacing kits 01–04 wired to `ForgePedagogy.PedagogySession`; entry from ProgressTabView "Practice with Bramble" card. Closes deferred Phase 1.1 QuizView item; closes 2nd declared-but-unused ForgeKit module.
+- **PR #64** — `AnalyticsService` emission audit + 4 new tests (kit_completed coverage + exhaustiveness). Closes `avatarSheetOpened` declared-but-never-emitted gap (now wired from `ProfileTabView` avatar section). Audit doc: `Docs/AUDIT_ANALYTICS_EVENT_EMISSION_2026-06-22.md`.
+
+**Net**: 0 Phase 1 quality boxes remaining (Apple Declared Age Range API gate excluded — Xcode-UI-gated). Phase 1.1 surface (QuizView) is shipping; voice-character chooser remains the next Phase 1.1 work item.
+
 ---
 
 ## Phase 1.1: Voice-Character Chooser
