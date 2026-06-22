@@ -30,6 +30,11 @@ public struct TellView: View {
     @State private var castVoicing = CastVoicingService(isLiveVoicingEnabled: false)
     @State private var castVoicingLine: String?
     @State private var castVoicingDisplayName: String?
+    /// Raw slug of the cast member surfaced in the voicing chip (e.g. `"lean"`).
+    /// Plumbed to ``BrambleReflectionView`` so the chip can render the bundled
+    /// `CastPortraitCatalog` WebP portrait. `nil` while no voicing line is
+    /// active OR when the slug doesn't resolve.
+    @State private var castVoicingSlug: String?
     /// Experimental feature flag. `@AppStorage` is the source of truth so the
     /// SettingsView toggle and the TellView reading both observe the same key
     /// without an actor-bridging environment value. Default false per the DN-S
@@ -113,6 +118,7 @@ public struct TellView: View {
                 kit: activeKit,
                 castVoicingLine: castVoicingLine,
                 castVoicingDisplayName: castVoicingDisplayName,
+                castVoicingSlug: castVoicingSlug,
                 onSave: saveToAnthology,
                 onRetell: retellFromScratch
             )
@@ -365,6 +371,7 @@ public struct TellView: View {
     private func clearCastVoicing() {
         castVoicingLine = nil
         castVoicingDisplayName = nil
+        castVoicingSlug = nil
     }
 
     private func tickRecorder() {
@@ -429,8 +436,7 @@ public struct TellView: View {
         guard castVoicingLiveEnabled,
               let observation = machine.reflection?.craftObservations.first,
               !observation.isEmpty else {
-            castVoicingLine = nil
-            castVoicingDisplayName = nil
+            clearCastVoicing()
             return
         }
         await castVoicing.setLiveVoicingEnabled(true)
@@ -445,6 +451,7 @@ public struct TellView: View {
         guard !line.isEmpty, line != "…" else { return }
         castVoicingLine = line
         castVoicingDisplayName = slug.displayName
+        castVoicingSlug = slug.rawValue
     }
 
     /// Beats whose `actualSeconds` came in under ~50% of their `targetSeconds`
