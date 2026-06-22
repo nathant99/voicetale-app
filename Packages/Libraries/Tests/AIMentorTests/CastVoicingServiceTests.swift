@@ -2,6 +2,7 @@ import Testing
 import Foundation
 @testable import AIMentor
 import ForgeAI
+import Models
 
 @Suite("CastVoicingService")
 struct CastVoicingServiceTests {
@@ -32,6 +33,25 @@ struct CastVoicingServiceTests {
         try await service.registerProfilesIfNeeded()
         let registered = await service.isFullyRegistered()
         #expect(registered)
+    }
+
+    @Test func slugForMoodIsStableAndCoversAllFourMoods() {
+        // Mapping must be total + deterministic so each saved tale routes to a
+        // predictable cast voice. Codifies the table in `CastVoicingService.slugForMood`.
+        #expect(CastVoicingService.slugForMood(.funny) == .refrain)
+        #expect(CastVoicingService.slugForMood(.scary) == .slow)
+        #expect(CastVoicingService.slugForMood(.tender) == .lean)
+        #expect(CastVoicingService.slugForMood(.wild) == .pivot)
+    }
+
+    @Test func slugForMoodSpansEveryCastMember() {
+        // Defensive: the 4-mood→4-cast mapping must exhibit every cast member.
+        // If a future refactor consolidates the mapping onto fewer cast voices,
+        // this catches the regression — the design contract is "every mood
+        // routes to a different cast voice over a session that explores all
+        // four moods."
+        let routedSlugs = Set(VoiceTaleMood.allCases.map(CastVoicingService.slugForMood))
+        #expect(routedSlugs.count == CastVoiceRegistry.Slug.allCases.count)
     }
 
     @Test func staticFallbackCoversAllFourSlugs() async {
