@@ -29,7 +29,10 @@ public struct MoodTagView: View {
             Capsule().stroke(tint.opacity(isSelected ? 0.6 : 0.2), lineWidth: 1)
         )
         .foregroundStyle(tint)
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel(Text("Mood: \(mood.displayLabel)"))
         .accessibilityHint(isSelected ? "Currently selected" : "Tap to choose this mood")
+        .accessibilityAddTraits(isSelected ? [.isSelected] : [])
     }
 
     private var symbol: String {

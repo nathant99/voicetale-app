@@ -42,6 +42,9 @@ public struct BrambleReflectionView: View {
     public let onSave: () -> Void
     public let onRetell: () -> Void
 
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+    @Environment(\.accessibilityReduceTransparency) private var reduceTransparency
+
     public init(
         reflection: VoiceStoryReflection?,
         isThinking: Bool,
@@ -161,7 +164,32 @@ public struct BrambleReflectionView: View {
             }
         }
         .padding(16)
-        .background(.thinMaterial, in: RoundedRectangle(cornerRadius: 16))
+        .background(bubbleBackground, in: RoundedRectangle(cornerRadius: 16))
+        .accessibilityElement(children: .combine)
+        .accessibilityLabel(Text(reflectionAccessibilityLabel(reflection)))
+    }
+
+    /// Reflection bubble background — material by default; collapses to a
+    /// solid secondarySystemBackground when Reduce-Transparency is on so
+    /// the WCAG AA contrast holds against the bubble's body text.
+    private var bubbleBackground: AnyShapeStyle {
+        if reduceTransparency {
+            return AnyShapeStyle(Color(uiColor: .secondarySystemBackground))
+        }
+        return AnyShapeStyle(Material.thin)
+    }
+
+    /// Combined VoiceOver label for the reflection bubble — reads the
+    /// craft observations + Socratic prompt as a single semantic unit so
+    /// VoiceOver users hear the reflection as one thought rather than
+    /// per-line fragments.
+    private func reflectionAccessibilityLabel(_ reflection: VoiceStoryReflection) -> String {
+        var parts: [String] = ["Bramble's reflection."]
+        parts.append(contentsOf: reflection.craftObservations)
+        if let prompt = reflection.socraticPrompt, !prompt.isEmpty {
+            parts.append("Bramble asks: \(prompt)")
+        }
+        return parts.joined(separator: " ")
     }
 
     /// Trauma-informed distress chip. Surfaces the crisis-resource list

@@ -150,5 +150,24 @@ private struct TraditionCard: View {
         }
         .padding(16)
         .background(.thinMaterial, in: RoundedRectangle(cornerRadius: 16))
+        .accessibilityElement(children: .contain)
+        .accessibilityLabel(Text(accessibilityLabel))
+        .accessibilityHint(Text(accessibilityHint))
+    }
+
+    /// VoiceOver label combining tradition name + region + cultural-credit
+    /// register so the kid can scan the gallery without expanding every card.
+    private var accessibilityLabel: String {
+        var label = "\(entry.displayName), from \(entry.region)"
+        if let warning = entry.contentWarning, showContentWarning {
+            label += ". Content note: \(warning)"
+        }
+        return label
+    }
+
+    private var accessibilityHint: String {
+        isExpanded
+            ? "Tap Show less to collapse the explainer."
+            : "Tap Read more to expand the explainer and read the cultural-credit note."
     }
 }

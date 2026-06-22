@@ -37,6 +37,9 @@ public struct RecordingControlsView: View {
     }
 
     private var startButton: some View {
+        // accessibilityHint (not .accessibilityLabel) on Buttons preserves
+        // the XCUITest matcher `app.buttons["Start telling"]` per
+        // `@.claude/rules/swiftlint.md` § `no_accessibility_label_on_buttons`.
         Button(action: onStart) {
             Label("Start telling", systemImage: "mic.circle.fill")
                 .font(.title3.weight(.semibold))
@@ -45,7 +48,7 @@ public struct RecordingControlsView: View {
         }
         .buttonStyle(.borderedProminent)
         .controlSize(.large)
-        .accessibilityHint("Begin recording your tale. Microphone permission required.")
+        .accessibilityHint("Begin recording your tale. Microphone permission required. Bramble listens on-device.")
     }
 
     private var stopButton: some View {
@@ -58,7 +61,7 @@ public struct RecordingControlsView: View {
         .buttonStyle(.borderedProminent)
         .tint(.green)
         .controlSize(.large)
-        .accessibilityHint("Finish the tale and listen back.")
+        .accessibilityHint("Finish the tale and move to the listen-back review. Elapsed: \(Int(elapsedSeconds)) seconds.")
     }
 
     private var cancelButton: some View {
@@ -70,7 +73,7 @@ public struct RecordingControlsView: View {
         }
         .buttonStyle(.bordered)
         .controlSize(.large)
-        .accessibilityHint("Discard this take and return to the start.")
+        .accessibilityHint("Discard this take and return to the start. The current recording is not saved.")
     }
 }
 
