@@ -56,6 +56,21 @@ struct AnalyticsServiceTests {
         #expect(event.properties["tradition_slug"] == "rakugo")
     }
 
+    @Test func voiceRecordingSharedCarriesMoodAndBucketedDuration() {
+        // Pillar Deepening C1 Phase D — categorical-only payload; no PII.
+        let event = VoiceTaleAnalyticsEvent.voiceRecordingShared(
+            mood: .tender,
+            durationSeconds: 95
+        )
+        #expect(event.name == "voice_recording_shared")
+        #expect(event.properties["mood"] == "tender")
+        #expect(event.properties["duration_bucket"] == "90_to_120s")
+        // Categorical-only: no raw seconds, no tale id, no transcript.
+        #expect(event.properties["tale_id"] == nil)
+        #expect(event.properties["transcript"] == nil)
+        #expect(event.properties["duration_seconds"] == nil)
+    }
+
     @Test func serviceTrackForwardsToEngine() async {
         // Build a fresh engine + service; track a single event; verify it
         // landed via the engine's eventCount accessor. Tasks fired by

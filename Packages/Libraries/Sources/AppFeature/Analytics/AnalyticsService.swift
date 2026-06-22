@@ -17,6 +17,11 @@ public enum VoiceTaleAnalyticsEvent: Sendable, Hashable {
     case traditionExplored(slug: String)
     case dailyPromptViewed
     case avatarSheetOpened
+    /// Pillar Deepening C1 Phase D — fires when the kid taps the
+    /// `ShareLink` in the Anthology export row after a CAF prep completes.
+    /// Categorical-only payload (mood + bucketed duration); no PII, no tale
+    /// title, no transcript, no file path.
+    case voiceRecordingShared(mood: VoiceTaleMood, durationSeconds: Double)
 
     /// Event name in the underlying ForgeAnalytics store. Keep lowercase +
     /// snake_case so future analytics inspectors can grep cleanly.
@@ -31,6 +36,7 @@ public enum VoiceTaleAnalyticsEvent: Sendable, Hashable {
         case .traditionExplored:             return "tradition_explored"
         case .dailyPromptViewed:             return "daily_prompt_viewed"
         case .avatarSheetOpened:             return "avatar_sheet_opened"
+        case .voiceRecordingShared:          return "voice_recording_shared"
         }
     }
 
@@ -61,6 +67,11 @@ public enum VoiceTaleAnalyticsEvent: Sendable, Hashable {
             ]
         case .traditionExplored(let slug):
             return ["tradition_slug": slug]
+        case .voiceRecordingShared(let mood, let durationSeconds):
+            return [
+                "mood": mood.rawValue,
+                "duration_bucket": durationBucket(durationSeconds),
+            ]
         }
     }
 
