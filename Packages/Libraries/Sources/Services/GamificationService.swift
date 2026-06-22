@@ -49,6 +49,15 @@ public final class GamificationService {
         var newLevel = 0
         VoiceTaleStore.updateProgress({ record in
             record.xpTotal = max(0, record.xpTotal + event.points)
+            // Phase 1.1: `kitCompleted` events also record the kit number on
+            // the persistent progress row so the
+            // `voice_kit_05_completed` achievement (and any future kit-
+            // milestone achievement) can evaluate against a stable Set.
+            // Duplicate kit numbers are de-duplicated.
+            if case .kitCompleted(let kit) = event,
+               record.completedKitIDsRaw.contains(kit) == false {
+                record.completedKitIDsRaw.append(kit)
+            }
             newTotal = record.xpTotal
             newLevel = self.xpEngine.level(for: newTotal)
         }, in: context)
@@ -193,6 +202,13 @@ public final class GamificationService {
         let moodCount: (VoiceTaleMood) -> Int = { mood in
             moods.first { $0.mood == mood }?.taleCount ?? 0
         }
+        // Phase 1.1 — voice-character criteria. We pull the full set of saved
+        // tales here so the criteria can inspect each tale's beatTimeline +
+        // voiceCharacterSlug attributions. The fetch is bounded by the
+        // fetchTales default (500) — for the foreseeable future every Phase 1
+        // kid stays well under that cap.
+        let allTales = VoiceTaleStore.fetchTales(in: context)
+        let voiceSummary = CriteriaSnapshot.voiceCharacterSummary(from: allTales)
         return CriteriaSnapshot(
             totalTales: totalTales,
             currentStreakDays: progress.currentStreakDays,
@@ -200,7 +216,11 @@ public final class GamificationService {
             funnyTales: moodCount(.funny),
             scaryTales: moodCount(.scary),
             tenderTales: moodCount(.tender),
-            wildTales: moodCount(.wild)
+            wildTales: moodCount(.wild),
+            voiceSwapsEver: voiceSummary.voiceSwapsEver,
+            presetsEverUsed: voiceSummary.presetsEverUsed,
+            voiceVariationTalesCount: voiceSummary.voiceVariationTalesCount,
+            completedKitIDs: progress.completedKitIDs
         )
     }
 }
@@ -296,9 +316,9 @@ public nonisolated struct EarnedBadgeData: Sendable, Identifiable, Equatable {
     }
 }
 
-/// Snapshot of the persistent state needed to evaluate every Phase-1
-/// achievement criterion. Pure value type so the criteria check is
-/// trivially testable without a `ModelContext`.
+/// Snapshot of the persistent state needed to evaluate every Phase-1 +
+/// Phase-1.1 achievement criterion. Pure value type so the criteria check
+/// is trivially testable without a `ModelContext`.
 nonisolated struct CriteriaSnapshot: Sendable, Equatable {
     let totalTales: Int
     let currentStreakDays: Int
@@ -307,6 +327,44 @@ nonisolated struct CriteriaSnapshot: Sendable, Equatable {
     let scaryTales: Int
     let tenderTales: Int
     let wildTales: Int
+    /// Phase 1.1 — number of saved tales that contain at least one
+    /// non-narrator voice-character attribution across the timeline.
+    let voiceSwapsEver: Int
+    /// Phase 1.1 — distinct non-narrator slugs the kid has ever used.
+    let presetsEverUsed: Set<String>
+    /// Phase 1.1 — count of saved tales whose timeline carries ≥ 2
+    /// distinct non-narrator slugs (the "single-tale voice variation"
+    /// experience the achievement rewards).
+    let voiceVariationTalesCount: Int
+    /// Phase 1.1 — kit IDs the kid has fully walked through. Sourced
+    /// from ``PersistentPlayerProgress.completedKitIDsRaw``.
+    let completedKitIDs: Set<Int>
+
+    init(
+        totalTales: Int,
+        currentStreakDays: Int,
+        traditionsExplored: Int,
+        funnyTales: Int,
+        scaryTales: Int,
+        tenderTales: Int,
+        wildTales: Int,
+        voiceSwapsEver: Int = 0,
+        presetsEverUsed: Set<String> = [],
+        voiceVariationTalesCount: Int = 0,
+        completedKitIDs: Set<Int> = []
+    ) {
+        self.totalTales = totalTales
+        self.currentStreakDays = currentStreakDays
+        self.traditionsExplored = traditionsExplored
+        self.funnyTales = funnyTales
+        self.scaryTales = scaryTales
+        self.tenderTales = tenderTales
+        self.wildTales = wildTales
+        self.voiceSwapsEver = voiceSwapsEver
+        self.presetsEverUsed = presetsEverUsed
+        self.voiceVariationTalesCount = voiceVariationTalesCount
+        self.completedKitIDs = completedKitIDs
+    }
 
     /// Map from catalog ID → predicate. New IDs added to
     /// ``VoiceTaleAchievementCatalog`` must add an arm here OR they'll
@@ -324,7 +382,44 @@ nonisolated struct CriteriaSnapshot: Sendable, Equatable {
         case "tradition_explorer":        return traditionsExplored >= 1
         case "tradition_world_traveler":  return traditionsExplored >= 5
         case "streak_three_days":         return currentStreakDays >= 3
+        // Phase 1.1 — voice-character chooser
+        case "voice_first_swap":          return voiceSwapsEver >= 1
+        case "voice_all_five_presets":    return presetsEverUsed.count >= 4
+        case "voice_kit_05_completed":    return completedKitIDs.contains(5)
+        case "voice_variation_tale":      return voiceVariationTalesCount >= 1
         default:                          return false
         }
+    }
+
+    /// Compute the voice-character summary fields from a flat list of saved
+    /// tales. Pure function so the achievement criteria are testable
+    /// without a `ModelContext` — the GamificationService passes the
+    /// tales it fetches from the store.
+    ///
+    /// Note on `voice_all_five_presets`: there are 5 presets total
+    /// (narrator + hero + sage + sprite + ogre), but `narrator` is the
+    /// natural baseline ("no override") — the achievement rewards
+    /// breadth across the 4 ALTERNATIVE presets (hero/sage/sprite/ogre).
+    /// So the criterion is `presetsEverUsed.count >= 4`, not 5.
+    static func voiceCharacterSummary(
+        from tales: [VoiceTaleEntry]
+    ) -> (voiceSwapsEver: Int, presetsEverUsed: Set<String>, voiceVariationTalesCount: Int) {
+        var swapsEver = 0
+        var presetsEverUsed: Set<String> = []
+        var variationTales = 0
+        for tale in tales {
+            let nonNarratorSlugs = Set(
+                tale.beatTimeline.compactMap { $0.voiceCharacterSlug }
+                    .filter { $0 != VoiceCharacterPreset.narrator.rawValue }
+            )
+            if nonNarratorSlugs.isEmpty == false {
+                swapsEver += 1
+                presetsEverUsed.formUnion(nonNarratorSlugs)
+                if nonNarratorSlugs.count >= 2 {
+                    variationTales += 1
+                }
+            }
+        }
+        return (swapsEver, presetsEverUsed, variationTales)
     }
 }

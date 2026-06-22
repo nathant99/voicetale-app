@@ -12,6 +12,14 @@ public final class PersistentPlayerProgress {
     public var availableStreakFreezes: Int = 2
     public var lastSessionAt: Date?
     public var tutorialCompletedAt: Date?
+    /// Phase 1.1 — kit IDs the kid has fully walked through in the
+    /// QuizView. Pre-App-Store additive default-empty field per
+    /// `@.claude/rules/swiftdata.md` § "Pre-App Store: don't create new
+    /// VersionedSchema for unreleased models — add new @Model classes
+    /// directly to the existing schema version." Stored as `[Int]` for
+    /// SwiftData compatibility; ``PlayerProgressData`` exposes it as
+    /// `Set<Int>` for the value-type cache.
+    public var completedKitIDsRaw: [Int] = []
 
     public init(
         xpTotal: Int = 0,
@@ -19,7 +27,8 @@ public final class PersistentPlayerProgress {
         maxStreakDays: Int = 0,
         availableStreakFreezes: Int = 2,
         lastSessionAt: Date? = nil,
-        tutorialCompletedAt: Date? = nil
+        tutorialCompletedAt: Date? = nil,
+        completedKitIDsRaw: [Int] = []
     ) {
         self.xpTotal = xpTotal
         self.currentStreakDays = currentStreakDays
@@ -27,5 +36,6 @@ public final class PersistentPlayerProgress {
         self.availableStreakFreezes = availableStreakFreezes
         self.lastSessionAt = lastSessionAt
         self.tutorialCompletedAt = tutorialCompletedAt
+        self.completedKitIDsRaw = completedKitIDsRaw
     }
 }
