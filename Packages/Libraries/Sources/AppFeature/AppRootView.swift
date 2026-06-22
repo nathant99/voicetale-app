@@ -5,6 +5,7 @@ import Services
 import SharedUI
 import ForgeAdventure
 import ForgeCelebration
+import ForgeNavigation
 
 /// Environment slot for the shared ``GamificationService`` instance. Views
 /// award XP / record sessions / evaluate achievements via this key per
@@ -63,8 +64,9 @@ public struct AppRootView: View {
 
     /// Persistence key for the onboarding-completion gate. Co-located here so
     /// tests + UI-test launch arguments can flip the state without reaching
-    /// into a separate constants file.
-    public static let onboardingCompletedKey = "voicetale.hasCompletedOnboarding"
+    /// into a separate constants file. `nonisolated` so it can be read from
+    /// the `@Sendable` startup-gate closure (per ``makeRouter``).
+    public nonisolated static let onboardingCompletedKey = "voicetale.hasCompletedOnboarding"
 
     @State private var selectedTab: AppTab = .tell
     @State private var gamification = GamificationService()
@@ -73,6 +75,7 @@ public struct AppRootView: View {
     @State private var sessionTimer = SessionTimerCoordinator()
     @State private var forgeAudio = ForgeAudioBridge()
     @State private var anthologyPlayer = AnthologyAudioPlayer()
+    @State private var router: ForgePhaseRouter<VoiceTalePhase> = AppRootView.makeRouter()
     @State private var hasBootstrapped = false
     @Environment(\.scenePhase) private var scenePhase
     @AppStorage(AppRootView.onboardingCompletedKey) private var hasCompletedOnboarding: Bool = false
@@ -85,14 +88,34 @@ public struct AppRootView: View {
 
     public init() {}
 
+    /// Factory for the phase router + its onboarding-complete gate. Reads
+    /// `UserDefaults` directly so the gate stays self-contained — the
+    /// `@AppStorage` binding in the view is the canonical write seam, but
+    /// reads from `UserDefaults` agree byte-for-byte.
+    private static func makeRouter() -> ForgePhaseRouter<VoiceTalePhase> {
+        let onboardingComplete = StartupGate(
+            id: "onboarding-complete",
+            condition: { @Sendable in
+                UserDefaults.standard.bool(forKey: AppRootView.onboardingCompletedKey)
+            },
+            destination: VoiceTalePhase.onboarding
+        )
+        return ForgePhaseRouter<VoiceTalePhase>(
+            initialPhase: .tabs,
+            startupGates: [onboardingComplete]
+        )
+    }
+
     public var body: some View {
         Group {
-            if hasCompletedOnboarding {
-                tabSurface
-            } else {
+            switch router.currentPhase {
+            case .onboarding:
                 OnboardingFlowView {
                     hasCompletedOnboarding = true
+                    router.navigate(to: .tabs)
                 }
+            case .tabs:
+                tabSurface
             }
         }
         .environment(\.gamificationService, gamification)
@@ -109,6 +132,12 @@ public struct AppRootView: View {
             analytics.track(.sessionStarted)
             await sessionTimer.startIfNeeded()
             forgeAudio.refreshAccessibilityMode()
+            // Run ForgeNavigation's startup-gate pipeline before settling on
+            // the initial phase. If onboarding isn't yet complete the router
+            // navigates to `.onboarding`; otherwise `isStartupComplete`
+            // flips to true and we stay on `.tabs`. The view body re-reads
+            // `router.currentPhase` since the router is @Observable.
+            await router.runStartupGates()
             await hubRegistry.register(VoiceTaleHubContribution())
         }
         .onChange(of: scenePhase) { _, newPhase in
