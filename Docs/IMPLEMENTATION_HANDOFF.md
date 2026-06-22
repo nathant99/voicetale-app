@@ -1,6 +1,6 @@
 # Implementation Handoff — VoiceTale
 
-**Status**: ACTIVE — Phase 0 fill-in (2026-06-19). Replaces the 2026-05-22 scaffold stub per `Docs/HANDOFF_FROM_HUB_ENGINEERING_KICKOFF.md`.
+**Status**: ACTIVE — Phase 0 fill-in (2026-06-19); Phase 1 substantially shipped (MVP feature-complete); Phase 1.1 in-flight per FEATURE_PLAN. Round 2026-06-22 (post-C1) shipped 4 additional PRs (#61–#64) maximizing ForgeKit integration: ForgeCelebration overlay wired at AppRootView, OSSignposter perf gates for record + transcript, QuizView surfacing kits 01–04 via ForgePedagogy, and an AnalyticsService emission audit that closed an `avatarSheetOpened` declared-but-dark gap. Replaces the 2026-05-22 scaffold stub per `Docs/HANDOFF_FROM_HUB_ENGINEERING_KICKOFF.md`.
 
 > 🛑 **Load-bearing pre-read for every implementing session**: `@.claude/rules/xcode-agent-safety.md` + `@CLAUDE.md` § Xcode File Safety. The agent runs **inside** the Xcode workspace; writing to Xcode-managed files (`.xcworkspace` / `.xcodeproj/project.pbxproj` / `.xcscheme` / `.xctestplan` / `Info.plist` / `.entitlements` / `.xcassets/Contents.json` / `.xcdatamodeld/`) can terminate the agent session mid-task. **File a `Docs/HANDOFF_TO_USER_<TOPIC>.md` instead.** Phase 0 close-out left 4 such steps pending in `Docs/HANDOFF_TO_USER_XCODE_WORKSPACE_INTEGRATION.md` — those gate clean workspace-level build but do NOT gate SPM-package-level work (the agent can author SPM source + tests + resources freely).
 >
