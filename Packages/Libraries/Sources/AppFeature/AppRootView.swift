@@ -23,6 +23,15 @@ extension EnvironmentValues {
     /// the observable surface to render today's listening-time row; AppRootView
     /// drives `startIfNeeded` / `pause` / `resume` on `scenePhase`.
     @Entry public var sessionTimer: SessionTimerCoordinator = SessionTimerCoordinator()
+    /// Shared ``ForgeAudioBridge`` — owns the canonical ``ForgeAudioEngine``
+    /// instance + maps system accessibility signals onto the engine's mode.
+    /// ``AnthologyAudioPlayer`` reaches through this to duck any future
+    /// Phase 2 ambient music under user-recording playback.
+    @Entry public var forgeAudio: ForgeAudioBridge = ForgeAudioBridge()
+    /// Shared ``AnthologyAudioPlayer`` — wraps AVAudioPlayer for tale
+    /// playback in AnthologyView. Lives at AppRootView scope so a single
+    /// player drives all anthology rows (one tale plays at a time).
+    @Entry public var anthologyAudioPlayer: AnthologyAudioPlayer = AnthologyAudioPlayer()
 }
 
 /// Top-level app shell. Hosts a 4-tab `TabView` (Tell / Adventure / Progress
@@ -62,6 +71,8 @@ public struct AppRootView: View {
     @State private var analytics = AnalyticsService()
     @State private var celebration = CelebrationCoordinator()
     @State private var sessionTimer = SessionTimerCoordinator()
+    @State private var forgeAudio = ForgeAudioBridge()
+    @State private var anthologyPlayer = AnthologyAudioPlayer()
     @State private var hasBootstrapped = false
     @Environment(\.scenePhase) private var scenePhase
     @AppStorage(AppRootView.onboardingCompletedKey) private var hasCompletedOnboarding: Bool = false
@@ -88,6 +99,8 @@ public struct AppRootView: View {
         .environment(\.analyticsService, analytics)
         .environment(\.celebrationCoordinator, celebration)
         .environment(\.sessionTimer, sessionTimer)
+        .environment(\.forgeAudio, forgeAudio)
+        .environment(\.anthologyAudioPlayer, anthologyPlayer)
         .celebrationOverlay(celebration)
         .task {
             guard !hasBootstrapped else { return }
@@ -95,6 +108,7 @@ public struct AppRootView: View {
             analytics.startSession()
             analytics.track(.sessionStarted)
             await sessionTimer.startIfNeeded()
+            forgeAudio.refreshAccessibilityMode()
             await hubRegistry.register(VoiceTaleHubContribution())
         }
         .onChange(of: scenePhase) { _, newPhase in
@@ -103,9 +117,15 @@ public struct AppRootView: View {
             // away. Resume on foreground. Idempotent in the coordinator.
             switch newPhase {
             case .background, .inactive:
-                Task { @MainActor in await sessionTimer.pause() }
+                Task { @MainActor in
+                    await sessionTimer.pause()
+                    anthologyPlayer.pause()
+                }
             case .active:
-                Task { @MainActor in await sessionTimer.resume() }
+                Task { @MainActor in
+                    await sessionTimer.resume()
+                    forgeAudio.refreshAccessibilityMode()
+                }
             @unknown default:
                 break
             }
