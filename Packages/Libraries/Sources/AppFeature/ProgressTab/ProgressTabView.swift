@@ -15,6 +15,7 @@ public struct ProgressTabView: View {
     @State private var moods: [AnthologyMoodData] = []
     @State private var totalTales: Int = 0
     @State private var earnedBadges: [EarnedBadgeData] = []
+    @State private var isPracticePresented: Bool = false
 
     private let xpEngine = XPEngine(config: GamificationConfig())
 
@@ -26,6 +27,7 @@ public struct ProgressTabView: View {
                 VStack(spacing: 16) {
                     xpCard
                     streakCard
+                    practiceCard
                     badgeShelf
                     moodBreakdown
                 }
@@ -33,7 +35,41 @@ public struct ProgressTabView: View {
             }
             .voiceTaleNavigationTitle("Progress")
             .onAppear(perform: reload)
+            .sheet(isPresented: $isPracticePresented, onDismiss: reload) {
+                QuizView()
+            }
         }
+    }
+
+    /// Phase 1.1 entry point — opens ``QuizView`` as a sheet so the kid
+    /// can walk through the rotating practice kit. The kit rotates by
+    /// week-of-year per ``QuizView`` defaults.
+    private var practiceCard: some View {
+        Button {
+            isPracticePresented = true
+        } label: {
+            HStack(spacing: 16) {
+                Image(systemName: "books.vertical.fill")
+                    .font(.title2)
+                    .foregroundStyle(.tint)
+                    .frame(width: 44, height: 44)
+                    .background(.thinMaterial, in: Circle())
+                VStack(alignment: .leading, spacing: 4) {
+                    Text("Practice with Bramble")
+                        .font(.headline)
+                    Text("Walk through this week's listening kit.")
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                }
+                Spacer()
+                Image(systemName: "chevron.right")
+                    .foregroundStyle(.secondary)
+            }
+            .padding(16)
+            .background(.thinMaterial, in: RoundedRectangle(cornerRadius: 16))
+        }
+        .buttonStyle(.plain)
+        .accessibilityHint(Text("Open this week's practice kit. Four questions; no grades."))
     }
 
     private var xpCard: some View {

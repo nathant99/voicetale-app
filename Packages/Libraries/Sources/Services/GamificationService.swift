@@ -216,6 +216,11 @@ public enum XPEvent: Equatable, Sendable, CustomStringConvertible {
     case allFiveBeatsHit
     case transcriptReviewed
     case traditionExplored(slug: String)
+    /// Phase 1.1 — a kit (01–04) was fully walked through in the QuizView.
+    /// Points reward the kid for engaging with reflection prompts; the
+    /// per-question accuracy (for `.choice` items) is tracked separately
+    /// via `ForgePedagogy.PedagogySession`.
+    case kitCompleted(kit: Int)
 
     public var points: Int {
         switch self {
@@ -223,6 +228,7 @@ public enum XPEvent: Equatable, Sendable, CustomStringConvertible {
         case .allFiveBeatsHit:     return 15
         case .transcriptReviewed:  return 10
         case .traditionExplored:   return 20
+        case .kitCompleted:        return 15
         }
     }
 
@@ -232,6 +238,7 @@ public enum XPEvent: Equatable, Sendable, CustomStringConvertible {
         case .allFiveBeatsHit:            return "allFiveBeatsHit"
         case .transcriptReviewed:         return "transcriptReviewed"
         case .traditionExplored(let s):   return "traditionExplored(\(s))"
+        case .kitCompleted(let k):        return "kitCompleted(\(k))"
         }
     }
 }
