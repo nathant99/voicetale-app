@@ -165,3 +165,37 @@ struct TellViewProgressiveDisclosureTests {
         #expect(sessionsCompletedAfterFiveSaves >= TellView.beatTimerEnabledThreshold)
     }
 }
+
+@Suite("TellView voice-character helpers (Phase 1.1)")
+struct TellViewVoiceCharacterTests {
+    @Test func beatsByVoiceCharacterGroupsByVoice() {
+        let timeline: [BeatSegment] = [
+            BeatSegment(beat: .hook, targetSeconds: 10, actualSeconds: 10, voiceCharacterSlug: "hero"),
+            BeatSegment(beat: .setup, targetSeconds: 20, actualSeconds: 20, voiceCharacterSlug: "hero"),
+            BeatSegment(beat: .rising, targetSeconds: 30, actualSeconds: 30, voiceCharacterSlug: "sage"),
+            BeatSegment(beat: .turn, targetSeconds: 30, actualSeconds: 30, voiceCharacterSlug: nil),
+            BeatSegment(beat: .close, targetSeconds: 20, actualSeconds: 20, voiceCharacterSlug: nil),
+        ]
+        let grouped = TellView.beatsByVoiceCharacter(in: timeline)
+        #expect(grouped["hero"]?.count == 2)
+        #expect(grouped["sage"]?.count == 1)
+        // nil slugs map to the narrator default.
+        #expect(grouped["narrator"]?.count == 2)
+        #expect(grouped["hero"]?.contains(.hook) == true)
+        #expect(grouped["hero"]?.contains(.setup) == true)
+    }
+
+    @Test func beatsByVoiceCharacterReturnsEmptyForEmptyTimeline() {
+        let grouped = TellView.beatsByVoiceCharacter(in: [])
+        #expect(grouped.isEmpty)
+    }
+
+    @Test func beatsByVoiceCharacterTreatsNilSlugsAsNarrator() {
+        let timeline: [BeatSegment] = ArcBeat.allCases.map { beat in
+            BeatSegment(beat: beat, targetSeconds: beat.targetSeconds, actualSeconds: beat.targetSeconds)
+        }
+        let grouped = TellView.beatsByVoiceCharacter(in: timeline)
+        #expect(grouped.count == 1)
+        #expect(grouped["narrator"]?.count == ArcBeat.allCases.count)
+    }
+}

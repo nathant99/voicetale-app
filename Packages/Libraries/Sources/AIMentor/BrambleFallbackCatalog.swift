@@ -49,6 +49,39 @@ nonisolated public enum BrambleFallbackCatalog {
         )
     }
 
+    /// Fallback used when the teller chose ≥ 2 distinct voice characters
+    /// across the tale (Phase 1.1 voice-character chooser). Returns `nil`
+    /// when fewer than 2 distinct non-narrator presets appear — the caller
+    /// is expected to skip the voice-variation reflection in that case.
+    ///
+    /// The observation names what the shift did for the listener; never
+    /// grades the kid's own voice; never comments on accent / fluency.
+    /// The Socratic follow-up invites the teller to notice what each
+    /// voice let them say that their own couldn't.
+    public static func voiceVariationFallback(
+        beatsByVoice: [String: [ArcBeat]]
+    ) -> VoiceStoryReflection? {
+        let nonNarrator = beatsByVoice.filter { slug, _ in
+            slug != VoiceCharacterPreset.narrator.rawValue
+        }
+        let distinctSlugs = nonNarrator.keys.sorted()
+        guard distinctSlugs.count >= 2 else { return nil }
+        let presets = distinctSlugs.compactMap(VoiceCharacterPreset.init(rawValue:))
+        let displayNames = presets.map(\.displayName)
+        let observation: String
+        if distinctSlugs.count == 2, displayNames.count == 2 {
+            observation = "Your voice shifted between \(displayNames[0]) and \(displayNames[1]) — the rooms changed as you moved between them."
+        } else if distinctSlugs.count >= 3 {
+            observation = "You used \(distinctSlugs.count) different voices across the tale — each beat felt like its own room."
+        } else {
+            observation = "You chose different voices across the beats — the tale moved between rooms."
+        }
+        return VoiceStoryReflection(
+            craftObservations: [observation],
+            socraticPrompt: "What did each voice let you say that your own couldn't?"
+        )
+    }
+
     /// Fallback used when one or more beats came in under ~50% of their target
     /// duration. Bramble names that the beat felt brief — never as a "miss",
     /// only as something the listener noticed. Per
