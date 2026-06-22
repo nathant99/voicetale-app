@@ -15,6 +15,14 @@ public struct BrambleReflectionView: View {
     public let reflection: VoiceStoryReflection?
     public let isThinking: Bool
     public let kit: QuestionKit?
+    /// Optional live cast-voicing line surfaced beneath Bramble's reflection.
+    /// When non-nil, renders a small "Hear from <name>" chip with the line so
+    /// the kid hears one cast voice react in-character. Per DN-S Move D
+    /// step 3 (HANDOFF_FROM_LABSMITH_DN_S_AI_MENTOR_VOICING.md). Gated upstream
+    /// by `@AppStorage("voicetale.castVoicing.live")` so the surface only
+    /// appears when the experimental toggle is on.
+    public let castVoicingLine: String?
+    public let castVoicingDisplayName: String?
     public let onSave: () -> Void
     public let onRetell: () -> Void
 
@@ -22,12 +30,16 @@ public struct BrambleReflectionView: View {
         reflection: VoiceStoryReflection?,
         isThinking: Bool,
         kit: QuestionKit? = nil,
+        castVoicingLine: String? = nil,
+        castVoicingDisplayName: String? = nil,
         onSave: @escaping () -> Void,
         onRetell: @escaping () -> Void
     ) {
         self.reflection = reflection
         self.isThinking = isThinking
         self.kit = kit
+        self.castVoicingLine = castVoicingLine
+        self.castVoicingDisplayName = castVoicingDisplayName
         self.onSave = onSave
         self.onRetell = onRetell
     }
@@ -39,6 +51,9 @@ public struct BrambleReflectionView: View {
                 thinkingState
             } else if let reflection {
                 reflectionBody(reflection)
+                if let line = castVoicingLine, !line.isEmpty {
+                    castVoicingChip(line: line, name: castVoicingDisplayName)
+                }
                 if let kit {
                     CastCameoStripView(
                         cameos: kit.castCameos,
@@ -107,6 +122,26 @@ public struct BrambleReflectionView: View {
         }
         .padding(16)
         .background(.thinMaterial, in: RoundedRectangle(cornerRadius: 16))
+    }
+
+    @ViewBuilder
+    private func castVoicingChip(line: String, name: String?) -> some View {
+        VStack(alignment: .leading, spacing: 6) {
+            HStack(spacing: 8) {
+                Image(systemName: "person.wave.2.fill")
+                    .foregroundStyle(.tint)
+                Text(name.map { "Hear from \($0)" } ?? "Hear from one of Bramble's friends")
+                    .font(.caption.weight(.semibold))
+                    .foregroundStyle(.secondary)
+            }
+            Text("\u{201C}\(line)\u{201D}")
+                .font(.body.italic())
+                .lineSpacing(3)
+        }
+        .padding(14)
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .background(.thinMaterial, in: RoundedRectangle(cornerRadius: 14))
+        .accessibilityLabel(name.map { "\($0) says: \(line)" } ?? "Cast member says: \(line)")
     }
 
     private var actionRow: some View {

@@ -24,6 +24,17 @@ public struct TellView: View {
     /// rotates per tale so the kid hears a different cast voice across
     /// sessions.
     @State private var activeKit: QuestionKit?
+    /// DN-S Move D step 3 live wire-up — a single per-tale cast-voiced line
+    /// surfaces below Bramble's reflection when the experimental toggle is on.
+    /// Cleared on retell/save/cancel so each tale gets a fresh voicing pass.
+    @State private var castVoicing = CastVoicingService(isLiveVoicingEnabled: false)
+    @State private var castVoicingLine: String?
+    @State private var castVoicingDisplayName: String?
+    /// Experimental feature flag. `@AppStorage` is the source of truth so the
+    /// SettingsView toggle and the TellView reading both observe the same key
+    /// without an actor-bridging environment value. Default false per the DN-S
+    /// portfolio rollout (TestFlight opt-in only).
+    @AppStorage(TellView.castVoicingLiveEnabledKey) private var castVoicingLiveEnabled: Bool = false
     /// Set when the kid pressed "Tell another" — captures the previous
     /// telling so the next reflection pairs the two transcripts via
     /// ``BrambleMentor/reflectRetell``. Cleared the moment the retell-aware
@@ -47,6 +58,10 @@ public struct TellView: View {
     /// state without depending on a separate constants file. Matches the
     /// pattern ``AppRootView/onboardingCompletedKey`` establishes.
     public static let sessionsCompletedKey = "voicetale.sessionsCompleted"
+
+    /// Persistence key for the DN-S cast-voicing experimental toggle.
+    /// Surfaced as a Toggle in ``SettingsView``; default false.
+    public static let castVoicingLiveEnabledKey = "voicetale.castVoicing.live"
 
     /// Session-count threshold at which the beat-timer scaffold becomes
     /// visible. Session 1 is intentionally free-form. From session 2
@@ -96,6 +111,8 @@ public struct TellView: View {
                 reflection: machine.reflection,
                 isThinking: machine.phase == .awaitingReflection,
                 kit: activeKit,
+                castVoicingLine: castVoicingLine,
+                castVoicingDisplayName: castVoicingDisplayName,
                 onSave: saveToAnthology,
                 onRetell: retellFromScratch
             )
@@ -342,6 +359,12 @@ public struct TellView: View {
         recorder.cancel()
         machine.reset()
         transcriptDraft = ""
+        clearCastVoicing()
+    }
+
+    private func clearCastVoicing() {
+        castVoicingLine = nil
+        castVoicingDisplayName = nil
     }
 
     private func tickRecorder() {
@@ -394,6 +417,34 @@ public struct TellView: View {
             beat: beatForReflection,
             modelAvailable: mentor.availability == .available
         ))
+        await runCastVoicingIfEnabled()
+    }
+
+    /// DN-S Move D step 3 — fetch a single in-character cast utterance and
+    /// surface it on ``BrambleReflectionView``. Skipped (clears any prior
+    /// line) when the experimental toggle is off OR the reflection has no
+    /// observations to riff on. Failures fall through silently — the chip
+    /// just doesn't appear.
+    private func runCastVoicingIfEnabled() async {
+        guard castVoicingLiveEnabled,
+              let observation = machine.reflection?.craftObservations.first,
+              !observation.isEmpty else {
+            castVoicingLine = nil
+            castVoicingDisplayName = nil
+            return
+        }
+        await castVoicing.setLiveVoicingEnabled(true)
+        let slug = CastVoicingService.slugForMood(machine.draftMood)
+        let kitNumber = activeKit?.kit ?? 1
+        let line = await castVoicing.respond(
+            as: slug,
+            trigger: .scaffold,
+            kitNumber: kitNumber,
+            topic: observation
+        )
+        guard !line.isEmpty, line != "…" else { return }
+        castVoicingLine = line
+        castVoicingDisplayName = slug.displayName
     }
 
     /// Beats whose `actualSeconds` came in under ~50% of their `targetSeconds`
@@ -440,6 +491,7 @@ public struct TellView: View {
             // surfaces the full 5-beat scaffold. AppStorage handles the
             // persistence + cross-launch state.
             sessionsCompleted += 1
+            clearCastVoicing()
         } catch {
             machine.markError("Couldn't save your tale. (\(error.localizedDescription))")
         }
@@ -492,6 +544,7 @@ public struct TellView: View {
         }
         machine.reset()
         transcriptDraft = ""
+        clearCastVoicing()
     }
 
     // MARK: - File-system helpers

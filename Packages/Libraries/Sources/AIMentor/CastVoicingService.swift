@@ -1,5 +1,6 @@
 import Foundation
 import ForgeAI
+import Models
 
 /// Thin app-side wrapper around `ForgeAI.CastDialog` for VoiceTale's 4 cast
 /// members. Owns a `CastDialog` actor + auto-registers the
@@ -99,5 +100,31 @@ public actor CastVoicingService {
     private func staticUtterance(for slug: CastVoiceRegistry.Slug) -> String {
         let profile = CastVoiceRegistry.profile(for: slug)
         return profile.catchphrases.first ?? "…"
+    }
+
+    /// Map a saved tale's mood to the cast member whose embodied primitive
+    /// is most adjacent to that mood register. Used by the post-reflection
+    /// "Hear from one of Bramble's friends" surface so each mood routes to
+    /// a different cast voice without leaning on a single character.
+    ///
+    /// | Mood   | Cast member | Why |
+    /// |---|---|---|
+    /// | funny  | Refrain | Callbacks land humor — the second saying is the laugh |
+    /// | scary  | Slow    | Pacing is the dread engineering primitive |
+    /// | tender | Lean    | Hook-craft + body-tipping is the closest to tenderness |
+    /// | wild   | Pivot   | Turns rotate meaning; wild tales pivot hardest |
+    ///
+    /// Stable + total mapping so every mood gets a deterministic voicing
+    /// candidate. Per `@Docs/HANDOFF_FROM_LABSMITH_DN_S_AI_MENTOR_VOICING.md`
+    /// the voicing-priority order calls for Lean lead; this mapping spreads
+    /// the four cast members evenly across the four moods so the kid hears
+    /// every member over a session that explores every mood.
+    public static func slugForMood(_ mood: VoiceTaleMood) -> CastVoiceRegistry.Slug {
+        switch mood {
+        case .funny:  return .refrain
+        case .scary:  return .slow
+        case .tender: return .lean
+        case .wild:   return .pivot
+        }
     }
 }

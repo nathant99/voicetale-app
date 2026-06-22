@@ -1,7 +1,7 @@
 ---
-status: PARTIALLY-DONE
+status: STEPS-1-4-DONE
 date: 2026-06-01
-implementation-status-updated: 2026-06-21
+implementation-status-updated: 2026-06-22
 round: Round 405 #828 (labsmith DN-S Integration Phase 1D portfolio rollout — voicetale)
 parent-decision: labsmith/Docs/DECISION_DN_S_AI_MENTOR_PORTFOLIO_ROLLOUT.md
 parent-plan: labsmith/Docs/PLAN_DN_S_PORTFOLIO_ROLLOUT_WAVES_2026-06-01.md
@@ -43,12 +43,13 @@ Follow `labsmith/Docs/TEMPLATE_HANDOFF_FROM_LABSMITH_DN_S_AI_MENTOR_VOICING.md` 
 
 1. [x] Derive `CastVoiceProfile` per chapter using `labsmith/Docs/SCHEMA_CAST_VOICE_REGISTRY.md` — DONE (PR #22 shipped `AIMentor.CastVoiceRegistry` with all 4 profiles)
 2. [x] Build `CastVoiceRegistry` at app launch — DONE (`CastVoiceRegistry.register(into:)` exposed; awaiting `BrambleMentor` `CastDialog` wiring per Phase 1.1)
-3. [~] Wire AI mentor call sites to invoke `castDialog.respondAs(.character(slug), prompt:, context:)` — **groundwork shipped PR #41 via `AIMentor.CastVoicingService`** (actor wrapper auto-registers all 4 profiles + exposes a `respond(as:trigger:kitNumber:topic:)` API with default-off feature flag); BrambleMentor's structured-reflection path stays unchanged for now. Phase 1.1 will surface live voicing at the Bramble call sites.
-4. [~] Feature-flag via `ForgeExperiments.castVoicing` (default off; TestFlight enable) — **app-local flag shipped PR #41** on `CastVoicingService.isLiveVoicingEnabled` (replaces `ForgeExperiments.castVoicing` which isn't pinned; same default-off behavior).
-5. [ ] Regression-test moderation pipeline (100 sample interactions across diverse contexts) — deferred (depends on step 3 + 4 toggle being flipped on)
+3. [x] Wire AI mentor call sites to invoke `castDialog.respondAs(.character(slug), prompt:, context:)` — **live wire-up shipped 2026-06-22** in `BrambleReflectionView` + `TellView`. After each reflection lands, `TellView.runCastVoicingIfEnabled()` picks a cast slug via `CastVoicingService.slugForMood(_:)` (funny→Refrain / scary→Slow / tender→Lean / wild→Pivot), calls `CastVoicingService.respond(as:trigger:.scaffold, kitNumber:, topic: observation)`, and renders the resulting line in a "Hear from <name>" chip beneath the Socratic prompt. BrambleMentor's structured-reflection path stays unchanged — the cast voicing is additive, surfaced ONLY when the experimental toggle is on.
+4. [x] Feature-flag via `ForgeExperiments.castVoicing` (default off; TestFlight enable) — **app-local AppStorage flag** (`voicetale.castVoicing.live`, default false) bridges `TellView` ↔ `SettingsView` toggle ("Hear from Bramble's friends" under Settings → Experimental). When the user flips the toggle off, the chip is cleared on the next reflection; when on, the next reflection routes through the LM via `CastDialog.respond(...)` and surfaces the result.
+5. [ ] Regression-test moderation pipeline (100 sample interactions across diverse contexts) — deferred to actual TestFlight rollout (depends on the toggle being flipped on in the field).
 
 **PR 4 (2026-06-21) status**: steps 1 + 2 complete and tested (6 tests in `CastVoiceRegistryTests` + 4 profiles registered via `CastDialog`).
-**PR 5 (2026-06-21) status**: steps 3 + 4 groundwork shipped via `CastVoicingService` (4 tests covering default-disabled fallback / toggle / idempotent registration / static fallback per slug). Step 5 deferred to actual rollout. The existing `BrambleMentor.LanguageModelSession` path stays in place; the upgrade to `CastDialog`-backed Bramble is a non-trivial mentor-API swap that warrants its own PR and ~14d telemetry observation per the parent decision.
+**PR 5 (2026-06-21) status**: steps 3 + 4 groundwork shipped via `CastVoicingService` (4 tests covering default-disabled fallback / toggle / idempotent registration / static fallback per slug).
+**PR 6 (2026-06-22) status**: steps 3 + 4 **live wire-up shipped**. `CastVoicingService.slugForMood(_:)` codifies the mood→cast routing (with a "spans every cast member" guard test). `BrambleReflectionView` gains optional `castVoicingLine` + `castVoicingDisplayName` parameters that render a slim in-character chip. `TellView` fetches the line in `runCastVoicingIfEnabled()` and clears it on retell / cancel / save. `SettingsView` surfaces the experimental Toggle. 2 new AIMentorTests (`slugForMoodIsStableAndCoversAllFourMoods`, `slugForMoodSpansEveryCastMember`) bring the suite to 6 / 6 passing. **Step 5 still deferred**; the path is open for the TestFlight rollout to verify moderation under live load.
 
 ## Pilot-derived learnings (codified per `DECISION_DN_S_AI_MENTOR_PORTFOLIO_ROLLOUT.md`)
 

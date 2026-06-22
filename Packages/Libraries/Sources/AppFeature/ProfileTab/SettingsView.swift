@@ -10,6 +10,11 @@ import VoiceAuthoring
 public struct SettingsView: View {
     @Environment(\.dismiss) private var dismiss
     @State private var crisisResources: [CrisisResource] = []
+    /// DN-S Move D step 3 — experimental cast-voicing toggle. AppStorage is
+    /// the source of truth so `TellView` and `SettingsView` observe the same
+    /// key without an actor-bridging environment value. Default off per the
+    /// DN-S portfolio rollout (TestFlight opt-in only).
+    @AppStorage(TellView.castVoicingLiveEnabledKey) private var castVoicingLiveEnabled: Bool = false
 
     public init() {}
 
@@ -18,6 +23,7 @@ public struct SettingsView: View {
             List {
                 privacySection
                 permissionsSection
+                experimentalSection
                 crisisSection
                 aboutSection
             }
@@ -86,6 +92,26 @@ public struct SettingsView: View {
             } icon: {
                 Image(systemName: "text.bubble")
             }
+        }
+    }
+
+    private var experimentalSection: some View {
+        Section {
+            Toggle(isOn: $castVoicingLiveEnabled) {
+                VStack(alignment: .leading, spacing: 4) {
+                    Text("Hear from Bramble's friends")
+                        .font(.body.weight(.semibold))
+                    Text("After a reflection, surface a single in-character line from one of the cast — Lean, Slow, Pivot, or Refrain. Routes through on-device Apple Intelligence; nothing leaves the device.")
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                }
+            }
+            .accessibilityHint("When on, each saved tale's reflection includes a single short line from one of Bramble's four oral-craft friends.")
+        } header: {
+            Text("Experimental")
+        } footer: {
+            Text("Default off. Bramble's reflection itself is unchanged either way.")
+                .font(.caption2)
         }
     }
 
