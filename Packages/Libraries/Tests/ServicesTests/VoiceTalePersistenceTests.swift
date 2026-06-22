@@ -21,6 +21,26 @@ struct VoiceTalePersistenceTests {
         #expect(entityNames.contains("PersistentAnthologyMood"))
         #expect(entityNames.contains("PersistentAchievement"))
     }
+
+    @Test func defaultStoreURLLivesUnderApplicationSupport() {
+        let url = VoiceTalePersistence.defaultStoreURL
+        // The path must end at "VoiceTale.store" inside a "VoiceTale" folder
+        // — the canonical layout per @Docs/TECHNICAL_DESIGN.md § Privacy.
+        #expect(url.lastPathComponent == "VoiceTale.store")
+        #expect(url.deletingLastPathComponent().lastPathComponent == "VoiceTale")
+        // Application Support folder must exist at this point — the
+        // accessor creates it lazily on first read.
+        let parent = url.deletingLastPathComponent()
+        #expect(FileManager.default.fileExists(atPath: parent.path))
+    }
+
+    @Test func legacyDiskContainerStillInitializes() throws {
+        // Smoke-test the legacy disk-backed entry point so callers that
+        // can't yet adopt the fail-safe helper (e.g., headless test
+        // contexts) still get a valid container.
+        let container = try VoiceTalePersistence.makeModelContainer()
+        #expect(container.schema.entities.isEmpty == false)
+    }
 }
 
 @Suite("TraditionCatalogLoader")
