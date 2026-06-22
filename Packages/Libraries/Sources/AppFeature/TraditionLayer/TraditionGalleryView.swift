@@ -3,6 +3,7 @@ import SwiftData
 import Models
 import Services
 import SharedUI
+import ForgeCelebration
 
 /// Tradition gallery — 5 short kid-readable explainers of oral-storytelling
 /// lineages. Per `@.claude/rules/trauma-informed-content.md` §
@@ -13,6 +14,7 @@ public struct TraditionGalleryView: View {
     @Environment(\.modelContext) private var modelContext
     @Environment(\.gamificationService) private var gamification
     @Environment(\.analyticsService) private var analytics
+    @Environment(\.celebrationCoordinator) private var celebration
     @State private var catalog: TraditionCatalog?
     @State private var loadError: String?
 
@@ -35,10 +37,16 @@ public struct TraditionGalleryView: View {
                     ForEach(catalog.entries) { entry in
                         TraditionCard(entry: entry, onExplore: {
                             VoiceTaleStore.recordTraditionExplored(slug: entry.slug, in: modelContext)
-                            gamification.awardXP(
+                            let outcome = gamification.awardXP(
                                 for: .traditionExplored(slug: entry.slug),
                                 in: modelContext
                             )
+                            if outcome.leveledUp {
+                                celebration.levelUp(newLevel: outcome.newLevel)
+                            }
+                            for badge in outcome.newBadges {
+                                celebration.badgeEarned(title: badge.title)
+                            }
                             analytics.track(.traditionExplored(slug: entry.slug))
                         })
                     }

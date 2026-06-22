@@ -71,6 +71,35 @@ struct GamificationServiceTests {
         #expect(snapshot.xpTotal == 25 + 20 + 10)
     }
 
+    @Test func awardOutcomeCapturesPreviousAndNewLevel() throws {
+        // First award starts at level 0 (xpTotal = 0). The default XP curve
+        // (`.standard`: level = sqrt(xp/100)) crosses to level 1 at xp >= 100.
+        // Drive enough awards to cross at least one threshold so we can assert
+        // `previousLevel < newLevel` somewhere in the sequence.
+        let context = try newContext()
+        let service = GamificationService()
+        var sawLevelUp = false
+        for _ in 0..<8 {
+            let outcome = service.awardXP(for: .taleSaved, in: context)
+            #expect(outcome.previousLevel <= outcome.newLevel,
+                    "previousLevel must not exceed newLevel")
+            if outcome.leveledUp { sawLevelUp = true }
+        }
+        #expect(sawLevelUp,
+                "8 × 25-XP awards should cross at least one level threshold")
+    }
+
+    @Test func awardOutcomeReportsNoLevelUpBelowThreshold() throws {
+        // A single 25-XP award starts at xpTotal 0 (level 0) and ends at 25
+        // (still level 0). `leveledUp` must be false here so call sites don't
+        // fire spurious level-up celebrations.
+        let context = try newContext()
+        let service = GamificationService()
+        let outcome = service.awardXP(for: .taleSaved, in: context)
+        #expect(outcome.previousLevel == outcome.newLevel)
+        #expect(outcome.leveledUp == false)
+    }
+
     // MARK: - Achievement evaluation
 
     @Test func firstTaleSavedUnlocksFirstTaleBadge() throws {
