@@ -154,6 +154,7 @@ public struct AnthologyView: View {
                 VStack(spacing: 16) {
                     collectionsShelf
                     moodFilterRow
+                    moodRetrospectiveCard
                     LazyVStack(spacing: 12) {
                         ForEach(filteredTales) { tale in
                             taleCard(tale)
@@ -163,6 +164,43 @@ public struct AnthologyView: View {
                 }
                 .padding(.vertical)
             }
+        }
+    }
+
+    /// Delight & Polish "Share-worthy moments — mood-tag retrospectives".
+    /// Surfaces above the filtered tale list when the kid has saved at
+    /// least 3 tales of the currently-filtered mood. `MoodRetrospective`
+    /// returns `nil` headlines below the 3-tale floor + when no mood
+    /// filter is applied, so this view collapses cleanly the rest of
+    /// the time. Per `@Docs/FEATURE_PLAN.md` § Delight & Polish.
+    @ViewBuilder
+    private var moodRetrospectiveCard: some View {
+        if let mood = moodFilter,
+           let headline = MoodRetrospective.headline(mood: mood, count: filteredTales.count),
+           let body = MoodRetrospective.body(mood: mood, count: filteredTales.count) {
+            VStack(alignment: .leading, spacing: 6) {
+                Text(headline)
+                    .font(.subheadline.weight(.semibold))
+                    .foregroundStyle(.primary)
+                Text(body)
+                    .font(.footnote)
+                    .foregroundStyle(.secondary)
+                    .fixedSize(horizontal: false, vertical: true)
+            }
+            .padding(.horizontal, 14)
+            .padding(.vertical, 10)
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .background(
+                RoundedRectangle(cornerRadius: 12)
+                    .fill(Color.accentColor.opacity(0.08))
+            )
+            .overlay(
+                RoundedRectangle(cornerRadius: 12)
+                    .stroke(Color.accentColor.opacity(0.25), lineWidth: 1)
+            )
+            .padding(.horizontal)
+            .accessibilityElement(children: .combine)
+            .accessibilityLabel(Text("\(headline) \(body)"))
         }
     }
 
