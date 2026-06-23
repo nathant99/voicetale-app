@@ -15,6 +15,7 @@ public struct TellView: View {
     @Environment(\.gamificationService) private var gamification
     @Environment(\.analyticsService) private var analytics
     @Environment(\.celebrationCoordinator) private var celebration
+    @Environment(\.sessionTally) private var sessionTally
     @State private var machine = TellMachine()
     @State private var recorder = AudioRecorder()
     @State private var mentor = BrambleMentor()
@@ -621,6 +622,7 @@ public struct TellView: View {
             machine.markSaved()
             stopVoicePreview()
             HapticsBridge.fireTaleSaved()
+            sessionTally.recordTaleSaved()
             analytics.track(.taleSavedToAnthology(
                 mood: entry.mood,
                 hitAllBeats: hitAllFiveBeats(entry: entry)
@@ -666,6 +668,7 @@ public struct TellView: View {
         }
         for badge in outcome.newBadges {
             celebration.badgeEarned(title: badge.title)
+            sessionTally.recordBadgeEarned(title: badge.title)
         }
     }
 

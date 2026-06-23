@@ -22,6 +22,7 @@ public struct QuizView: View {
     @Environment(\.gamificationService) private var gamification
     @Environment(\.analyticsService) private var analytics
     @Environment(\.celebrationCoordinator) private var celebration
+    @Environment(\.sessionTally) private var sessionTally
 
     @State private var machine = QuizMachine()
     @State private var pedagogy = PedagogySession()
@@ -298,6 +299,7 @@ public struct QuizView: View {
         }
         for badge in outcome.newBadges {
             celebration.badgeEarned(title: badge.title)
+            sessionTally.recordBadgeEarned(title: badge.title)
         }
         let accuracy = machine.choiceItemCount == 0 ? -1.0 : machine.choiceAccuracy
         analytics.track(.kitCompleted(kit: kit.kit, accuracy: accuracy))

@@ -33,6 +33,11 @@ extension EnvironmentValues {
     /// playback in AnthologyView. Lives at AppRootView scope so a single
     /// player drives all anthology rows (one tale plays at a time).
     @Entry public var anthologyAudioPlayer: AnthologyAudioPlayer = AnthologyAudioPlayer()
+    /// Shared ``SessionTallyTracker`` — counts tales saved + badges earned
+    /// per sitting so ``SessionCloserView`` can render an honest recap when
+    /// the session soft-cap fires. Reset implicitly on cold launch via
+    /// AppRootView's `@State` storage; reset explicitly on closer dismiss.
+    @Entry public var sessionTally: SessionTallyTracker = SessionTallyTracker()
 }
 
 /// Top-level app shell. Hosts a 4-tab `TabView` (Tell / Adventure / Progress
@@ -75,6 +80,7 @@ public struct AppRootView: View {
     @State private var sessionTimer = SessionTimerCoordinator()
     @State private var forgeAudio = ForgeAudioBridge()
     @State private var anthologyPlayer = AnthologyAudioPlayer()
+    @State private var sessionTally = SessionTallyTracker()
     @State private var router: ForgePhaseRouter<VoiceTalePhase> = AppRootView.makeRouter()
     @State private var hasBootstrapped = false
     /// Engagement-Foundation welcome-back state. Populated once on
@@ -82,6 +88,15 @@ public struct AppRootView: View {
     /// Cleared when the kid taps either CTA. Per `@Docs/FEATURE_PLAN.md`
     /// § Phase: Onboarding & Child Safety § "Return loop".
     @State private var welcomeBackContext: WelcomeBackContext?
+    /// Engagement-Foundation session-closer state. Populated when the
+    /// 15-minute soft-cap fires on the underlying ``ObservableSessionTimer``
+    /// (via the `.isSessionExpired` published property). Cleared on dismiss.
+    /// Per `@Docs/FEATURE_PLAN.md` § "Session targeting".
+    @State private var sessionCloserRecap: SessionCloserRecapWrapper?
+    /// Latched flag — once the soft-cap fires for this sitting, surface the
+    /// closer exactly once. Cleared on cold launch (fresh `@State`) so the
+    /// next sitting starts the cycle over.
+    @State private var hasShownSessionCloserThisSitting = false
     @Environment(\.modelContext) private var modelContext
     @Environment(\.scenePhase) private var scenePhase
     @AppStorage(AppRootView.onboardingCompletedKey) private var hasCompletedOnboarding: Bool = false
@@ -130,6 +145,7 @@ public struct AppRootView: View {
         .environment(\.sessionTimer, sessionTimer)
         .environment(\.forgeAudio, forgeAudio)
         .environment(\.anthologyAudioPlayer, anthologyPlayer)
+        .environment(\.sessionTally, sessionTally)
         .celebrationOverlay(celebration)
         .sheet(item: $welcomeBackContext) { context in
             WelcomeBackView(
@@ -141,6 +157,26 @@ public struct AppRootView: View {
                 },
                 onJustLooking: { welcomeBackContext = nil }
             )
+        }
+        .sheet(item: $sessionCloserRecap) { recap in
+            SessionCloserView(recap: recap.payload) {
+                sessionCloserRecap = nil
+                sessionTally.reset()
+            }
+            .interactiveDismissDisabled(false)
+        }
+        .onChange(of: sessionTimer.timer.isSessionExpired) { _, expired in
+            guard expired, hasShownSessionCloserThisSitting == false else { return }
+            hasShownSessionCloserThisSitting = true
+            let snapshot = VoiceTaleStore.progressSnapshot(in: modelContext)
+            let payload = SessionCloserView.Recap(
+                talesSavedThisSession: sessionTally.talesSavedThisSession,
+                badgesEarnedThisSession: sessionTally.badgesEarnedThisSession,
+                currentStreakDays: snapshot.currentStreakDays,
+                nextSessionInvite: AppRootView.nextSessionInvite(streakDays: snapshot.currentStreakDays)
+            )
+            sessionCloserRecap = SessionCloserRecapWrapper(payload: payload)
+            analytics.track(.sessionCloserShown(talesSavedThisSession: sessionTally.talesSavedThisSession))
         }
         .task {
             guard !hasBootstrapped else { return }
@@ -216,6 +252,18 @@ public struct AppRootView: View {
         analytics.track(.lapsedReturn(daysSinceActive: days))
     }
 
+    /// Kid-readable next-session invitation. Calibrated to the current
+    /// streak so the line escalates naturally — anti-shame on zero-day
+    /// (no streak) variants.
+    nonisolated static func nextSessionInvite(streakDays: Int) -> String {
+        switch streakDays {
+        case ..<1: return "Tomorrow Bramble will be here when you are."
+        case 1...2: return "Same time tomorrow keeps the streak warm."
+        case 3...6: return "Keep the shape — Bramble will hold your spot."
+        default: return "A real streak. See you when the sun's up again."
+        }
+    }
+
     /// Bridge from `GamificationService.recordRetention` to the analytics
     /// vocabulary. The service handles seeding + persistence; this method
     /// fans out one event per milestone crossed on the launch.
@@ -251,6 +299,15 @@ struct WelcomeBackContext: Identifiable, Sendable {
     let id = UUID()
     let daysLapsed: Int
     let lastTale: VoiceTaleEntry?
+}
+
+/// Identifiable wrapper carrying the SessionCloserView recap so `.sheet(item:)`
+/// can drive presentation. Stored as a separate type rather than reusing the
+/// Recap struct because Recap is a `Sendable` value type without `Identifiable`
+/// conformance — keeps the public Recap API minimal.
+struct SessionCloserRecapWrapper: Identifiable, Sendable {
+    let id = UUID()
+    let payload: SessionCloserView.Recap
 }
 
 /// Composite Progress tab: anthology gallery + progress card. The original
