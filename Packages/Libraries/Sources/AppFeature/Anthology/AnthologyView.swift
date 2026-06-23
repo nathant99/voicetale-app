@@ -129,8 +129,13 @@ public struct AnthologyView: View {
 
     /// Apply a new filter selection — persists the value and emits a
     /// categorical analytics event. Centralized so the chip taps and any
-    /// future programmatic toggles flow through the same path.
+    /// future programmatic toggles flow through the same path. Fires the
+    /// Delight & Polish "Juice layer" selection haptic only on a real
+    /// change of value.
     private func applyFilter(_ mood: VoiceTaleMood?) {
+        if moodFilter != mood {
+            HapticsBridge.fireSelection()
+        }
         moodFilter = mood
         persistedFilterRaw = AnthologyView.encodeFilter(mood)
         analytics.track(.anthologyFilterApplied(mood: mood))

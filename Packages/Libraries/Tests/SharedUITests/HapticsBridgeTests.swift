@@ -14,6 +14,8 @@ struct HapticsBridgeTests {
         HapticsBridge.fireLevelUp()
         HapticsBridge.fireStreakMilestone()
         HapticsBridge.fireSessionWarning()
+        HapticsBridge.fireBeatBoundary()
+        HapticsBridge.fireSelection()
         // Reaching this line proves none of the call sites trapped on this
         // process / simulator surface.
         #expect(Bool(true))

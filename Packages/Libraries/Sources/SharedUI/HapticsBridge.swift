@@ -52,4 +52,16 @@ public enum HapticsBridge {
     public static func fireBeatBoundary() {
         ForgeHapticEngine.shared.playSync(ForgeHapticLibrary.buttonTap)
     }
+
+    /// Selection tap fired when the kid picks a mood chip, a voice-character
+    /// preset chip, or any other chip-style selector. Part of the
+    /// Delight & Polish "Juice layer" pass — visual + haptic land together
+    /// on every interaction (the visual side is the chip's existing
+    /// `isSelected` style change). Reuses ``ForgeHapticLibrary/buttonTap``
+    /// — lightest tap in the library, designed so chip-strip scrubbing
+    /// doesn't feel buzzy. Callers fire only on a real change of value
+    /// (no-op self-taps don't get a haptic).
+    public static func fireSelection() {
+        ForgeHapticEngine.shared.playSync(ForgeHapticLibrary.buttonTap)
+    }
 }

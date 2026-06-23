@@ -338,7 +338,7 @@ public struct TellView: View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: 8) {
                 ForEach(VoiceTaleMood.allCases, id: \.self) { mood in
-                    Button(action: { machine.draftMood = mood }) {
+                    Button(action: { selectMood(mood) }) {
                         MoodTagView(mood: mood, isSelected: machine.draftMood == mood)
                     }
                     .buttonStyle(.plain)
@@ -346,6 +346,16 @@ public struct TellView: View {
             }
             .padding(.horizontal)
         }
+    }
+
+    /// Mood-chip pick. Fires the Delight & Polish "Juice layer" selection
+    /// haptic only on a real change of mood (no-op self-taps don't buzz)
+    /// per `@Docs/FEATURE_PLAN.md` § Delight & Polish → "Juice layer".
+    private func selectMood(_ mood: VoiceTaleMood) {
+        if machine.draftMood != mood {
+            HapticsBridge.fireSelection()
+        }
+        machine.draftMood = mood
     }
 
     private var currentBeatHint: String {
