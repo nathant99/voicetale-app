@@ -232,3 +232,24 @@ Round 2026-06-23 shipped 4 PRs + 1 new HANDOFF_TO_USER doc, opening Phase 2 + cl
 **Test coverage delta**: ~30+ new tests across the round (5 AnthologyFilterPersistence + 5 QuestionKitLoader Phase-2 + 5 GamificationService Phase-2 + 4 GamificationService retention + 8 RetentionMetricsEvaluator + 6 SessionCloserView + 2 AnalyticsService new events + extended exhaustiveness audit).
 
 **Net**: Phase 2 OPENED on 3 of its 7 boxes (mood-filter persistence, kits 06–09, 6 achievements). 2 Engagement-Foundation boxes CLOSED (retention metrics baseline + session closer). 3 Phase 2 boxes remain: anthology curation (kid-curated mood collections), photo attach + parental-gate, ForgeAdventure Tale Trial mode.
+
+## Round close-out 2026-06-23 late evening (PRs #86–#89) — Delight & Polish opens + 15th ForgeKit module
+
+Round 2026-06-23 (continuation, late evening) shipped 4 PRs opening 3 of the 7 Delight & Polish boxes + adopting the 15th declared ForgeKit module (ForgeIntents). See `@Docs/FEATURE_PLAN.md` § "Round close-out 2026-06-23 late evening (PRs #86–#89)" for the per-PR breakdown.
+
+**Surface area opened**:
+- Delight & Polish: proportional celebration (subtle beat-boundary haptic + epic full-screen first-five-beat-tale celebration; PR #86); juice-layer selection haptic on mood / voice / filter chips (PR #87); mood-tag retrospectives in AnthologyView (PR #88)
+- ForgeIntents foundation: typed `VoiceTaleIntentDestination` + `VoiceTaleIntentRouter` + canonical Siri shortcut phrases (PR #89; 15th declared ForgeKit module)
+
+**Catalog deltas**:
+- `VoiceTaleAchievementCatalog.phase1` now ships **23** entries (was 22): + `first_five_beat_tale` (XP 75, CCSS-ELA SL.6.4).
+- `VoiceTaleAnalyticsEvent` vocabulary now ships **19** events: + `firstFiveBeatTaleCelebrated(mood:)`.
+- `PersistentPlayerProgress` gains **1** additive Optional<Date>: `firstFiveBeatTaleAt`.
+- `HapticsBridge` ships **7** named entry points: + `fireBeatBoundary` (subtle 5-beat transition) + `fireSelection` (light chip-pick tap).
+- New `Models/MoodRetrospective` pure-function value enum (3-tier × 4-mood × headline+body matrix; 12 strings).
+- New `AppFeature/Intents/` directory: `VoiceTaleIntentDestination` (4 cases) + `VoiceTaleIntentRouter` (pure tab mapper + Siri phrases).
+- ForgeKit declared modules: **14 → 15** (+ ForgeIntents).
+
+**Test coverage delta**: ~22 new tests landed across the round (8 MoodRetrospective + 9 VoiceTaleIntentRouter/Destination + 4 GamificationService gate update — catalog count + snapshot seeding + arm coverage — + 1 HapticsBridge entry-point extension).
+
+**Net**: Delight & Polish OPENED with 3 of 7 boxes shipped. ForgeKit declared+used modules 14 → 15. Phase Delight & Polish remaining: micro-delight coverage (8 types) / Bramble personality callbacks / mastery moments / easter eggs / published-tale certificates + anthology covers — all reasonable Phase 3 carry-over. No Xcode-managed files touched.
