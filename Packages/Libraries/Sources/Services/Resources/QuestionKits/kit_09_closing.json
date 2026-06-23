@@ -1,0 +1,42 @@
+{
+  "kit": 9,
+  "title": "Closing-Hold",
+  "primitive": "the last word — the small specific image that lets the listener carry the tale away",
+  "anchorCharacterSlug": "refrain",
+  "summary": "The Close beat is the only beat the listener LEAVES with. A weak Close evaporates; a strong Close stays in the room after the teller stops talking. This kit listens for what the kid actually puts in their last sentence — and whether it echoes anything from the Hook. Phase 2 makes the Close the most-deliberate beat in the tale.",
+  "questions": [
+    {
+      "id": "k9q1",
+      "kind": "reflection",
+      "prompt": "Tell a 60-second tale and pay close attention to your very last sentence. Was it a SPECIFIC image (something a listener could draw) or a SUMMARY (something a listener could only paraphrase)? Specific images stay. Summaries evaporate."
+    },
+    {
+      "id": "k9q2",
+      "kind": "choice",
+      "prompt": "What's the strongest move for a Close beat the listener will carry into tomorrow?",
+      "options": [
+        "End with a moral — tell the listener what the tale meant.",
+        "End with a small specific image that echoes something from the Hook.",
+        "End with a cliffhanger — make them want a sequel."
+      ],
+      "correctIndex": 1,
+      "rationale": "A Close that echoes the Hook gives the tale a SHAPE — the listener feels they have arrived back at a place they've already been, but with new eyes. Morals tell the listener what to feel; cliffhangers leave the room open instead of closing it."
+    },
+    {
+      "id": "k9q3",
+      "kind": "reflection",
+      "prompt": "Look at the last sentence of three tales in your anthology. Which one stays with you the longest? What is it about that one — is it specific, does it echo the Hook, does it leave a small image you can SEE?"
+    },
+    {
+      "id": "k9q4",
+      "kind": "rewrite",
+      "prompt": "Take a tale that ended with a summary or a moral. Rewrite ONLY the last sentence — replace it with a small specific image that echoes one detail from the Hook. Keep everything in between identical. Read both versions aloud."
+    }
+  ],
+  "castCameos": [
+    { "slug": "refrain", "line": "The Close is a refrain. The Hook plants the chord; the Close lets it ring. The tale is a song that closes the loop." },
+    { "slug": "lean", "line": "Specific Close-beat images are what I lean toward when I think of the tale tomorrow. Summaries get filed; specifics get RE-told." },
+    { "slug": "pivot", "line": "A great Close shows the listener that the rotation at the Turn STAYED rotated. The tale is different from how it started — the Close proves it." },
+    { "slug": "slow", "line": "Slow your very last sentence. Let the room hold it. The Close is the only sentence that's allowed to be longer than it needs to be." }
+  ]
+}

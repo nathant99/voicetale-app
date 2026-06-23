@@ -1,0 +1,42 @@
+{
+  "kit": 6,
+  "title": "Mood-Shape",
+  "primitive": "the felt-shape a tale leaves in the room (the mood after the last word)",
+  "anchorCharacterSlug": "lean",
+  "summary": "Every told tale leaves a feeling in the room — funny, scary, tender, wild. This kit listens for what mood actually lands when the tale ends, and whether the teller meant for it to land that way. Phase 2 deepens the Phase 1 mood-tag with a kid-readable model: mood is the SHAPE of what you left behind, not the sticker you put on it.",
+  "questions": [
+    {
+      "id": "k6q1",
+      "kind": "reflection",
+      "prompt": "Tell a 60-second tale. Don't pick a mood first. After you finish, sit for one breath — then name the mood the room is sitting in. Did the mood you wanted match the mood that arrived?"
+    },
+    {
+      "id": "k6q2",
+      "kind": "choice",
+      "prompt": "When the mood at the END of your tale is different from the mood you were aiming for, what's usually the strongest move?",
+      "options": [
+        "Re-tell with a different opening line.",
+        "Keep the tale, change the mood tag — let the listener vote with their feet.",
+        "Slow the Close beat and add one small detail that pulls toward the mood you wanted."
+      ],
+      "correctIndex": 2,
+      "rationale": "Mood lives in the Close. A single specific Close-beat detail (a smell, a sound, a small movement) can rotate the felt-shape without changing the whole tale. Changing the opening rebuilds the room from scratch; changing the tag is honest but lets the tale stay misshapen."
+    },
+    {
+      "id": "k6q3",
+      "kind": "reflection",
+      "prompt": "Pick a tale from your anthology with a strong mood. What was the smallest moment that decided the mood — a word, a pause, the tone of one line? Could that moment be moved?"
+    },
+    {
+      "id": "k6q4",
+      "kind": "rewrite",
+      "prompt": "Take a funny tale you've told and rewrite the Close beat to land tender instead. Keep every event the same. Change only the tone of the last two lines — see how small a move it takes to shift the room."
+    }
+  ],
+  "castCameos": [
+    { "slug": "lean", "line": "I lean in when the mood matches what the teller's body is doing — when the breath and the words agree, the room agrees." },
+    { "slug": "pivot", "line": "Mood pivots in the last beat. The whole tale is preparing the listener to FEEL a thing — make the felt-thing arrive on purpose." },
+    { "slug": "slow", "line": "A long pause at the Close is a mood-tool. The room will fill the silence with the mood you set up." },
+    { "slug": "refrain", "line": "If the same image returns at the Hook and the Close, the mood is doubled — listeners FEEL the bookend before they notice it." }
+  ]
+}

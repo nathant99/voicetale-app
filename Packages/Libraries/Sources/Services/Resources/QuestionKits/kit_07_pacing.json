@@ -1,0 +1,42 @@
+{
+  "kit": 7,
+  "title": "Pacing-Walk",
+  "primitive": "where the tale walks fast, where it walks slow, and why each pace lets a different thing land",
+  "anchorCharacterSlug": "slow",
+  "summary": "A told tale is a walk. The teller decides where to RUN past the trees and where to STOP at one tree. This kit listens for the pace inside each beat — the Hook can sprint, the Turn often slows, the Close can either rush or hold. Phase 2 makes pace a craft choice instead of an accident.",
+  "questions": [
+    {
+      "id": "k7q1",
+      "kind": "reflection",
+      "prompt": "Tell a 60-second tale and pay attention to where you RUSHED and where you HELD. Was the rushing on purpose? Was the holding on purpose? What would change if you swapped them?"
+    },
+    {
+      "id": "k7q2",
+      "kind": "choice",
+      "prompt": "Which beat is usually the strongest place to SLOW the pace and add one small specific detail?",
+      "options": [
+        "The Hook — the listener arrives, so detail anchors them.",
+        "The Turn — the listener is meeting the meaning, so a held moment makes the meaning land.",
+        "The Close — the listener is leaving, so detail helps the goodbye."
+      ],
+      "correctIndex": 1,
+      "rationale": "The Turn rotates the meaning. Slowing it down with one specific image lets the rotation arrive instead of zipping past. Hook detail is good but can be carried by voice; Close detail is good but a quick close also works."
+    },
+    {
+      "id": "k7q3",
+      "kind": "reflection",
+      "prompt": "Find a tale in your anthology that felt too fast. Which beat was the fast one? Pick the moment you'd slow if you re-told it tomorrow. Name the one detail you'd add."
+    },
+    {
+      "id": "k7q4",
+      "kind": "rewrite",
+      "prompt": "Take a tale that rushed past the Turn. Rewrite ONE sentence at the Turn — make it hold for one extra breath. Add one specific image (a smell, a temperature, a small movement). Read both versions aloud."
+    }
+  ],
+  "castCameos": [
+    { "slug": "slow", "line": "Slowing is a gift. The held moment is where the listener notices what THEY brought to the tale — that's where the tale becomes ours, not just yours." },
+    { "slug": "lean", "line": "When the teller slows on purpose, I lean in. When they slow by accident, I check my watch. The difference is whether the pause has a SHAPE." },
+    { "slug": "pivot", "line": "Pace changes ARE pivots. Sprinting the rising action and slowing the Turn is one of the oldest moves — the contrast IS the rotation." },
+    { "slug": "refrain", "line": "Try a slow-fast-slow rhythm: held Hook → rushing Setup + Rising → held Turn → quick Close. The Hook and the Turn echo each other. Listeners feel the symmetry." }
+  ]
+}
