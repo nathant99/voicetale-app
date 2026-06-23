@@ -60,6 +60,10 @@ let package = Package(
                 .product(name: "ForgeAnalytics", package: "forgekit"),
                 .product(name: "ForgeAudio", package: "forgekit"),
                 .product(name: "ForgeGamification", package: "forgekit"),
+                // Phase 2 — saved-tale Spotlight indexing per
+                // `@.claude/rules/forgekit.md` § ForgeSpotlight. CoreSpotlight
+                // is permissionless; no Info.plist work needed.
+                .product(name: "ForgeSpotlight", package: "forgekit"),
             ],
             resources: [
                 .process("Resources"),
