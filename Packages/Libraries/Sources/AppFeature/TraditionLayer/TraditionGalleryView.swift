@@ -15,6 +15,7 @@ public struct TraditionGalleryView: View {
     @Environment(\.gamificationService) private var gamification
     @Environment(\.analyticsService) private var analytics
     @Environment(\.celebrationCoordinator) private var celebration
+    @Environment(\.sessionTally) private var sessionTally
     @State private var catalog: TraditionCatalog?
     @State private var loadError: String?
 
@@ -46,6 +47,7 @@ public struct TraditionGalleryView: View {
                             }
                             for badge in outcome.newBadges {
                                 celebration.badgeEarned(title: badge.title)
+                                sessionTally.recordBadgeEarned(title: badge.title)
                             }
                             analytics.track(.traditionExplored(slug: entry.slug))
                         })
