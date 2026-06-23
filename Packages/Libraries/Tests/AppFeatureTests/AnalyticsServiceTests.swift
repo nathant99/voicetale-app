@@ -120,6 +120,21 @@ struct AnalyticsServiceTests {
         #expect(event.properties["accuracy_raw"] == nil)
     }
 
+    // MARK: - anthologyFilterApplied (Phase 2 kickoff)
+
+    @Test func anthologyFilterAppliedCarriesMoodWhenSelected() {
+        let event = VoiceTaleAnalyticsEvent.anthologyFilterApplied(mood: .tender)
+        #expect(event.name == "anthology_filter_applied")
+        #expect(event.properties["mood"] == "tender")
+    }
+
+    @Test func anthologyFilterAppliedReportsAllWhenClearedToNil() {
+        // Categorical surface: the "All" state must surface as a stable
+        // string so the property never goes blank on the wire.
+        let event = VoiceTaleAnalyticsEvent.anthologyFilterApplied(mood: nil)
+        #expect(event.properties["mood"] == "all")
+    }
+
     // MARK: - Event-vocabulary exhaustiveness / uniqueness audit
 
     @Test func everyDeclaredEventHasAUniqueNonEmptyName() {
@@ -140,6 +155,7 @@ struct AnalyticsServiceTests {
             .kitCompleted(kit: 1, accuracy: 1.0),
             .lapsedReturn(daysSinceActive: 5),
             .rarePromptSurfaced(category: "hidden_tradition"),
+            .anthologyFilterApplied(mood: .funny),
         ]
         let names = representativeEvents.map(\.name)
         // Uniqueness

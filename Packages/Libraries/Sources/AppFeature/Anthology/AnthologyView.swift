@@ -14,6 +14,11 @@ public struct AnthologyView: View {
     @Environment(\.forgeAudio) private var forgeAudio
     @State private var tales: [VoiceTaleEntry] = []
     @State private var moods: [AnthologyMoodData] = []
+    /// Persisted filter selection. Survives app relaunches so a kid who
+    /// last browsed only "tender" tales lands back on that view. Stored as
+    /// the raw mood value (or empty for "all") because `@AppStorage` cannot
+    /// box arbitrary Optional value types directly.
+    @AppStorage("voicetale.anthology.filter") private var persistedFilterRaw: String = ""
     @State private var moodFilter: VoiceTaleMood?
     /// Pillar Deepening C1 — per-tale CAF export state. The exporter actor is
     /// shared across cards; per-card state lives in the `exportState` dict
@@ -35,8 +40,35 @@ public struct AnthologyView: View {
         NavigationStack {
             content
                 .voiceTaleNavigationTitle("Anthology")
-                .onAppear(perform: reload)
+                .onAppear(perform: handleAppear)
         }
+    }
+
+    private func handleAppear() {
+        moodFilter = AnthologyView.decodeFilter(persistedFilterRaw)
+        reload()
+    }
+
+    /// Decode the `@AppStorage`-backed raw filter string into a typed
+    /// optional mood. Empty / unknown values resolve to `nil` (the "All"
+    /// selection). Exposed `static` so the unit test can verify the
+    /// round-trip without spinning up a SwiftUI view.
+    static func decodeFilter(_ raw: String) -> VoiceTaleMood? {
+        guard !raw.isEmpty else { return nil }
+        return VoiceTaleMood(rawValue: raw)
+    }
+
+    static func encodeFilter(_ mood: VoiceTaleMood?) -> String {
+        mood?.rawValue ?? ""
+    }
+
+    /// Apply a new filter selection — persists the value and emits a
+    /// categorical analytics event. Centralized so the chip taps and any
+    /// future programmatic toggles flow through the same path.
+    private func applyFilter(_ mood: VoiceTaleMood?) {
+        moodFilter = mood
+        persistedFilterRaw = AnthologyView.encodeFilter(mood)
+        analytics.track(.anthologyFilterApplied(mood: mood))
     }
 
     @ViewBuilder
@@ -66,7 +98,7 @@ public struct AnthologyView: View {
     private var moodFilterRow: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: 8) {
-                Button(action: { moodFilter = nil }) {
+                Button(action: { applyFilter(nil) }) {
                     Label("All", systemImage: "tray.full")
                         .font(.callout)
                         .padding(.horizontal, 12)
@@ -76,15 +108,28 @@ public struct AnthologyView: View {
                         )
                 }
                 .buttonStyle(.plain)
+                .accessibilityHint(
+                    moodFilter == nil
+                        ? Text("Showing every saved tale.")
+                        : Text("Clear the mood filter to see every saved tale.")
+                )
+                .accessibilityAddTraits(moodFilter == nil ? [.isSelected] : [])
                 ForEach(VoiceTaleMood.allCases, id: \.self) { mood in
-                    Button(action: { moodFilter = mood }) {
+                    Button(action: { applyFilter(mood) }) {
                         MoodTagView(mood: mood, isSelected: moodFilter == mood)
                     }
                     .buttonStyle(.plain)
+                    .accessibilityHint(
+                        moodFilter == mood
+                            ? Text("Showing only \(mood.displayLabel.lowercased()) tales.")
+                            : Text("Filter the gallery to only \(mood.displayLabel.lowercased()) tales.")
+                    )
                 }
             }
             .padding(.horizontal)
         }
+        .accessibilityElement(children: .contain)
+        .accessibilityLabel(Text("Mood filter"))
     }
 
     private func taleCard(_ tale: VoiceTaleEntry) -> some View {
