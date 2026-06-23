@@ -39,6 +39,13 @@ public struct BrambleReflectionView: View {
     /// ``BrambleMentor.lastDistressAxis``. Per `@.claude/rules/trauma-informed-content.md`
     /// § "refer up" + ADR-016.
     public let crisisResources: [CrisisResource]
+    /// Delight & Polish "Mastery moments" — when non-nil, surfaces a
+    /// quiet recognition strip below Bramble's bubble (anti-clobber:
+    /// distress chip still wins; voice-variation callout still wins;
+    /// mastery is the lowest-priority strip per
+    /// ``MasteryMoment`` § "priority discipline"). Per
+    /// `@Docs/FEATURE_PLAN.md` § Delight & Polish.
+    public let masteryMoment: MasteryMoment?
     public let onSave: () -> Void
     public let onRetell: () -> Void
 
@@ -54,6 +61,7 @@ public struct BrambleReflectionView: View {
         castVoicingSlug: String? = nil,
         voiceVariation: VoiceStoryReflection? = nil,
         crisisResources: [CrisisResource] = [],
+        masteryMoment: MasteryMoment? = nil,
         onSave: @escaping () -> Void,
         onRetell: @escaping () -> Void
     ) {
@@ -65,6 +73,7 @@ public struct BrambleReflectionView: View {
         self.castVoicingSlug = castVoicingSlug
         self.voiceVariation = voiceVariation
         self.crisisResources = crisisResources
+        self.masteryMoment = masteryMoment
         self.onSave = onSave
         self.onRetell = onRetell
     }
@@ -81,6 +90,9 @@ public struct BrambleReflectionView: View {
                 }
                 if let voiceVariation {
                     voiceVariationCallout(voiceVariation)
+                }
+                if let masteryMoment, crisisResources.isEmpty {
+                    masteryMomentStrip(masteryMoment)
                 }
                 if let line = castVoicingLine, !line.isEmpty {
                     castVoicingChip(
@@ -242,6 +254,32 @@ public struct BrambleReflectionView: View {
         .frame(maxWidth: .infinity, alignment: .leading)
         .background(.thinMaterial, in: RoundedRectangle(cornerRadius: 14))
         .accessibilityLabel(Text("Voice notes from Bramble"))
+    }
+
+    /// Delight & Polish "Mastery moments" strip. Sits below the voice-
+    /// variation callout (when present) and below the distress chip
+    /// (which suppresses the strip entirely — distress recognition is
+    /// not the moment for craft-mastery celebration). Anti-clobber per
+    /// ``MasteryMoment`` § "priority discipline".
+    @ViewBuilder
+    private func masteryMomentStrip(_ moment: MasteryMoment) -> some View {
+        VStack(alignment: .leading, spacing: 8) {
+            HStack(spacing: 8) {
+                Image(systemName: moment.systemImage)
+                    .foregroundStyle(.tint)
+                Text(moment.headline)
+                    .font(.caption.weight(.semibold))
+                    .foregroundStyle(.secondary)
+            }
+            Text(moment.body)
+                .font(.body)
+                .lineSpacing(3)
+        }
+        .padding(14)
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .background(.thinMaterial, in: RoundedRectangle(cornerRadius: 14))
+        .accessibilityElement(children: .contain)
+        .accessibilityLabel(Text("Mastery moment: \(moment.headline) \(moment.body)"))
     }
 
     @ViewBuilder

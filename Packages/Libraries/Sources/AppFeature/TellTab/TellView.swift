@@ -58,6 +58,13 @@ public struct TellView: View {
     /// Cleared on retell / cancel / save. Per
     /// `@.claude/rules/trauma-informed-content.md` § "refer up" + ADR-016.
     @State private var distressCrisisResources: [CrisisResource] = []
+    /// Delight & Polish "Mastery moments" — populated by
+    /// ``runReflection`` when the just-finished tale qualifies for a
+    /// craft-pattern recognition (per ``MasteryMoment/derive(from:)``).
+    /// Cleared on retell / cancel / save. Anti-clobber: suppressed
+    /// upstream when ``BrambleMentor.lastDistressAxis`` is non-nil per
+    /// ``BrambleReflectionView`` § masteryMomentStrip.
+    @State private var masteryMoment: MasteryMoment?
     /// Experimental feature flag. `@AppStorage` is the source of truth so the
     /// SettingsView toggle and the TellView reading both observe the same key
     /// without an actor-bridging environment value. Default false per the DN-S
@@ -152,6 +159,56 @@ public struct TellView: View {
         )
     }
 
+    /// Delight & Polish "Mastery moments" — derive which (if any) craft-
+    /// pattern recognition fires for the just-finished tale. Reads:
+    /// current beat timeline (in-memory machine state) + prior saved
+    /// tales (for the streak count) + player progress (for the inaugural
+    /// five-beat marker). Pure-function ``MasteryMoment/derive(from:)``
+    /// makes the priority decision.
+    private func deriveMasteryMomentIfAny() -> MasteryMoment? {
+        let timeline = machine.beatTimeline
+        // Tale qualifies as "all 5 beats in tolerance" when every beat
+        // ran within the BeatSegment tolerance band.
+        let allInTolerance = !timeline.isEmpty && timeline.allSatisfy(\.isWithinTolerance)
+        // Tale qualifies for the streak count when ≥ 4 of 5 beats are
+        // in tolerance (slightly more forgiving than full five).
+        let inToleranceCount = timeline.filter(\.isWithinTolerance).count
+        let isCurrentTaleInTolerance = inToleranceCount >= 4
+        // Distinct non-narrator voice characters across the timeline.
+        let distinctNonNarrator = Set(
+            timeline.compactMap(\.voiceCharacterSlug).filter {
+                $0 != VoiceCharacterPreset.narrator.rawValue
+            }
+        ).count
+        // Inaugural-five-beat — only fires when the player has NOT yet
+        // crossed the marker AND the current tale would qualify.
+        let progress = VoiceTaleStore.progressSnapshot(in: modelContext)
+        let isInauguralFiveBeat = (progress.firstFiveBeatTaleAt == nil) && allInTolerance
+        // Prior in-tolerance streak — count saved tales that hit the
+        // ≥ 4-of-5 threshold. Sorted desc by recordedAt via the existing
+        // fetch ordering; we walk back from "most recent" until we hit
+        // a tale that breaks the streak. Pure-function read of the
+        // saved-tale list; no mutation.
+        let allTales = VoiceTaleStore.fetchTales(in: modelContext)
+        var priorStreak = 0
+        for tale in allTales {
+            let count = tale.beatTimeline.filter(\.isWithinTolerance).count
+            if count >= 4 {
+                priorStreak += 1
+            } else {
+                break
+            }
+        }
+        let inputs = MasteryMomentInputs(
+            isFiveBeatTale: allInTolerance,
+            priorInToleranceTaleStreak: priorStreak,
+            isCurrentTaleInTolerance: isCurrentTaleInTolerance,
+            distinctNonNarratorVoices: distinctNonNarrator,
+            isInauguralFiveBeatTale: isInauguralFiveBeat
+        )
+        return MasteryMoment.derive(from: inputs)
+    }
+
     @ViewBuilder
     private var phaseBody: some View {
         switch machine.phase {
@@ -184,6 +241,7 @@ public struct TellView: View {
                 castVoicingSlug: castVoicingSlug,
                 voiceVariation: voiceVariationReflection,
                 crisisResources: distressCrisisResources,
+                masteryMoment: masteryMoment,
                 onSave: saveToAnthology,
                 onRetell: retellFromScratch
             )
@@ -473,6 +531,7 @@ public struct TellView: View {
         castVoicingSlug = nil
         voiceVariationReflection = nil
         distressCrisisResources = []
+        masteryMoment = nil
     }
 
     private func tickRecorder() {
@@ -534,6 +593,14 @@ public struct TellView: View {
             clearCastVoicing()
         } else {
             distressCrisisResources = []
+            // Delight & Polish "Mastery moments" — derive on the safe
+            // (non-distress) path. The strip surfaces below Bramble's
+            // bubble per ``BrambleReflectionView/masteryMomentStrip``.
+            let derived = deriveMasteryMomentIfAny()
+            masteryMoment = derived
+            if derived != nil {
+                HapticsBridge.fireMasteryMoment()
+            }
         }
         analytics.track(.reflectionShown(
             mood: machine.draftMood,
