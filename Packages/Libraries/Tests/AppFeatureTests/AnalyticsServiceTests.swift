@@ -135,6 +135,31 @@ struct AnalyticsServiceTests {
         #expect(event.properties["mood"] == "all")
     }
 
+    // MARK: - retentionMilestoneHit (Engagement-Foundation)
+
+    @Test func retentionMilestoneHitCarriesCategoricalSlug() {
+        let event = VoiceTaleAnalyticsEvent.retentionMilestoneHit(milestone: "d1")
+        #expect(event.name == "retention_milestone_hit")
+        #expect(event.properties["milestone"] == "d1")
+        // Privacy posture: NEVER emit raw install timestamps OR elapsed
+        // seconds — only the categorical slug.
+        #expect(event.properties["install_date"] == nil)
+        #expect(event.properties["elapsed_seconds"] == nil)
+    }
+
+    @Test func sessionCloserShownBucketsTalesSaved() {
+        let zero = VoiceTaleAnalyticsEvent.sessionCloserShown(talesSavedThisSession: 0)
+        #expect(zero.properties["tales_bucket"] == "zero")
+        let one = VoiceTaleAnalyticsEvent.sessionCloserShown(talesSavedThisSession: 1)
+        #expect(one.properties["tales_bucket"] == "one")
+        let triple = VoiceTaleAnalyticsEvent.sessionCloserShown(talesSavedThisSession: 3)
+        #expect(triple.properties["tales_bucket"] == "two_to_three")
+        let many = VoiceTaleAnalyticsEvent.sessionCloserShown(talesSavedThisSession: 7)
+        #expect(many.properties["tales_bucket"] == "four_plus")
+        // Categorical-only: raw count NEVER on the wire.
+        #expect(triple.properties["tales_count"] == nil)
+    }
+
     // MARK: - Event-vocabulary exhaustiveness / uniqueness audit
 
     @Test func everyDeclaredEventHasAUniqueNonEmptyName() {
@@ -156,6 +181,8 @@ struct AnalyticsServiceTests {
             .lapsedReturn(daysSinceActive: 5),
             .rarePromptSurfaced(category: "hidden_tradition"),
             .anthologyFilterApplied(mood: .funny),
+            .retentionMilestoneHit(milestone: "d1"),
+            .sessionCloserShown(talesSavedThisSession: 1),
         ]
         let names = representativeEvents.map(\.name)
         // Uniqueness

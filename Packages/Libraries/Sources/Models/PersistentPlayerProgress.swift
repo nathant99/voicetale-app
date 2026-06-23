@@ -26,6 +26,22 @@ public final class PersistentPlayerProgress {
     /// most recent tale-save / kit-completion) — `lastActiveDate` bumps
     /// on every cold launch, even sessions where no tale lands.
     public var lastActiveDate: Date?
+    /// Retention-baseline anchor — the timestamp the kid first opened the
+    /// app on this install. Pre-App-Store additive default-nil field per
+    /// `@.claude/rules/swiftdata.md` § "Pre-App Store: don't create new
+    /// VersionedSchema". Set on the first cold-launch; never reset for
+    /// the lifetime of the install. D1 / D7 / D30 metrics derive from
+    /// this anchor + the current `now`.
+    public var installDate: Date?
+    /// Timestamp the D1 retention milestone first fired (an `installDate
+    /// + 1 calendar day` re-open). `nil` until hit. Categorical milestone
+    /// only — the analytics emission is the wire surface, this field is
+    /// the local "has it fired yet" gate.
+    public var d1HitAt: Date?
+    /// Timestamp the D7 retention milestone first fired.
+    public var d7HitAt: Date?
+    /// Timestamp the D30 retention milestone first fired.
+    public var d30HitAt: Date?
 
     public init(
         xpTotal: Int = 0,
@@ -35,7 +51,11 @@ public final class PersistentPlayerProgress {
         lastSessionAt: Date? = nil,
         tutorialCompletedAt: Date? = nil,
         completedKitIDsRaw: [Int] = [],
-        lastActiveDate: Date? = nil
+        lastActiveDate: Date? = nil,
+        installDate: Date? = nil,
+        d1HitAt: Date? = nil,
+        d7HitAt: Date? = nil,
+        d30HitAt: Date? = nil
     ) {
         self.xpTotal = xpTotal
         self.currentStreakDays = currentStreakDays
@@ -45,5 +65,9 @@ public final class PersistentPlayerProgress {
         self.tutorialCompletedAt = tutorialCompletedAt
         self.completedKitIDsRaw = completedKitIDsRaw
         self.lastActiveDate = lastActiveDate
+        self.installDate = installDate
+        self.d1HitAt = d1HitAt
+        self.d7HitAt = d7HitAt
+        self.d30HitAt = d30HitAt
     }
 }

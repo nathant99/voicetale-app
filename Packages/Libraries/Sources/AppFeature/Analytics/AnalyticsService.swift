@@ -40,6 +40,18 @@ public enum VoiceTaleAnalyticsEvent: Sendable, Hashable {
     /// selection so the categorical surface mirrors the four mood enum
     /// cases plus the cleared state. No raw tale ids, no transcript.
     case anthologyFilterApplied(mood: VoiceTaleMood?)
+    /// Engagement-Foundation phase — fires once per milestone per install
+    /// when the kid crosses a retention threshold (D1 / D7 / D30).
+    /// Categorical-only: the milestone slug travels; the raw install
+    /// timestamp + elapsed seconds NEVER do. Privacy posture per
+    /// `@Docs/TECHNICAL_DESIGN.md` § Analytics + `@.claude/rules/age-
+    /// assurance.md` § "no PII, no third-party transmission".
+    case retentionMilestoneHit(milestone: String)
+    /// Engagement-Foundation phase — fires when the SessionCloserView
+    /// surfaces at the end of a session (the kid has crossed the
+    /// 10-15 min "soft session cap" target). Categorical-only: the
+    /// number of tales saved during the session, bucketed.
+    case sessionCloserShown(talesSavedThisSession: Int)
 
     /// Event name in the underlying ForgeAnalytics store. Keep lowercase +
     /// snake_case so future analytics inspectors can grep cleanly.
@@ -59,6 +71,8 @@ public enum VoiceTaleAnalyticsEvent: Sendable, Hashable {
         case .lapsedReturn:                  return "lapsed_return"
         case .rarePromptSurfaced:            return "rare_prompt_surfaced"
         case .anthologyFilterApplied:        return "anthology_filter_applied"
+        case .retentionMilestoneHit:         return "retention_milestone_hit"
+        case .sessionCloserShown:            return "session_closer_shown"
         }
     }
 
@@ -105,6 +119,21 @@ public enum VoiceTaleAnalyticsEvent: Sendable, Hashable {
             return ["category": category]
         case .anthologyFilterApplied(let mood):
             return ["mood": mood?.rawValue ?? "all"]
+        case .retentionMilestoneHit(let milestone):
+            return ["milestone": milestone]
+        case .sessionCloserShown(let count):
+            return ["tales_bucket": talesBucket(count)]
+        }
+    }
+
+    /// Bucketed tale count per session so the property stays categorical
+    /// (zero / 1 / 2-3 / 4+).
+    private func talesBucket(_ count: Int) -> String {
+        switch count {
+        case ..<1:    return "zero"
+        case 1:       return "one"
+        case 2...3:   return "two_to_three"
+        default:      return "four_plus"
         }
     }
 

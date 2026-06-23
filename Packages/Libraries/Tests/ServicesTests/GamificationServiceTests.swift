@@ -438,4 +438,51 @@ struct GamificationServiceTests {
         )
         #expect(complete.satisfies("phase2_complete_set") == true)
     }
+
+    // MARK: - Retention metrics (D1 / D7 / D30)
+
+    @Test func recordRetentionOnFreshInstallSeedsInstallDateWithoutFiringMilestones() throws {
+        let context = try newContext()
+        let service = GamificationService()
+        let fired = service.recordRetention(in: context)
+        #expect(fired.isEmpty)
+        let snapshot = VoiceTaleStore.progressSnapshot(in: context)
+        #expect(snapshot.installDate != nil)
+        #expect(snapshot.d1HitAt == nil)
+        #expect(snapshot.d7HitAt == nil)
+        #expect(snapshot.d30HitAt == nil)
+    }
+
+    @Test func recordRetentionAtDay1FiresD1Milestone() throws {
+        let context = try newContext()
+        let service = GamificationService()
+        let installDay = Date(timeIntervalSinceNow: -86_400 - 60) // ≈ 1 day ago
+        _ = service.recordRetention(now: installDay, in: context)
+        let fired = service.recordRetention(now: Date(), in: context)
+        #expect(fired == [.d1])
+        let snapshot = VoiceTaleStore.progressSnapshot(in: context)
+        #expect(snapshot.d1HitAt != nil)
+    }
+
+    @Test func recordRetentionAtDay30FiresEveryMissingMilestone() throws {
+        let context = try newContext()
+        let service = GamificationService()
+        let install = Date(timeIntervalSinceNow: -30 * 86_400 - 60)
+        _ = service.recordRetention(now: install, in: context)
+        let fired = service.recordRetention(now: Date(), in: context)
+        // No D1 / D7 yet — kid was gone the whole window — so all 3 fire.
+        #expect(fired == [.d1, .d7, .d30])
+    }
+
+    @Test func recordRetentionIsIdempotentAfterMilestoneFires() throws {
+        let context = try newContext()
+        let service = GamificationService()
+        let install = Date(timeIntervalSinceNow: -2 * 86_400)
+        _ = service.recordRetention(now: install, in: context)
+        let first = service.recordRetention(now: Date(), in: context)
+        let second = service.recordRetention(now: Date(), in: context)
+        #expect(first == [.d1])
+        // Same-day re-launch — D1 already fired; nothing new.
+        #expect(second.isEmpty)
+    }
 }
