@@ -163,5 +163,70 @@ public enum VoiceTaleAchievementCatalog {
             xpValue: 50,
             standard: nil
         ),
+
+        // MARK: - Phase 2 — kits 06-09 + craft-breadth recognition
+        // Authored per `@Docs/FEATURE_PLAN.md` § Phase 2 (round 2026-06-23).
+        // Each Phase-2 kit gets its own recognition AND there's one
+        // catch-all for completing the whole Phase-2 set + one for telling
+        // a tale in each of the four moods (mood-breadth across the
+        // anthology, not within a single tale). Per `@.claude/rules/
+        // distributed-narrative.md`, copy stays in Bramble's grandmother
+        // register — recognition of craft, not points language.
+        AchievementDefinition(
+            id: "mood_explorer_all_four",
+            title: "Four corners of the fire",
+            description: "Funny, scary, tender, wild — you've told one of each. Bramble's seen the full room.",
+            iconAssetName: "achievement_mood_explorer_all_four",
+            xpValue: 80,
+            standard: StandardAlignment(
+                standard: .ccss,
+                code: "ELA-Literacy.SL.6.4",
+                description: "Present claims and findings, sequencing ideas logically and using pertinent descriptions, facts, and details."
+            )
+        ),
+        AchievementDefinition(
+            id: "kit_06_mood_completed",
+            title: "Mood-shape craft",
+            description: "You walked through kit 6. Bramble noticed the shape your tales leave behind.",
+            iconAssetName: "achievement_kit_06_mood",
+            xpValue: 40,
+            standard: nil
+        ),
+        AchievementDefinition(
+            id: "kit_07_pacing_completed",
+            title: "Pacing-walk craft",
+            description: "You walked through kit 7. Where to hold, where to run — the room felt the choice.",
+            iconAssetName: "achievement_kit_07_pacing",
+            xpValue: 40,
+            standard: nil
+        ),
+        AchievementDefinition(
+            id: "kit_08_surprise_completed",
+            title: "Surprise-move craft",
+            description: "You walked through kit 8. The seed planted in the Hook came back at the Turn.",
+            iconAssetName: "achievement_kit_08_surprise",
+            xpValue: 40,
+            standard: nil
+        ),
+        AchievementDefinition(
+            id: "kit_09_closing_completed",
+            title: "Closing-hold craft",
+            description: "You walked through kit 9. Your last sentence stayed in the room.",
+            iconAssetName: "achievement_kit_09_closing",
+            xpValue: 40,
+            standard: nil
+        ),
+        AchievementDefinition(
+            id: "phase2_complete_set",
+            title: "Four crafts deeper",
+            description: "Mood, pacing, surprise, closing — all four kits done. The room hears the difference.",
+            iconAssetName: "achievement_phase2_complete_set",
+            xpValue: 120,
+            standard: StandardAlignment(
+                standard: .ccss,
+                code: "ELA-Literacy.SL.6.4",
+                description: "Present claims and findings, sequencing ideas logically and using pertinent descriptions, facts, and details."
+            )
+        ),
     ]
 }

@@ -20,9 +20,12 @@ struct GamificationServiceTests {
 
     // MARK: - Catalog completeness
 
-    @Test func phase1CatalogShipsFourteenAchievements() {
-        // 10 Phase 1 + 4 Phase 1.1 voice-character = 14 total.
-        #expect(VoiceTaleAchievementCatalog.phase1.count == 14)
+    @Test func phase1CatalogShipsTwentyAchievements() {
+        // 10 Phase 1 + 4 Phase 1.1 voice-character + 6 Phase 2 = 20 total.
+        // The catalog stays in the `phase1` array (single source) — the
+        // name is a historical artifact, but the test asserts the running
+        // total so future additions cascade through this gate.
+        #expect(VoiceTaleAchievementCatalog.phase1.count == 20)
     }
 
     @Test func catalogIDsAreUnique() {
@@ -46,7 +49,10 @@ struct GamificationServiceTests {
             voiceSwapsEver: 5,
             presetsEverUsed: ["hero", "sage", "sprite", "ogre"],
             voiceVariationTalesCount: 2,
-            completedKitIDs: [5]
+            // Phase 2 catalog adds kits 6-9 milestones + a complete-set
+            // recognition; seed all four so the satisfies() arm coverage
+            // gate stays at 100%.
+            completedKitIDs: [5, 6, 7, 8, 9]
         )
         for definition in VoiceTaleAchievementCatalog.phase1 {
             #expect(snapshot.satisfies(definition.id),
@@ -350,5 +356,86 @@ struct GamificationServiceTests {
         // delta on a non-DST boundary should always be 4 or 5.
         #expect(lapsed != nil)
         #expect((4...5).contains(lapsed!))
+    }
+
+    // MARK: - Phase 2 — kit milestones + mood-breadth recognition
+
+    @Test func phase2KitMilestoneBadgesUnlockOnIndividualKitCompletion() throws {
+        // Each kit 06-09 has its own milestone badge — awarding the
+        // matching `kitCompleted` event must unlock just that one.
+        let context = try newContext()
+        let service = GamificationService()
+        let outcome = service.awardXP(for: .kitCompleted(kit: 6), in: context)
+        let ids = Set(outcome.newBadges.map(\.id))
+        #expect(ids.contains("kit_06_mood_completed"))
+        // Other kit milestones should NOT fire yet.
+        #expect(ids.contains("kit_07_pacing_completed") == false)
+        #expect(ids.contains("kit_08_surprise_completed") == false)
+        #expect(ids.contains("kit_09_closing_completed") == false)
+        #expect(ids.contains("phase2_complete_set") == false)
+    }
+
+    @Test func phase2CompleteSetBadgeUnlocksAfterAllFourKitsCompleted() throws {
+        let context = try newContext()
+        let service = GamificationService()
+        for kit in [6, 7, 8] {
+            _ = service.awardXP(for: .kitCompleted(kit: kit), in: context)
+        }
+        let finalOutcome = service.awardXP(for: .kitCompleted(kit: 9), in: context)
+        let ids = Set(finalOutcome.newBadges.map(\.id))
+        // The catch-all + the kit-9 milestone both fire on the last award.
+        #expect(ids.contains("kit_09_closing_completed"))
+        #expect(ids.contains("phase2_complete_set"))
+        let snapshot = VoiceTaleStore.progressSnapshot(in: context)
+        #expect(snapshot.completedKitIDs.isSuperset(of: [6, 7, 8, 9]))
+    }
+
+    @Test func moodExplorerAllFourBadgeUnlocksAfterAllFourMoodsTold() throws {
+        let context = try newContext()
+        for mood in VoiceTaleMood.allCases {
+            let entry = VoiceTaleEntry(
+                title: "T-\(mood.rawValue)", mood: mood, durationSeconds: 60,
+                beatTimeline: [], transcript: "ok"
+            )
+            try VoiceTaleStore.insertTale(entry, audioFileRelativePath: "m-\(mood.rawValue).m4a", in: context)
+        }
+        let service = GamificationService()
+        let outcome = service.awardXP(for: .taleSaved, in: context)
+        let ids = Set(outcome.newBadges.map(\.id))
+        #expect(ids.contains("mood_explorer_all_four"))
+    }
+
+    @Test func moodExplorerAllFourDoesNotUnlockWithMissingMood() throws {
+        // Three of the four moods → still locked.
+        let context = try newContext()
+        for mood: VoiceTaleMood in [.funny, .scary, .tender] {
+            let entry = VoiceTaleEntry(
+                title: "T-\(mood.rawValue)", mood: mood, durationSeconds: 60,
+                beatTimeline: [], transcript: "ok"
+            )
+            try VoiceTaleStore.insertTale(entry, audioFileRelativePath: "m-\(mood.rawValue).m4a", in: context)
+        }
+        let service = GamificationService()
+        let outcome = service.awardXP(for: .taleSaved, in: context)
+        let ids = Set(outcome.newBadges.map(\.id))
+        #expect(ids.contains("mood_explorer_all_four") == false)
+    }
+
+    @Test func phase2CompleteSetCriterionRequiresAllFourKits() {
+        // Direct CriteriaSnapshot test — verify the satisfies() arm only
+        // returns true with all of {6, 7, 8, 9}.
+        let partial = CriteriaSnapshot(
+            totalTales: 0, currentStreakDays: 0, traditionsExplored: 0,
+            funnyTales: 0, scaryTales: 0, tenderTales: 0, wildTales: 0,
+            completedKitIDs: [6, 7, 8] // missing 9
+        )
+        #expect(partial.satisfies("phase2_complete_set") == false)
+
+        let complete = CriteriaSnapshot(
+            totalTales: 0, currentStreakDays: 0, traditionsExplored: 0,
+            funnyTales: 0, scaryTales: 0, tenderTales: 0, wildTales: 0,
+            completedKitIDs: [6, 7, 8, 9]
+        )
+        #expect(complete.satisfies("phase2_complete_set") == true)
     }
 }
