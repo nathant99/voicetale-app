@@ -35,6 +35,11 @@ public enum VoiceTaleAnalyticsEvent: Sendable, Hashable {
     /// surfaces a "rare" prompt category as a variable reward (~1 in 5
     /// sessions per `@Docs/FEATURE_PLAN.md` § "Variable rewards").
     case rarePromptSurfaced(category: String)
+    /// Phase 2 kickoff — fires when the kid applies (or clears) the mood
+    /// filter on the Anthology gallery. `mood` is `nil` for the "All"
+    /// selection so the categorical surface mirrors the four mood enum
+    /// cases plus the cleared state. No raw tale ids, no transcript.
+    case anthologyFilterApplied(mood: VoiceTaleMood?)
 
     /// Event name in the underlying ForgeAnalytics store. Keep lowercase +
     /// snake_case so future analytics inspectors can grep cleanly.
@@ -53,6 +58,7 @@ public enum VoiceTaleAnalyticsEvent: Sendable, Hashable {
         case .kitCompleted:                  return "kit_completed"
         case .lapsedReturn:                  return "lapsed_return"
         case .rarePromptSurfaced:            return "rare_prompt_surfaced"
+        case .anthologyFilterApplied:        return "anthology_filter_applied"
         }
     }
 
@@ -97,6 +103,8 @@ public enum VoiceTaleAnalyticsEvent: Sendable, Hashable {
             return ["days_bucket": lapsedDaysBucket(days)]
         case .rarePromptSurfaced(let category):
             return ["category": category]
+        case .anthologyFilterApplied(let mood):
+            return ["mood": mood?.rawValue ?? "all"]
         }
     }
 
