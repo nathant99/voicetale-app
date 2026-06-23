@@ -42,6 +42,11 @@ public final class PersistentPlayerProgress {
     public var d7HitAt: Date?
     /// Timestamp the D30 retention milestone first fired.
     public var d30HitAt: Date?
+    /// Phase 2 Tale Trial mode — count of trial walk-throughs the kid has
+    /// played. Pre-App-Store additive default-zero field per
+    /// `@.claude/rules/swiftdata.md`. Drives the `tale_trial_completed`
+    /// achievement criterion (threshold ≥ 1).
+    public var taleTrialPlays: Int = 0
 
     public init(
         xpTotal: Int = 0,
@@ -55,7 +60,8 @@ public final class PersistentPlayerProgress {
         installDate: Date? = nil,
         d1HitAt: Date? = nil,
         d7HitAt: Date? = nil,
-        d30HitAt: Date? = nil
+        d30HitAt: Date? = nil,
+        taleTrialPlays: Int = 0
     ) {
         self.xpTotal = xpTotal
         self.currentStreakDays = currentStreakDays
@@ -69,5 +75,6 @@ public final class PersistentPlayerProgress {
         self.d1HitAt = d1HitAt
         self.d7HitAt = d7HitAt
         self.d30HitAt = d30HitAt
+        self.taleTrialPlays = taleTrialPlays
     }
 }

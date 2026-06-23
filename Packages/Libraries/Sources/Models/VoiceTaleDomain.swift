@@ -157,6 +157,9 @@ nonisolated public struct PlayerProgressData: Codable, Sendable, Hashable {
     public let d1HitAt: Date?
     public let d7HitAt: Date?
     public let d30HitAt: Date?
+    /// Phase 2 Tale Trial — number of trial walk-throughs the kid has
+    /// played. Drives the `tale_trial_completed` achievement criterion.
+    public let taleTrialPlays: Int
 
     public init(
         xpTotal: Int = 0,
@@ -170,7 +173,8 @@ nonisolated public struct PlayerProgressData: Codable, Sendable, Hashable {
         installDate: Date? = nil,
         d1HitAt: Date? = nil,
         d7HitAt: Date? = nil,
-        d30HitAt: Date? = nil
+        d30HitAt: Date? = nil,
+        taleTrialPlays: Int = 0
     ) {
         self.xpTotal = xpTotal
         self.currentStreakDays = currentStreakDays
@@ -184,6 +188,7 @@ nonisolated public struct PlayerProgressData: Codable, Sendable, Hashable {
         self.d1HitAt = d1HitAt
         self.d7HitAt = d7HitAt
         self.d30HitAt = d30HitAt
+        self.taleTrialPlays = taleTrialPlays
     }
 }
 

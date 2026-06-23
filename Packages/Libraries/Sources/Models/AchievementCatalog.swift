@@ -248,5 +248,13 @@ public enum VoiceTaleAchievementCatalog {
                 description: "Present claims and findings, sequencing ideas logically and using pertinent descriptions, facts, and details."
             )
         ),
+        AchievementDefinition(
+            id: "tale_trial_completed",
+            title: "First trial taken",
+            description: "Sixty seconds, no scaffolding. You said yes to the prompt and the room leaned in.",
+            iconAssetName: "achievement_tale_trial",
+            xpValue: 50,
+            standard: nil
+        ),
     ]
 }
