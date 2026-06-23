@@ -402,6 +402,16 @@ nonisolated struct CriteriaSnapshot: Sendable, Equatable {
         case "voice_all_five_presets":    return presetsEverUsed.count >= 4
         case "voice_kit_05_completed":    return completedKitIDs.contains(5)
         case "voice_variation_tale":      return voiceVariationTalesCount >= 1
+        // Phase 2 — kits 06-09 + mood breadth
+        case "mood_explorer_all_four":
+            return funnyTales >= 1 && scaryTales >= 1
+                && tenderTales >= 1 && wildTales >= 1
+        case "kit_06_mood_completed":     return completedKitIDs.contains(6)
+        case "kit_07_pacing_completed":   return completedKitIDs.contains(7)
+        case "kit_08_surprise_completed": return completedKitIDs.contains(8)
+        case "kit_09_closing_completed":  return completedKitIDs.contains(9)
+        case "phase2_complete_set":
+            return completedKitIDs.isSuperset(of: [6, 7, 8, 9])
         default:                          return false
         }
     }
