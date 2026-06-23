@@ -132,6 +132,26 @@ public struct TellView: View {
         mentor.setTier(bramblePromptTier)
     }
 
+    /// Delight & Polish "Character personality" — derive the kid's
+    /// favorite mood from the per-mood saved-tale counts so Bramble can
+    /// callback today's mood when it matches the favorite. Synchronous +
+    /// cheap (a few hundred tales at most; one fetch + four bucket
+    /// passes). Per ``BrambleMoodMemory``: returns `nil` when no mood has
+    /// crossed the 3-tale floor, ensuring brand-new tellers never see a
+    /// callback derived from no recurrence.
+    private func deriveFavoriteMood() -> VoiceTaleMood? {
+        let allTales = VoiceTaleStore.fetchTales(in: modelContext)
+        func count(_ mood: VoiceTaleMood) -> Int {
+            allTales.lazy.filter { $0.mood == mood }.count
+        }
+        return BrambleMoodMemory.favoriteMood(
+            funny: count(.funny),
+            scary: count(.scary),
+            tender: count(.tender),
+            wild: count(.wild)
+        )
+    }
+
     @ViewBuilder
     private var phaseBody: some View {
         switch machine.phase {
@@ -496,7 +516,8 @@ public struct TellView: View {
             reflection = await mentor.reflect(
                 transcript: machine.transcript,
                 mood: machine.draftMood,
-                beat: beatForReflection
+                beat: beatForReflection,
+                favoriteMood: deriveFavoriteMood()
             )
         }
         machine.presentReflection(reflection)
