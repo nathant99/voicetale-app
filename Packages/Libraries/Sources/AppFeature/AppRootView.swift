@@ -157,6 +157,13 @@ public struct AppRootView: View {
             await router.runStartupGates()
             await hubRegistry.register(VoiceTaleHubContribution())
             evaluateWelcomeBack()
+            // Phase 2 — index every saved tale into iOS Spotlight so the
+            // anthology is discoverable from the OS search surface. Per
+            // `@.claude/rules/forgekit.md` § ForgeSpotlight; permissionless
+            // CoreSpotlight surface. Title + mood + recorded date only —
+            // transcript never leaves persistence. Idempotent — repeated
+            // calls overwrite the prior entries.
+            await VoiceTaleSpotlightIndexer.indexAllTales(in: modelContext)
         }
         .onChange(of: scenePhase) { _, newPhase in
             // Pause the COPPA session timer when the app backgrounds so the
