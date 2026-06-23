@@ -140,6 +140,13 @@ let package = Package(
                 .product(name: "ForgeAnalytics", package: "forgekit"),
                 .product(name: "ForgeProgression", package: "forgekit"),
                 .product(name: "ForgeAccessibility", package: "forgekit"),
+                // Phase 2 — typed App Intents destination + Siri shortcut
+                // phrase plumbing. Actual `AppIntent` struct registrations
+                // are deferred to a future Xcode-UI handoff (Info.plist
+                // `INIntentsSupported` work belongs in the Xcode target
+                // editor; per `@.claude/rules/xcode-agent-safety.md` the
+                // agent cannot author Info.plist from disk).
+                .product(name: "ForgeIntents", package: "forgekit"),
             ],
             resources: [
                 .process("Resources"),
