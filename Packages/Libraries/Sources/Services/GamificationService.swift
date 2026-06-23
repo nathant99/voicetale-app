@@ -89,6 +89,58 @@ public final class GamificationService {
         return lapsed
     }
 
+    // MARK: - Retention metrics (D1 / D7 / D30)
+
+    /// Seed the retention `installDate` if missing AND record any
+    /// milestones the kid crossed on this cold-launch. Returns the
+    /// milestones that fired this call so the App-shell can emit
+    /// `VoiceTaleAnalyticsEvent.retentionMilestoneHit` per milestone.
+    ///
+    /// Pure on-device — the milestone wire-surface is the categorical
+    /// `d1` / `d7` / `d30` string only; the install anchor never leaves.
+    /// Per `@.claude/rules/age-assurance.md` § 2026 FTC COPPA: no PII,
+    /// no third-party transmission, no opt-in needed (categorical use
+    /// metric for on-device retention is a permitted operational
+    /// signal).
+    @discardableResult
+    public func recordRetention(
+        now: Date = Date(),
+        in context: ModelContext
+    ) -> [RetentionMetricsEvaluator.Milestone] {
+        let snapshot = VoiceTaleStore.progressSnapshot(in: context)
+        var milestonesToFire: [RetentionMetricsEvaluator.Milestone] = []
+        // Snapshot for the evaluator runs against the about-to-be-seeded
+        // installDate so the first launch's milestones (if any are
+        // already crossed — e.g., a clock-skewed device or a debug
+        // backdate) fire on the same call.
+        let installAnchor = snapshot.installDate ?? now
+        let stateAfterSeed = RetentionMetricsEvaluator.RetentionState(
+            installDate: installAnchor,
+            d1HitAt: snapshot.d1HitAt,
+            d7HitAt: snapshot.d7HitAt,
+            d30HitAt: snapshot.d30HitAt
+        )
+        milestonesToFire = RetentionMetricsEvaluator.newlyCrossed(
+            state: stateAfterSeed, now: now
+        )
+        VoiceTaleStore.updateProgress({ record in
+            if record.installDate == nil {
+                record.installDate = installAnchor
+            }
+            for milestone in milestonesToFire {
+                switch milestone {
+                case .d1:  if record.d1HitAt == nil  { record.d1HitAt = now }
+                case .d7:  if record.d7HitAt == nil  { record.d7HitAt = now }
+                case .d30: if record.d30HitAt == nil { record.d30HitAt = now }
+                }
+            }
+        }, in: context)
+        if milestonesToFire.isEmpty == false {
+            DebugLog.state("GamificationService.recordRetention — fired \(milestonesToFire.map(\.rawValue))")
+        }
+        return milestonesToFire
+    }
+
     /// Record that the player engaged today. Returns the streak result for
     /// celebration UI (`.continued`, `.frozenAndContinued`, `.reset`,
     /// `.sameDay`).

@@ -187,8 +187,12 @@ public struct AppRootView: View {
     private func evaluateWelcomeBack() {
         // Skip the welcome-back surface during onboarding — a kid who's
         // mid-onboarding hasn't yet "lapsed" in any meaningful sense.
+        // Still seed retention milestones — they're install-anchored,
+        // not session-anchored, so onboarding-day install is the canonical
+        // D-0 marker even if the kid never reaches the tab surface.
         guard hasCompletedOnboarding else {
             _ = gamification.recordLastActive(in: modelContext)
+            recordRetentionMilestones()
             return
         }
         let snapshot = VoiceTaleStore.progressSnapshot(in: modelContext)
@@ -197,11 +201,22 @@ public struct AppRootView: View {
         // Bump the active date AFTER we read it so the gap reflects the
         // previous session.
         _ = gamification.recordLastActive(in: modelContext)
+        recordRetentionMilestones()
         guard days >= LapsedReturnDetector.lapsedDayThreshold else { return }
         // Surface the warm greeting + last-tale recap.
         let lastTale = VoiceTaleStore.fetchTales(in: modelContext).first
         welcomeBackContext = WelcomeBackContext(daysLapsed: days, lastTale: lastTale)
         analytics.track(.lapsedReturn(daysSinceActive: days))
+    }
+
+    /// Bridge from `GamificationService.recordRetention` to the analytics
+    /// vocabulary. The service handles seeding + persistence; this method
+    /// fans out one event per milestone crossed on the launch.
+    private func recordRetentionMilestones() {
+        let fired = gamification.recordRetention(in: modelContext)
+        for milestone in fired {
+            analytics.track(.retentionMilestoneHit(milestone: milestone.rawValue))
+        }
     }
 
     private var tabSurface: some View {

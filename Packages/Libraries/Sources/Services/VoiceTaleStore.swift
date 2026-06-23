@@ -195,7 +195,11 @@ public enum VoiceTaleStore {
             lastSessionAt: record.lastSessionAt,
             tutorialCompletedAt: record.tutorialCompletedAt,
             completedKitIDs: Set(record.completedKitIDsRaw),
-            lastActiveDate: record.lastActiveDate
+            lastActiveDate: record.lastActiveDate,
+            installDate: record.installDate,
+            d1HitAt: record.d1HitAt,
+            d7HitAt: record.d7HitAt,
+            d30HitAt: record.d30HitAt
         )
     }
 

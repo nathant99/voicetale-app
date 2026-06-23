@@ -149,6 +149,14 @@ nonisolated public struct PlayerProgressData: Codable, Sendable, Hashable {
     /// the welcome-back flow when the gap exceeds the lapsed-return
     /// threshold (3 days).
     public let lastActiveDate: Date?
+    /// Retention-baseline anchor — fresh-install timestamp. Drives D1 /
+    /// D7 / D30 milestone detection without ever leaving the device.
+    public let installDate: Date?
+    /// Retention-milestone fire timestamps. `nil` until each milestone
+    /// has fired exactly once for the lifetime of the install.
+    public let d1HitAt: Date?
+    public let d7HitAt: Date?
+    public let d30HitAt: Date?
 
     public init(
         xpTotal: Int = 0,
@@ -158,7 +166,11 @@ nonisolated public struct PlayerProgressData: Codable, Sendable, Hashable {
         lastSessionAt: Date? = nil,
         tutorialCompletedAt: Date? = nil,
         completedKitIDs: Set<Int> = [],
-        lastActiveDate: Date? = nil
+        lastActiveDate: Date? = nil,
+        installDate: Date? = nil,
+        d1HitAt: Date? = nil,
+        d7HitAt: Date? = nil,
+        d30HitAt: Date? = nil
     ) {
         self.xpTotal = xpTotal
         self.currentStreakDays = currentStreakDays
@@ -168,6 +180,10 @@ nonisolated public struct PlayerProgressData: Codable, Sendable, Hashable {
         self.tutorialCompletedAt = tutorialCompletedAt
         self.completedKitIDs = completedKitIDs
         self.lastActiveDate = lastActiveDate
+        self.installDate = installDate
+        self.d1HitAt = d1HitAt
+        self.d7HitAt = d7HitAt
+        self.d30HitAt = d30HitAt
     }
 }
 
