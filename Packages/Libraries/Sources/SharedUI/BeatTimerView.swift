@@ -100,6 +100,12 @@ public struct BeatTimerView: View {
     /// non-nil value that differs from the previously observed beat. Holds
     /// the nudge briefly, then releases — the spring animation handles the
     /// fade-back to resting. Idempotent: rapid same-beat ticks are no-ops.
+    ///
+    /// Also fires the proportional-celebration "subtle" haptic
+    /// (`HapticsBridge.fireBeatBoundary()`) on every real transition — the
+    /// visual nudge + the haptic land together per the Delight & Polish
+    /// trifecta. ForgeHapticEngine no-ops on devices without a Taptic
+    /// Engine, so this is safe to fire unconditionally.
     private func handleBeatBoundary(newBeat: ArcBeat?) {
         guard let newBeat else {
             lastObservedBeat = nil
@@ -108,6 +114,7 @@ public struct BeatTimerView: View {
         }
         guard newBeat != lastObservedBeat else { return }
         lastObservedBeat = newBeat
+        HapticsBridge.fireBeatBoundary()
         guard !reduceMotion else { return }
         nudgeBeat = newBeat
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.45) {

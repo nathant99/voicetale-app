@@ -256,5 +256,23 @@ public enum VoiceTaleAchievementCatalog {
             xpValue: 50,
             standard: nil
         ),
+        // Delight & Polish — proportional celebration milestone. Fires on
+        // the inaugural tale where every beat hit timing. The full-screen
+        // (`.epic`) celebration is the user-facing reward; this catalog
+        // entry is the badge surface. Per `@.claude/rules/distributed-
+        // narrative.md` § Pattern B — copy stays in Bramble's grandmother
+        // register; anti-shame on subsequent saves (no negative variant).
+        AchievementDefinition(
+            id: "first_five_beat_tale",
+            title: "Hook to close — held",
+            description: "Every beat of the arc — hook, setup, rising, turn, close — landed in your first complete tale. The shape is in your bones now.",
+            iconAssetName: "achievement_first_five_beat_tale",
+            xpValue: 75,
+            standard: StandardAlignment(
+                standard: .ccss,
+                code: "ELA-Literacy.SL.6.4",
+                description: "Present claims and findings, sequencing ideas logically and using pertinent descriptions, facts, and details."
+            )
+        ),
     ]
 }

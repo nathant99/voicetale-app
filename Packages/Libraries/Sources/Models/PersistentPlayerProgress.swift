@@ -47,6 +47,12 @@ public final class PersistentPlayerProgress {
     /// `@.claude/rules/swiftdata.md`. Drives the `tale_trial_completed`
     /// achievement criterion (threshold ≥ 1).
     public var taleTrialPlays: Int = 0
+    /// Delight & Polish phase — the timestamp the kid first hit all five
+    /// beats in a single tale. `nil` until the inaugural success. Drives
+    /// the proportional-celebration tier (`.epic` full-screen celebration)
+    /// + the `first_five_beat_tale` achievement (XP 75). Pre-App-Store
+    /// additive default-nil per `@.claude/rules/swiftdata.md`.
+    public var firstFiveBeatTaleAt: Date?
 
     public init(
         xpTotal: Int = 0,
@@ -61,7 +67,8 @@ public final class PersistentPlayerProgress {
         d1HitAt: Date? = nil,
         d7HitAt: Date? = nil,
         d30HitAt: Date? = nil,
-        taleTrialPlays: Int = 0
+        taleTrialPlays: Int = 0,
+        firstFiveBeatTaleAt: Date? = nil
     ) {
         self.xpTotal = xpTotal
         self.currentStreakDays = currentStreakDays
@@ -76,5 +83,6 @@ public final class PersistentPlayerProgress {
         self.d7HitAt = d7HitAt
         self.d30HitAt = d30HitAt
         self.taleTrialPlays = taleTrialPlays
+        self.firstFiveBeatTaleAt = firstFiveBeatTaleAt
     }
 }

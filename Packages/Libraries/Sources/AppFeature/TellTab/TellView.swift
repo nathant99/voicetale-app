@@ -646,7 +646,15 @@ public struct TellView: View {
         fireCelebrationsIfAny(outcome: saveOutcome)
         if hitAllFiveBeats(entry: entry) {
             let beatsOutcome = gamification.awardXP(for: .allFiveBeatsHit, in: modelContext)
+            // Mark the inaugural five-beat tale BEFORE the XP award fires
+            // the achievement-eval path. `markFirstFiveBeatTaleIfNeeded`
+            // returns true on the inaugural call only — every subsequent
+            // five-beat tale is a no-op marker-wise.
+            let isInaugural = VoiceTaleStore.markFirstFiveBeatTaleIfNeeded(in: modelContext)
             fireCelebrationsIfAny(outcome: beatsOutcome)
+            if isInaugural {
+                fireFirstFiveBeatTaleCelebration(mood: entry.mood)
+            }
         }
         if didReviewTranscript() {
             let reviewOutcome = gamification.awardXP(for: .transcriptReviewed, in: modelContext)
@@ -655,6 +663,21 @@ public struct TellView: View {
         Task { @MainActor in
             _ = await gamification.recordSession(in: modelContext)
         }
+    }
+
+    /// Fire the proportional-celebration `.epic` tier on the inaugural
+    /// five-beat tale. Full-screen visual + epic haptic + analytics signal.
+    /// Per `@Docs/FEATURE_PLAN.md` § Delight & Polish → "Celebration system:
+    /// full-screen for 'first 5-beat tale'".
+    private func fireFirstFiveBeatTaleCelebration(mood: VoiceTaleMood) {
+        celebration.celebrate(
+            .epic,
+            message: "Hook to close — held.",
+            emoji: "🌟",
+            slug: "first-five-beat-tale"
+        )
+        HapticsBridge.fireLevelUp()
+        analytics.track(.firstFiveBeatTaleCelebrated(mood: mood))
     }
 
     /// Fire a level-up + per-badge celebration when the XP award crossed

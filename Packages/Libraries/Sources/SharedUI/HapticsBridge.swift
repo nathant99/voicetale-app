@@ -42,4 +42,14 @@ public enum HapticsBridge {
     public static func fireSessionWarning() {
         ForgeHapticEngine.shared.playSync(ForgeHapticLibrary.warning)
     }
+
+    /// Subtle tap fired on each 5-beat boundary transition during recording.
+    /// Part of the proportional-celebration trifecta (visual nudge in
+    /// ``BeatTimerView`` + this haptic) per `@Docs/FEATURE_PLAN.md`
+    /// § Delight & Polish → "Celebration system: subtle sparkle for beat
+    /// hit". Lighter than ``fireRecordStart`` — the kid feels it without it
+    /// pulling attention away from telling.
+    public static func fireBeatBoundary() {
+        ForgeHapticEngine.shared.playSync(ForgeHapticLibrary.buttonTap)
+    }
 }
