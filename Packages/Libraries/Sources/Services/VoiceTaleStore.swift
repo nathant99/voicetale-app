@@ -252,7 +252,155 @@ public enum VoiceTaleStore {
         }
     }
 
+    // MARK: - Mood collections (Phase 2 curation)
+
+    /// Maximum permitted length for a collection's display name. Bounds
+    /// the persisted string so the kid can't accidentally paste a 10K-char
+    /// blob that drags down list rendering. Trimming + bounding is applied
+    /// once at the persistence boundary so call sites don't repeat the
+    /// validation.
+    public static let moodCollectionNameMaxLength: Int = 40
+
+    /// Maximum permitted collections per install. Soft cap — prevents the
+    /// Anthology shelf from becoming unbrowsable. The cap is generous (32);
+    /// past it, callers receive ``CollectionStoreError.atCapacity`` so
+    /// the UI can offer a "trim oldest" affordance later.
+    public static let moodCollectionCapacity: Int = 32
+
+    public enum CollectionStoreError: Error, Sendable, Equatable {
+        case nameEmpty
+        case atCapacity
+    }
+
+    public static func fetchCollections(in context: ModelContext) -> [MoodCollectionData] {
+        let descriptor = FetchDescriptor<PersistentMoodCollection>(
+            sortBy: [SortDescriptor(\.createdAt, order: .reverse)]
+        )
+        let records: [PersistentMoodCollection]
+        do {
+            records = try context.fetch(descriptor)
+        } catch {
+            DebugLog.data("VoiceTaleStore.fetchCollections — fetch failed", error: error)
+            return []
+        }
+        return records.map { record in
+            MoodCollectionData(
+                id: record.id,
+                name: record.name,
+                mood: record.moodRaw.flatMap(VoiceTaleMood.init(rawValue:)),
+                taleIDs: record.taleIDsRaw,
+                createdAt: record.createdAt
+            )
+        }
+    }
+
+    /// Creates a new collection. Returns the persisted value-type cache.
+    /// Trims + bounds the name; throws ``CollectionStoreError.nameEmpty``
+    /// for empty/whitespace input + ``.atCapacity`` past the cap.
+    @discardableResult
+    public static func createCollection(
+        name: String,
+        mood: VoiceTaleMood?,
+        now: Date = Date(),
+        in context: ModelContext
+    ) throws -> MoodCollectionData {
+        let trimmed = name.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard trimmed.isEmpty == false else { throw CollectionStoreError.nameEmpty }
+        let bounded = String(trimmed.prefix(moodCollectionNameMaxLength))
+        let existing = fetchCollections(in: context)
+        guard existing.count < moodCollectionCapacity else {
+            throw CollectionStoreError.atCapacity
+        }
+        let record = PersistentMoodCollection(
+            id: UUID(),
+            name: bounded,
+            moodRaw: mood?.rawValue,
+            taleIDsRaw: [],
+            createdAt: now
+        )
+        context.insert(record)
+        do {
+            try context.save()
+        } catch {
+            DebugLog.data("VoiceTaleStore.createCollection — save failed", error: error)
+            throw error
+        }
+        return MoodCollectionData(
+            id: record.id,
+            name: record.name,
+            mood: mood,
+            taleIDs: [],
+            createdAt: now
+        )
+    }
+
+    /// Adds a tale to a collection (de-duped). Silently returns when the
+    /// collection or tale id is missing so callers don't need to gate.
+    public static func addTaleToCollection(
+        collectionID: UUID,
+        taleID: UUID,
+        in context: ModelContext
+    ) {
+        guard let record = fetchCollectionRecord(id: collectionID, in: context) else {
+            DebugLog.data("VoiceTaleStore.addTaleToCollection — collection not found id=\(collectionID)")
+            return
+        }
+        guard record.taleIDsRaw.contains(taleID) == false else { return }
+        record.taleIDsRaw.append(taleID)
+        do {
+            try context.save()
+        } catch {
+            DebugLog.data("VoiceTaleStore.addTaleToCollection — save failed", error: error)
+        }
+    }
+
+    /// Removes a tale from a collection. No-op when the tale isn't present.
+    public static func removeTaleFromCollection(
+        collectionID: UUID,
+        taleID: UUID,
+        in context: ModelContext
+    ) {
+        guard let record = fetchCollectionRecord(id: collectionID, in: context) else { return }
+        let originalCount = record.taleIDsRaw.count
+        record.taleIDsRaw.removeAll { $0 == taleID }
+        guard record.taleIDsRaw.count != originalCount else { return }
+        do {
+            try context.save()
+        } catch {
+            DebugLog.data("VoiceTaleStore.removeTaleFromCollection — save failed", error: error)
+        }
+    }
+
+    public static func deleteCollection(id: UUID, in context: ModelContext) {
+        guard let record = fetchCollectionRecord(id: id, in: context) else { return }
+        context.delete(record)
+        do {
+            try context.save()
+        } catch {
+            DebugLog.data("VoiceTaleStore.deleteCollection — save failed", error: error)
+        }
+    }
+
+    /// Returns the largest tale count among the kid's collections, or 0
+    /// when there are no collections. Used by
+    /// ``GamificationService.evaluateAchievements`` to back the
+    /// `mood_collection_curator` criterion without re-fetching the full
+    /// list at every award site.
+    public static func largestCollectionTaleCount(in context: ModelContext) -> Int {
+        fetchCollections(in: context).map(\.taleCount).max() ?? 0
+    }
+
     // MARK: - Internals
+
+    private static func fetchCollectionRecord(
+        id: UUID,
+        in context: ModelContext
+    ) -> PersistentMoodCollection? {
+        let descriptor = FetchDescriptor<PersistentMoodCollection>(
+            predicate: #Predicate { $0.id == id }
+        )
+        return (try? context.fetch(descriptor))?.first
+    }
 
     private static func fetchTraditionRecord(slug: String, in context: ModelContext) -> PersistentTraditionEntry? {
         let descriptor = FetchDescriptor<PersistentTraditionEntry>(

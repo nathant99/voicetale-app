@@ -276,6 +276,7 @@ public final class GamificationService {
         // kid stays well under that cap.
         let allTales = VoiceTaleStore.fetchTales(in: context)
         let voiceSummary = CriteriaSnapshot.voiceCharacterSummary(from: allTales)
+        let largestCollectionTaleCount = VoiceTaleStore.largestCollectionTaleCount(in: context)
         return CriteriaSnapshot(
             totalTales: totalTales,
             currentStreakDays: progress.currentStreakDays,
@@ -287,7 +288,8 @@ public final class GamificationService {
             voiceSwapsEver: voiceSummary.voiceSwapsEver,
             presetsEverUsed: voiceSummary.presetsEverUsed,
             voiceVariationTalesCount: voiceSummary.voiceVariationTalesCount,
-            completedKitIDs: progress.completedKitIDs
+            completedKitIDs: progress.completedKitIDs,
+            largestCollectionTaleCount: largestCollectionTaleCount
         )
     }
 }
@@ -406,6 +408,10 @@ nonisolated struct CriteriaSnapshot: Sendable, Equatable {
     /// Phase 1.1 — kit IDs the kid has fully walked through. Sourced
     /// from ``PersistentPlayerProgress.completedKitIDsRaw``.
     let completedKitIDs: Set<Int>
+    /// Phase 2 anthology curation — largest tale count across the kid's
+    /// mood collections. Backs the `mood_collection_curator` achievement
+    /// (threshold ≥ 3). 0 when no collections exist.
+    let largestCollectionTaleCount: Int
 
     init(
         totalTales: Int,
@@ -418,7 +424,8 @@ nonisolated struct CriteriaSnapshot: Sendable, Equatable {
         voiceSwapsEver: Int = 0,
         presetsEverUsed: Set<String> = [],
         voiceVariationTalesCount: Int = 0,
-        completedKitIDs: Set<Int> = []
+        completedKitIDs: Set<Int> = [],
+        largestCollectionTaleCount: Int = 0
     ) {
         self.totalTales = totalTales
         self.currentStreakDays = currentStreakDays
@@ -431,6 +438,7 @@ nonisolated struct CriteriaSnapshot: Sendable, Equatable {
         self.presetsEverUsed = presetsEverUsed
         self.voiceVariationTalesCount = voiceVariationTalesCount
         self.completedKitIDs = completedKitIDs
+        self.largestCollectionTaleCount = largestCollectionTaleCount
     }
 
     /// Map from catalog ID → predicate. New IDs added to
@@ -464,6 +472,8 @@ nonisolated struct CriteriaSnapshot: Sendable, Equatable {
         case "kit_09_closing_completed":  return completedKitIDs.contains(9)
         case "phase2_complete_set":
             return completedKitIDs.isSuperset(of: [6, 7, 8, 9])
+        case "mood_collection_curator":
+            return largestCollectionTaleCount >= 3
         default:                          return false
         }
     }

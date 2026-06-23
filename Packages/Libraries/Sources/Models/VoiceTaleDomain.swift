@@ -214,6 +214,41 @@ nonisolated public struct AnthologyMoodData: Codable, Sendable, Hashable, Identi
     }
 }
 
+// MARK: - Mood collection
+
+/// Value-type cache for ``PersistentMoodCollection``. Read in `onAppear`,
+/// never in `body` (per `@.claude/rules/swiftdata.md` § "Zero @Query in
+/// Views").
+nonisolated public struct MoodCollectionData: Codable, Sendable, Hashable, Identifiable {
+    public let id: UUID
+    public let name: String
+    public let mood: VoiceTaleMood?
+    public let taleIDs: [UUID]
+    public let createdAt: Date
+
+    public init(
+        id: UUID,
+        name: String,
+        mood: VoiceTaleMood? = nil,
+        taleIDs: [UUID] = [],
+        createdAt: Date = Date()
+    ) {
+        self.id = id
+        self.name = name
+        self.mood = mood
+        self.taleIDs = taleIDs
+        self.createdAt = createdAt
+    }
+
+    public var taleCount: Int { taleIDs.count }
+
+    /// True when this collection contains the given tale id. O(n) on
+    /// ``taleIDs``; collections are kid-sized so linear scan is fine.
+    public func contains(_ taleID: UUID) -> Bool {
+        taleIDs.contains(taleID)
+    }
+}
+
 // MARK: - Voice tale entry
 
 nonisolated public struct VoiceTaleEntry: Codable, Sendable, Identifiable, Hashable {

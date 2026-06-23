@@ -14,6 +14,17 @@ public struct AnthologyView: View {
     @Environment(\.forgeAudio) private var forgeAudio
     @State private var tales: [VoiceTaleEntry] = []
     @State private var moods: [AnthologyMoodData] = []
+    /// Phase 2 anthology curation — kid-curated mood collections. Refreshed
+    /// alongside ``tales`` on appear and after every create / add-tale /
+    /// delete mutation.
+    @State private var collections: [MoodCollectionData] = []
+    /// Active collection filter — `nil` means "show every tale" (subject
+    /// to the mood filter below). Not persisted: kid lands on the
+    /// all-tales view at every cold launch so collections feel
+    /// freshly-browsable rather than sticky.
+    @State private var activeCollectionID: UUID?
+    /// Sheet toggle for creating a new collection.
+    @State private var isPresentingCollectionEditor = false
     /// Persisted filter selection. Survives app relaunches so a kid who
     /// last browsed only "tender" tales lands back on that view. Stored as
     /// the raw mood value (or empty for "all") because `@AppStorage` cannot
@@ -41,12 +52,66 @@ public struct AnthologyView: View {
             content
                 .voiceTaleNavigationTitle("Anthology")
                 .onAppear(perform: handleAppear)
+                .sheet(isPresented: $isPresentingCollectionEditor) {
+                    CollectionEditorView(onSave: handleCreateCollection)
+                }
         }
     }
 
     private func handleAppear() {
         moodFilter = AnthologyView.decodeFilter(persistedFilterRaw)
         reload()
+    }
+
+    private func toggleCollectionFilter(_ id: UUID) {
+        if activeCollectionID == id {
+            activeCollectionID = nil
+        } else {
+            activeCollectionID = id
+        }
+    }
+
+    /// Called from the editor sheet's Save button. Returns true so the
+    /// sheet can dismiss; returns false on `nameEmpty` / `atCapacity` so
+    /// the sheet can surface the error to the kid.
+    private func handleCreateCollection(_ name: String, _ mood: VoiceTaleMood?) -> Bool {
+        do {
+            let created = try VoiceTaleStore.createCollection(
+                name: name,
+                mood: mood,
+                in: modelContext
+            )
+            analytics.track(.anthologyCollectionCreated(mood: mood))
+            collections = VoiceTaleStore.fetchCollections(in: modelContext)
+            activeCollectionID = created.id
+            return true
+        } catch {
+            return false
+        }
+    }
+
+    private func handleDeleteCollection(_ id: UUID) {
+        VoiceTaleStore.deleteCollection(id: id, in: modelContext)
+        if activeCollectionID == id { activeCollectionID = nil }
+        collections = VoiceTaleStore.fetchCollections(in: modelContext)
+    }
+
+    private func handleAddTaleToCollection(taleID: UUID, collectionID: UUID) {
+        VoiceTaleStore.addTaleToCollection(
+            collectionID: collectionID,
+            taleID: taleID,
+            in: modelContext
+        )
+        collections = VoiceTaleStore.fetchCollections(in: modelContext)
+    }
+
+    private func handleRemoveTaleFromCollection(taleID: UUID, collectionID: UUID) {
+        VoiceTaleStore.removeTaleFromCollection(
+            collectionID: collectionID,
+            taleID: taleID,
+            in: modelContext
+        )
+        collections = VoiceTaleStore.fetchCollections(in: modelContext)
     }
 
     /// Decode the `@AppStorage`-backed raw filter string into a typed
@@ -82,6 +147,7 @@ public struct AnthologyView: View {
         } else {
             ScrollView {
                 VStack(spacing: 16) {
+                    collectionsShelf
                     moodFilterRow
                     LazyVStack(spacing: 12) {
                         ForEach(filteredTales) { tale in
@@ -93,6 +159,78 @@ public struct AnthologyView: View {
                 .padding(.vertical)
             }
         }
+    }
+
+    /// Horizontal-scrolling shelf of kid-curated collections + a "+ New
+    /// collection" leading affordance. Tapping a chip filters the tale
+    /// list to that collection; tapping the active chip clears the
+    /// filter. Rendered above the mood filter row so the kid sees the
+    /// shelves they've already built before the raw mood breakdown.
+    private var collectionsShelf: some View {
+        ScrollView(.horizontal, showsIndicators: false) {
+            HStack(spacing: 8) {
+                Button(action: { isPresentingCollectionEditor = true }) {
+                    Label("New collection", systemImage: "plus.circle.fill")
+                        .font(.callout.weight(.medium))
+                        .padding(.horizontal, 12)
+                        .padding(.vertical, 6)
+                        .background(
+                            Capsule().fill(Color.accentColor.opacity(0.18))
+                        )
+                }
+                .buttonStyle(.plain)
+                .accessibilityHint("Create a new mood-themed collection — like 'Bedtime spooks' or 'Funny five'.")
+                ForEach(collections) { collection in
+                    collectionChip(collection)
+                }
+            }
+            .padding(.horizontal)
+        }
+        .accessibilityElement(children: .contain)
+        .accessibilityLabel(Text("Collections shelf"))
+    }
+
+    private func collectionChip(_ collection: MoodCollectionData) -> some View {
+        let isActive = activeCollectionID == collection.id
+        return Button(action: { toggleCollectionFilter(collection.id) }) {
+            HStack(spacing: 6) {
+                Text(collection.name)
+                    .font(.callout)
+                Text("\(collection.taleCount)")
+                    .font(.caption.monospacedDigit())
+                    .padding(.horizontal, 6)
+                    .padding(.vertical, 2)
+                    .background(
+                        Capsule().fill(Color.secondary.opacity(0.18))
+                    )
+            }
+            .padding(.horizontal, 12)
+            .padding(.vertical, 6)
+            .background(
+                Capsule().fill(isActive ? Color.accentColor.opacity(0.22) : Color.secondary.opacity(0.08))
+            )
+        }
+        .buttonStyle(.plain)
+        .contextMenu {
+            Button(role: .destructive) {
+                handleDeleteCollection(collection.id)
+            } label: {
+                Label("Delete collection", systemImage: "trash")
+            }
+        }
+        .accessibilityLabel(Text(collectionAccessibilityLabel(for: collection)))
+        .accessibilityHint(
+            isActive
+                ? Text("Tap to clear the collection filter.")
+                : Text("Show only the tales in this collection.")
+        )
+        .accessibilityAddTraits(isActive ? [.isSelected] : [])
+    }
+
+    private func collectionAccessibilityLabel(for collection: MoodCollectionData) -> String {
+        let mood = collection.mood?.displayLabel ?? "Any mood"
+        let pluralized = collection.taleCount == 1 ? "tale" : "tales"
+        return "\(collection.name), \(mood), \(collection.taleCount) \(pluralized)"
     }
 
     private var moodFilterRow: some View {
@@ -138,6 +276,7 @@ public struct AnthologyView: View {
                 Text(tale.title)
                     .font(.headline)
                 Spacer()
+                addToCollectionMenu(for: tale)
                 MoodTagView(mood: tale.mood)
             }
             Text(tale.recordedAt, format: .relative(presentation: .named))
@@ -317,13 +456,68 @@ public struct AnthologyView: View {
         }
     }
 
+    /// Per-tale "Add to..." menu. Surfaces every collection in a Menu;
+    /// each row toggles membership (Add when absent, Remove when
+    /// present). When no collections exist yet, the menu shows the same
+    /// "New collection" entry point as the shelf so the kid can curate
+    /// inline.
+    @ViewBuilder
+    private func addToCollectionMenu(for tale: VoiceTaleEntry) -> some View {
+        Menu {
+            if collections.isEmpty {
+                Button {
+                    isPresentingCollectionEditor = true
+                } label: {
+                    Label("New collection…", systemImage: "plus.circle")
+                }
+            } else {
+                ForEach(collections) { collection in
+                    let isMember = collection.contains(tale.id)
+                    Button {
+                        if isMember {
+                            handleRemoveTaleFromCollection(taleID: tale.id, collectionID: collection.id)
+                        } else {
+                            handleAddTaleToCollection(taleID: tale.id, collectionID: collection.id)
+                        }
+                    } label: {
+                        Label(
+                            collection.name,
+                            systemImage: isMember ? "checkmark.circle.fill" : "circle"
+                        )
+                    }
+                }
+                Divider()
+                Button {
+                    isPresentingCollectionEditor = true
+                } label: {
+                    Label("New collection…", systemImage: "plus.circle")
+                }
+            }
+        } label: {
+            Image(systemName: "rectangle.stack.badge.plus")
+                .font(.callout)
+                .padding(6)
+        }
+        .accessibilityLabel(Text("Add to collection"))
+        .accessibilityHint(Text("Add this tale to one of your collections, or create a new one."))
+    }
+
     private var filteredTales: [VoiceTaleEntry] {
-        guard let moodFilter else { return tales }
-        return tales.filter { $0.mood == moodFilter }
+        var working = tales
+        if let activeCollectionID,
+           let active = collections.first(where: { $0.id == activeCollectionID }) {
+            let allowed = Set(active.taleIDs)
+            working = working.filter { allowed.contains($0.id) }
+        }
+        if let moodFilter {
+            working = working.filter { $0.mood == moodFilter }
+        }
+        return working
     }
 
     private func reload() {
         tales = VoiceTaleStore.fetchTales(in: modelContext)
         moods = VoiceTaleStore.fetchAnthologyMoods(in: modelContext)
+        collections = VoiceTaleStore.fetchCollections(in: modelContext)
     }
 }
