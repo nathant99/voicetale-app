@@ -253,3 +253,29 @@ Round 2026-06-23 (continuation, late evening) shipped 4 PRs opening 3 of the 7 D
 **Test coverage delta**: ~22 new tests landed across the round (8 MoodRetrospective + 9 VoiceTaleIntentRouter/Destination + 4 GamificationService gate update — catalog count + snapshot seeding + arm coverage — + 1 HapticsBridge entry-point extension).
 
 **Net**: Delight & Polish OPENED with 3 of 7 boxes shipped. ForgeKit declared+used modules 14 → 15. Phase Delight & Polish remaining: micro-delight coverage (8 types) / Bramble personality callbacks / mastery moments / easter eggs / published-tale certificates + anthology covers — all reasonable Phase 3 carry-over. No Xcode-managed files touched.
+
+## Round close-out 2026-06-23 deep evening (PRs #91–#94) — Delight & Polish 5 of 7 + 2 Xcode-UI unblock handoffs
+
+Round 2026-06-23 (continuation, deep evening) shipped 4 PRs that opened 2 more Delight & Polish boxes (Personality + Mastery) + 2 Xcode-UI handoff docs unblocking follow-on Swift work the agent cannot author from disk. See `@Docs/FEATURE_PLAN.md` § "Round close-out 2026-06-23 deep evening (PRs #91–#94)" for the per-PR breakdown.
+
+**Surface area opened**:
+- Delight & Polish — **Personality** (PR #93): `Models/BrambleMoodMemory` derives the kid's favorite mood from per-mood saved-tale counts; `BrambleMentor.reflect(...)` gains optional `favoriteMood:` param + `applyFavoriteMoodCallback(...)` static helper prepends the Bramble-register callback line when today's mood matches the favorite. Anti-shame contract locked.
+- Delight & Polish — **Mastery moments** (PR #94): `Models/MasteryMoment` value enum + 3 archetypes + priority-disciplined `derive(from:)` + new `BrambleReflectionView.masteryMomentStrip` surface + `HapticsBridge.fireMasteryMoment()`. Anti-clobber: suppresses when distress chip is up.
+- 2 new HANDOFF_TO_USER docs (PRs #91 + #92) unblock the `AppIntent` Swift wire-up + the photo-attach Swift implementation respectively.
+
+**Catalog deltas**:
+- New `Models/BrambleMoodMemory` pure-function value enum (favorite-mood derivation + per-mood Bramble callback strings).
+- New `Models/MasteryMoment` value enum + 3 archetypes + `MasteryMomentInputs` shape.
+- `BrambleMentor.reflect(...)` API surface gains optional `favoriteMood: VoiceTaleMood? = nil` param + new `nonisolated public static applyFavoriteMoodCallback(...)` helper.
+- `BrambleReflectionView` API surface gains optional `masteryMoment: MasteryMoment? = nil` init param + new `masteryMomentStrip` view.
+- `HapticsBridge` ships **8** named entry points (was 7): + `fireMasteryMoment` (recognition tier — reuses achievement haptic).
+- No new `PersistentPlayerProgress` fields. No new `@Model` types. No SwiftData migration.
+- No new ForgeKit module adoption — declared modules remain at **15** (ForgeIntents introduced PR #89).
+- Achievement catalog unchanged at **23**. Analytics event vocabulary unchanged at **19**.
+
+**Test coverage delta**: **26 new tests** landed across the round.
+- `BrambleMoodMemoryTests` (10): favorite derivation + threshold + tiebreaker + callback contract + anti-shame token guard + register-named/count-omitted guard.
+- `BrambleFavoriteMoodCallbackTests` (6): mentor-side prepend behavior + non-match no-op + Socratic-prompt preservation + empty-observations handling + composed-output anti-shame guard.
+- `MasteryMomentTests` (10): priority discipline + every threshold edge + neutral-tale no-fire + anti-shame copy guard + snake_case raw values + non-empty icon/headline/body for every archetype.
+
+**Net**: Phase Delight & Polish ramps from 3-of-7 → **5 of 7 shipped**. Zero Xcode-managed files touched (SEVENTH consecutive round honoring the named-file ban). 2 Xcode-UI handoff docs filed, both unblock independent next-session follow-ons. Phase Delight & Polish remaining: micro-delight 8-types audit / easter eggs / published-tale certificates + anthology covers.
