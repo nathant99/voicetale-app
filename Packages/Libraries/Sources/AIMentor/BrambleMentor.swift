@@ -85,15 +85,25 @@ public final class BrambleMentor {
     /// Produces a craft observation + Socratic prompt for the tale at the
     /// given beat. Always succeeds; falls back to the static dictionary when
     /// the model is unavailable or the session throws.
+    ///
+    /// When `favoriteMood` is non-`nil` AND matches `mood` (i.e. the kid is
+    /// telling today's tale in their established favorite register), a
+    /// warm Bramble-register callback line is prepended to the first
+    /// craft observation per ``BrambleMoodMemory/callback(favoriteMood:todayMood:)``.
+    /// Per the anti-shame contract on ``BrambleMoodMemory``, the callback
+    /// is suppressed for distress paths + for non-matching moods.
     public func reflect(
         transcript: String,
         mood: VoiceTaleMood,
-        beat: ArcBeat
+        beat: ArcBeat,
+        favoriteMood: VoiceTaleMood? = nil
     ) async -> VoiceStoryReflection {
         // Trauma-informed gate FIRST. Per
         // `@.claude/rules/trauma-informed-content.md` § "refer up", any
         // distress axis bypasses the LM entirely + uses the hold-space
         // fallback. The view surfaces a crisis-resource chip alongside.
+        // Note: the favorite-mood callback is intentionally SUPPRESSED on
+        // distress paths — the hold-space register comes first.
         if let axis = DistressSignalDetector.detect(in: transcript) {
             let holdSpace = BrambleFallbackCatalog.holdSpaceFallback(axis: axis)
             lastReflection = holdSpace
@@ -103,8 +113,13 @@ public final class BrambleMentor {
         lastDistressAxis = nil
         let fallback = staticFallback(for: mood, beat: beat)
         guard availability == .available else {
-            lastReflection = fallback
-            return fallback
+            let withCallback = applyFavoriteMoodCallback(
+                fallback,
+                favoriteMood: favoriteMood,
+                todayMood: mood
+            )
+            lastReflection = withCallback
+            return withCallback
         }
         let workingSession = ensureSession()
         let prompt = BramblePromptBuilder.reflectionPrompt(
@@ -122,11 +137,21 @@ public final class BrambleMentor {
                 craftObservations: sanitizeObservations(generated.craftObservations, fallback: fallback),
                 socraticPrompt: sanitizePrompt(generated.socraticPrompt, fallback: fallback)
             )
-            lastReflection = reflection
-            return reflection
+            let withCallback = applyFavoriteMoodCallback(
+                reflection,
+                favoriteMood: favoriteMood,
+                todayMood: mood
+            )
+            lastReflection = withCallback
+            return withCallback
         } catch {
-            lastReflection = fallback
-            return fallback
+            let withCallback = applyFavoriteMoodCallback(
+                fallback,
+                favoriteMood: favoriteMood,
+                todayMood: mood
+            )
+            lastReflection = withCallback
+            return withCallback
         }
     }
 
@@ -281,6 +306,51 @@ public final class BrambleMentor {
         let created = LanguageModelSession(model: model, instructions: instructions)
         session = created
         return created
+    }
+
+    /// Prepend a Bramble favorite-mood callback line to the first
+    /// observation when the kid is telling today's tale in their
+    /// established favorite register. The callback is suppressed when
+    /// ``BrambleMoodMemory/callback(favoriteMood:todayMood:)`` returns
+    /// `nil` (no favorite earned OR today's mood doesn't match the
+    /// favorite). Anti-shame: never names a non-favorite, never compares
+    /// moods. Public so tests can pin the helper without spinning up a
+    /// FoundationModels session.
+    nonisolated public static func applyFavoriteMoodCallback(
+        _ reflection: VoiceStoryReflection,
+        favoriteMood: VoiceTaleMood?,
+        todayMood: VoiceTaleMood
+    ) -> VoiceStoryReflection {
+        guard let callback = BrambleMoodMemory.callback(
+            favoriteMood: favoriteMood,
+            todayMood: todayMood
+        ) else {
+            return reflection
+        }
+        var observations = reflection.craftObservations
+        if let first = observations.first, !first.isEmpty {
+            observations[0] = "\(callback) \(first)"
+        } else {
+            observations.insert(callback, at: 0)
+        }
+        return VoiceStoryReflection(
+            craftObservations: observations,
+            socraticPrompt: reflection.socraticPrompt
+        )
+    }
+
+    /// Instance shim so the existing call sites in ``reflect(...)`` read
+    /// naturally. Delegates to the `nonisolated public static` helper.
+    nonisolated private func applyFavoriteMoodCallback(
+        _ reflection: VoiceStoryReflection,
+        favoriteMood: VoiceTaleMood?,
+        todayMood: VoiceTaleMood
+    ) -> VoiceStoryReflection {
+        Self.applyFavoriteMoodCallback(
+            reflection,
+            favoriteMood: favoriteMood,
+            todayMood: todayMood
+        )
     }
 
     /// Defensive trim — strip empties, cap at two entries, swap to fallback
