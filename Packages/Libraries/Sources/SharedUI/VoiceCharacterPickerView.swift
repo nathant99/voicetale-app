@@ -33,6 +33,13 @@ public struct VoiceCharacterPickerView: View {
     private func chip(for preset: VoiceCharacterPreset) -> some View {
         let isSelected = selection == preset
         Button {
+            // Only fire the haptic on a real change — no-op self-taps
+            // shouldn't buzz the user. The visual + haptic together form
+            // the Delight & Polish juice trifecta per
+            // `@Docs/FEATURE_PLAN.md` § Delight & Polish → "Juice layer".
+            if !isSelected {
+                HapticsBridge.fireSelection()
+            }
             selection = preset
         } label: {
             HStack(spacing: 6) {
