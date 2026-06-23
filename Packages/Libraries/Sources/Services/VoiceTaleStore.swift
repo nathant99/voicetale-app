@@ -199,8 +199,23 @@ public enum VoiceTaleStore {
             installDate: record.installDate,
             d1HitAt: record.d1HitAt,
             d7HitAt: record.d7HitAt,
-            d30HitAt: record.d30HitAt
+            d30HitAt: record.d30HitAt,
+            taleTrialPlays: record.taleTrialPlays
         )
+    }
+
+    /// Bumps the Tale Trial play counter + returns the new count. Used by
+    /// ``TaleTrialMachine`` when the kid taps "Tell this one" so the
+    /// `tale_trial_completed` achievement can fire + the per-play analytics
+    /// event has a stable categorical surface.
+    @discardableResult
+    public static func bumpTaleTrialPlays(in context: ModelContext) -> Int {
+        var newCount = 0
+        updateProgress({ record in
+            record.taleTrialPlays += 1
+            newCount = record.taleTrialPlays
+        }, in: context)
+        return newCount
     }
 
     public static func updateProgress(

@@ -11,6 +11,7 @@ public enum VoiceTaleProgressionGate {
     public static let pacingWalkID        = "voicetale.adventure.pacing_walk"
     public static let turnDrillID         = "voicetale.adventure.turn_drill"
     public static let callbackRefrainID   = "voicetale.adventure.callback_refrain"
+    public static let taleTrialID         = "voicetale.adventure.tale_trial"
 
     /// The metric key the manager reads via `metricValue(for:)` — bumped each
     /// time a tale lands in the anthology.
@@ -63,6 +64,19 @@ public enum VoiceTaleProgressionGate {
                         metricKey: talesSavedMetricKey,
                         requiredValue: 7,
                         displayLabel: "7 saved tales"
+                    )
+                ]
+            ),
+            ContentGate(
+                id: taleTrialID,
+                requiredSessions: 0,
+                displayName: "Tale Trial",
+                unlockHint: "Unlocks after 10 saved tales.",
+                secondaryCriteria: [
+                    SecondaryCriterion(
+                        metricKey: talesSavedMetricKey,
+                        requiredValue: 10,
+                        displayLabel: "10 saved tales"
                     )
                 ]
             ),

@@ -20,6 +20,7 @@ public struct AdventureTabView: View {
     @Environment(\.modelContext) private var modelContext
     @Environment(\.accessibilityReduceTransparency) private var reduceTransparency
     @State private var talesSavedCount: Int = 0
+    @State private var isPresentingTaleTrial = false
 
     public init() {}
 
@@ -39,6 +40,9 @@ public struct AdventureTabView: View {
             }
             .voiceTaleNavigationTitle("Word Workshop")
             .onAppear(perform: refreshTalesCount)
+            .sheet(isPresented: $isPresentingTaleTrial) {
+                TaleTrialView()
+            }
         }
     }
 
@@ -52,10 +56,37 @@ public struct AdventureTabView: View {
         }
     }
 
+    @ViewBuilder
     private func modeCard(_ mode: ModeCard, manager: ForgeProgressionManager) -> some View {
         let isUnlocked = manager.isUnlocked(mode.gateID)
         let unlockHint = manager.unlockHint(for: mode.gateID) ?? ""
-        return HStack(alignment: .top, spacing: 14) {
+        let isTrialEntry = (mode.gateID == VoiceTaleProgressionGate.taleTrialID && isUnlocked)
+        if isTrialEntry {
+            Button {
+                isPresentingTaleTrial = true
+            } label: {
+                modeCardBody(
+                    mode: mode,
+                    isUnlocked: isUnlocked,
+                    unlockHint: unlockHint
+                )
+            }
+            .buttonStyle(.plain)
+        } else {
+            modeCardBody(
+                mode: mode,
+                isUnlocked: isUnlocked,
+                unlockHint: unlockHint
+            )
+        }
+    }
+
+    private func modeCardBody(
+        mode: ModeCard,
+        isUnlocked: Bool,
+        unlockHint: String
+    ) -> some View {
+        HStack(alignment: .top, spacing: 14) {
             ZStack {
                 Circle()
                     .fill(mode.color.opacity(0.18))
@@ -124,6 +155,13 @@ public struct AdventureTabView: View {
                 subtitle: "A phrase at the open, the same phrase at the close. Refrain keeps score.",
                 systemImage: "repeat",
                 color: .pink
+            ),
+            ModeCard(
+                gateID: VoiceTaleProgressionGate.taleTrialID,
+                title: "Tale Trial",
+                subtitle: "60 seconds. A random prompt. Bramble's blind judging — no scaffolding.",
+                systemImage: "dice.fill",
+                color: .indigo
             ),
         ]
     }

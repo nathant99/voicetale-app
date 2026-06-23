@@ -56,6 +56,10 @@ public enum VoiceTaleAnalyticsEvent: Sendable, Hashable {
     /// mood collection. Categorical-only: the mood tag (or `nil` for
     /// "any mood" collections). The kid-chosen name NEVER travels.
     case anthologyCollectionCreated(mood: VoiceTaleMood?)
+    /// Phase 2 Tale Trial mode — fires when the kid taps "Tell this one"
+    /// on a trial prompt. Categorical only: the prompt slug. The prompt
+    /// text never travels; the slug is the stable categorical surface.
+    case taleTrialStarted(promptSlug: String)
 
     /// Event name in the underlying ForgeAnalytics store. Keep lowercase +
     /// snake_case so future analytics inspectors can grep cleanly.
@@ -78,6 +82,7 @@ public enum VoiceTaleAnalyticsEvent: Sendable, Hashable {
         case .retentionMilestoneHit:         return "retention_milestone_hit"
         case .sessionCloserShown:            return "session_closer_shown"
         case .anthologyCollectionCreated:    return "anthology_collection_created"
+        case .taleTrialStarted:              return "tale_trial_started"
         }
     }
 
@@ -130,6 +135,8 @@ public enum VoiceTaleAnalyticsEvent: Sendable, Hashable {
             return ["tales_bucket": talesBucket(count)]
         case .anthologyCollectionCreated(let mood):
             return ["mood": mood?.rawValue ?? "any"]
+        case .taleTrialStarted(let slug):
+            return ["prompt_slug": slug]
         }
     }
 

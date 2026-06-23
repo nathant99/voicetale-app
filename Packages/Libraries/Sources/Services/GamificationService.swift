@@ -289,7 +289,8 @@ public final class GamificationService {
             presetsEverUsed: voiceSummary.presetsEverUsed,
             voiceVariationTalesCount: voiceSummary.voiceVariationTalesCount,
             completedKitIDs: progress.completedKitIDs,
-            largestCollectionTaleCount: largestCollectionTaleCount
+            largestCollectionTaleCount: largestCollectionTaleCount,
+            taleTrialPlays: progress.taleTrialPlays
         )
     }
 }
@@ -412,6 +413,9 @@ nonisolated struct CriteriaSnapshot: Sendable, Equatable {
     /// mood collections. Backs the `mood_collection_curator` achievement
     /// (threshold ≥ 3). 0 when no collections exist.
     let largestCollectionTaleCount: Int
+    /// Phase 2 Tale Trial — count of trial walk-throughs the kid has
+    /// played. Backs the `tale_trial_completed` achievement criterion.
+    let taleTrialPlays: Int
 
     init(
         totalTales: Int,
@@ -425,7 +429,8 @@ nonisolated struct CriteriaSnapshot: Sendable, Equatable {
         presetsEverUsed: Set<String> = [],
         voiceVariationTalesCount: Int = 0,
         completedKitIDs: Set<Int> = [],
-        largestCollectionTaleCount: Int = 0
+        largestCollectionTaleCount: Int = 0,
+        taleTrialPlays: Int = 0
     ) {
         self.totalTales = totalTales
         self.currentStreakDays = currentStreakDays
@@ -439,6 +444,7 @@ nonisolated struct CriteriaSnapshot: Sendable, Equatable {
         self.voiceVariationTalesCount = voiceVariationTalesCount
         self.completedKitIDs = completedKitIDs
         self.largestCollectionTaleCount = largestCollectionTaleCount
+        self.taleTrialPlays = taleTrialPlays
     }
 
     /// Map from catalog ID → predicate. New IDs added to
@@ -474,6 +480,8 @@ nonisolated struct CriteriaSnapshot: Sendable, Equatable {
             return completedKitIDs.isSuperset(of: [6, 7, 8, 9])
         case "mood_collection_curator":
             return largestCollectionTaleCount >= 3
+        case "tale_trial_completed":
+            return taleTrialPlays >= 1
         default:                          return false
         }
     }
