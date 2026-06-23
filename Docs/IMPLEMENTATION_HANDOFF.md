@@ -211,3 +211,24 @@ Standard Phase 1 DoD pattern per `.claude/rules/workflow.md` § Definition of Do
 - `@Docs/HANDOFF_FROM_HUB_ENGINEERING_KICKOFF.md` — Tier-3 ELA cluster cohort placement (composite 60.0)
 - `@Docs/HANDOFF_FROM_LABSMITH_FORGEKIT_BOOTSTRAP.md` — bootstrap playbook
 - `@Docs/HANDOFF_TO_USER_XCODE_WORKSPACE_INTEGRATION.md` — companion handoff for the Xcode-UI steps the agent cannot perform
+- `@Docs/HANDOFF_TO_USER_APPLE_DECLARED_AGE_RANGE.md` (round 2026-06-23) — iOS 26.2+ Declared Age Range API entitlement + Info.plist + minimum-deployment Xcode-UI steps. Optional pre-TestFlight; load-bearing before App Store ship.
+- `@Docs/HANDOFF_TO_USER_APP_GROUP_ENTITLEMENT.md` — optional Xcode-UI step for cross-portfolio avatar sync
+
+## Round close-out 2026-06-23 (PRs #80–#83; post-EXIT-COMPLETE; Phase 2 kickoff)
+
+Round 2026-06-23 shipped 4 PRs + 1 new HANDOFF_TO_USER doc, opening Phase 2 + closing 2 Engagement-Foundation long-tail items. See `@Docs/FEATURE_PLAN.md` § "Round close-out 2026-06-23 (PRs #80–#83 + 1 HANDOFF_TO_USER)" for the per-PR breakdown.
+
+**Surface area opened**:
+- Phase 2: anthology mood-filter persistence (PR #80); 4 new question kits 06–09 (PR #81); 6 new Phase-2 achievements (PR #82)
+- Engagement Foundation: D1 / D7 / D30 retention baseline (PR #83); SessionCloserView recap surface (PR #83)
+- Xcode-UI handoff filed: `@Docs/HANDOFF_TO_USER_APPLE_DECLARED_AGE_RANGE.md` (status: ACTIVE)
+
+**Catalog deltas**:
+- `VoiceTaleAchievementCatalog.phase1` now ships **20** entries (was 14): + `mood_explorer_all_four` + `kit_06_mood_completed` + `kit_07_pacing_completed` + `kit_08_surprise_completed` + `kit_09_closing_completed` + `phase2_complete_set`. The array name is a historical artifact — Phase 2 entries live alongside Phase 1 + 1.1 per the pre-App-Store single-source convention.
+- `VoiceTaleAnalyticsEvent` vocabulary now ships **16** events: + `anthologyFilterApplied(mood:)` + `retentionMilestoneHit(milestone:)` + `sessionCloserShown(talesSavedThisSession:)`. All categorical-only; raw counts + raw timestamps NEVER on the wire.
+- `QuestionKitLoader` now ships **9** Phase-1/1.1/2 kits: 4 Phase-1 + 1 Phase-1.1 + 4 Phase-2 (mood / pacing / surprise / closing).
+- `PersistentPlayerProgress` gains **4** additive Optional<Date> fields for retention (`installDate` / `d1HitAt` / `d7HitAt` / `d30HitAt`). Pre-App-Store additive default-nil per `@.claude/rules/swiftdata.md`.
+
+**Test coverage delta**: ~30+ new tests across the round (5 AnthologyFilterPersistence + 5 QuestionKitLoader Phase-2 + 5 GamificationService Phase-2 + 4 GamificationService retention + 8 RetentionMetricsEvaluator + 6 SessionCloserView + 2 AnalyticsService new events + extended exhaustiveness audit).
+
+**Net**: Phase 2 OPENED on 3 of its 7 boxes (mood-filter persistence, kits 06–09, 6 achievements). 2 Engagement-Foundation boxes CLOSED (retention metrics baseline + session closer). 3 Phase 2 boxes remain: anthology curation (kid-curated mood collections), photo attach + parental-gate, ForgeAdventure Tale Trial mode.
