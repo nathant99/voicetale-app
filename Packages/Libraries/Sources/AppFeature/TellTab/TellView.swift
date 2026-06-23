@@ -112,7 +112,23 @@ public struct TellView: View {
                         await runReflection()
                     }
                 }
+                .task {
+                    recalibrateBrambleTier()
+                }
         }
+    }
+
+    /// Phase 2 DDA — fold the kid's saved-tale count into Bramble's
+    /// reflection tier on every Tell-tab appearance. Pure-function tier
+    /// resolution; setTier no-ops when the tier hasn't changed (per
+    /// ``BrambleMentor/setTier(_:)``). The instruction-body swap is
+    /// invisible to the kid — only Bramble's voice shifts (gentler for
+    /// new tellers, deeper for veteran ones).
+    private func recalibrateBrambleTier() {
+        let count = VoiceTaleStore.fetchTales(in: modelContext).count
+        let tier = DifficultyController.tier(forTalesCount: count)
+        let bramblePromptTier = BramblePromptBuilder.DifficultyTier(rawValue: tier.rawValue) ?? .standard
+        mentor.setTier(bramblePromptTier)
     }
 
     @ViewBuilder

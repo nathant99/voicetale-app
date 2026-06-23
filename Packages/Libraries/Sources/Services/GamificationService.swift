@@ -141,9 +141,32 @@ public final class GamificationService {
         return milestonesToFire
     }
 
+    /// Pure-function translator from ``ForgeGamification.StreakResult`` to
+    /// VoiceTale's kid-readable ``BrambleStreakCopy``. Lives in Services
+    /// because it crosses both modules — Models doesn't depend on
+    /// ForgeGamification. Views call this on the result of
+    /// ``recordSession(in:)`` to render the warm streak message.
+    nonisolated public static func streakCopy(for result: StreakResult) -> BrambleStreakCopy {
+        switch result {
+        case .continued(let streak):
+            return .continuing(streak: streak)
+        case .frozenAndContinued(let streak, let freezesRemaining):
+            return .frozen(streak: streak, freezesRemaining: freezesRemaining)
+        case .reset(let previousStreak):
+            return .reset(previousStreak: previousStreak)
+        case .sameDay(let streak):
+            return .sameDay(streak: streak)
+        case .heldUnderDistress(let streak):
+            return .heldUnderDistress(streak: streak)
+        @unknown default:
+            return .reset(previousStreak: 0)
+        }
+    }
+
     /// Record that the player engaged today. Returns the streak result for
     /// celebration UI (`.continued`, `.frozenAndContinued`, `.reset`,
-    /// `.sameDay`).
+    /// `.sameDay`). Pair with ``streakCopy(for:)`` to render the warm
+    /// kid-readable streak message.
     public func recordSession(in context: ModelContext) async -> StreakResult {
         let snapshot = VoiceTaleStore.progressSnapshot(in: context)
         let manager = StreakManager(
