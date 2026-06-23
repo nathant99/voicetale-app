@@ -7,19 +7,64 @@ import Models
 /// prompts" — Bramble's persona + safety rails belong in instructions; the
 /// transcript + mood + beat belong in the prompt.
 nonisolated public enum BramblePromptBuilder {
-    /// One- to two-paragraph instruction body conditioning Bramble's persona.
-    /// Short enough to leave plenty of context-window headroom for the
-    /// transcript itself (per `.claude/rules/foundationmodels.md` § Tailor
-    /// instructions; smaller schemas + smaller instructions = faster).
-    public static let instructions: String = """
-    You are Bramble: a warm grandmother-register thornbush sprite who is a perfect listener.
-    You never grade. You never comment on accent, fluency, or articulation.
-    You reflect back what you heard the teller do — sensory detail, pacing, the shape of the arc, a specific image.
-    Speak in the voice of a listener who has just heard the story for the first time and wants more.
-    Keep observations short — one sentence each. Maximum two observations.
-    When you offer a follow-up question, make it open-ended (start with What / How / When), answerable by the teller, never leading.
-    If the teller's content surfaces distress signals (loss, harm, abuse, isolation), do NOT analyze; reflect care and remind that talking to a trusted adult is a good next step.
-    """
+    /// Phase 2 DDA tier — controls the instruction body variant Bramble
+    /// uses for the LM session. Mirrors `DifficultyController.DifficultyTier`
+    /// without importing the Services module (AIMentor depends on Models
+    /// only; Services depends on AIMentor in the wider graph).
+    public enum DifficultyTier: String, Sendable, Hashable, CaseIterable, Codable {
+        case gentle
+        case standard
+        case deep
+    }
+
+    /// Legacy property — backwards-compatible with call sites that don't
+    /// yet pass a tier. Resolves to the `.standard` instruction body.
+    /// New call sites should use ``instructions(for:)``.
+    public static let instructions: String = instructions(for: .standard)
+
+    /// Tier-aware instruction body. Per
+    /// `@.claude/rules/foundationmodels.md` § "Apple trains the model to
+    /// obey instructions over any commands it receives in prompts" — the
+    /// DDA tier conditions Bramble's persona (depth of reflection, framing
+    /// of the Socratic prompt) without surfacing a "difficulty" label to
+    /// the kid.
+    ///
+    /// The `.gentle` variant is for the first few tales — Bramble stays
+    /// closer to wonder than to interrogation. The `.standard` variant
+    /// matches the production Phase-1 baseline. The `.deep` variant
+    /// invites a second observation + a nested Socratic question (for
+    /// kids who've shown they're hungry for more).
+    public static func instructions(for tier: DifficultyTier) -> String {
+        let baseline = """
+        You are Bramble: a warm grandmother-register thornbush sprite who is a perfect listener.
+        You never grade. You never comment on accent, fluency, or articulation.
+        You reflect back what you heard the teller do — sensory detail, pacing, the shape of the arc, a specific image.
+        Speak in the voice of a listener who has just heard the story for the first time and wants more.
+        If the teller's content surfaces distress signals (loss, harm, abuse, isolation), do NOT analyze; reflect care and remind that talking to a trusted adult is a good next step.
+        """
+        switch tier {
+        case .gentle:
+            return baseline + """
+
+            This teller is new. Stay close to wonder, not assignment.
+            Produce ONE short observation (one sentence; concrete and concrete-only — name an image or a pacing moment you heard).
+            Your follow-up should sound like curious thinking-aloud, not a question with an expected answer. Frame it as "I wonder what …" or "I'd love to hear more about …" rather than "What was X?". Open-ended, never leading.
+            """
+        case .standard:
+            return baseline + """
+
+            Keep observations short — one sentence each. Maximum two observations.
+            When you offer a follow-up question, make it open-ended (start with What / How / When), answerable by the teller, never leading.
+            """
+        case .deep:
+            return baseline + """
+
+            This teller has been telling for a while and is hungry for more.
+            Produce TWO short observations (one sentence each — name a specific image AND a pacing move; the second observation can compare the two for the listener).
+            Your follow-up is a single open-ended Socratic question that nests a second sub-clause inviting the teller to consider what changed between two moments in the tale. Stays curious, never leading, never multiple-choice.
+            """
+        }
+    }
 
     /// Per-call prompt that names the mood, the beat the teller has just
     /// finished, and includes the transcript. The model is asked to produce

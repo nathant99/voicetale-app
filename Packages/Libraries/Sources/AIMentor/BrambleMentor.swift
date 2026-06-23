@@ -35,6 +35,11 @@ public final class BrambleMentor {
     /// below the bubble when an axis is non-nil. Cleared by callers
     /// (TellView resets it on retell / cancel / save).
     public private(set) var lastDistressAxis: DistressSignalDetector.Axis?
+    /// Phase 2 DDA — the active tier Bramble's session is configured
+    /// against. Defaults to `.standard` so brand-new Bramble instances
+    /// behave like the Phase-1 baseline; ``setTier(_:)`` is the canonical
+    /// way to bump the tier from outside.
+    public private(set) var activeTier: BramblePromptBuilder.DifficultyTier = .standard
 
     @ObservationIgnored
     private let model = SystemLanguageModel.default
@@ -44,6 +49,20 @@ public final class BrambleMentor {
 
     public init() {
         refreshAvailability()
+    }
+
+    /// Update the DDA tier Bramble's session is configured against. Cheap
+    /// + idempotent — when the new tier matches the active tier, this is
+    /// a no-op. Otherwise the cached session is invalidated so the next
+    /// reflection call rebuilds it with the new instructions body. Per
+    /// `@.claude/rules/foundationmodels.md` § "Lazy session: Create
+    /// `LanguageModelSession` on first use, reuse across requests — never
+    /// create per-call". A tier change is the canonical reason to break
+    /// the reuse contract.
+    public func setTier(_ tier: BramblePromptBuilder.DifficultyTier) {
+        guard tier != activeTier else { return }
+        activeTier = tier
+        session = nil
     }
 
     /// Updates ``availability`` to mirror the model's current state. Cheap;
@@ -258,7 +277,7 @@ public final class BrambleMentor {
 
     private func ensureSession() -> LanguageModelSession {
         if let session { return session }
-        let instructions = Instructions(BramblePromptBuilder.instructions)
+        let instructions = Instructions(BramblePromptBuilder.instructions(for: activeTier))
         let created = LanguageModelSession(model: model, instructions: instructions)
         session = created
         return created
