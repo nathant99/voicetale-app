@@ -60,6 +60,11 @@ public enum VoiceTaleAnalyticsEvent: Sendable, Hashable {
     /// on a trial prompt. Categorical only: the prompt slug. The prompt
     /// text never travels; the slug is the stable categorical surface.
     case taleTrialStarted(promptSlug: String)
+    /// Delight & Polish — fires exactly once per install when the kid
+    /// lands their first complete five-beat tale. The `.epic` full-screen
+    /// celebration is the user-facing reward; this analytics surface is
+    /// the categorical signal. Mood travels for cohort analysis; no PII.
+    case firstFiveBeatTaleCelebrated(mood: VoiceTaleMood)
 
     /// Event name in the underlying ForgeAnalytics store. Keep lowercase +
     /// snake_case so future analytics inspectors can grep cleanly.
@@ -83,6 +88,7 @@ public enum VoiceTaleAnalyticsEvent: Sendable, Hashable {
         case .sessionCloserShown:            return "session_closer_shown"
         case .anthologyCollectionCreated:    return "anthology_collection_created"
         case .taleTrialStarted:              return "tale_trial_started"
+        case .firstFiveBeatTaleCelebrated:   return "first_five_beat_tale_celebrated"
         }
     }
 
@@ -137,6 +143,8 @@ public enum VoiceTaleAnalyticsEvent: Sendable, Hashable {
             return ["mood": mood?.rawValue ?? "any"]
         case .taleTrialStarted(let slug):
             return ["prompt_slug": slug]
+        case .firstFiveBeatTaleCelebrated(let mood):
+            return ["mood": mood.rawValue]
         }
     }
 

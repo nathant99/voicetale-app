@@ -200,8 +200,27 @@ public enum VoiceTaleStore {
             d1HitAt: record.d1HitAt,
             d7HitAt: record.d7HitAt,
             d30HitAt: record.d30HitAt,
-            taleTrialPlays: record.taleTrialPlays
+            taleTrialPlays: record.taleTrialPlays,
+            firstFiveBeatTaleAt: record.firstFiveBeatTaleAt
         )
+    }
+
+    /// Marks the kid's first five-beat-tale moment IF the timestamp is
+    /// still nil. Returns `true` on the inaugural call (caller should
+    /// trigger the full-screen `.epic` celebration), `false` on every
+    /// subsequent call. Used by ``TellView`` after a successful save.
+    @discardableResult
+    public static func markFirstFiveBeatTaleIfNeeded(
+        at moment: Date = .now,
+        in context: ModelContext
+    ) -> Bool {
+        var didMark = false
+        updateProgress({ record in
+            guard record.firstFiveBeatTaleAt == nil else { return }
+            record.firstFiveBeatTaleAt = moment
+            didMark = true
+        }, in: context)
+        return didMark
     }
 
     /// Bumps the Tale Trial play counter + returns the new count. Used by

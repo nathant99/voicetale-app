@@ -313,7 +313,8 @@ public final class GamificationService {
             voiceVariationTalesCount: voiceSummary.voiceVariationTalesCount,
             completedKitIDs: progress.completedKitIDs,
             largestCollectionTaleCount: largestCollectionTaleCount,
-            taleTrialPlays: progress.taleTrialPlays
+            taleTrialPlays: progress.taleTrialPlays,
+            firstFiveBeatTaleEarned: progress.firstFiveBeatTaleAt != nil
         )
     }
 }
@@ -439,6 +440,12 @@ nonisolated struct CriteriaSnapshot: Sendable, Equatable {
     /// Phase 2 Tale Trial — count of trial walk-throughs the kid has
     /// played. Backs the `tale_trial_completed` achievement criterion.
     let taleTrialPlays: Int
+    /// Delight & Polish — true once the kid has hit all five beats in a
+    /// single tale at least once. Sourced from
+    /// `PersistentPlayerProgress.firstFiveBeatTaleAt != nil`. Backs the
+    /// `first_five_beat_tale` achievement (threshold: any single
+    /// successful five-beat tale).
+    let firstFiveBeatTaleEarned: Bool
 
     init(
         totalTales: Int,
@@ -453,7 +460,8 @@ nonisolated struct CriteriaSnapshot: Sendable, Equatable {
         voiceVariationTalesCount: Int = 0,
         completedKitIDs: Set<Int> = [],
         largestCollectionTaleCount: Int = 0,
-        taleTrialPlays: Int = 0
+        taleTrialPlays: Int = 0,
+        firstFiveBeatTaleEarned: Bool = false
     ) {
         self.totalTales = totalTales
         self.currentStreakDays = currentStreakDays
@@ -468,6 +476,7 @@ nonisolated struct CriteriaSnapshot: Sendable, Equatable {
         self.completedKitIDs = completedKitIDs
         self.largestCollectionTaleCount = largestCollectionTaleCount
         self.taleTrialPlays = taleTrialPlays
+        self.firstFiveBeatTaleEarned = firstFiveBeatTaleEarned
     }
 
     /// Map from catalog ID → predicate. New IDs added to
@@ -505,6 +514,8 @@ nonisolated struct CriteriaSnapshot: Sendable, Equatable {
             return largestCollectionTaleCount >= 3
         case "tale_trial_completed":
             return taleTrialPlays >= 1
+        case "first_five_beat_tale":
+            return firstFiveBeatTaleEarned
         default:                          return false
         }
     }

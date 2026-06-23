@@ -20,13 +20,14 @@ struct GamificationServiceTests {
 
     // MARK: - Catalog completeness
 
-    @Test func phase1CatalogShipsTwentyTwoAchievements() {
+    @Test func phase1CatalogShipsTwentyThreeAchievements() {
         // 10 Phase 1 + 4 Phase 1.1 voice-character + 6 Phase 2 kits/breadth
-        // + 1 Phase 2 anthology-curation + 1 Phase 2 Tale Trial = 22 total.
-        // The catalog stays in the `phase1` array (single source) — the
-        // name is a historical artifact, but the test asserts the running
-        // total so future additions cascade through this gate.
-        #expect(VoiceTaleAchievementCatalog.phase1.count == 22)
+        // + 1 Phase 2 anthology-curation + 1 Phase 2 Tale Trial + 1
+        // Delight first-five-beat-tale = 23 total. The catalog stays in
+        // the `phase1` array (single source) — the name is a historical
+        // artifact, but the test asserts the running total so future
+        // additions cascade through this gate.
+        #expect(VoiceTaleAchievementCatalog.phase1.count == 23)
     }
 
     @Test func catalogIDsAreUnique() {
@@ -59,7 +60,10 @@ struct GamificationServiceTests {
             largestCollectionTaleCount: 3,
             // Phase 2 Tale Trial — seeded with the threshold count so the
             // arm gate stays at 100%.
-            taleTrialPlays: 1
+            taleTrialPlays: 1,
+            // Delight & Polish — first 5-beat tale must be marked earned
+            // so the arm gate stays at 100%.
+            firstFiveBeatTaleEarned: true
         )
         for definition in VoiceTaleAchievementCatalog.phase1 {
             #expect(snapshot.satisfies(definition.id),
