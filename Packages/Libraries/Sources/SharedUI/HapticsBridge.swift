@@ -64,4 +64,15 @@ public enum HapticsBridge {
     public static func fireSelection() {
         ForgeHapticEngine.shared.playSync(ForgeHapticLibrary.buttonTap)
     }
+
+    /// Recognition haptic fired when a ``MasteryMoment`` surface lands on
+    /// the reflection screen. Part of the Delight & Polish "Mastery
+    /// moments" pass per `@Docs/FEATURE_PLAN.md`. Reuses the achievement
+    /// pattern (the same one that lands on tale-save) — louder than
+    /// `buttonTap`, lighter than `levelUp`. The strip's headline + body
+    /// are the visual side; the haptic lands together when the surface
+    /// appears.
+    public static func fireMasteryMoment() {
+        ForgeHapticEngine.shared.playSync(ForgeHapticLibrary.achievement)
+    }
 }
