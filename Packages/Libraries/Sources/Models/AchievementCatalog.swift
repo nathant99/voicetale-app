@@ -228,5 +228,25 @@ public enum VoiceTaleAchievementCatalog {
                 description: "Present claims and findings, sequencing ideas logically and using pertinent descriptions, facts, and details."
             )
         ),
+
+        // MARK: - Phase 2 — anthology curation
+        // Authored per `@Docs/FEATURE_PLAN.md` § Phase 2 "anthology curation".
+        // Rewards the kid for the act of CURATING — choosing tales that
+        // belong together. The threshold is small (≥ 3 tales in one
+        // collection) so the recognition lands while the habit is forming,
+        // not after weeks of accumulation. Copy stays in Bramble's
+        // grandmother register per `@.claude/rules/distributed-narrative.md`.
+        AchievementDefinition(
+            id: "mood_collection_curator",
+            title: "Curator of the shelf",
+            description: "You gathered three tales that belong together. Bramble pulled up a chair to read them in a row.",
+            iconAssetName: "achievement_mood_collection_curator",
+            xpValue: 60,
+            standard: StandardAlignment(
+                standard: .ccss,
+                code: "ELA-Literacy.SL.6.4",
+                description: "Present claims and findings, sequencing ideas logically and using pertinent descriptions, facts, and details."
+            )
+        ),
     ]
 }

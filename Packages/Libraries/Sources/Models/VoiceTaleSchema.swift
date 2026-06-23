@@ -17,6 +17,7 @@ public enum VoiceTaleSchemaV1: VersionedSchema {
             PersistentPlayerProgress.self,
             PersistentAnthologyMood.self,
             PersistentAchievement.self,
+            PersistentMoodCollection.self,
         ]
     }
 }

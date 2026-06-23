@@ -52,6 +52,10 @@ public enum VoiceTaleAnalyticsEvent: Sendable, Hashable {
     /// 10-15 min "soft session cap" target). Categorical-only: the
     /// number of tales saved during the session, bucketed.
     case sessionCloserShown(talesSavedThisSession: Int)
+    /// Phase 2 anthology curation — fires when the kid creates a new
+    /// mood collection. Categorical-only: the mood tag (or `nil` for
+    /// "any mood" collections). The kid-chosen name NEVER travels.
+    case anthologyCollectionCreated(mood: VoiceTaleMood?)
 
     /// Event name in the underlying ForgeAnalytics store. Keep lowercase +
     /// snake_case so future analytics inspectors can grep cleanly.
@@ -73,6 +77,7 @@ public enum VoiceTaleAnalyticsEvent: Sendable, Hashable {
         case .anthologyFilterApplied:        return "anthology_filter_applied"
         case .retentionMilestoneHit:         return "retention_milestone_hit"
         case .sessionCloserShown:            return "session_closer_shown"
+        case .anthologyCollectionCreated:    return "anthology_collection_created"
         }
     }
 
@@ -123,6 +128,8 @@ public enum VoiceTaleAnalyticsEvent: Sendable, Hashable {
             return ["milestone": milestone]
         case .sessionCloserShown(let count):
             return ["tales_bucket": talesBucket(count)]
+        case .anthologyCollectionCreated(let mood):
+            return ["mood": mood?.rawValue ?? "any"]
         }
     }
 

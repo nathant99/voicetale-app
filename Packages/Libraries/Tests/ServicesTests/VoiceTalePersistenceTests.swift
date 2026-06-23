@@ -12,7 +12,7 @@ struct VoiceTalePersistenceTests {
         #expect(container.schema.entities.isEmpty == false)
     }
 
-    @Test func schemaContainsAllFiveModels() throws {
+    @Test func schemaContainsAllModels() throws {
         let container = try VoiceTalePersistence.makeInMemoryContainer()
         let entityNames = Set(container.schema.entities.map(\.name))
         #expect(entityNames.contains("PersistentVoiceTaleEntry"))
@@ -20,6 +20,7 @@ struct VoiceTalePersistenceTests {
         #expect(entityNames.contains("PersistentPlayerProgress"))
         #expect(entityNames.contains("PersistentAnthologyMood"))
         #expect(entityNames.contains("PersistentAchievement"))
+        #expect(entityNames.contains("PersistentMoodCollection"))
     }
 
     @Test func defaultStoreURLLivesUnderApplicationSupport() {

@@ -20,12 +20,13 @@ struct GamificationServiceTests {
 
     // MARK: - Catalog completeness
 
-    @Test func phase1CatalogShipsTwentyAchievements() {
-        // 10 Phase 1 + 4 Phase 1.1 voice-character + 6 Phase 2 = 20 total.
-        // The catalog stays in the `phase1` array (single source) — the
-        // name is a historical artifact, but the test asserts the running
-        // total so future additions cascade through this gate.
-        #expect(VoiceTaleAchievementCatalog.phase1.count == 20)
+    @Test func phase1CatalogShipsTwentyOneAchievements() {
+        // 10 Phase 1 + 4 Phase 1.1 voice-character + 6 Phase 2 kits/breadth
+        // + 1 Phase 2 anthology-curation = 21 total. The catalog stays in
+        // the `phase1` array (single source) — the name is a historical
+        // artifact, but the test asserts the running total so future
+        // additions cascade through this gate.
+        #expect(VoiceTaleAchievementCatalog.phase1.count == 21)
     }
 
     @Test func catalogIDsAreUnique() {
@@ -52,7 +53,10 @@ struct GamificationServiceTests {
             // Phase 2 catalog adds kits 6-9 milestones + a complete-set
             // recognition; seed all four so the satisfies() arm coverage
             // gate stays at 100%.
-            completedKitIDs: [5, 6, 7, 8, 9]
+            completedKitIDs: [5, 6, 7, 8, 9],
+            // Phase 2 mood-collection curator — seeded with the threshold
+            // tale count so the arm gate stays at 100%.
+            largestCollectionTaleCount: 3
         )
         for definition in VoiceTaleAchievementCatalog.phase1 {
             #expect(snapshot.satisfies(definition.id),
