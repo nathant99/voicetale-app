@@ -226,6 +226,67 @@ struct QuestionKitLoaderTests {
         let slugs = Set(kit.castCameos.map(\.slug))
         #expect(slugs == expected)
     }
+
+    // MARK: - Phase 2 — Kits 06-09 (mood / pacing / surprise / closing)
+
+    @Test func phase2ShipsKits06Through09() throws {
+        let kits = try QuestionKitLoader.loadAllPhase2Kits()
+        #expect(kits.count == 4)
+        #expect(kits.map(\.kit) == [6, 7, 8, 9])
+        // Title sanity — each kit gets a distinct name so the kid sees the
+        // craft surface, not a generic "kit N" label.
+        let titles = kits.map(\.title)
+        #expect(Set(titles).count == titles.count)
+    }
+
+    @Test func phase2KitAnchorsRotateAcrossTheFourListenerCast() throws {
+        // Per `@.claude/rules/distributed-narrative.md` § "Hero mascot vs.
+        // cast" + the kit-05 precedent — every cast member anchors at least
+        // one Phase-2 kit so the rotation surfaces all four voices.
+        let kits = try QuestionKitLoader.loadAllPhase2Kits()
+        let anchors = Set(kits.map(\.anchorCharacterSlug))
+        #expect(anchors == ["lean", "slow", "pivot", "refrain"])
+    }
+
+    @Test func phase2KitsAllHaveFourQuestionsWithCanonicalShape() throws {
+        let kits = try QuestionKitLoader.loadAllPhase2Kits()
+        for kit in kits {
+            #expect(kit.questions.count == 4, "Kit \(kit.kit) should ship 4 questions")
+            let kinds = Set(kit.questions.map(\.kind))
+            // Same shape contract as Phase 1 / 1.1 kits: at least one of each
+            // canonical kind so QuizView's three render paths exercise.
+            #expect(kinds.contains(.reflection), "Kit \(kit.kit) missing reflection")
+            #expect(kinds.contains(.choice), "Kit \(kit.kit) missing choice")
+            #expect(kinds.contains(.rewrite), "Kit \(kit.kit) missing rewrite")
+        }
+    }
+
+    @Test func phase2KitsEachIncludeAllFourListenerCastCameos() throws {
+        let kits = try QuestionKitLoader.loadAllPhase2Kits()
+        let expected: Set<String> = ["lean", "pivot", "refrain", "slow"]
+        for kit in kits {
+            let slugs = Set(kit.castCameos.map(\.slug))
+            #expect(slugs == expected, "Kit \(kit.kit) cast cameo set drift: \(slugs)")
+        }
+    }
+
+    @Test func phase2KitChoiceQuestionsCarryCorrectIndexAndRationale() throws {
+        // Choice items must have a correctIndex inside the options range
+        // AND a non-empty rationale — drift here breaks QuizView's
+        // feedback path silently.
+        let kits = try QuestionKitLoader.loadAllPhase2Kits()
+        for kit in kits {
+            let choices = kit.questions.filter { $0.kind == .choice }
+            for choice in choices {
+                let options = try #require(choice.options, "Kit \(kit.kit) choice missing options")
+                let index = try #require(choice.correctIndex, "Kit \(kit.kit) choice missing correctIndex")
+                #expect((0..<options.count).contains(index),
+                       "Kit \(kit.kit) correctIndex \(index) out of range \(options.count)")
+                let rationale = try #require(choice.rationale, "Kit \(kit.kit) choice missing rationale")
+                #expect(!rationale.isEmpty, "Kit \(kit.kit) rationale is empty")
+            }
+        }
+    }
 }
 
 @MainActor

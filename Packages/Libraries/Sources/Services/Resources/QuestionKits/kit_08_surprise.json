@@ -1,0 +1,42 @@
+{
+  "kit": 8,
+  "title": "Surprise-Move",
+  "primitive": "the small move that rotates the listener's expectation — the lawful surprise that earns the Turn",
+  "anchorCharacterSlug": "pivot",
+  "summary": "A surprise that breaks the tale's logic feels like a trick. A surprise that obeys the tale's logic feels like a discovery. This kit listens for HOW the surprise lands at the Turn — whether the seed was planted in the Hook or the Setup, whether the Close honors the rotation. Phase 2 separates surprise-as-craft from surprise-as-twist.",
+  "questions": [
+    {
+      "id": "k8q1",
+      "kind": "reflection",
+      "prompt": "Tell a 60-second tale with a small surprise at the Turn. After you finish, ask yourself: which Hook or Setup detail planted the seed for the surprise? If nothing planted it, the surprise might be a trick instead of a discovery."
+    },
+    {
+      "id": "k8q2",
+      "kind": "choice",
+      "prompt": "What's the strongest move when you want a surprise the listener will REMEMBER, not just notice?",
+      "options": [
+        "Make the surprise huge — bigger than anything they expected.",
+        "Plant a small unrelated-seeming detail in the Hook, then have the Turn use it.",
+        "Tell the listener up front that a surprise is coming."
+      ],
+      "correctIndex": 1,
+      "rationale": "Memory loves callbacks. A small Hook detail that returns at the Turn makes the surprise feel inevitable in retrospect — and inevitability is what listeners remember. Huge surprises with no setup feel like tricks; warning the listener removes the surprise."
+    },
+    {
+      "id": "k8q3",
+      "kind": "reflection",
+      "prompt": "Pick a tale from your anthology where the Turn surprised the listener. Which earlier moment planted the seed? If you can't find one, where COULD you plant a seed if you re-told the tale tomorrow?"
+    },
+    {
+      "id": "k8q4",
+      "kind": "rewrite",
+      "prompt": "Take a tale where the Turn felt too sudden. Add ONE sentence to the Hook that plants a tiny seed — an image, an offhand line, a small object. Keep everything else the same. Read both versions aloud and listen for the difference at the Turn."
+    }
+  ],
+  "castCameos": [
+    { "slug": "pivot", "line": "The strongest surprises are pivots that the Hook already pointed at. The listener should feel the moment go: 'oh — THAT was the door all along.'" },
+    { "slug": "lean", "line": "I lean in when a small Hook detail returns at the Turn. The shape clicks. That click is what listeners feel as 'good surprise.'" },
+    { "slug": "slow", "line": "A held breath before the surprise is the cue. If you rush the Turn, the surprise lands but doesn't echo. Slowing makes the rotation visible." },
+    { "slug": "refrain", "line": "Try repeating the planted detail TWICE before the Turn — once in the Hook, once in the Setup. By the third return at the Turn, the surprise is a homecoming." }
+  ]
+}

@@ -27,6 +27,18 @@ public enum QuestionKitLoader {
         "kit_05_voice_character",
     ]
 
+    /// Phase 2 kit filenames (kits 06-09: mood / pacing / surprise / closing)
+    /// per `@Docs/FEATURE_PLAN.md` § Phase 2. Each kit anchors to one cast
+    /// member (Lean / Slow / Pivot / Refrain in that order) with cameos from
+    /// the other three so all four listener-cast voices surface across the
+    /// rotation.
+    public static let phase2Filenames: [String] = [
+        "kit_06_mood",
+        "kit_07_pacing",
+        "kit_08_surprise",
+        "kit_09_closing",
+    ]
+
     public static func loadKit(named name: String) throws -> QuestionKit {
         guard let url = ResourceLookup.url(
             forResource: name,
@@ -51,6 +63,12 @@ public enum QuestionKitLoader {
     /// malformed JSON so QA catches drift between Models + bundled resources.
     public static func loadAllPhase11Kits() throws -> [QuestionKit] {
         try phase11Filenames.map { try loadKit(named: $0) }
+    }
+
+    /// Load every Phase 2 kit (kits 06-09). Same throw-on-drift semantics as
+    /// the Phase 1 / 1.1 loaders so future asset gaps surface in tests.
+    public static func loadAllPhase2Kits() throws -> [QuestionKit] {
+        try phase2Filenames.map { try loadKit(named: $0) }
     }
 
     /// Pick one of the 4 Phase 1 kits based on a stable input — typically the
