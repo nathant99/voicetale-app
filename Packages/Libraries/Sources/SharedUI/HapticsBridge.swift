@@ -75,4 +75,15 @@ public enum HapticsBridge {
     public static func fireMasteryMoment() {
         ForgeHapticEngine.shared.playSync(ForgeHapticLibrary.achievement)
     }
+
+    /// Recognition haptic fired when a ``SurpriseMoment`` surface lands
+    /// on the reflection screen. Per the Delight & Polish "Surprise"
+    /// micro-delight pass (`@Docs/AUDIT_MICRO_DELIGHT_COVERAGE_2026-06-
+    /// 24.md`). Reuses the lightest tap (``ForgeHapticLibrary/buttonTap``)
+    /// because surprise is quieter than mastery — the strip itself
+    /// carries the recognition; the haptic just signals "Bramble
+    /// noticed."
+    public static func fireSurpriseMoment() {
+        ForgeHapticEngine.shared.playSync(ForgeHapticLibrary.buttonTap)
+    }
 }
