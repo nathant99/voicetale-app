@@ -1,6 +1,7 @@
 ---
-status: ACTIVE
+status: ACTIVE-AWAITING-LABSMITH-ASSETS
 date: 2026-06-21
+last-updated: 2026-06-24 (consumer-side SCAFFOLD wire-up shipped via PR-E of the TENTH round — TraditionAudioCatalog resolver + gated play affordance + 10 scaffold tests)
 direction: app → labsmith
 intent: request 5 short public-domain or community-licensed audio CAFs (1 per Phase 1 tradition entry) for VoiceTale's tradition layer
 freshness-horizon: 60 days
@@ -46,7 +47,8 @@ Per `.claude/rules/trauma-informed-content.md` + `.claude/rules/distributed-narr
 
 - `Packages/Libraries/Sources/Services/Resources/Traditions/traditions.json` — 5 entries shipped (PR #24); each entry currently has `"audioSampleFilename": null`
 - `TraditionCatalogLoader.swift` — Phase 1 loader; ready to consume the audio filename when present
-- `TraditionGalleryView.swift` — Phase 1 grid; gracefully renders "Audio coming soon" when `audioSampleFilename == nil`
+- `TraditionGalleryView.swift` — Phase 1 grid; play affordance is wired (PR-E TENTH round) but silently absent until catalog returns a non-nil URL — kid never sees a broken-when-tapped button
+- `Services/TraditionAudioCatalog.swift` — NEW PR-E (TENTH round): conservative-hide resolver — returns `nil` for nil / empty / whitespace / unknown / unbundled filenames. Pure-function + `nonisolated`. 10 scaffold tests lock the conservative-hide contract + the "hasPlayableSample == false for every shipped entry" invariant so the gallery's play-affordance gate stays inert until a CAF lands.
 
 ## Sequencing to unblock
 

@@ -265,6 +265,11 @@ private struct TraditionCard: View {
 
     @State private var isExpanded: Bool = false
     @State private var showContentWarning: Bool
+    /// Shared anthology audio player — already env-injected at AppRootView
+    /// scope so a single AVAudioPlayer instance drives both tale playback
+    /// + tradition-sample playback. Reuse keeps AVAudioSession management
+    /// in one place per `@.claude/rules/audio-pipeline.md`.
+    @Environment(\.anthologyAudioPlayer) private var audioPlayer
 
     init(entry: TraditionEntry, onExplore: @escaping () -> Void) {
         self.entry = entry
@@ -312,12 +317,22 @@ private struct TraditionCard: View {
                     .font(.body)
                     .lineLimit(3)
             }
-            HStack {
+            HStack(spacing: 8) {
                 Button(isExpanded ? "Show less" : "Read more") {
                     isExpanded.toggle()
                     if isExpanded { onExplore() }
                 }
                 .buttonStyle(.bordered)
+                // PR-E (TENTH round) — play affordance gated on
+                // `TraditionAudioCatalog`. Renders ONLY when a bundled
+                // CAF exists for the entry. With zero audio samples in
+                // the bundle today (labsmith asset gen pending per
+                // `@Docs/HANDOFF_FROM_APP_TRADITION_AUDIO_SAMPLES.md`),
+                // the affordance is silently absent — kid sees no
+                // half-broken play button.
+                if TraditionAudioCatalog.hasPlayableSample(for: entry) {
+                    audioSampleButton
+                }
                 Spacer()
             }
         }
@@ -326,6 +341,38 @@ private struct TraditionCard: View {
         .accessibilityElement(children: .contain)
         .accessibilityLabel(Text(accessibilityLabel))
         .accessibilityHint(Text(accessibilityHint))
+    }
+
+    /// Audio sample affordance — only mounted when the catalog confirms
+    /// a bundled CAF exists. Reuses the shared ``AnthologyAudioPlayer``
+    /// from the environment so tradition playback ducks under the same
+    /// AVAudioSession the anthology already manages.
+    @ViewBuilder
+    private var audioSampleButton: some View {
+        if let url = TraditionAudioCatalog.resolveBundleURL(for: entry) {
+            Button {
+                playSample(at: url)
+            } label: {
+                Label("Listen", systemImage: audioIsPlaying(at: url) ? "stop.circle.fill" : "play.circle.fill")
+                    .font(.callout)
+            }
+            .buttonStyle(.bordered)
+            .accessibilityHint(audioIsPlaying(at: url)
+                               ? Text("Stop the sample.")
+                               : Text("Play a short sample of this tradition."))
+        }
+    }
+
+    private func playSample(at url: URL) {
+        if audioIsPlaying(at: url) {
+            audioPlayer.stop()
+        } else {
+            audioPlayer.play(fileURL: url)
+        }
+    }
+
+    private func audioIsPlaying(at url: URL) -> Bool {
+        audioPlayer.isActive(for: url) && audioPlayer.state == .playing
     }
 
     /// VoiceOver label combining tradition name + region + cultural-credit
