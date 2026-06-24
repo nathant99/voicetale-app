@@ -117,6 +117,18 @@ public struct DailyPromptView: View {
             "Time-travel telling: tell me a tale that happened yesterday — but tell it as if from twenty years from now.",
             "time_travel"
         ),
+        (
+            "Voice passport: pick one of Bramble's friends and tell a tale entirely in their voice, then take a single breath and finish in your own.",
+            "voice_passport"
+        ),
+        (
+            "Mood echo: tell me a tale in the mood you've told most often — and let the ending tip into the OPPOSITE mood for the last beat.",
+            "mood_echo"
+        ),
+        (
+            "Family tradition: ask someone in your house tonight for a story they remember from when they were your age. Bring it back tomorrow.",
+            "family_tradition"
+        ),
     ]
 
     public static let prompts: [String] = [
