@@ -18,6 +18,12 @@ public struct TraditionGalleryView: View {
     @Environment(\.sessionTally) private var sessionTally
     @State private var catalog: TraditionCatalog?
     @State private var loadError: String?
+    /// Delight & Polish "Discovery" micro-delight — count of traditions
+    /// the kid has not yet expanded. Drives the discovery callout above
+    /// the gallery list. Recomputed on appear + after each `onExplore`
+    /// tap (since expanding a tradition turns it from "unexplored" →
+    /// "explored").
+    @State private var unexploredCount: Int = 0
 
     public init() {}
 
@@ -35,6 +41,9 @@ public struct TraditionGalleryView: View {
             ScrollView {
                 VStack(alignment: .leading, spacing: 16) {
                     catalogIntro
+                    if let calloutCopy = Self.discoveryCalloutCopy(unexploredCount: unexploredCount) {
+                        traditionDiscoveryCallout(calloutCopy)
+                    }
                     ForEach(catalog.entries) { entry in
                         TraditionCard(entry: entry, onExplore: {
                             VoiceTaleStore.recordTraditionExplored(slug: entry.slug, in: modelContext)
@@ -50,6 +59,10 @@ public struct TraditionGalleryView: View {
                                 sessionTally.recordBadgeEarned(title: badge.title)
                             }
                             analytics.track(.traditionExplored(slug: entry.slug))
+                            // Discovery callout updates as the kid expands
+                            // traditions — pull the next iteration of
+                            // unexplored count from the persistence layer.
+                            recomputeUnexploredCount()
                         })
                     }
                 }
@@ -78,12 +91,66 @@ public struct TraditionGalleryView: View {
         .padding(.top, 8)
     }
 
+    /// Delight & Polish "Discovery" micro-delight — surfaces a Bramble-
+    /// register callout above the tradition list inviting the kid to
+    /// pull a tradition card closer when they're ready. Per
+    /// `@Docs/AUDIT_MICRO_DELIGHT_COVERAGE_2026-06-24.md` § Yellow —
+    /// Discovery expansion.
+    @ViewBuilder
+    private func traditionDiscoveryCallout(_ copy: String) -> some View {
+        HStack(spacing: 10) {
+            Image(systemName: "sparkles")
+                .foregroundStyle(.tint)
+            Text(copy)
+                .font(.callout)
+        }
+        .padding(12)
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .background(.thinMaterial, in: RoundedRectangle(cornerRadius: 12))
+        .accessibilityElement(children: .combine)
+        .accessibilityLabel(Text("Discovery hint: \(copy)"))
+    }
+
+    /// Pure-function copy resolver for the discovery callout. Returns
+    /// `nil` when the kid has explored every tradition (no callout
+    /// needed) — the copy never names the count, never frames remaining
+    /// traditions as deficient.
+    ///
+    /// Public + `nonisolated` so unit tests can exercise the resolver
+    /// without spinning up the SwiftUI host.
+    nonisolated public static func discoveryCalloutCopy(unexploredCount: Int) -> String? {
+        guard unexploredCount > 0 else { return nil }
+        if unexploredCount == 1 {
+            return "One tradition is waiting — pull it closer when you're ready."
+        }
+        return "More traditions are waiting — pull one closer when you're ready."
+    }
+
     private func load() {
         guard catalog == nil else { return }
         do {
             catalog = try TraditionCatalogLoader.loadBundled()
+            recomputeUnexploredCount()
         } catch {
             loadError = "\(error)"
+        }
+    }
+
+    /// Reads the catalog + the explored-tradition persistence layer to
+    /// compute how many catalog entries have NOT yet been expanded.
+    /// Idempotent and cheap — called on appear + after each `onExplore`
+    /// tap so the discovery callout fades correctly as the kid pulls
+    /// traditions closer one by one.
+    private func recomputeUnexploredCount() {
+        guard let catalog else { return }
+        let explored = Set(
+            VoiceTaleStore.fetchTraditionExploration(in: modelContext)
+                .compactMap { $0.firstExploredAt != nil ? $0.slug : nil }
+        )
+        unexploredCount = catalog.entries.reduce(into: 0) { count, entry in
+            if !explored.contains(entry.slug) {
+                count += 1
+            }
         }
     }
 }
