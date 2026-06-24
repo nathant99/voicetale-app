@@ -9,21 +9,20 @@ import ForgeSync
 @Suite("AvatarStudioSheet")
 struct AvatarStudioSheetTests {
     @Test func sheetInitializesWithDefaults() {
-        // The sheet must compose against AppGroupStore + AvatarAssetCatalog
-        // with default arguments so the call site in ProfileTabView stays
-        // a one-liner.
+        // The sheet must compose against `AppGroupStore` with default
+        // arguments so the call site in `ProfileTabView` stays a
+        // one-liner. ForgeKit 1.0.0-rc.1 removed the `AvatarAssetCatalog`
+        // surface — the editor is single-presentation now.
         let sheet = AvatarStudioSheet(onDismiss: {})
         _ = sheet.body
     }
 
-    @Test func sheetAcceptsExplicitStoreAndCatalog() {
+    @Test func sheetAcceptsExplicitStore() {
         // Explicit-injection path covers per-app testing setups (e.g.,
         // future SnapshotTest harnesses or fake stores).
         let store = AppGroupStore(suiteName: "test-\(UUID().uuidString)")
-        let catalog = AvatarAssetCatalog(appBundles: [])
         let sheet = AvatarStudioSheet(
             appGroupStore: store,
-            catalog: catalog,
             onDismiss: {}
         )
         _ = sheet.body

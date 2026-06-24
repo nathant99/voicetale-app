@@ -29,7 +29,13 @@ let package = Package(
         // ForgeKit pinned per `.claude/rules/forgekit.md` § Versioning.
         // Bump major versions via Xcode (File > Packages > Update to Latest Package Versions),
         // NOT by editing this file.
-        .package(url: "https://github.com/nathant99/forgekit.git", from: "0.99.0"),
+        // Bumped from `from: "0.99.0"` to `1.0.0-rc.3` per
+        // `@Docs/PLAN_FORGEMASTERY_INTEGRATION.md` § Phase A. The
+        // `ForgeMasteryEngine` module ships in 1.0.0-rc.2 per
+        // forgekit `Docs/CHANGELOG.md`. The 1.0.0-rc train carries
+        // strictly additive content vs the 0.99.x line — see ForgeKit
+        // CHANGELOG entries for 1.0.0-rc.1 / -rc.2 / -rc.3.
+        .package(url: "https://github.com/nathant99/forgekit.git", from: "1.0.0-rc.3"),
 
         // SwiftLintPlugins SUSPENDED on Xcode 26 per `.claude/rules/swiftlint.md`.
         // Re-enable only after verifying compatibility against the toolchain in use.
@@ -50,6 +56,10 @@ let package = Package(
                 // ForgeReflection Phase A bootstrap per
                 // `@Docs/PLAN_FORGEREFLECTION_LIFT.md` § Phase A.
                 .product(name: "ForgePersistence", package: "forgekit"),
+                // ForgeMasteryEngine carries `MasteryGraph<Topic>` consumed by
+                // ``KitMasteryTopology.graph`` per
+                // `@Docs/PLAN_FORGEMASTERY_INTEGRATION.md` § Phase A.
+                .product(name: "ForgeMasteryEngine", package: "forgekit"),
             ],
             resources: [
                 .process("Resources"),
@@ -71,6 +81,10 @@ let package = Package(
                 // `@.claude/rules/forgekit.md` § ForgeSpotlight. CoreSpotlight
                 // is permissionless; no Info.plist work needed.
                 .product(name: "ForgeSpotlight", package: "forgekit"),
+                // ForgeMasteryEngine Phase A — `KitMasteryStore` wraps
+                // `MasteryUpdater.recordAttempt(...)` per
+                // `@Docs/PLAN_FORGEMASTERY_INTEGRATION.md` § Phase A.
+                .product(name: "ForgeMasteryEngine", package: "forgekit"),
             ],
             resources: [
                 .process("Resources"),
