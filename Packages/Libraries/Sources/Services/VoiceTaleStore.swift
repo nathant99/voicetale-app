@@ -323,7 +323,8 @@ public enum VoiceTaleStore {
                 name: record.name,
                 mood: record.moodRaw.flatMap(VoiceTaleMood.init(rawValue:)),
                 taleIDs: record.taleIDsRaw,
-                createdAt: record.createdAt
+                createdAt: record.createdAt,
+                coverArtSlug: record.coverArtSlug
             )
         }
     }
@@ -331,10 +332,13 @@ public enum VoiceTaleStore {
     /// Creates a new collection. Returns the persisted value-type cache.
     /// Trims + bounds the name; throws ``CollectionStoreError.nameEmpty``
     /// for empty/whitespace input + ``.atCapacity`` past the cap.
+    /// ``cover`` is optional — `nil` defaults to the auto-derived glyph
+    /// cover (per ``AnthologyCoverDesign/autoGlyph``).
     @discardableResult
     public static func createCollection(
         name: String,
         mood: VoiceTaleMood?,
+        cover: AnthologyCoverDesign? = nil,
         now: Date = Date(),
         in context: ModelContext
     ) throws -> MoodCollectionData {
@@ -345,12 +349,14 @@ public enum VoiceTaleStore {
         guard existing.count < moodCollectionCapacity else {
             throw CollectionStoreError.atCapacity
         }
+        let coverSlug = cover.map(\.rawValue)
         let record = PersistentMoodCollection(
             id: UUID(),
             name: bounded,
             moodRaw: mood?.rawValue,
             taleIDsRaw: [],
-            createdAt: now
+            createdAt: now,
+            coverArtSlug: coverSlug
         )
         context.insert(record)
         do {
@@ -364,8 +370,29 @@ public enum VoiceTaleStore {
             name: record.name,
             mood: mood,
             taleIDs: [],
-            createdAt: now
+            createdAt: now,
+            coverArtSlug: coverSlug
         )
+    }
+
+    /// Updates the cover-design slug for an existing collection. Pass
+    /// `nil` to revert to the auto-derived glyph cover. No-op when the
+    /// collection id is missing.
+    public static func updateCollectionCover(
+        collectionID: UUID,
+        cover: AnthologyCoverDesign?,
+        in context: ModelContext
+    ) {
+        guard let record = fetchCollectionRecord(id: collectionID, in: context) else {
+            DebugLog.data("VoiceTaleStore.updateCollectionCover — collection not found id=\(collectionID)")
+            return
+        }
+        record.coverArtSlug = cover?.rawValue
+        do {
+            try context.save()
+        } catch {
+            DebugLog.data("VoiceTaleStore.updateCollectionCover — save failed", error: error)
+        }
     }
 
     /// Adds a tale to a collection (de-duped). Silently returns when the

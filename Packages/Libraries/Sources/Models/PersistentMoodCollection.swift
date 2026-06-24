@@ -30,17 +30,29 @@ public final class PersistentMoodCollection {
     /// freshest-first order in the Anthology shelf.
     public var createdAt: Date = Date()
 
+    /// Phase Delight & Polish — kid-chosen cover-design slug for the
+    /// per-collection visual axis. `nil` (default) renders the
+    /// auto-derived glyph cover (mood-keyed color + collection name)
+    /// via ``AnthologyCoverDesign/autoGlyph``. Non-nil values address
+    /// an ``AnthologyCoverDesign`` raw value. Additive Optional
+    /// pre-App-Store per `@.claude/rules/swiftdata.md` § "Pre-App Store:
+    /// don't create new VersionedSchema for unreleased models" —
+    /// synthesized `decodeIfPresent` keeps legacy SwiftData back-compat.
+    public var coverArtSlug: String?
+
     public init(
         id: UUID = UUID(),
         name: String = "",
         moodRaw: String? = nil,
         taleIDsRaw: [UUID] = [],
-        createdAt: Date = Date()
+        createdAt: Date = Date(),
+        coverArtSlug: String? = nil
     ) {
         self.id = id
         self.name = name
         self.moodRaw = moodRaw
         self.taleIDsRaw = taleIDsRaw
         self.createdAt = createdAt
+        self.coverArtSlug = coverArtSlug
     }
 }

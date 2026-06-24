@@ -1,20 +1,22 @@
 import SwiftUI
 import Models
 
-/// Phase 2 — kid-facing sheet for creating a new mood collection. Two
-/// fields: a kid-chosen name (length-bounded via the persistence layer)
-/// + an optional mood tag. Tapping Save delegates to the parent via
-/// ``onSave``; the parent handles the actual `VoiceTaleStore.createCollection`
-/// + analytics emission so the sheet stays free of side effects.
+/// Phase 2 — kid-facing sheet for creating a new mood collection. Three
+/// fields: kid-chosen name (length-bounded via the persistence layer) +
+/// optional mood tag + optional cover design. Tapping Save delegates to
+/// the parent via ``onSave``; the parent handles the actual
+/// `VoiceTaleStore.createCollection` + analytics emission so the sheet
+/// stays free of side effects.
 struct CollectionEditorView: View {
     @Environment(\.dismiss) private var dismiss
     @State private var name: String = ""
     @State private var selectedMood: VoiceTaleMood?
+    @State private var selectedCover: AnthologyCoverDesign = .autoGlyph
     @State private var errorMessage: String?
 
     /// Returns whether the save succeeded so the sheet can dismiss only
     /// on a clean save (e.g., not on `nameEmpty` / `atCapacity`).
-    let onSave: (_ name: String, _ mood: VoiceTaleMood?) -> Bool
+    let onSave: (_ name: String, _ mood: VoiceTaleMood?, _ cover: AnthologyCoverDesign?) -> Bool
 
     var body: some View {
         NavigationStack {
@@ -34,6 +36,17 @@ struct CollectionEditorView: View {
                     }
                     .pickerStyle(.menu)
                     .accessibilityHint("Pick a mood theme for this shelf, or leave it for any mood.")
+                }
+                Section("Cover") {
+                    coverPreviewRow
+                    Picker("Style", selection: $selectedCover) {
+                        ForEach(AnthologyCoverDesign.allCases, id: \.self) { design in
+                            Label(design.displayLabel, systemImage: design.pickerSymbolName)
+                                .tag(design)
+                        }
+                    }
+                    .pickerStyle(.menu)
+                    .accessibilityHint("Pick a cover style for this shelf.")
                 }
                 if let errorMessage {
                     Section {
@@ -63,13 +76,37 @@ struct CollectionEditorView: View {
         }
     }
 
+    private var coverPreviewRow: some View {
+        HStack(spacing: 12) {
+            AnthologyCoverView(
+                design: selectedCover,
+                collectionName: trimmedName.isEmpty ? "Tales" : trimmedName,
+                mood: selectedMood,
+                firstTaleTitle: nil
+            )
+            VStack(alignment: .leading, spacing: 2) {
+                Text(selectedCover.displayLabel)
+                    .font(.callout.weight(.medium))
+                Text("Cover preview")
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+            }
+            Spacer()
+        }
+        .padding(.vertical, 4)
+    }
+
     private var trimmedName: String {
         name.trimmingCharacters(in: .whitespacesAndNewlines)
     }
 
     private func handleSave() {
         errorMessage = nil
-        let didSave = onSave(trimmedName, selectedMood)
+        // Pass `nil` for the auto-derived default so legacy collections
+        // (no coverArtSlug) and new auto-derived ones share the same wire
+        // shape — only kid-chosen non-default selections carry a slug.
+        let coverSelection: AnthologyCoverDesign? = selectedCover == .autoGlyph ? nil : selectedCover
+        let didSave = onSave(trimmedName, selectedMood, coverSelection)
         if didSave {
             dismiss()
         } else {

@@ -82,11 +82,12 @@ public struct AnthologyView: View {
     /// Called from the editor sheet's Save button. Returns true so the
     /// sheet can dismiss; returns false on `nameEmpty` / `atCapacity` so
     /// the sheet can surface the error to the kid.
-    private func handleCreateCollection(_ name: String, _ mood: VoiceTaleMood?) -> Bool {
+    private func handleCreateCollection(_ name: String, _ mood: VoiceTaleMood?, _ cover: AnthologyCoverDesign?) -> Bool {
         do {
             let created = try VoiceTaleStore.createCollection(
                 name: name,
                 mood: mood,
+                cover: cover,
                 in: modelContext
             )
             analytics.track(.anthologyCollectionCreated(mood: mood))
@@ -243,8 +244,16 @@ public struct AnthologyView: View {
 
     private func collectionChip(_ collection: MoodCollectionData) -> some View {
         let isActive = activeCollectionID == collection.id
+        let coverDesign = AnthologyCoverDesign.resolve(slug: collection.coverArtSlug)
         return Button(action: { toggleCollectionFilter(collection.id) }) {
-            HStack(spacing: 6) {
+            HStack(spacing: 8) {
+                AnthologyCoverView(
+                    design: coverDesign,
+                    collectionName: collection.name,
+                    mood: collection.mood,
+                    firstTaleTitle: nil,
+                    size: 28
+                )
                 Text(collection.name)
                     .font(.callout)
                 Text("\(collection.taleCount)")
@@ -255,8 +264,8 @@ public struct AnthologyView: View {
                         Capsule().fill(Color.secondary.opacity(0.18))
                     )
             }
-            .padding(.horizontal, 12)
-            .padding(.vertical, 6)
+            .padding(.horizontal, 10)
+            .padding(.vertical, 4)
             .background(
                 Capsule().fill(isActive ? Color.accentColor.opacity(0.22) : Color.secondary.opacity(0.08))
             )
