@@ -1,6 +1,7 @@
 ---
-status: ACTIVE
+status: ACTIVE-STEP-4-ONLY
 date: 2026-06-23
+last-updated: 2026-06-24 (Step 3 Swift wire-up SHIPPED via PR-B of the TENTH-round)
 direction: agent → user
 intent: Xcode-UI steps to register a concrete `AppIntent` + `AppShortcutsProvider` so the ForgeIntents foundation from PR #89 turns on Siri / Spotlight / Shortcuts entry points for VoiceTale
 freshness-horizon: 60 days
@@ -50,16 +51,21 @@ These keys are stored in the build settings as `INFOPLIST_KEY_*` if Xcode's "Gen
 
 **Expected result**: the project's build settings contain `INFOPLIST_KEY_INIntentsSupported = "RecordNewTaleIntent OpenAnthologyIntent ShowProgressIntent OpenTraditionGalleryIntent"`. Staging the resulting `project.pbxproj` diff is fine.
 
-## Step 3 — (No new Step) — `AppShortcutsProvider` is registered via Swift
+## Step 3 — (No new Step) — `AppShortcutsProvider` is registered via Swift — **✅ SHIPPED 2026-06-24 PR-B of TENTH round**
 
-The `AppShortcutsProvider` registration happens in code (next CC session lands this). It does NOT require additional Info.plist entries beyond the optional Step 2. The `@main` shell discovers the provider automatically because the App Intents runtime scans the binary for any struct conforming to `AppShortcutsProvider`.
+The `AppShortcutsProvider` registration happens in code. It does NOT require additional Info.plist entries beyond the optional Step 2. The `@main` shell discovers the provider automatically because the App Intents runtime scans the binary for any struct conforming to `AppShortcutsProvider`.
 
-Nothing for you to do in Step 3 itself. The next CC session will:
+Step 3 SHIPPED — Swift wire-up landed under `Apps/VoiceTale/VoiceTale/Intents/`:
 
-1. Add `Apps/VoiceTale/VoiceTale/Intents/RecordNewTaleIntent.swift` (synchronized folder; safe to author from disk)
-2. Add `Apps/VoiceTale/VoiceTale/Intents/VoiceTaleShortcuts.swift` declaring `struct VoiceTaleShortcuts: AppShortcutsProvider`
-3. Wire the 4 destinations from `VoiceTaleIntentRouter.tab(for:)` to the 4 intents
-4. Route the intent invocation through `AppRootView.AppTab` selection via the existing `@Observable` app coordinator
+1. ✅ `Apps/VoiceTale/VoiceTale/Intents/RecordNewTaleIntent.swift`
+2. ✅ `Apps/VoiceTale/VoiceTale/Intents/OpenAnthologyIntent.swift`
+3. ✅ `Apps/VoiceTale/VoiceTale/Intents/ShowProgressIntent.swift`
+4. ✅ `Apps/VoiceTale/VoiceTale/Intents/OpenTraditionGalleryIntent.swift`
+5. ✅ `Apps/VoiceTale/VoiceTale/Intents/VoiceTaleShortcuts.swift` declaring `struct VoiceTaleShortcuts: AppShortcutsProvider`
+6. ✅ `Packages/Libraries/Sources/AppFeature/Intents/IntentTabCoordinator.swift` — `@Observable @MainActor` singleton; intent `perform()` posts via `IntentTabCoordinator.shared.request(destination:)`; `AppRootView` observes via `.onChange(of: IntentTabCoordinator.shared.requestedTab)` and applies + clears
+7. ✅ Categorical analytics: `VoiceTaleAnalyticsEvent.intentDestinationRequested(destination:)` fires on apply (destination raw value only — no PII; never the prompt text, never the user-facing copy)
+8. ✅ Onboarding guard: requests fire ONLY after the kid has cleared onboarding (`hasCompletedOnboarding == true`); unboarded-kid requests are silently dropped so the COPPA / mic-permission gates are never skipped
+9. ✅ 8 `IntentTabCoordinatorTests` + 4 `IntentDestinationRequestedAnalyticsTests` lock the bridge surface + analytics property bag
 
 ## Step 4 — Verify in Settings → Siri & Search
 

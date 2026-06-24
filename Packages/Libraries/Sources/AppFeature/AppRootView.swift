@@ -165,6 +165,34 @@ public struct AppRootView: View {
             }
             .interactiveDismissDisabled(false)
         }
+        .onChange(of: IntentTabCoordinator.shared.requestedTab) { _, requested in
+            // AppIntent runtime → singleton coordinator → here. The intent
+            // posts via `IntentTabCoordinator.shared.request(destination:)`
+            // from `Apps/VoiceTale/VoiceTale/Intents/*.swift`; we apply +
+            // clear so the next request triggers another apply. Per
+            // `@.claude/rules/forgekit.md` § ForgeIntents (registry-routed
+            // App Intents) the perform method opens the app + hops to
+            // MainActor before posting.
+            guard let requested else { return }
+            // Honor the intent only after the kid has cleared onboarding —
+            // dropping an unboarded kid straight into the Tell tab would
+            // skip the COPPA / mic-permission gates. The coordinator hangs
+            // on to the destination via `lastRequestedDestination` so the
+            // onboarding-completion handler could replay it; for now we
+            // simply drop the request when onboarding is incomplete.
+            guard hasCompletedOnboarding else {
+                IntentTabCoordinator.shared.clearRequest()
+                return
+            }
+            selectedTab = requested
+            IntentTabCoordinator.shared.clearRequest()
+            // Categorical analytics — the destination travels (not the
+            // tab) so future fine-grained routing keeps the analytics
+            // surface stable.
+            if let destination = IntentTabCoordinator.shared.lastRequestedDestination {
+                analytics.track(.intentDestinationRequested(destination: destination.rawValue))
+            }
+        }
         .onChange(of: sessionTimer.timer.isSessionExpired) { _, expired in
             guard expired, hasShownSessionCloserThisSitting == false else { return }
             hasShownSessionCloserThisSitting = true
