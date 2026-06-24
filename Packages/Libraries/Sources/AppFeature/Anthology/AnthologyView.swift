@@ -37,6 +37,11 @@ public struct AnthologyView: View {
     /// "Share as audio" independently.
     @State private var exporter = VoiceTaleExporter()
     @State private var exportState: [UUID: TaleExportState] = [:]
+    /// Delight & Polish "Share-worthy moments" — non-nil presents the
+    /// published-tale certificate sheet for the given tale. Set by the
+    /// per-card "Certificate" affordance; cleared on sheet dismiss.
+    /// Per PR-F 2026-06-24 NINTH-round.
+    @State private var certificateTale: VoiceTaleEntry?
 
     public init() {}
 
@@ -54,6 +59,9 @@ public struct AnthologyView: View {
                 .onAppear(perform: handleAppear)
                 .sheet(isPresented: $isPresentingCollectionEditor) {
                     CollectionEditorView(onSave: handleCreateCollection)
+                }
+                .sheet(item: $certificateTale) { tale in
+                    PublishedTaleCertificateSheet(tale: tale)
                 }
         }
     }
@@ -344,6 +352,7 @@ public struct AnthologyView: View {
             .foregroundStyle(.secondary)
             playbackRow(for: tale)
             exportRow(for: tale)
+            certificateRow(for: tale)
         }
         .padding(16)
         .background(.thinMaterial, in: RoundedRectangle(cornerRadius: 16))
@@ -483,6 +492,24 @@ public struct AnthologyView: View {
         analytics.track(
             .voiceRecordingShared(mood: tale.mood, durationSeconds: tale.durationSeconds)
         )
+    }
+
+    /// Delight & Polish "Share-worthy moments" — "Certificate" affordance
+    /// per tale card. Opens ``PublishedTaleCertificateSheet`` which
+    /// renders a kid-readable SwiftUI card the kid can save via the
+    /// system share sheet (rasterized to PNG by `ImageRenderer`).
+    /// Per @Docs/FEATURE_PLAN.md § Phase Delight & Polish — Share-worthy
+    /// moments — published-tale certificates carry-over.
+    private func certificateRow(for tale: VoiceTaleEntry) -> some View {
+        Button {
+            certificateTale = tale
+        } label: {
+            Label("Certificate", systemImage: "rosette")
+                .font(.callout.weight(.semibold))
+        }
+        .buttonStyle(.bordered)
+        .controlSize(.small)
+        .accessibilityHint("Open a printable certificate card for this tale.")
     }
 
     /// Kicks off the CAF export off the MainActor + folds the result into
