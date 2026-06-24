@@ -244,19 +244,24 @@ nonisolated public struct MoodCollectionData: Codable, Sendable, Hashable, Ident
     public let mood: VoiceTaleMood?
     public let taleIDs: [UUID]
     public let createdAt: Date
+    /// Kid-chosen cover-design slug (or `nil` for the auto-derived
+    /// glyph cover). Resolves via ``AnthologyCoverDesign/resolve(slug:)``.
+    public let coverArtSlug: String?
 
     public init(
         id: UUID,
         name: String,
         mood: VoiceTaleMood? = nil,
         taleIDs: [UUID] = [],
-        createdAt: Date = Date()
+        createdAt: Date = Date(),
+        coverArtSlug: String? = nil
     ) {
         self.id = id
         self.name = name
         self.mood = mood
         self.taleIDs = taleIDs
         self.createdAt = createdAt
+        self.coverArtSlug = coverArtSlug
     }
 
     public var taleCount: Int { taleIDs.count }

@@ -124,6 +124,72 @@ struct MoodCollectionStoreTests {
         let ordered = VoiceTaleStore.fetchCollections(in: context).map(\.id)
         #expect(ordered == [second.id, first.id])
     }
+
+    // MARK: - PR-C — cover-art slug surface
+
+    @Test func createCollectionWithoutCoverPersistsNilSlug() throws {
+        let context = try newContext()
+        let collection = try VoiceTaleStore.createCollection(
+            name: "Default cover",
+            mood: nil,
+            in: context
+        )
+        #expect(collection.coverArtSlug == nil)
+        // Fetched copy round-trips identically.
+        let fetched = try #require(VoiceTaleStore.fetchCollections(in: context).first)
+        #expect(fetched.coverArtSlug == nil)
+        // Downstream resolver returns the auto-derived default.
+        #expect(AnthologyCoverDesign.resolve(slug: fetched.coverArtSlug) == .autoGlyph)
+    }
+
+    @Test func createCollectionWithCoverPersistsSlug() throws {
+        let context = try newContext()
+        let collection = try VoiceTaleStore.createCollection(
+            name: "Tender ones",
+            mood: .tender,
+            cover: .lantern,
+            in: context
+        )
+        #expect(collection.coverArtSlug == "lantern")
+        let fetched = try #require(VoiceTaleStore.fetchCollections(in: context).first)
+        #expect(fetched.coverArtSlug == "lantern")
+        #expect(AnthologyCoverDesign.resolve(slug: fetched.coverArtSlug) == .lantern)
+    }
+
+    @Test func updateCollectionCoverPersists() throws {
+        let context = try newContext()
+        let collection = try VoiceTaleStore.createCollection(
+            name: "Reshape me",
+            mood: .wild,
+            in: context
+        )
+        #expect(collection.coverArtSlug == nil)
+        VoiceTaleStore.updateCollectionCover(collectionID: collection.id, cover: .stage, in: context)
+        let after = try #require(VoiceTaleStore.fetchCollections(in: context).first)
+        #expect(after.coverArtSlug == "stage")
+    }
+
+    @Test func updateCollectionCoverNilReverts() throws {
+        let context = try newContext()
+        let collection = try VoiceTaleStore.createCollection(
+            name: "Revert me",
+            mood: nil,
+            cover: .quilt,
+            in: context
+        )
+        #expect(collection.coverArtSlug == "quilt")
+        VoiceTaleStore.updateCollectionCover(collectionID: collection.id, cover: nil, in: context)
+        let after = try #require(VoiceTaleStore.fetchCollections(in: context).first)
+        #expect(after.coverArtSlug == nil)
+        #expect(AnthologyCoverDesign.resolve(slug: after.coverArtSlug) == .autoGlyph)
+    }
+
+    @Test func updateCollectionCoverIgnoresUnknownID() throws {
+        let context = try newContext()
+        // No-op when the id is unknown; never crashes.
+        VoiceTaleStore.updateCollectionCover(collectionID: UUID(), cover: .lantern, in: context)
+        #expect(VoiceTaleStore.fetchCollections(in: context).isEmpty)
+    }
 }
 
 @MainActor
