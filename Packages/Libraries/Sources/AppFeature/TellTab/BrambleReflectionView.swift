@@ -46,6 +46,14 @@ public struct BrambleReflectionView: View {
     /// ``MasteryMoment`` § "priority discipline"). Per
     /// `@Docs/FEATURE_PLAN.md` § Delight & Polish.
     public let masteryMoment: MasteryMoment?
+    /// Delight & Polish "Surprise" micro-delight — when non-nil,
+    /// surfaces a lighter recognition strip below Bramble's bubble.
+    /// Anti-clobber: distress chip suppresses the strip entirely;
+    /// ``MasteryMoment`` suppresses the surprise (mastery is the
+    /// deeper, rarer signal). The surprise strip sits BELOW the
+    /// voice-variation callout but ABOVE the cast-voicing chip. Per
+    /// `@Docs/AUDIT_MICRO_DELIGHT_COVERAGE_2026-06-24.md`.
+    public let surpriseMoment: SurpriseMoment?
     public let onSave: () -> Void
     public let onRetell: () -> Void
 
@@ -62,6 +70,7 @@ public struct BrambleReflectionView: View {
         voiceVariation: VoiceStoryReflection? = nil,
         crisisResources: [CrisisResource] = [],
         masteryMoment: MasteryMoment? = nil,
+        surpriseMoment: SurpriseMoment? = nil,
         onSave: @escaping () -> Void,
         onRetell: @escaping () -> Void
     ) {
@@ -74,6 +83,7 @@ public struct BrambleReflectionView: View {
         self.voiceVariation = voiceVariation
         self.crisisResources = crisisResources
         self.masteryMoment = masteryMoment
+        self.surpriseMoment = surpriseMoment
         self.onSave = onSave
         self.onRetell = onRetell
     }
@@ -93,6 +103,11 @@ public struct BrambleReflectionView: View {
                 }
                 if let masteryMoment, crisisResources.isEmpty {
                     masteryMomentStrip(masteryMoment)
+                }
+                // Surprise strip — suppressed under distress AND under
+                // mastery (mastery wins per priority discipline).
+                if let surpriseMoment, crisisResources.isEmpty, masteryMoment == nil {
+                    surpriseMomentStrip(surpriseMoment)
                 }
                 if let line = castVoicingLine, !line.isEmpty {
                     castVoicingChip(
@@ -280,6 +295,30 @@ public struct BrambleReflectionView: View {
         .background(.thinMaterial, in: RoundedRectangle(cornerRadius: 14))
         .accessibilityElement(children: .contain)
         .accessibilityLabel(Text("Mastery moment: \(moment.headline) \(moment.body)"))
+    }
+
+    /// Delight & Polish "Surprise" micro-delight strip. Mirrors the
+    /// ``masteryMomentStrip`` layout but uses a lighter recognition
+    /// register. Per `@Docs/AUDIT_MICRO_DELIGHT_COVERAGE_2026-06-24.md`.
+    @ViewBuilder
+    private func surpriseMomentStrip(_ moment: SurpriseMoment) -> some View {
+        VStack(alignment: .leading, spacing: 8) {
+            HStack(spacing: 8) {
+                Image(systemName: moment.systemImage)
+                    .foregroundStyle(.tint)
+                Text(moment.headline)
+                    .font(.caption.weight(.semibold))
+                    .foregroundStyle(.secondary)
+            }
+            Text(moment.body)
+                .font(.body)
+                .lineSpacing(3)
+        }
+        .padding(14)
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .background(.thinMaterial, in: RoundedRectangle(cornerRadius: 14))
+        .accessibilityElement(children: .contain)
+        .accessibilityLabel(Text("Surprise moment: \(moment.headline) \(moment.body)"))
     }
 
     @ViewBuilder

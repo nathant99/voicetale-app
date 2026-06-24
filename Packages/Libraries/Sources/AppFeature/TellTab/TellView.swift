@@ -65,6 +65,15 @@ public struct TellView: View {
     /// upstream when ``BrambleMentor.lastDistressAxis`` is non-nil per
     /// ``BrambleReflectionView`` § masteryMomentStrip.
     @State private var masteryMoment: MasteryMoment?
+    /// Delight & Polish "Surprise" micro-delight — populated by
+    /// ``runReflection`` when the just-finished tale qualifies for a
+    /// fresh-pattern recognition (per ``SurpriseMoment/derive(from:)``).
+    /// Cleared on retell / cancel / save. Anti-clobber: suppressed
+    /// upstream when ``BrambleMentor.lastDistressAxis`` is non-nil AND
+    /// suppressed downstream when ``masteryMoment`` is non-nil
+    /// (mastery wins the priority contest in
+    /// ``BrambleReflectionView`` § surpriseMomentStrip).
+    @State private var surpriseMoment: SurpriseMoment?
     /// Experimental feature flag. `@AppStorage` is the source of truth so the
     /// SettingsView toggle and the TellView reading both observe the same key
     /// without an actor-bridging environment value. Default false per the DN-S
@@ -209,6 +218,46 @@ public struct TellView: View {
         return MasteryMoment.derive(from: inputs)
     }
 
+    /// Delight & Polish "Surprise" micro-delight — derive which (if any)
+    /// fresh-pattern recognition fires for the just-finished tale.
+    /// Reads: current beat timeline (in-memory machine state) + prior
+    /// saved tales (for the mood-history + preset-history sets) +
+    /// machine.draftMood (today's mood). Pure-function
+    /// ``SurpriseMoment/derive(from:)`` makes the priority decision.
+    /// The within-session tradition-echo signal isn't wired in this
+    /// pass (cross-tab session tracking would extend
+    /// ``SessionTallyTracker``); the archetype is reserved for a
+    /// future PR so the API surface stays stable.
+    private func deriveSurpriseMomentIfAny() -> SurpriseMoment? {
+        let allTales = VoiceTaleStore.fetchTales(in: modelContext)
+        // Mood history — every mood the kid has saved a tale in BEFORE
+        // this one. The current tale isn't yet in the store at
+        // reflection time, so `allTales` is the canonical "history" set.
+        let moodsEverTold = Set(allTales.map(\.mood))
+        // Voice-preset sets — today's presets are derived from the
+        // in-memory beat timeline; the prior non-narrator preset set is
+        // accumulated from saved tales' beat timelines.
+        let todayPresets = Set(
+            machine.beatTimeline.compactMap(\.voiceCharacterSlug)
+        )
+        let priorNonNarrator = Set(
+            allTales.flatMap { tale in
+                tale.beatTimeline.compactMap(\.voiceCharacterSlug)
+            }.filter { $0 != SurpriseMoment.narratorSlug }
+        )
+        let inputs = SurpriseMomentInputs(
+            todayMood: machine.draftMood,
+            moodsEverTold: moodsEverTold,
+            // Tradition-echo wiring deferred to a follow-on PR; safe
+            // default keeps the archetype silent until the cross-tab
+            // signal is in place.
+            traditionEchoEligibleThisSession: false,
+            todayPresets: todayPresets,
+            priorNonNarratorPresets: priorNonNarrator
+        )
+        return SurpriseMoment.derive(from: inputs)
+    }
+
     @ViewBuilder
     private var phaseBody: some View {
         switch machine.phase {
@@ -242,6 +291,7 @@ public struct TellView: View {
                 voiceVariation: voiceVariationReflection,
                 crisisResources: distressCrisisResources,
                 masteryMoment: masteryMoment,
+                surpriseMoment: surpriseMoment,
                 onSave: saveToAnthology,
                 onRetell: retellFromScratch
             )
@@ -532,6 +582,7 @@ public struct TellView: View {
         voiceVariationReflection = nil
         distressCrisisResources = []
         masteryMoment = nil
+        surpriseMoment = nil
     }
 
     private func tickRecorder() {
@@ -600,6 +651,17 @@ public struct TellView: View {
             masteryMoment = derived
             if derived != nil {
                 HapticsBridge.fireMasteryMoment()
+            }
+            // Delight & Polish "Surprise" micro-delight — derive on the
+            // safe (non-distress) path. Suppressed under the mastery
+            // moment per ``BrambleReflectionView/surpriseMomentStrip``;
+            // we still derive + persist so the next reflection sees the
+            // fresh state, but the haptic only fires when the strip
+            // will actually surface.
+            let derivedSurprise = deriveSurpriseMomentIfAny()
+            surpriseMoment = derivedSurprise
+            if derivedSurprise != nil && derived == nil {
+                HapticsBridge.fireSurpriseMoment()
             }
         }
         analytics.track(.reflectionShown(
