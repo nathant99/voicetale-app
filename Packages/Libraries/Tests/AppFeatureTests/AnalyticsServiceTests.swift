@@ -160,6 +160,35 @@ struct AnalyticsServiceTests {
         #expect(triple.properties["tales_count"] == nil)
     }
 
+    // MARK: - anthologyCollectionCoverChanged (Delight & Polish)
+
+    @Test func anthologyCollectionCoverChangedCarriesMoodAndCoverSlug() {
+        // PR — anthology cover-edit affordance. Mood travels for cohort
+        // analysis; the cover slug travels (categorical: one of the
+        // AnthologyCoverDesign raw values, or `auto` for the default).
+        let event = VoiceTaleAnalyticsEvent.anthologyCollectionCoverChanged(
+            mood: .tender,
+            coverSlug: "lantern"
+        )
+        #expect(event.name == "anthology_collection_cover_changed")
+        #expect(event.properties["mood"] == "tender")
+        #expect(event.properties["cover_slug"] == "lantern")
+    }
+
+    @Test func anthologyCollectionCoverChangedAuxOnNilMoodAndAutoCover() {
+        // Ensemble collections (mood == nil) report "any" so the
+        // property never goes blank on the wire; the canonical
+        // auto-derived cover reports as "auto" (the slug the
+        // ``handleCoverChange`` site emits when the kid leaves the
+        // picker on ``AnthologyCoverDesign/autoGlyph``).
+        let event = VoiceTaleAnalyticsEvent.anthologyCollectionCoverChanged(
+            mood: nil,
+            coverSlug: "auto"
+        )
+        #expect(event.properties["mood"] == "any")
+        #expect(event.properties["cover_slug"] == "auto")
+    }
+
     // MARK: - Event-vocabulary exhaustiveness / uniqueness audit
 
     @Test func everyDeclaredEventHasAUniqueNonEmptyName() {
@@ -183,6 +212,8 @@ struct AnalyticsServiceTests {
             .anthologyFilterApplied(mood: .funny),
             .retentionMilestoneHit(milestone: "d1"),
             .sessionCloserShown(talesSavedThisSession: 1),
+            .anthologyCollectionCreated(mood: .tender),
+            .anthologyCollectionCoverChanged(mood: .tender, coverSlug: "lantern"),
         ]
         let names = representativeEvents.map(\.name)
         // Uniqueness
