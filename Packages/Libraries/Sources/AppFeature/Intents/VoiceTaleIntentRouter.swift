@@ -37,11 +37,22 @@ nonisolated public enum VoiceTaleIntentRouter {
 /// as plain `String` fields (instead of an enum) so consuming views can
 /// concatenate them into a localized "Try saying" hint string without
 /// going back through ``ForgeShortcutPhraseBuilder`` at render time.
+///
+/// One field per shipped ``AppShortcut`` in the app-shell
+/// `VoiceTaleShortcuts.appShortcuts` array (PR #113). Adding a new
+/// AppShortcut means adding a new field here so the in-app "Try saying"
+/// hint surface (``SettingsView`` Siri section) stays in lockstep with
+/// what the runtime registers.
 nonisolated public struct VoiceTaleShortcutPhrases: Sendable, Hashable {
     public let openApp: String
     public let tellATale: String
     public let showMyTales: String
     public let showMyProgress: String
+    /// Tradition gallery phrase. Mirrors
+    /// ``Apps/VoiceTale/VoiceTale/Intents/VoiceTaleShortcuts``'s
+    /// `OpenTraditionGalleryIntent` AppShortcut so the in-app "Try
+    /// saying" hint surface lists every registered phrase.
+    public let showTraditionGallery: String
 
     /// Build the canonical set from the portfolio's phrase builder. The
     /// app-name is hardcoded "VoiceTale" — matches the kid-readable
@@ -53,7 +64,8 @@ nonisolated public struct VoiceTaleShortcutPhrases: Sendable, Hashable {
             openApp: builder.openPhrase(),
             tellATale: builder.customPhrase("Tell a tale"),
             showMyTales: builder.customPhrase("Show my tales"),
-            showMyProgress: builder.showProgress()
+            showMyProgress: builder.showProgress(),
+            showTraditionGallery: builder.customPhrase("Show the traditions")
         )
     }
 }
