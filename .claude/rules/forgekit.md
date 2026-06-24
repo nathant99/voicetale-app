@@ -4,11 +4,17 @@ Shared SPM framework at `../forgekit/`. Apps import only the modules they need.
 
 ## Versioning
 
-ForgeKit uses **semantic versioning** with annotated git tags (current: **0.99.1** shipped 2026-05-26, pre-1.0). Breaking changes are expected before 1.0. **`forgekit/Docs/CHANGELOG.md` is authoritative** — labsmith rule/CLAUDE.md text drifts; verify CHANGELOG before quoting a specific version.
+ForgeKit uses **semantic versioning** with annotated git tags (current: **1.0.0-rc.3** shipped 2026-06-17). **`forgekit/Docs/CHANGELOG.md` is authoritative** — labsmith rule/CLAUDE.md text drifts; verify CHANGELOG before quoting a specific version.
+
+**1.0.0-rc.1 — `ForgeAvatar` BREAKING simplification** per labsmith ADR-022 (2026-06-02). The 108-WebP composable accessory pipeline + `AvatarAssetCatalog` actor + `AvatarStudioView.Presentation` (.lite/.full) enum + `AvatarLayer` enum + `AvatarSpriteNode` are REMOVED. New Apple Contacts-style API: `AvatarConfig` (in ForgeModels — `tintIndex: Int` + `glyph: AvatarGlyph`), `AvatarGlyph` enum (.initial / .symbol / .emoji), `AvatarRenderer` (pure SwiftUI), `AvatarStudioView` (single-presentation; takes `appGroupStore:` + `displayName: String?` + `onSaved:` + `onCancelled:`), `AvatarThemedGlyphProvider` protocol + `ForgeAvatarRegistry` for per-app overrides without forking. Migration for portfolio apps: drop the `catalog:` parameter on `AvatarStudioView` callers; drop the segmented `.lite`/`.full` picker; the editor is now single-shape. **VoiceTale migration reference impl**: `Packages/Libraries/Sources/AppFeature/ProfileTab/AvatarStudioSheet.swift` (round 2026-06-24 TWELFTH; PR #124).
+
+**1.0.0-rc.2 — `ForgeMasteryEngine` new client module** (depends on ForgeModels + ForgeGamification). All public types are `nonisolated struct` / `nonisolated enum` — pure value types. `MasteryGraph<Topic>` (cycle/duplicate/unknown-prereq detection at init; stable topological order via lexicographic DFS), `TopicMasteryState` (FSRS-6 + attemptCount + rolling recentOutcomes; `masteryScore = 60% retrievability + 40% recent accuracy`; `isRacingAhead` / `isStuck` heuristics), `AttemptOutcome` enum, `NextProblemPicker<Topic, ProblemID>` (extend / consolidate / stretch per Vygotsky-ZPD), `MasteryUpdater`. Closes Phase A of the VoiceTale ForgeMasteryEngine integration per `@Docs/PLAN_FORGEMASTERY_INTEGRATION.md` (PR #124, ELEVENTH-round TWELFTH same-day round 2026-06-24).
+
+**1.0.0-rc.3 — patch-only** ship-prep hygiene + Linux platform stub closure.
 
 **0.99.1 — patch-only** test rewrite (`ForgeAIGeneratorTests` → `ForgeAIContentCachePublicAPITests`).
 
-**0.99.0 — `ReflectionPromptModifier` + `ReflectionPromptStorage` shipped** (ForgeUI + ForgePersistence; closes Move R2 — journal hooks / structured reflection prompts for ~22 Reflect-pillar apps).
+**0.99.0 — `ReflectionPromptModifier` + `ReflectionPromptStorage` shipped** (ForgeUI + ForgePersistence; closes Move R2 — journal hooks / structured reflection prompts for ~22 Reflect-pillar apps). VoiceTale Phase A integration shipped PR #123 (2026-06-24 TWELFTH-round): `VoiceTaleReflectionConfigCatalog.forSocraticPrompt(_:kitNumber:)` + `@MainActor @Observable VoiceTaleReflectionStore` wrapping the storage actor, mirroring the zero-`@Query` cache pattern. `ReflectionEntryRecord` registered in `VoiceTaleSchemaV1.models`.
 
 **0.98.0 — `CastEncounter` primitive shipped** (`ForgePersistence`; SwiftData `@Model` + `CastEncounterStore` actor; closes DN-D12 longitudinal cast progression for ~37 high-priority adopters).
 
