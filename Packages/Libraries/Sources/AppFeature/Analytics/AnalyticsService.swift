@@ -56,6 +56,13 @@ public enum VoiceTaleAnalyticsEvent: Sendable, Hashable {
     /// mood collection. Categorical-only: the mood tag (or `nil` for
     /// "any mood" collections). The kid-chosen name NEVER travels.
     case anthologyCollectionCreated(mood: VoiceTaleMood?)
+    /// Phase Delight & Polish — fires when the kid re-themes an existing
+    /// collection via the per-chip "Change cover…" affordance. Mood
+    /// travels for cohort analysis (which mood-keyed collections get
+    /// re-themed most); the kid-chosen name NEVER travels. The cover
+    /// slug travels (categorical: one of the ``AnthologyCoverDesign``
+    /// raw values, or `auto` for the default).
+    case anthologyCollectionCoverChanged(mood: VoiceTaleMood?, coverSlug: String)
     /// Phase 2 Tale Trial mode — fires when the kid taps "Tell this one"
     /// on a trial prompt. Categorical only: the prompt slug. The prompt
     /// text never travels; the slug is the stable categorical surface.
@@ -98,6 +105,7 @@ public enum VoiceTaleAnalyticsEvent: Sendable, Hashable {
         case .retentionMilestoneHit:         return "retention_milestone_hit"
         case .sessionCloserShown:            return "session_closer_shown"
         case .anthologyCollectionCreated:    return "anthology_collection_created"
+        case .anthologyCollectionCoverChanged: return "anthology_collection_cover_changed"
         case .taleTrialStarted:              return "tale_trial_started"
         case .firstFiveBeatTaleCelebrated:   return "first_five_beat_tale_celebrated"
         case .promptSwapped:                 return "prompt_swapped"
@@ -154,6 +162,11 @@ public enum VoiceTaleAnalyticsEvent: Sendable, Hashable {
             return ["tales_bucket": talesBucket(count)]
         case .anthologyCollectionCreated(let mood):
             return ["mood": mood?.rawValue ?? "any"]
+        case .anthologyCollectionCoverChanged(let mood, let coverSlug):
+            return [
+                "mood": mood?.rawValue ?? "any",
+                "cover_slug": coverSlug,
+            ]
         case .taleTrialStarted(let slug):
             return ["prompt_slug": slug]
         case .firstFiveBeatTaleCelebrated(let mood):

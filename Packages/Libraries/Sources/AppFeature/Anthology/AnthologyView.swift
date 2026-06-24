@@ -25,6 +25,12 @@ public struct AnthologyView: View {
     @State private var activeCollectionID: UUID?
     /// Sheet toggle for creating a new collection.
     @State private var isPresentingCollectionEditor = false
+    /// Phase Delight & Polish cover-edit affordance — non-nil presents
+    /// the focused cover editor for the given existing collection. Set
+    /// from the per-chip context menu's "Change cover…" action; cleared
+    /// on sheet dismiss. Reuses the auto-presented sheet item pattern
+    /// already used by ``certificateTale`` below.
+    @State private var editingCoverCollection: MoodCollectionData?
     /// Persisted filter selection. Survives app relaunches so a kid who
     /// last browsed only "tender" tales lands back on that view. Stored as
     /// the raw mood value (or empty for "all") because `@AppStorage` cannot
@@ -63,6 +69,11 @@ public struct AnthologyView: View {
                 .sheet(item: $certificateTale) { tale in
                     PublishedTaleCertificateSheet(tale: tale)
                 }
+                .sheet(item: $editingCoverCollection) { collection in
+                    CollectionCoverEditorView(collection: collection) { cover in
+                        handleCoverChange(for: collection, cover: cover)
+                    }
+                }
         }
     }
 
@@ -97,6 +108,23 @@ public struct AnthologyView: View {
         } catch {
             return false
         }
+    }
+
+    /// Called from the focused cover editor's Save button. Persists via
+    /// ``VoiceTaleStore.updateCollectionCover``, emits the analytics
+    /// event, and reloads the in-memory collections array so the
+    /// rendered chip reflects the new cover. Returns true so the sheet
+    /// can dismiss; the closure shape mirrors ``handleCreateCollection``.
+    private func handleCoverChange(for collection: MoodCollectionData, cover: AnthologyCoverDesign?) -> Bool {
+        VoiceTaleStore.updateCollectionCover(
+            collectionID: collection.id,
+            cover: cover,
+            in: modelContext
+        )
+        let coverSlug = cover?.rawValue ?? "auto"
+        analytics.track(.anthologyCollectionCoverChanged(mood: collection.mood, coverSlug: coverSlug))
+        collections = VoiceTaleStore.fetchCollections(in: modelContext)
+        return true
     }
 
     private func handleDeleteCollection(_ id: UUID) {
@@ -272,6 +300,11 @@ public struct AnthologyView: View {
         }
         .buttonStyle(.plain)
         .contextMenu {
+            Button {
+                editingCoverCollection = collection
+            } label: {
+                Label("Change cover…", systemImage: "paintpalette")
+            }
             Button(role: .destructive) {
                 handleDeleteCollection(collection.id)
             } label: {
