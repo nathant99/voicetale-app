@@ -59,6 +59,13 @@ public struct TraditionGalleryView: View {
                                 sessionTally.recordBadgeEarned(title: badge.title)
                             }
                             analytics.track(.traditionExplored(slug: entry.slug))
+                            // Surprise micro-delight tradition-echo signal —
+                            // record the tradition's craft-register slugs so
+                            // ``TellView.deriveSurpriseMomentIfAny()`` can fire
+                            // ``SurpriseMoment.traditionEchoSameSession`` when
+                            // the kid tells a tale in a matching mood within
+                            // the same sitting. Per PR-B 2026-06-24 NINTH-round.
+                            sessionTally.recordTraditionExpanded(slug: entry.slug)
                             // Discovery callout updates as the kid expands
                             // traditions — pull the next iteration of
                             // unexplored count from the persistence layer.

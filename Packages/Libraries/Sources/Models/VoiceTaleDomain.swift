@@ -96,6 +96,15 @@ nonisolated public enum VoiceTaleMood: String, Codable, Sendable, CaseIterable {
         case .wild:   return "Wild"
         }
     }
+
+    /// Canonical register slug for cross-axis recognition (e.g.
+    /// `SessionTallyTracker.traditionRegisterSlugsSeen` collects these
+    /// from tradition expansions; `SurpriseMoment.traditionEchoSameSession`
+    /// fires when today's mood register intersects). Identity-equal to
+    /// ``rawValue`` for now — the helper exists so callers that want the
+    /// register-level token never read `rawValue` directly (different
+    /// concept; preserves the option to diverge later).
+    public var registerSlug: String { rawValue }
 }
 
 // MARK: - Reflection
