@@ -241,6 +241,22 @@ Round 2026-06-23 (continuation, deep evening) shipped 4 PRs that opened 2 more D
 
 **Net**: Phase Delight & Polish ramps from 3-of-7 → **5 of 7 shipped** (juice layer + celebration system + share-worthy moments + Personality + Mastery). 2 Xcode-UI handoff docs filed, both unblock independent next-session follow-ons (`AppIntent` registration + photo attach). Achievement catalog unchanged at 23. ForgeKit declared modules unchanged at 15. **26 new tests** landed across the round (10 BrambleMoodMemory + 6 BrambleFavoriteMoodCallback + 10 MasteryMoment). Zero Xcode-managed files touched (SEVENTH consecutive round honoring the named-file ban). **Phase Delight & Polish remaining**: micro-delight coverage (8 types audit) / easter eggs / published-tale certificates + anthology covers — Phase 3 carry-over.
 
+### Round open 2026-06-24 (EIGHTH consecutive re-affirmation + multi-axis prioritization)
+
+Round 2026-06-24 is the EIGHTH consecutive same-author re-affirmation of the Xcode-managed-file ban (and the FIRST cross-day-boundary one in the chain — the prior seven landed within the 2026-06-22 ⇄ 2026-06-23 window). User direction: *"Prioritize maximizing forgekit integration and feature plan and open handoff work. all of the above. everything is approved. go with all your recs. do not stop until fully done."* The agent commits to a 7-PR round laid out as describe-then-execute per the user's "describe and explain each option before you start" preamble. Round shipped via auto-cycle (branch → commit → push → gh pr create → gh pr merge --merge --delete-branch → verify) per `@.claude/rules/workflow.md` § Auto-Cycle Default + Within-Round Multi-PR Default. Round PRs:
+
+- **PR-A** — Eighth re-affirmation propagation (docs/rules; this PR). Updates CLAUDE.md + `.claude/rules/xcode-agent-safety.md` + this FEATURE_PLAN round-open section. The cross-day-boundary observation + multi-axis-prioritization-within-a-single-round Default land in the compound rule.
+- **PR-B** — Micro-delight 8-types coverage audit (`Docs/AUDIT_MICRO_DELIGHT_COVERAGE_2026-06-24.md`). Catalogs the 8 types (celebration / sensory / personality / mastery / discovery / surprise / social / agency) against VoiceTale surfaces; identifies the remaining gaps; specs the implementation sketches for PRs C/D/E.
+- **PR-C** — Surprise micro-delight surface. New `Models/SurpriseMoment` + `BrambleReflectionView.surpriseMomentStrip` + `HapticsBridge.fireSurpriseMoment()`. Closes one of the 2 reds in the 8-types matrix.
+- **PR-D** — Discovery expansion. Extends `DailyPromptView` rare-prompt pool from 5 → 8 entries + adds `TraditionGalleryView.traditionDiscoveryCallout` for first-encounter tradition cards. Closes the yellow.
+- **PR-E** — Agency micro-delight surface. Kid prompt-swap affordance on `DailyPromptView` with anti-shame copy ("These prompts are all yours to pick from") + `VoiceTaleAnalyticsEvent.promptSwapped(slug:)`. Closes the second red.
+- **PR-F** — Easter eggs PLAN doc (`Docs/PLAN_EASTER_EGGS_TRADITION_UNLOCKS.md`). Plan-only ship; implementation deferred behind sensitivity-reviewer signoff per ADR-016.
+- **PR-G** — Session handoff for next session (`Docs/SESSION_HANDOFF_2026-06-24_EIGHTH_ROUND.md`) per the standing per-round session-handoff discipline.
+
+### Round close-out 2026-06-24 (PRs #96–#102) — Delight & Polish 6 of 7 + EIGHTH cross-day-boundary re-affirmation
+
+_To be filled in at round close._
+
 ---
 
 ## Phase 1.1: Voice-Character Chooser
