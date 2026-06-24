@@ -1,5 +1,6 @@
 import Foundation
 import SwiftData
+import ForgePersistence
 
 /// Canonical schema definition for VoiceTale. Per `@.claude/rules/swiftdata.md`
 /// § "Start with VersionedSchema from day one" + "One VersionedSchema per app
@@ -8,6 +9,11 @@ import SwiftData
 /// ``versionIdentifier`` MUST be `static let` (rule #10 + concurrency
 /// requirement). New versions ship as `VoiceTaleSchemaV2`, etc., and a
 /// matching ``MigrationStage`` lives next to them in ``VoiceTaleMigrationPlan``.
+///
+/// ``ReflectionEntryRecord`` is the ForgeKit-owned `@Model` storage class
+/// for `ForgeReflection` journal entries — registered here per
+/// `@Docs/PLAN_FORGEREFLECTION_LIFT.md` § Phase A so the canonical schema
+/// stays a single source of truth.
 public enum VoiceTaleSchemaV1: VersionedSchema {
     public static let versionIdentifier = Schema.Version(1, 0, 0)
     public static var models: [any PersistentModel.Type] {
@@ -18,6 +24,7 @@ public enum VoiceTaleSchemaV1: VersionedSchema {
             PersistentAnthologyMood.self,
             PersistentAchievement.self,
             PersistentMoodCollection.self,
+            ReflectionEntryRecord.self,
         ]
     }
 }

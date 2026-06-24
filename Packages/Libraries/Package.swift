@@ -43,6 +43,13 @@ let package = Package(
             name: "Models",
             dependencies: [
                 .product(name: "ForgeModels", package: "forgekit"),
+                // ForgePersistence carries the canonical `ReflectionEntryRecord`
+                // `@Model` storage class registered in ``VoiceTaleSchemaV1.models``
+                // per `@.claude/rules/swiftdata.md` rule #11 ("One VersionedSchema
+                // per app version — All @Model types live in the same enum").
+                // ForgeReflection Phase A bootstrap per
+                // `@Docs/PLAN_FORGEREFLECTION_LIFT.md` § Phase A.
+                .product(name: "ForgePersistence", package: "forgekit"),
             ],
             resources: [
                 .process("Resources"),
@@ -147,6 +154,10 @@ let package = Package(
                 // editor; per `@.claude/rules/xcode-agent-safety.md` the
                 // agent cannot author Info.plist from disk).
                 .product(name: "ForgeIntents", package: "forgekit"),
+                // ForgeReflection Phase A — surfaces `ReflectionPromptStorage`
+                // for the catalog + `@MainActor @Observable` store wrapper.
+                // See `@Docs/PLAN_FORGEREFLECTION_LIFT.md` § Phase A.
+                .product(name: "ForgePersistence", package: "forgekit"),
             ],
             resources: [
                 .process("Resources"),
