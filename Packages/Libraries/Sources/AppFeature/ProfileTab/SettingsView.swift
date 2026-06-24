@@ -23,6 +23,7 @@ public struct SettingsView: View {
             List {
                 privacySection
                 permissionsSection
+                siriShortcutsSection
                 experimentalSection
                 crisisSection
                 aboutSection
@@ -93,6 +94,62 @@ public struct SettingsView: View {
                 Image(systemName: "text.bubble")
             }
         }
+    }
+
+    /// Lists the four canonical Siri phrases declared in
+    /// `Apps/VoiceTale/VoiceTale/Intents/VoiceTaleShortcuts.swift` so a
+    /// grown-up can teach the kid what to say. Phrases come from
+    /// ``VoiceTaleIntentRouter.shortcutPhrases`` — the same
+    /// portfolio-canonical builder the runtime registers — so this
+    /// surface stays in lockstep with what Siri actually accepts.
+    /// Per `Docs/HANDOFF_TO_USER_APP_INTENTS_REGISTRATION.md` Step 4 —
+    /// the in-app hint surface lowers the discovery barrier without
+    /// changing the runtime registration.
+    private var siriShortcutsSection: some View {
+        let phrases = VoiceTaleIntentRouter.shortcutPhrases
+        return Section {
+            siriPhraseRow(
+                phrase: phrases.tellATale,
+                systemImage: "mic.circle.fill",
+                detail: "Jumps to the Tell tab so they can start a new tale."
+            )
+            siriPhraseRow(
+                phrase: phrases.showMyTales,
+                systemImage: "books.vertical.fill",
+                detail: "Opens the anthology of saved tales."
+            )
+            siriPhraseRow(
+                phrase: phrases.showMyProgress,
+                systemImage: "chart.bar.fill",
+                detail: "Lands on Progress so they can see XP and streak."
+            )
+            siriPhraseRow(
+                phrase: phrases.showTraditionGallery,
+                systemImage: "globe",
+                detail: "Opens the tradition gallery — griot, seanchaí, rakugo, slam, and more."
+            )
+        } header: {
+            Text("Try saying to Siri")
+        } footer: {
+            Text("Siri & Shortcuts works once a grown-up enables it for VoiceTale in Settings → Siri & Search. Recordings and reflections still stay on-device.")
+                .font(.caption2)
+        }
+    }
+
+    private func siriPhraseRow(phrase: String, systemImage: String, detail: String) -> some View {
+        Label {
+            VStack(alignment: .leading, spacing: 4) {
+                Text("\u{201C}\(phrase)\u{201D}")
+                    .font(.body.weight(.semibold))
+                Text(detail)
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+            }
+        } icon: {
+            Image(systemName: systemImage)
+        }
+        .accessibilityLabel(Text("Try saying \u{201C}\(phrase)\u{201D}"))
+        .accessibilityHint(Text(detail))
     }
 
     private var experimentalSection: some View {

@@ -47,6 +47,7 @@ struct VoiceTaleIntentRouterTests {
         #expect(phrases.tellATale.contains("VoiceTale"))
         #expect(phrases.showMyTales.contains("VoiceTale"))
         #expect(phrases.showMyProgress.contains("VoiceTale"))
+        #expect(phrases.showTraditionGallery.contains("VoiceTale"))
     }
 
     @Test func shortcutPhrasesReadAsKidInvocations() {
@@ -55,6 +56,23 @@ struct VoiceTaleIntentRouterTests {
         #expect(phrases.tellATale == "Tell a tale in VoiceTale")
         #expect(phrases.showMyTales == "Show my tales in VoiceTale")
         #expect(phrases.showMyProgress == "Show my progress in VoiceTale")
+        #expect(phrases.showTraditionGallery == "Show the traditions in VoiceTale")
+    }
+
+    @Test func shortcutPhrasesAreAllDistinct() {
+        // Every phrase MUST be unique so Siri's matcher can disambiguate
+        // among the four registered AppShortcuts. A collision here would
+        // make the runtime register two identical phrases for different
+        // intents — Siri would coin-flip which intent fires.
+        let phrases = VoiceTaleIntentRouter.shortcutPhrases
+        let all = [
+            phrases.openApp,
+            phrases.tellATale,
+            phrases.showMyTales,
+            phrases.showMyProgress,
+            phrases.showTraditionGallery,
+        ]
+        #expect(Set(all).count == all.count)
     }
 }
 
