@@ -222,12 +222,10 @@ public struct TellView: View {
     /// fresh-pattern recognition fires for the just-finished tale.
     /// Reads: current beat timeline (in-memory machine state) + prior
     /// saved tales (for the mood-history + preset-history sets) +
-    /// machine.draftMood (today's mood). Pure-function
+    /// machine.draftMood (today's mood) + the per-sitting
+    /// ``SessionTallyTracker.traditionRegisterSlugsSeen`` set (for the
+    /// within-session tradition-echo signal). Pure-function
     /// ``SurpriseMoment/derive(from:)`` makes the priority decision.
-    /// The within-session tradition-echo signal isn't wired in this
-    /// pass (cross-tab session tracking would extend
-    /// ``SessionTallyTracker``); the archetype is reserved for a
-    /// future PR so the API surface stays stable.
     private func deriveSurpriseMomentIfAny() -> SurpriseMoment? {
         let allTales = VoiceTaleStore.fetchTales(in: modelContext)
         // Mood history — every mood the kid has saved a tale in BEFORE
@@ -248,10 +246,14 @@ public struct TellView: View {
         let inputs = SurpriseMomentInputs(
             todayMood: machine.draftMood,
             moodsEverTold: moodsEverTold,
-            // Tradition-echo wiring deferred to a follow-on PR; safe
-            // default keeps the archetype silent until the cross-tab
-            // signal is in place.
-            traditionEchoEligibleThisSession: false,
+            // Within-session tradition-echo — the kid dwelled on a
+            // tradition this sitting whose craft register matches
+            // today's mood register. ``SessionTallyTracker`` records the
+            // register slugs as the kid expands gallery cards; this
+            // helper intersects them with today's mood register.
+            traditionEchoEligibleThisSession: sessionTally.traditionEchoEligible(
+                for: machine.draftMood
+            ),
             todayPresets: todayPresets,
             priorNonNarratorPresets: priorNonNarrator
         )
