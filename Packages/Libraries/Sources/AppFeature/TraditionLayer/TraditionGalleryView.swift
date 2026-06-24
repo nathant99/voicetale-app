@@ -24,6 +24,13 @@ public struct TraditionGalleryView: View {
     /// tap (since expanding a tradition turns it from "unexplored" →
     /// "explored").
     @State private var unexploredCount: Int = 0
+    /// Easter-eggs Phase C — snapshot of the kid's progress fed into
+    /// ``TraditionUnlockEvaluator`` to decide which easter-egg entries
+    /// surface in the rendered list. Rebuilt on appear + after each
+    /// `onExplore` tap (since exploring a tradition advances both the
+    /// expanded set + the per-tradition listen count). Per
+    /// `@Docs/PLAN_EASTER_EGGS_TRADITION_UNLOCKS.md` § Phase C.
+    @State private var unlockSnapshot: TraditionUnlockSnapshot = TraditionUnlockSnapshot()
 
     public init() {}
 
@@ -44,7 +51,7 @@ public struct TraditionGalleryView: View {
                     if let calloutCopy = Self.discoveryCalloutCopy(unexploredCount: unexploredCount) {
                         traditionDiscoveryCallout(calloutCopy)
                     }
-                    ForEach(catalog.entries) { entry in
+                    ForEach(visibleEntries(in: catalog)) { entry in
                         TraditionCard(entry: entry, onExplore: {
                             VoiceTaleStore.recordTraditionExplored(slug: entry.slug, in: modelContext)
                             let outcome = gamification.awardXP(
@@ -70,6 +77,10 @@ public struct TraditionGalleryView: View {
                             // traditions — pull the next iteration of
                             // unexplored count from the persistence layer.
                             recomputeUnexploredCount()
+                            // Phase C — rebuild the unlock snapshot so any
+                            // easter-egg entry whose predicate just flipped to
+                            // true becomes visible on the next render.
+                            rebuildUnlockSnapshot()
                         })
                     }
                 }
@@ -138,9 +149,95 @@ public struct TraditionGalleryView: View {
         do {
             catalog = try TraditionCatalogLoader.loadBundled()
             recomputeUnexploredCount()
+            // Phase C — build the initial unlock snapshot so the very
+            // first render correctly filters easter-eggs (today the
+            // catalog ships ZERO easter-egg entries; this is wiring,
+            // not behavior change).
+            rebuildUnlockSnapshot()
         } catch {
             loadError = "\(error)"
         }
+    }
+
+    /// Easter-eggs Phase C — rebuild the kid's progress snapshot from
+    /// the persistence layer so the unlock evaluator can re-decide which
+    /// easter-egg entries surface. Idempotent and cheap. Per
+    /// `@Docs/PLAN_EASTER_EGGS_TRADITION_UNLOCKS.md` § Phase C.
+    private func rebuildUnlockSnapshot() {
+        unlockSnapshot = Self.buildSnapshot(in: modelContext)
+    }
+
+    /// Pure-function snapshot builder for the easter-eggs Phase C
+    /// evaluator. Public + `nonisolated` so unit tests can exercise the
+    /// derivation against an in-memory ``ModelContext`` without
+    /// instantiating the SwiftUI host.
+    ///
+    /// Sources, all already-shipped:
+    /// - `VoiceTaleStore.fetchTraditionExploration` → expanded slugs +
+    ///   per-tradition listen counts
+    /// - `VoiceTaleStore.fetchTales` → saved-tale count + moods covered
+    /// - `VoiceTaleStore.fetchProgress` → completed kit IDs
+    @MainActor
+    public static func buildSnapshot(in modelContext: ModelContext) -> TraditionUnlockSnapshot {
+        let exploration = VoiceTaleStore.fetchTraditionExploration(in: modelContext)
+        let expandedSlugs = Set(
+            exploration.compactMap { $0.firstExploredAt != nil ? $0.slug : nil }
+        )
+        var revisitCount: [String: Int] = [:]
+        for record in exploration {
+            if record.listenCount > 0 {
+                revisitCount[record.slug] = record.listenCount
+            }
+        }
+        let tales = VoiceTaleStore.fetchTales(in: modelContext)
+        let moodsCovered = Set(tales.map(\.mood))
+        let kitsCompleted = VoiceTaleStore.progressSnapshot(in: modelContext).completedKitIDs
+        return TraditionUnlockSnapshot(
+            expandedBaseTraditions: expandedSlugs,
+            savedTales: tales.count,
+            moodsCovered: moodsCovered,
+            kitsCompleted: kitsCompleted,
+            traditionRevisitCount: revisitCount
+        )
+    }
+
+    /// Easter-eggs Phase C — entries the gallery should render against
+    /// the current snapshot. Base-tier entries are always visible;
+    /// easter-egg entries appear ONLY when their unlock condition
+    /// resolves true through ``TraditionUnlockEvaluator``. An
+    /// easter-egg entry whose `unlockCondition` is `nil` is treated as
+    /// gate-failed (a defensive default — Phase D submission MUST set a
+    /// condition string; the catalog never ships a nil-condition
+    /// easter-egg). Today the catalog ships ZERO easter-egg entries
+    /// (gated on Phase D external reviewer per ADR-016) — this filter
+    /// is wiring, not behavior change.
+    ///
+    /// Public + `nonisolated` so unit tests can exercise the filter
+    /// against a constructed catalog without a SwiftUI host.
+    nonisolated public static func filteredVisibleEntries(
+        in catalog: TraditionCatalog,
+        snapshot: TraditionUnlockSnapshot
+    ) -> [TraditionEntry] {
+        catalog.entries.filter { entry in
+            if entry.isEasterEgg == false {
+                return true
+            }
+            guard let condition = entry.unlockCondition else {
+                // Gate-failed default — never surface an easter-egg
+                // whose author forgot to set an unlock predicate.
+                return false
+            }
+            return TraditionUnlockEvaluator.isUnlocked(
+                condition: condition,
+                snapshot: snapshot
+            )
+        }
+    }
+
+    /// Convenience wrapper around ``filteredVisibleEntries(in:snapshot:)``
+    /// using the view's own `unlockSnapshot` state.
+    private func visibleEntries(in catalog: TraditionCatalog) -> [TraditionEntry] {
+        Self.filteredVisibleEntries(in: catalog, snapshot: unlockSnapshot)
     }
 
     /// Reads the catalog + the explored-tradition persistence layer to
