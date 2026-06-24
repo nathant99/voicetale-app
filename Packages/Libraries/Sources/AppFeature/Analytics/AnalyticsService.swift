@@ -70,6 +70,12 @@ public enum VoiceTaleAnalyticsEvent: Sendable, Hashable {
     /// only: the destination prompt index (no prompt text travels). Per
     /// `Docs/AUDIT_MICRO_DELIGHT_COVERAGE_2026-06-24.md` § Reds — Agency.
     case promptSwapped(toIndex: Int)
+    /// Phase 2 — fires when a Siri / Spotlight / Shortcuts AppIntent posts
+    /// a tab request via ``IntentTabCoordinator``. The destination raw
+    /// value travels (categorical: `tell` / `anthology` / `progress` /
+    /// `tradition`); no prompt text, no user-facing copy, no PII. Per
+    /// `Docs/HANDOFF_TO_USER_APP_INTENTS_REGISTRATION.md` Step 3.
+    case intentDestinationRequested(destination: String)
 
     /// Event name in the underlying ForgeAnalytics store. Keep lowercase +
     /// snake_case so future analytics inspectors can grep cleanly.
@@ -95,6 +101,7 @@ public enum VoiceTaleAnalyticsEvent: Sendable, Hashable {
         case .taleTrialStarted:              return "tale_trial_started"
         case .firstFiveBeatTaleCelebrated:   return "first_five_beat_tale_celebrated"
         case .promptSwapped:                 return "prompt_swapped"
+        case .intentDestinationRequested:    return "intent_destination_requested"
         }
     }
 
@@ -154,6 +161,13 @@ public enum VoiceTaleAnalyticsEvent: Sendable, Hashable {
         case .promptSwapped(let toIndex):
             // Index travels (categorical pool position); prompt text NEVER does.
             return ["to_index": String(toIndex)]
+        case .intentDestinationRequested(let destination):
+            // The destination raw value (`tell`/`anthology`/`progress`/
+            // `tradition`) is categorical — one of four enum cases — and
+            // never carries PII. The derived tab is intentionally NOT
+            // emitted; future fine-grained routing keeps this surface
+            // stable.
+            return ["destination": destination]
         }
     }
 
