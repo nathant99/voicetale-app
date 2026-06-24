@@ -53,6 +53,17 @@ public final class PersistentPlayerProgress {
     /// + the `first_five_beat_tale` achievement (XP 75). Pre-App-Store
     /// additive default-nil per `@.claude/rules/swiftdata.md`.
     public var firstFiveBeatTaleAt: Date?
+    /// ForgeMasteryEngine Phase A — JSON-encoded
+    /// `[KitID.RawValue: TopicMasteryState]` snapshot persisted via
+    /// `KitMasteryStore.persist`. Pre-App-Store additive default-nil
+    /// `Data?` field per `@.claude/rules/swiftdata.md` § "Pre-App Store:
+    /// don't create new VersionedSchema for unreleased models — add
+    /// new @Model classes / fields directly to the existing schema
+    /// version." `Codable` value-type round-trip via `JSONEncoder` —
+    /// `Optional` field is back-compat by Swift's `decodeIfPresent`
+    /// per the same rule's CLAUDE.md gotcha. Per
+    /// `@Docs/PLAN_FORGEMASTERY_INTEGRATION.md` § Phase A.
+    public var encodedMasteryState: Data?
 
     public init(
         xpTotal: Int = 0,
@@ -68,7 +79,8 @@ public final class PersistentPlayerProgress {
         d7HitAt: Date? = nil,
         d30HitAt: Date? = nil,
         taleTrialPlays: Int = 0,
-        firstFiveBeatTaleAt: Date? = nil
+        firstFiveBeatTaleAt: Date? = nil,
+        encodedMasteryState: Data? = nil
     ) {
         self.xpTotal = xpTotal
         self.currentStreakDays = currentStreakDays
@@ -84,5 +96,6 @@ public final class PersistentPlayerProgress {
         self.d30HitAt = d30HitAt
         self.taleTrialPlays = taleTrialPlays
         self.firstFiveBeatTaleAt = firstFiveBeatTaleAt
+        self.encodedMasteryState = encodedMasteryState
     }
 }
