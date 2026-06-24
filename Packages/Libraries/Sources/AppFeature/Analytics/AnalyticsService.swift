@@ -65,6 +65,11 @@ public enum VoiceTaleAnalyticsEvent: Sendable, Hashable {
     /// celebration is the user-facing reward; this analytics surface is
     /// the categorical signal. Mood travels for cohort analysis; no PII.
     case firstFiveBeatTaleCelebrated(mood: VoiceTaleMood)
+    /// Delight & Polish "Agency" micro-delight — fires when the kid taps
+    /// the "Try a different one" pill on the daily prompt. Categorical-
+    /// only: the destination prompt index (no prompt text travels). Per
+    /// `Docs/AUDIT_MICRO_DELIGHT_COVERAGE_2026-06-24.md` § Reds — Agency.
+    case promptSwapped(toIndex: Int)
 
     /// Event name in the underlying ForgeAnalytics store. Keep lowercase +
     /// snake_case so future analytics inspectors can grep cleanly.
@@ -89,6 +94,7 @@ public enum VoiceTaleAnalyticsEvent: Sendable, Hashable {
         case .anthologyCollectionCreated:    return "anthology_collection_created"
         case .taleTrialStarted:              return "tale_trial_started"
         case .firstFiveBeatTaleCelebrated:   return "first_five_beat_tale_celebrated"
+        case .promptSwapped:                 return "prompt_swapped"
         }
     }
 
@@ -145,6 +151,9 @@ public enum VoiceTaleAnalyticsEvent: Sendable, Hashable {
             return ["prompt_slug": slug]
         case .firstFiveBeatTaleCelebrated(let mood):
             return ["mood": mood.rawValue]
+        case .promptSwapped(let toIndex):
+            // Index travels (categorical pool position); prompt text NEVER does.
+            return ["to_index": String(toIndex)]
         }
     }
 

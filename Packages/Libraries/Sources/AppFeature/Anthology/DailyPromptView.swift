@@ -14,6 +14,14 @@ public struct DailyPromptView: View {
     /// `nil` for a standard prompt; non-nil rare-category slug ("hidden_question" /
     /// "tradition_echo" / "wild_card") for a variable-reward surfacing.
     public let rareCategory: String?
+    /// Delight & Polish "Agency" micro-delight — the index in
+    /// ``DailyPromptView/prompts`` the swap pill rotates THROUGH. View-
+    /// local `@State` so the pill is a kid-driven affordance without
+    /// touching `@AppStorage`. Initialized to nil = "use today's prompt
+    /// from the ordinal-day rotation"; once the kid taps the pill, it
+    /// holds the swapped-to index for the rest of the session. Per
+    /// `Docs/AUDIT_MICRO_DELIGHT_COVERAGE_2026-06-24.md` § Reds — Agency.
+    @State private var swappedIndex: Int?
 
     public init(
         prompt: String = DailyPromptView.todaysPrompt(),
@@ -24,7 +32,7 @@ public struct DailyPromptView: View {
     }
 
     public var body: some View {
-        VStack(alignment: .leading, spacing: 6) {
+        VStack(alignment: .leading, spacing: 8) {
             HStack(spacing: 8) {
                 Text("Prompt of the day")
                     .font(.caption.weight(.semibold))
@@ -42,8 +50,13 @@ public struct DailyPromptView: View {
                         .accessibilityLabel(Text("Rare prompt"))
                 }
             }
-            Text(prompt)
+            Text(displayPrompt)
                 .font(.body.weight(.medium))
+            // Agency surface — swap pill suppressed on rare prompts so
+            // the kid can't skip past the discovery moment.
+            if rareCategory == nil {
+                swapPill
+            }
         }
         .padding()
         .frame(maxWidth: .infinity, alignment: .leading)
@@ -57,13 +70,88 @@ public struct DailyPromptView: View {
         }
     }
 
+    /// The prompt the body actually renders: swapped-to value (if the
+    /// kid tapped the pill) OR the prop passed in by the caller.
+    private var displayPrompt: String {
+        if let swappedIndex {
+            return DailyPromptView.prompts[swappedIndex]
+        }
+        return prompt
+    }
+
+    /// The "Try a different one" pill — Agency micro-delight surface.
+    /// Anti-shame framing: the copy explicitly normalizes the swap
+    /// ("These prompts are all yours to pick from") via the
+    /// accessibility hint. Pill copy itself stays terse so the surface
+    /// doesn't lecture.
+    @ViewBuilder
+    private var swapPill: some View {
+        HStack(spacing: 8) {
+            Button {
+                let nextIndex = DailyPromptView.nextSwapIndex(
+                    currentIndex: currentPromptIndex,
+                    poolSize: DailyPromptView.prompts.count
+                )
+                swappedIndex = nextIndex
+                analytics.track(.promptSwapped(toIndex: nextIndex))
+            } label: {
+                Label("Try a different one", systemImage: "arrow.triangle.2.circlepath")
+                    .font(.caption.weight(.semibold))
+                    .padding(.horizontal, 10)
+                    .padding(.vertical, 4)
+            }
+            .buttonStyle(.borderless)
+            .background(.thinMaterial, in: Capsule())
+            .accessibilityHint(Text("These prompts are all yours to pick from."))
+            Spacer()
+        }
+        .padding(.top, 2)
+    }
+
+    /// Index in the standard prompt pool currently being displayed.
+    /// Used as the seed for the swap rotation so consecutive swaps
+    /// surface different entries.
+    private var currentPromptIndex: Int {
+        if let swappedIndex {
+            return swappedIndex
+        }
+        return DailyPromptView.todaysPromptIndex()
+    }
+
     /// Returns a prompt selected by the day-of-year — stable per day, rotates
     /// once a midnight passes. 30-entry starter pool per
     /// `@Docs/FEATURE_PLAN.md` § Data Layer.
     public static func todaysPrompt(now: Date = Date(), calendar: Calendar = .current) -> String {
+        return prompts[todaysPromptIndex(now: now, calendar: calendar)]
+    }
+
+    /// Returns the index in ``prompts`` corresponding to today's prompt.
+    /// Used by the swap-pill rotation as the seed so consecutive swaps
+    /// step through the pool deterministically. Public + `nonisolated`
+    /// so unit tests can pin the index without spinning up the view.
+    nonisolated public static func todaysPromptIndex(
+        now: Date = Date(),
+        calendar: Calendar = .current
+    ) -> Int {
         let day = calendar.ordinality(of: .day, in: .year, for: now) ?? 1
-        let index = (day - 1) % prompts.count
-        return prompts[index]
+        return (day - 1) % prompts.count
+    }
+
+    /// Delight & Polish "Agency" micro-delight — pure-function next-
+    /// index resolver for the "Try a different one" pill. Walks the
+    /// pool by 7 entries per tap so the kid steps through varied
+    /// prompts instead of seeing adjacent entries (which would feel
+    /// monotonous). Wraps around at the pool boundary; never returns
+    /// the input `currentIndex` (the swap MUST change the prompt).
+    /// Pure + `nonisolated` so unit tests can lock the rotation.
+    nonisolated public static func nextSwapIndex(currentIndex: Int, poolSize: Int) -> Int {
+        guard poolSize > 1 else { return currentIndex }
+        let step = 7  // co-prime-ish stride against 30 — distributes nicely
+        var next = (currentIndex + step) % poolSize
+        if next == currentIndex {
+            next = (next + 1) % poolSize
+        }
+        return next
     }
 
     /// Variable-reward selection. Returns a rare prompt + category slug
