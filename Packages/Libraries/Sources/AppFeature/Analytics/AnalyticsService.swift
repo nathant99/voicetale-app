@@ -2,6 +2,10 @@ import Foundation
 import Models
 import ForgeAnalytics
 
+// `ReflectionRetentionPolicy` lives in `Models`. Imported transitively
+// above; referenced by `reflectionsPurged(removed:)` for the bucketing
+// helper.
+
 /// Typed event vocabulary for VoiceTale's privacy-first on-device analytics.
 /// Mapped to ForgeAnalytics event names + property bags via ``AnalyticsService``.
 /// Per `@Docs/TECHNICAL_DESIGN.md` § Analytics — strictly on-device, COPPA-safe,
@@ -100,6 +104,14 @@ public enum VoiceTaleAnalyticsEvent: Sendable, Hashable {
     /// `MasteryBand` enum used by the consumer view; the wire surface
     /// is the raw value.
     case kitMasteryAdvanced(kit: Int, fromBand: String, toBand: String)
+    /// ForgeReflection Phase C — fires when the weekly retention purge
+    /// runs. Categorical-only payload: the bucketed delete count travels
+    /// (`zero` / `one_to_three` / `four_to_ten` / `eleven_plus`); the raw
+    /// `removed` count NEVER travels (anti-fingerprinting per
+    /// `@Docs/PLAN_FORGEREFLECTION_LIFT.md` § Phase C + COPPA-2026
+    /// anti-PII discipline). The bucketing matches
+    /// ``ReflectionRetentionPolicy.removedCountBucket(_:)``.
+    case reflectionsPurged(removed: Int)
 
     /// Event name in the underlying ForgeAnalytics store. Keep lowercase +
     /// snake_case so future analytics inspectors can grep cleanly.
@@ -129,6 +141,7 @@ public enum VoiceTaleAnalyticsEvent: Sendable, Hashable {
         case .intentDestinationRequested:    return "intent_destination_requested"
         case .brambleAnswered:               return "bramble_answered"
         case .kitMasteryAdvanced:            return "kit_mastery_advanced"
+        case .reflectionsPurged:             return "reflections_purged"
         }
     }
 
@@ -217,6 +230,12 @@ public enum VoiceTaleAnalyticsEvent: Sendable, Hashable {
                 "from_band": fromBand,
                 "to_band": toBand,
             ]
+        case .reflectionsPurged(let removed):
+            // Bucketed count travels — raw delete count NEVER does. The
+            // bucket lets cohort analysis see "purge ran + removed N
+            // entries this week" without surfacing per-kid engagement
+            // depth via the run-by-run delete count signal.
+            return ["removed_bucket": ReflectionRetentionPolicy.removedCountBucket(removed)]
         }
     }
 

@@ -89,6 +89,18 @@ public struct AppRootView: View {
     /// the `@Sendable` startup-gate closure (per ``makeRouter``).
     public nonisolated static let onboardingCompletedKey = "voicetale.hasCompletedOnboarding"
 
+    /// ForgeReflection Phase C — persistence keys for the weekly retention
+    /// purge cadence. `lastPurgeAtKey` carries the
+    /// `timeIntervalSinceReferenceDate` of the last successful purge run;
+    /// `retentionDaysKey` carries the grown-up-overridable horizon (90 /
+    /// 180 / 365 days; default 180 per
+    /// ``ReflectionRetentionPolicy.defaultRetentionDays``). Both keyed
+    /// off `@AppStorage` so tests + `SettingsView` agree on the canonical
+    /// shape. Per `@.claude/rules/age-assurance.md` § "2026 FTC COPPA
+    /// Rule Amendments" (defined retention period requirement).
+    public nonisolated static let reflectionPurgeLastRunKey = "voicetale.reflection.purge.last_run"
+    public nonisolated static let reflectionRetentionDaysKey = "voicetale.reflection.retention_days"
+
     @State private var selectedTab: AppTab = .tell
     @State private var gamification = GamificationService()
     @State private var analytics = AnalyticsService()
@@ -133,6 +145,20 @@ public struct AppRootView: View {
     @Environment(\.modelContext) private var modelContext
     @Environment(\.scenePhase) private var scenePhase
     @AppStorage(AppRootView.onboardingCompletedKey) private var hasCompletedOnboarding: Bool = false
+    /// ForgeReflection Phase C — last-run timestamp for the weekly retention
+    /// purge cadence. Stored as `Double` (timeIntervalSinceReferenceDate);
+    /// `0` means "never run", which ``ReflectionRetentionPolicy.shouldPurge``
+    /// treats as "always fire" so the first eligible launch triggers a
+    /// purge. The default `Double = 0` shape is `@AppStorage`-compatible
+    /// without resorting to a custom Optional encoding.
+    @AppStorage(AppRootView.reflectionPurgeLastRunKey) private var reflectionPurgeLastRunSinceReference: Double = 0
+    /// ForgeReflection Phase C — grown-up-overridable retention horizon.
+    /// Default 180 days per ``ReflectionRetentionPolicy.defaultRetentionDays``;
+    /// ``SettingsView`` exposes the three-point picker (90 / 180 / 365).
+    /// Clamped via ``ReflectionRetentionPolicy.clampedRetentionDays(_:)`` at
+    /// every read so a corrupt write (future migration drift) degrades to
+    /// the safe default rather than skipping the COPPA-mandated purge.
+    @AppStorage(AppRootView.reflectionRetentionDaysKey) private var reflectionRetentionDays: Int = ReflectionRetentionPolicy.defaultRetentionDays
 
     /// Shared registry the source-app's ``VoiceTaleHubContribution`` registers
     /// with on launch. Other portfolio surfaces (e.g., AdventureHub) read from
@@ -274,6 +300,15 @@ public struct AppRootView: View {
                 hasBootstrappedReflectionStore = true
                 await reflectionStore.bootstrap(container: modelContext.container)
             }
+            // ForgeReflection Phase C — weekly retention purge cadence.
+            // Reads the `@AppStorage`-backed last-run timestamp + grown-up
+            // retention horizon, asks the pure-function policy whether
+            // to fire, and persists the next last-run timestamp on
+            // success. The purge is no-op when nothing crosses the
+            // cutoff. Per `@.claude/rules/age-assurance.md` § "2026 FTC
+            // COPPA Rule Amendments" (defined retention period
+            // requirement).
+            await runReflectionPurgeIfDue()
             // ForgeMasteryEngine Phase B — boot the shared
             // ``KitMasteryStore`` against the canonical
             // ``PersistentPlayerProgress`` row. Idempotent guard via
@@ -305,6 +340,35 @@ public struct AppRootView: View {
             @unknown default:
                 break
             }
+        }
+    }
+
+    /// ForgeReflection Phase C — read the cadence inputs, ask the
+    /// pure-function policy whether to fire, run the purge when due, and
+    /// persist the next last-run timestamp. The bucketed analytics event
+    /// fires whether or not anything was deleted so cohort engagement
+    /// signal includes "the purge ran and removed zero entries this
+    /// week" (which is the expected steady state for active kids).
+    private func runReflectionPurgeIfDue(now: Date = .now) async {
+        let lastPurgeAt: Date? = reflectionPurgeLastRunSinceReference > 0
+            ? Date(timeIntervalSinceReferenceDate: reflectionPurgeLastRunSinceReference)
+            : nil
+        let inputs = ReflectionRetentionInputs(
+            lastPurgeAt: lastPurgeAt,
+            retentionDays: reflectionRetentionDays
+        )
+        guard ReflectionRetentionPolicy.shouldPurge(inputs: inputs, now: now) else { return }
+        let cutoff = ReflectionRetentionPolicy.cutoff(inputs: inputs, now: now)
+        do {
+            let removed = try await reflectionStore.purgeOlderThan(cutoff)
+            reflectionPurgeLastRunSinceReference = now.timeIntervalSinceReferenceDate
+            analytics.track(.reflectionsPurged(removed: removed))
+        } catch {
+            // Phase A scaffold contract — degrade quietly when the
+            // storage actor fails. The next eligible launch retries via
+            // the same cadence check. No analytics event fires on
+            // failure so the wire surface stays "purge succeeded with
+            // bucketed count" only.
         }
     }
 

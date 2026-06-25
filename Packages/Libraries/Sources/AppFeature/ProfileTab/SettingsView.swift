@@ -15,6 +15,12 @@ public struct SettingsView: View {
     /// key without an actor-bridging environment value. Default off per the
     /// DN-S portfolio rollout (TestFlight opt-in only).
     @AppStorage(TellView.castVoicingLiveEnabledKey) private var castVoicingLiveEnabled: Bool = false
+    /// ForgeReflection Phase C — grown-up-overridable retention horizon.
+    /// `AppRootView.task` reads the same key + clamps to the policy's
+    /// allowed set (90 / 180 / 365) so a corrupt write degrades safely.
+    /// Per `@.claude/rules/age-assurance.md` § "2026 FTC COPPA Rule
+    /// Amendments" (defined retention period requirement).
+    @AppStorage(AppRootView.reflectionRetentionDaysKey) private var reflectionRetentionDays: Int = ReflectionRetentionPolicy.defaultRetentionDays
 
     public init() {}
 
@@ -23,6 +29,7 @@ public struct SettingsView: View {
             List {
                 privacySection
                 permissionsSection
+                reflectionRetentionSection
                 siriShortcutsSection
                 experimentalSection
                 crisisSection
@@ -150,6 +157,41 @@ public struct SettingsView: View {
         }
         .accessibilityLabel(Text("Try saying \u{201C}\(phrase)\u{201D}"))
         .accessibilityHint(Text(detail))
+    }
+
+    /// ForgeReflection Phase C — kid-readable grown-up control for the
+    /// retention horizon. The three picks (90 / 180 / 365 days) match
+    /// the policy's `allowedRetentionDays`. The kid-readable labels
+    /// ("around 3 months" / "around half a year" / "around a year")
+    /// avoid raw day-count framing that reads as adult-corporate-policy
+    /// register.
+    private var reflectionRetentionSection: some View {
+        Section {
+            Picker(
+                selection: $reflectionRetentionDays,
+                content: {
+                    Text("Around 3 months").tag(90)
+                    Text("Around half a year").tag(180)
+                    Text("Around a year").tag(365)
+                },
+                label: {
+                    VStack(alignment: .leading, spacing: 4) {
+                        Text("How long reflections stick around")
+                            .font(.body.weight(.semibold))
+                        Text("VoiceTale removes older reflections automatically. You can choose how long they hang on for.")
+                            .font(.caption)
+                            .foregroundStyle(.secondary)
+                    }
+                }
+            )
+            .pickerStyle(.menu)
+            .accessibilityHint("Choose how long reflections persist before VoiceTale removes them.")
+        } header: {
+            Text("Reflections")
+        } footer: {
+            Text("Reflections never leave the device. This setting only controls how long they stay on it.")
+                .font(.caption2)
+        }
     }
 
     private var experimentalSection: some View {
