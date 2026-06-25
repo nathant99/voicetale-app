@@ -21,6 +21,14 @@ public struct AdventureTabView: View {
     @Environment(\.accessibilityReduceTransparency) private var reduceTransparency
     @Environment(\.kitMasteryStore) private var kitMasteryStore
     @Environment(\.analyticsService) private var analytics
+    /// ForgeMasteryEngine Phase D second-half — cross-tab coordinator
+    /// the deeper-challenge affordance pill posts to when tapped. The
+    /// kid's Tell-tab recording start consumes the pending context +
+    /// applies the catalog-sourced "I noticed you went deeper there"
+    /// register at reflection time. `nil` on preview / unbootstrapped
+    /// test surfaces — the pill silently degrades to a no-op
+    /// (preserves the canonical mode-card-tap behavior).
+    @Environment(\.recordingContextCoordinator) private var recordingContextCoordinator
     @State private var talesSavedCount: Int = 0
     @State private var isPresentingTaleTrial = false
     /// ForgeMasteryEngine Phase D — tracks which modes have already
@@ -124,7 +132,12 @@ public struct AdventureTabView: View {
                         .foregroundStyle(.secondary)
                 }
                 if let deeperChallenge {
-                    deeperChallengePill(copy: deeperChallenge, tint: mode.color)
+                    deeperChallengePill(
+                        copy: deeperChallenge.copy,
+                        tint: mode.color,
+                        kit: deeperChallenge.kit,
+                        gateID: mode.gateID
+                    )
                 }
             }
             Spacer()
@@ -146,34 +159,77 @@ public struct AdventureTabView: View {
     /// ``DeeperChallengeAffordance/masteryThreshold``. Copy is sourced
     /// from ``KitMasteryCopyCatalog`` (single seam; anti-shame token
     /// blocklist enforced at the catalog).
-    private func deeperChallengePill(copy: String, tint: Color) -> some View {
-        Label {
-            Text(copy)
-                .font(.caption.weight(.semibold))
-                .lineLimit(2)
-        } icon: {
-            Image(systemName: DeeperChallengeAffordance.symbolName)
+    ///
+    /// Phase D second-half: the pill is now a `Button` — tapping it
+    /// posts the deeper-challenge `kit` to
+    /// ``RecordingContextCoordinator`` AND routes the kid to the Tell
+    /// tab via ``IntentTabCoordinator`` so the next recording start
+    /// reads the pending context + Bramble's reflection opens with the
+    /// catalog-sourced "I noticed you went deeper there" register.
+    /// Per `@Docs/PLAN_FORGEMASTERY_INTEGRATION.md` § Phase D
+    /// second-half.
+    private func deeperChallengePill(
+        copy: String,
+        tint: Color,
+        kit: KitID,
+        gateID: String
+    ) -> some View {
+        Button {
+            handleDeeperChallengeTap(kit: kit, gateID: gateID)
+        } label: {
+            Label {
+                Text(copy)
+                    .font(.caption.weight(.semibold))
+                    .lineLimit(2)
+            } icon: {
+                Image(systemName: DeeperChallengeAffordance.symbolName)
+            }
+            .padding(.horizontal, 10)
+            .padding(.vertical, 6)
+            .background(tint.opacity(0.14), in: Capsule())
+            .foregroundStyle(tint)
         }
-        .padding(.horizontal, 10)
-        .padding(.vertical, 6)
-        .background(tint.opacity(0.14), in: Capsule())
-        .foregroundStyle(tint)
+        .buttonStyle(.plain)
         .padding(.top, 4)
-        .accessibilityHint("Bramble has a curiosity for this mode. Tap the card to open it.")
+        .accessibilityHint("Bramble has a curiosity for this mode. Tap to start a tale.")
     }
 
-    /// Resolve the deeper-challenge copy for a mode-card. Returns `nil`
-    /// when the card is locked, when the mode is unmapped (Tale Trial),
-    /// when the store is unbootstrapped, or when the kid's mastery on
-    /// the dominant kit hasn't crossed the
-    /// ``DeeperChallengeAffordance/masteryThreshold``.
-    private func deeperChallenge(for mode: ModeCard, isUnlocked: Bool) -> String? {
+    /// Handle a deeper-challenge pill tap. Posts the kit context to
+    /// the cross-tab coordinator + routes the kid to the Tell tab via
+    /// ``IntentTabCoordinator`` so the next recording start applies
+    /// the deeper-challenge register on Bramble's reflection. Fires
+    /// the categorical ``deeperChallengeTaleStarted(mode:)`` analytics
+    /// event — the mode raw value travels, the kit + the mastery
+    /// score + Bramble copy NEVER travel (anti-fingerprinting per
+    /// COPPA-2026 anti-PII). Silently degrades to "tab switch only"
+    /// when the coordinator env value is `nil` (preview / test
+    /// surfaces).
+    private func handleDeeperChallengeTap(kit: KitID, gateID: String) {
+        let raw = analyticsModeRawValue(for: gateID)
+        analytics.track(.deeperChallengeTaleStarted(mode: raw))
+        recordingContextCoordinator?.setPendingContext(
+            TaleRecordingContext(deeperChallengeKit: kit)
+        )
+        IntentTabCoordinator.shared.request(destination: .tell)
+    }
+
+    /// Resolve the deeper-challenge copy + dominant kit for a mode-card.
+    /// Returns `nil` when the card is locked, when the mode is unmapped
+    /// (Tale Trial), when the store is unbootstrapped, or when the
+    /// kid's mastery on the dominant kit hasn't crossed the
+    /// ``DeeperChallengeAffordance/masteryThreshold``. The kit is
+    /// included so the pill tap handler can post the deeper-challenge
+    /// context to ``RecordingContextCoordinator`` (Phase D second-half).
+    private func deeperChallenge(
+        for mode: ModeCard,
+        isUnlocked: Bool
+    ) -> (copy: String, kit: KitID)? {
         guard isUnlocked else { return nil }
         guard let store = kitMasteryStore else { return nil }
         guard let kit = ModeMasteryMapping.dominantKit(forGateID: mode.gateID) else { return nil }
         let score = store.state(for: kit).masteryScore
         guard DeeperChallengeAffordance.shouldSurface(masteryScore: score) else { return nil }
-        return DeeperChallengeAffordance.brambleCopy(for: kit)
+        return (DeeperChallengeAffordance.brambleCopy(for: kit), kit)
     }
 
     /// Emit ``deeperChallengeAvailable(mode:)`` at most once per

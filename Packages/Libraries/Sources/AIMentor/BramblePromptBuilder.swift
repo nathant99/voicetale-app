@@ -69,20 +69,35 @@ nonisolated public enum BramblePromptBuilder {
     /// Per-call prompt that names the mood, the beat the teller has just
     /// finished, and includes the transcript. The model is asked to produce
     /// a ``VoiceStoryReflectionGeneration`` from this prompt.
+    ///
+    /// `deeperChallengeOpener` is a catalog-sourced line (per the
+    /// `Models/KitMasteryCopyCatalog` `.deeperChallengeOpener` kind shipped
+    /// in the SIXTEENTH round of the auto-cycle) prepended to the first
+    /// craft observation when the just-finished tale was started from a
+    /// deeper-challenge affordance pill on an Adventure mode-card. `nil` on
+    /// every other path so the existing flow is byte-for-byte preserved.
+    /// Per `@Docs/PLAN_FORGEMASTERY_INTEGRATION.md` § Phase D second-half.
     public static func reflectionPrompt(
         transcript: String,
         mood: VoiceTaleMood,
-        beat: ArcBeat
+        beat: ArcBeat,
+        deeperChallengeOpener: String? = nil
     ) -> String {
         let truncated = transcript.count > 1200
             ? String(transcript.prefix(1200)) + "…"
             : transcript
+        let openerLine: String
+        if let opener = deeperChallengeOpener, !opener.isEmpty {
+            openerLine = "\nOpener (prepend verbatim to the first observation; do not paraphrase): \(opener)\n"
+        } else {
+            openerLine = ""
+        }
         return """
         The teller has just finished a told tale. Mood tag: \(mood.displayLabel.lowercased()). Beat they have just left: \(beat.displayLabel).
         Transcript (on-device):
         ---
         \(truncated)
-        ---
+        ---\(openerLine)
         Produce one or two craft observations (concrete moments you heard, not judgments), then one open-ended Socratic follow-up that invites the teller deeper into their own choice.
         """
     }

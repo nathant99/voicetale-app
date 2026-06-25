@@ -54,6 +54,16 @@ extension EnvironmentValues {
     /// hasn't been wired yet. Per
     /// `@Docs/PLAN_FORGEMASTERY_INTEGRATION.md` § Phase B.
     @Entry public var kitMasteryStore: KitMasteryStore? = nil
+    /// ForgeMasteryEngine Phase D second-half — cross-tab coordinator
+    /// carrying the pending ``TaleRecordingContext`` from an Adventure
+    /// mode-card affordance pill (``AdventureTabView``) into
+    /// ``TellView``'s recording → reflection flow. `nil` when no
+    /// coordinator has been injected (preview / unbootstrapped test
+    /// surfaces) — consumers branch on the `nil` env state to skip
+    /// the deeper-challenge wiring without breaking the canonical
+    /// flow. Per `@Docs/PLAN_FORGEMASTERY_INTEGRATION.md` § Phase D
+    /// second-half.
+    @Entry public var recordingContextCoordinator: RecordingContextCoordinator? = nil
 }
 
 /// Top-level app shell. Hosts a 4-tab `TabView` (Tell / Adventure / Progress
@@ -207,6 +217,7 @@ public struct AppRootView: View {
         .environment(\.sessionTally, sessionTally)
         .environment(\.voiceTaleReflectionStore, reflectionStore)
         .environment(\.kitMasteryStore, kitMasteryStore)
+        .environment(\.recordingContextCoordinator, RecordingContextCoordinator.shared)
         .celebrationOverlay(celebration)
         .sheet(item: $welcomeBackContext) { context in
             WelcomeBackView(

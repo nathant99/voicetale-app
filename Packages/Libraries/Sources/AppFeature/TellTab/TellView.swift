@@ -16,6 +16,14 @@ public struct TellView: View {
     @Environment(\.analyticsService) private var analytics
     @Environment(\.celebrationCoordinator) private var celebration
     @Environment(\.sessionTally) private var sessionTally
+    /// ForgeMasteryEngine Phase D second-half — process-wide coordinator
+    /// carrying the pending ``TaleRecordingContext`` from an Adventure
+    /// mode-card affordance pill tap. Consumed once per recording start
+    /// in ``startRecording`` and applied to ``TellMachine.recordingContext``
+    /// so the reflection-time prompt-builder sees the deeper-challenge
+    /// signal. `nil` when no pending context is in flight (the canonical
+    /// state for every Tell-tab start that isn't deeper-challenge).
+    @Environment(\.recordingContextCoordinator) private var recordingContextCoordinator
     @State private var machine = TellMachine()
     @State private var recorder = AudioRecorder()
     @State private var mentor = BrambleMentor()
@@ -515,6 +523,19 @@ public struct TellView: View {
             return
         }
         HapticsBridge.fireRecordStart()
+        // ForgeMasteryEngine Phase D second-half — consume any pending
+        // deeper-challenge context posted from the Adventure mode-card
+        // affordance pill. One-shot: the consume call resets the
+        // coordinator to `.none` so a subsequent Tell-tab start (without
+        // a fresh affordance tap) carries the neutral context. The
+        // machine carries the context through `enterAwaitingReflection`
+        // → `runReflection` so the prompt-builder sees the deeper-
+        // challenge signal at LM time.
+        if let coordinator = recordingContextCoordinator {
+            machine.recordingContext = coordinator.consumePendingContext()
+        } else {
+            machine.recordingContext = .none
+        }
         analytics.track(.taleRecordingStarted(mood: machine.draftMood))
         machine.phase = .requestingPermission
         Task { @MainActor in
@@ -556,6 +577,10 @@ public struct TellView: View {
     private func cancelRecording() {
         recorder.cancel()
         stopVoicePreview()
+        // Clear any pending coordinator state too — a kid who tapped the
+        // deeper-challenge pill then immediately cancelled should NOT
+        // carry the context into their next Tell-tab session.
+        recordingContextCoordinator?.clearPendingContext()
         machine.reset()
         transcriptDraft = ""
         clearCastVoicing()
@@ -614,6 +639,19 @@ public struct TellView: View {
         let beatForReflection = machine.beatTimeline.last?.beat ?? .close
         activeKit = loadActiveKit()
         let skipped = skippedBeats(in: machine.beatTimeline)
+        // ForgeMasteryEngine Phase D second-half — source the deeper-
+        // challenge opener line from `KitMasteryCopyCatalog` when the
+        // pending context recorded a deeper-challenge kit. The opener
+        // is the SINGLE seam through which Bramble speaks about the
+        // deeper-challenge state — the kit name, the engine rationale,
+        // and the mastery score are NEVER surfaced in kid-facing text.
+        // Suppressed on retell + beat-skipped paths so the existing
+        // pair-reflection / hold-space registers come first (those
+        // surfaces are themselves register shifts; layering the
+        // deeper-challenge opener on top would muddy the register).
+        // Per `@Docs/PLAN_FORGEMASTERY_INTEGRATION.md` § Phase D
+        // second-half + the catalog-single-seam discipline.
+        let deeperChallengeOpener = deeperChallengeOpenerLine()
         let reflection: VoiceStoryReflection
         if let prior = previousTranscript, !prior.isEmpty {
             reflection = await mentor.reflectRetell(
@@ -635,7 +673,8 @@ public struct TellView: View {
                 transcript: machine.transcript,
                 mood: machine.draftMood,
                 beat: beatForReflection,
-                favoriteMood: deriveFavoriteMood()
+                favoriteMood: deriveFavoriteMood(),
+                deeperChallengeOpener: deeperChallengeOpener
             )
         }
         machine.presentReflection(reflection)
@@ -680,6 +719,21 @@ public struct TellView: View {
         guard mentor.lastDistressAxis == nil else { return }
         await runVoiceVariationReflectionIfNeeded()
         await runCastVoicingIfEnabled()
+    }
+
+    /// ForgeMasteryEngine Phase D second-half — resolve the catalog-
+    /// sourced "I noticed you went deeper there" opener line for the
+    /// pending recording context's deeper-challenge kit. Returns `nil`
+    /// when no deeper-challenge kit was recorded on the machine
+    /// (the canonical state for every Tell-tab start that wasn't
+    /// routed through an Adventure mode-card affordance pill). The
+    /// catalog is the SINGLE seam where this copy is authored —
+    /// never inline here per the anti-shame token blocklist
+    /// enforced at the catalog. Per `Models/KitMasteryCopyCatalog`
+    /// `.deeperChallengeOpener` kind shipped this round.
+    private func deeperChallengeOpenerLine() -> String? {
+        guard let kit = machine.recordingContext.deeperChallengeKit else { return nil }
+        return KitMasteryCopyCatalog.line(for: .deeperChallengeOpener, kit: kit)
     }
 
     /// Load the crisis-resource list from the tradition catalog so the

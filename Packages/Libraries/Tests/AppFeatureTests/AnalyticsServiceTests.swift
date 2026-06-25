@@ -214,6 +214,40 @@ struct AnalyticsServiceTests {
         }
     }
 
+    // MARK: - ForgeMasteryEngine Phase D second-half — deeperChallengeTaleStarted
+
+    @Test func deeperChallengeTaleStartedEventNameIsStable() {
+        let event = VoiceTaleAnalyticsEvent.deeperChallengeTaleStarted(mode: "hook_builder")
+        #expect(event.name == "deeper_challenge_tale_started")
+    }
+
+    @Test func deeperChallengeTaleStartedCarriesModeOnly() {
+        // Mirrors the wire shape of `.deeperChallengeAvailable` — the
+        // mode raw value travels; the dominant kit + mastery score +
+        // Bramble register-shift opener NEVER travel. Anti-
+        // fingerprinting per `@Docs/PLAN_FORGEMASTERY_INTEGRATION.md`
+        // § Phase D second-half + COPPA-2026 anti-PII discipline.
+        let modes = ["hook_builder", "pacing_walk", "turn_drill", "callback_refrain"]
+        for mode in modes {
+            let event = VoiceTaleAnalyticsEvent.deeperChallengeTaleStarted(mode: mode)
+            let props = event.properties
+            #expect(props == ["mode": mode])
+            #expect(props["kit"] == nil)
+            #expect(props["mastery_score"] == nil)
+            #expect(props["bramble_copy"] == nil)
+            #expect(props["opener"] == nil)
+        }
+    }
+
+    @Test func deeperChallengeTaleStartedNameDiffersFromAvailable() {
+        // Wire-shape separation invariant: cohort analysis must be able
+        // to separate "affordance lit" from "affordance acted on" — the
+        // two events MUST have distinct stable names.
+        let avail = VoiceTaleAnalyticsEvent.deeperChallengeAvailable(mode: "hook_builder")
+        let started = VoiceTaleAnalyticsEvent.deeperChallengeTaleStarted(mode: "hook_builder")
+        #expect(avail.name != started.name)
+    }
+
     @Test func everyDeclaredEventHasAUniqueNonEmptyName() {
         // Centralized name-collision audit. New event cases must add an
         // entry below; the test fails if the names collide OR if a case

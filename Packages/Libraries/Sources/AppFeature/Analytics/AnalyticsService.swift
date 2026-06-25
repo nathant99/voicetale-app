@@ -133,6 +133,19 @@ public enum VoiceTaleAnalyticsEvent: Sendable, Hashable {
     /// anti-shame per `@Docs/PLAN_FORGEMASTERY_INTEGRATION.md` §
     /// Phase D).
     case deeperChallengeAvailable(mode: String)
+    /// ForgeMasteryEngine Phase D second-half — fires when the kid
+    /// taps the deeper-challenge affordance pill on an Adventure
+    /// mode-card. Distinct from ``deeperChallengeAvailable(mode:)``
+    /// (which fires on pill-surface) so cohort analysis can separate
+    /// "affordance lit" from "affordance acted on". Categorical-only
+    /// payload: the mode raw value travels (one of `hook_builder` /
+    /// `pacing_walk` / `turn_drill` / `callback_refrain` — Tale Trial
+    /// is unmapped per ``Models/ModeMasteryMapping``). The dominant
+    /// kit, the kid's mastery score, and the Bramble register-shift
+    /// opener line NEVER travel (anti-fingerprinting per
+    /// `@Docs/PLAN_FORGEMASTERY_INTEGRATION.md` § Phase D
+    /// second-half).
+    case deeperChallengeTaleStarted(mode: String)
 
     /// Event name in the underlying ForgeAnalytics store. Keep lowercase +
     /// snake_case so future analytics inspectors can grep cleanly.
@@ -165,6 +178,7 @@ public enum VoiceTaleAnalyticsEvent: Sendable, Hashable {
         case .reflectionsPurged:             return "reflections_purged"
         case .parentReflectionJournalOpened: return "parent_reflection_journal_opened"
         case .deeperChallengeAvailable:      return "deeper_challenge_available"
+        case .deeperChallengeTaleStarted:    return "deeper_challenge_tale_started"
         }
     }
 
@@ -272,6 +286,13 @@ public enum VoiceTaleAnalyticsEvent: Sendable, Hashable {
             // mapped kit + the kid's mastery score + the Bramble copy
             // NEVER travel. Anti-fingerprinting per
             // `@Docs/PLAN_FORGEMASTERY_INTEGRATION.md` § Phase D.
+            return ["mode": mode]
+        case .deeperChallengeTaleStarted(let mode):
+            // Same wire shape as `.deeperChallengeAvailable` — the
+            // mode raw value travels; the dominant kit + mastery
+            // score + Bramble register-shift opener NEVER do. Anti-
+            // fingerprinting per `@Docs/PLAN_FORGEMASTERY_INTEGRATION.md`
+            // § Phase D second-half.
             return ["mode": mode]
         }
     }
