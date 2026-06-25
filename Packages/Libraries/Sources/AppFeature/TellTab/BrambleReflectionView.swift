@@ -1,6 +1,8 @@
 import SwiftUI
 import Models
 import SharedUI
+import ForgeModels
+import ForgeUI
 
 /// Presents Bramble's listening-coach reflection — one to two craft
 /// observations + one open-ended Socratic prompt. Designed to be the
@@ -54,11 +56,28 @@ public struct BrambleReflectionView: View {
     /// voice-variation callout but ABOVE the cast-voicing chip. Per
     /// `@Docs/AUDIT_MICRO_DELIGHT_COVERAGE_2026-06-24.md`.
     public let surpriseMoment: SurpriseMoment?
+    /// ForgeReflection Phase B — optional kit number plumbed through to
+    /// ``VoiceTaleReflectionConfigCatalog/forSocraticPrompt(_:kitNumber:)``
+    /// so per-kit retention policy can diverge later. `nil` from the
+    /// Phase 1 Tell-flow (no kit context); set by ``TellView`` to
+    /// `activeKit?.kit` when a kit cameo is surfaced.
+    public let reflectionKitNumber: Int?
     public let onSave: () -> Void
     public let onRetell: () -> Void
 
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
     @Environment(\.accessibilityReduceTransparency) private var reduceTransparency
+    /// ForgeReflection Phase B — `nil` until ``AppRootView.task`` boots
+    /// + injects the shared store via environment. When `nil` (e.g.,
+    /// previews + unbootstrapped tests) the "Answer Bramble" affordance
+    /// stays hidden, preserving the listening-back register.
+    @Environment(\.voiceTaleReflectionStore) private var reflectionStore
+    @Environment(\.analyticsService) private var analytics
+    /// Drives `.reflectionPrompt(...)` presentation. Reset on dismiss
+    /// by the ForgeUI modifier; reset on retell/save by ``TellView`` via
+    /// the existing `onRetell` / `onSave` callbacks (no extra plumbing
+    /// needed — the sheet's `isPresented` binding lives view-local).
+    @State private var isAnsweringBramble: Bool = false
 
     public init(
         reflection: VoiceStoryReflection?,
@@ -71,6 +90,7 @@ public struct BrambleReflectionView: View {
         crisisResources: [CrisisResource] = [],
         masteryMoment: MasteryMoment? = nil,
         surpriseMoment: SurpriseMoment? = nil,
+        reflectionKitNumber: Int? = nil,
         onSave: @escaping () -> Void,
         onRetell: @escaping () -> Void
     ) {
@@ -84,8 +104,21 @@ public struct BrambleReflectionView: View {
         self.crisisResources = crisisResources
         self.masteryMoment = masteryMoment
         self.surpriseMoment = surpriseMoment
+        self.reflectionKitNumber = reflectionKitNumber
         self.onSave = onSave
         self.onRetell = onRetell
+    }
+
+    /// True when the "Answer Bramble" surface should render. Per
+    /// `@Docs/PLAN_FORGEREFLECTION_LIFT.md` § Phase B: surfaces ONLY when
+    /// the reflection carries a non-empty Socratic prompt AND a store is
+    /// wired AND the listening-back register isn't being held by a
+    /// distress hold-space (anti-clobber per ``distressChip``).
+    public var canAnswerBramble: Bool {
+        guard reflectionStore != nil else { return false }
+        guard crisisResources.isEmpty else { return false }
+        guard let prompt = reflection?.socraticPrompt else { return false }
+        return !prompt.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
     }
 
     public var body: some View {
@@ -134,6 +167,49 @@ public struct BrambleReflectionView: View {
             actionRow
         }
         .padding()
+        .reflectionPrompt(
+            answerBrambleConfig,
+            isPresented: $isAnsweringBramble,
+            onComplete: handleBrambleAnswer
+        )
+    }
+
+    /// ForgeReflection Phase B — config consumed by the `.reflectionPrompt`
+    /// modifier. The Socratic prompt routes through
+    /// ``VoiceTaleReflectionConfigCatalog/forSocraticPrompt(_:kitNumber:)``;
+    /// the catalog enforces the trauma-informed `.skip` precondition + the
+    /// V1 omission of `.drawing`. Falls back to a neutral placeholder when
+    /// no prompt is present so the precondition (1-2 questions) holds even
+    /// during the in-between render frame where the kid taps the button
+    /// before `reflection` re-sets.
+    private var answerBrambleConfig: ReflectionPromptConfig {
+        let prompt = reflection?.socraticPrompt?
+            .trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+        return VoiceTaleReflectionConfigCatalog.forSocraticPrompt(
+            prompt,
+            kitNumber: reflectionKitNumber
+        )
+    }
+
+    /// Persists the entry via the store + emits a categorical analytics
+    /// event. Modality raw value travels (`text` / `voice` / `drawing` /
+    /// `emoji` / `skip`); the text payload NEVER travels. `.skip`
+    /// entries DO persist so the parent dashboard can show the kid
+    /// engaged-then-skipped path, but they carry no `textValue` (the
+    /// `.skip` factory enforces this) — anti-shame discipline per
+    /// `@.claude/rules/trauma-informed-content.md` § "off-ramp".
+    private func handleBrambleAnswer(_ entry: ReflectionEntry) async {
+        guard let reflectionStore else { return }
+        do {
+            try await reflectionStore.save(entry)
+        } catch {
+            // Per `@.claude/rules/debug-logging.md` § "Replace silent
+            // try? with logged catches" — when a categorized DebugLog
+            // surface lands in AppFeature, route the failure through
+            // it. Phase B preserves the parent's existing degrade-quiet
+            // contract; the entry is dropped but the kid sees no error.
+        }
+        analytics.track(.brambleAnswered(modality: entry.modality.rawValue))
     }
 
     private var mascotHeader: some View {
@@ -351,23 +427,46 @@ public struct BrambleReflectionView: View {
     }
 
     private var actionRow: some View {
-        HStack(spacing: 12) {
-            Button(action: onRetell) {
-                Label("Tell again", systemImage: "arrow.counterclockwise")
-                    .frame(maxWidth: .infinity)
-                    .padding(.vertical, 6)
+        VStack(spacing: 12) {
+            if canAnswerBramble {
+                answerBrambleButton
             }
-            .buttonStyle(.bordered)
-            .accessibilityHint("Discard this take and re-record the tale.")
+            HStack(spacing: 12) {
+                Button(action: onRetell) {
+                    Label("Tell again", systemImage: "arrow.counterclockwise")
+                        .frame(maxWidth: .infinity)
+                        .padding(.vertical, 6)
+                }
+                .buttonStyle(.bordered)
+                .accessibilityHint("Discard this take and re-record the tale.")
 
-            Button(action: onSave) {
-                Label("Add to my anthology", systemImage: "bookmark.fill")
-                    .frame(maxWidth: .infinity)
-                    .padding(.vertical, 6)
+                Button(action: onSave) {
+                    Label("Add to my anthology", systemImage: "bookmark.fill")
+                        .frame(maxWidth: .infinity)
+                        .padding(.vertical, 6)
+                }
+                .buttonStyle(.borderedProminent)
+                .accessibilityHint("Save this tale + transcript to your anthology.")
             }
-            .buttonStyle(.borderedProminent)
-            .accessibilityHint("Save this tale + transcript to your anthology.")
         }
+    }
+
+    /// ForgeReflection Phase B — "Answer Bramble" affordance. Tap presents
+    /// the ForgeUI reflection sheet (text / voice / emoji / skip). Wired
+    /// only when ``canAnswerBramble`` (non-empty Socratic prompt + store
+    /// bootstrapped + no distress hold-space). Per
+    /// `@Docs/PLAN_FORGEREFLECTION_LIFT.md` § Phase B + the
+    /// listening-back register's "additive, never substitutive" rule.
+    private var answerBrambleButton: some View {
+        Button {
+            isAnsweringBramble = true
+        } label: {
+            Label("Answer Bramble", systemImage: "bubble.left.and.text.bubble.right.fill")
+                .frame(maxWidth: .infinity)
+                .padding(.vertical, 6)
+        }
+        .buttonStyle(.bordered)
+        .accessibilityHint("Type, record, or emoji your answer to Bramble's question. You can skip.")
     }
 }
 

@@ -38,6 +38,14 @@ extension EnvironmentValues {
     /// the session soft-cap fires. Reset implicitly on cold launch via
     /// AppRootView's `@State` storage; reset explicitly on closer dismiss.
     @Entry public var sessionTally: SessionTallyTracker = SessionTallyTracker()
+    /// ForgeReflection Phase B — shared ``VoiceTaleReflectionStore``
+    /// instance backing the `.reflectionPrompt` modifier surfaced inside
+    /// ``BrambleReflectionView``. `nil` until ``AppRootView.task`` boots
+    /// it against the shared `ModelContainer`; consumers branch on the
+    /// `nil` state to hide the affordance (preserves the listening-back
+    /// register on previews + unbootstrapped tests). Per
+    /// `@Docs/PLAN_FORGEREFLECTION_LIFT.md` § Phase B.
+    @Entry public var voiceTaleReflectionStore: VoiceTaleReflectionStore? = nil
 }
 
 /// Top-level app shell. Hosts a 4-tab `TabView` (Tell / Adventure / Progress
@@ -81,6 +89,15 @@ public struct AppRootView: View {
     @State private var forgeAudio = ForgeAudioBridge()
     @State private var anthologyPlayer = AnthologyAudioPlayer()
     @State private var sessionTally = SessionTallyTracker()
+    /// ForgeReflection Phase B — process-wide store for the "Answer
+    /// Bramble" surface. Bootstrapped once in `.task` against the shared
+    /// `ModelContainer`; injected into the environment so
+    /// ``BrambleReflectionView`` (and any future consumer) reads via
+    /// `@Environment(\.voiceTaleReflectionStore)`. The store is
+    /// `@MainActor @Observable` and the cached `entries` snapshot drives
+    /// SwiftUI updates without re-querying the underlying actor.
+    @State private var reflectionStore = VoiceTaleReflectionStore()
+    @State private var hasBootstrappedReflectionStore = false
     @State private var router: ForgePhaseRouter<VoiceTalePhase> = AppRootView.makeRouter()
     @State private var hasBootstrapped = false
     /// Engagement-Foundation welcome-back state. Populated once on
@@ -146,6 +163,7 @@ public struct AppRootView: View {
         .environment(\.forgeAudio, forgeAudio)
         .environment(\.anthologyAudioPlayer, anthologyPlayer)
         .environment(\.sessionTally, sessionTally)
+        .environment(\.voiceTaleReflectionStore, reflectionStore)
         .celebrationOverlay(celebration)
         .sheet(item: $welcomeBackContext) { context in
             WelcomeBackView(
@@ -228,6 +246,17 @@ public struct AppRootView: View {
             // transcript never leaves persistence. Idempotent — repeated
             // calls overwrite the prior entries.
             await VoiceTaleSpotlightIndexer.indexAllTales(in: modelContext)
+            // ForgeReflection Phase B — boot the shared
+            // ``VoiceTaleReflectionStore`` once against the shared
+            // `ModelContainer`. Idempotent guard via
+            // `hasBootstrappedReflectionStore` mirrors the existing
+            // `hasBootstrapped` pattern; second `.task` invocations
+            // (scene-phase rehydration) re-fetch the entry list via
+            // `refresh()` without recreating the storage actor.
+            if !hasBootstrappedReflectionStore {
+                hasBootstrappedReflectionStore = true
+                await reflectionStore.bootstrap(container: modelContext.container)
+            }
         }
         .onChange(of: scenePhase) { _, newPhase in
             // Pause the COPPA session timer when the app backgrounds so the
