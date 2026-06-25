@@ -46,6 +46,14 @@ extension EnvironmentValues {
     /// register on previews + unbootstrapped tests). Per
     /// `@Docs/PLAN_FORGEREFLECTION_LIFT.md` § Phase B.
     @Entry public var voiceTaleReflectionStore: VoiceTaleReflectionStore? = nil
+    /// ForgeMasteryEngine Phase B — shared ``KitMasteryStore`` instance
+    /// reading + writing per-(kid, kit) `TopicMasteryState` snapshots on
+    /// `PersistentPlayerProgress.encodedMasteryState`. Bootstrapped in
+    /// ``AppRootView.task``; consumers (e.g., `QuizView.handleChoice`)
+    /// branch on the `nil` env state to skip recording when the store
+    /// hasn't been wired yet. Per
+    /// `@Docs/PLAN_FORGEMASTERY_INTEGRATION.md` § Phase B.
+    @Entry public var kitMasteryStore: KitMasteryStore? = nil
 }
 
 /// Top-level app shell. Hosts a 4-tab `TabView` (Tell / Adventure / Progress
@@ -98,6 +106,14 @@ public struct AppRootView: View {
     /// SwiftUI updates without re-querying the underlying actor.
     @State private var reflectionStore = VoiceTaleReflectionStore()
     @State private var hasBootstrappedReflectionStore = false
+    /// ForgeMasteryEngine Phase B — process-wide store backing
+    /// ``QuizView.handleChoice``'s `MasteryUpdater.recordAttempt` call.
+    /// Bootstrapped once in `.task` against the canonical
+    /// ``PersistentPlayerProgress`` row (fetched / created via
+    /// ``VoiceTaleStore.fetchOrCreateProgress``) so the JSON snapshot
+    /// on `encodedMasteryState` round-trips across launches.
+    @State private var kitMasteryStore = KitMasteryStore()
+    @State private var hasBootstrappedKitMasteryStore = false
     @State private var router: ForgePhaseRouter<VoiceTalePhase> = AppRootView.makeRouter()
     @State private var hasBootstrapped = false
     /// Engagement-Foundation welcome-back state. Populated once on
@@ -164,6 +180,7 @@ public struct AppRootView: View {
         .environment(\.anthologyAudioPlayer, anthologyPlayer)
         .environment(\.sessionTally, sessionTally)
         .environment(\.voiceTaleReflectionStore, reflectionStore)
+        .environment(\.kitMasteryStore, kitMasteryStore)
         .celebrationOverlay(celebration)
         .sheet(item: $welcomeBackContext) { context in
             WelcomeBackView(
@@ -256,6 +273,18 @@ public struct AppRootView: View {
             if !hasBootstrappedReflectionStore {
                 hasBootstrappedReflectionStore = true
                 await reflectionStore.bootstrap(container: modelContext.container)
+            }
+            // ForgeMasteryEngine Phase B — boot the shared
+            // ``KitMasteryStore`` against the canonical
+            // ``PersistentPlayerProgress`` row. Idempotent guard via
+            // `hasBootstrappedKitMasteryStore` mirrors the existing
+            // pattern. `fetchOrCreateProgress` already seeds the row
+            // on first launch; the store decodes
+            // `encodedMasteryState` to hydrate prior FSRS state.
+            if !hasBootstrappedKitMasteryStore {
+                hasBootstrappedKitMasteryStore = true
+                let progress = VoiceTaleStore.fetchOrCreateProgress(in: modelContext)
+                kitMasteryStore.bootstrap(progress: progress)
             }
         }
         .onChange(of: scenePhase) { _, newPhase in
