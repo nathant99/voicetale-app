@@ -79,4 +79,39 @@ public enum QuestionKitLoader {
         let index = abs(seed) % phase1Filenames.count
         return try loadKit(named: phase1Filenames[index])
     }
+
+    /// ForgeMasteryEngine Phase C — load the kit corresponding to a
+    /// specific ``KitID``. The kit JSON filenames follow the
+    /// `kit_0N_<slug>` convention; this helper resolves the right
+    /// `0N` index from the `KitID.rawValue` (1-based) so the same
+    /// canonical mapping carries across Phase 1 / 1.1 / Phase 2.
+    /// `nil` return means the ID is registered but the corresponding
+    /// JSON isn't bundled — defensive against a future kit-id
+    /// extension that ships ahead of the JSON resource.
+    public static func loadKit(forKitID kit: KitID) throws -> QuestionKit? {
+        let allFilenames = phase1Filenames + phase11Filenames + phase2Filenames
+        let prefix = String(format: "kit_%02d_", kit.rawValue)
+        guard let filename = allFilenames.first(where: { $0.hasPrefix(prefix) }) else {
+            return nil
+        }
+        return try loadKit(named: filename)
+    }
+
+    /// ForgeMasteryEngine Phase C — recommendation-first rotation per
+    /// `@Docs/PLAN_FORGEMASTERY_INTEGRATION.md` § Phase C. When
+    /// `recommendation` is non-nil + the kit's JSON is bundled, return
+    /// that kit. Otherwise fall back to the existing week-of-year
+    /// rotation via ``loadKitForRotation(seed:)``. This preserves the
+    /// existing cold-launch / new-kid register (no signal → unchanged
+    /// rotation) while letting the engine drive the surface once
+    /// signal exists.
+    public static func loadKitForRotation(
+        seed: Int,
+        recommendation: KitMasteryRecommendation?
+    ) throws -> QuestionKit {
+        if let recommendation, let kit = try loadKit(forKitID: recommendation.kit) {
+            return kit
+        }
+        return try loadKitForRotation(seed: seed)
+    }
 }

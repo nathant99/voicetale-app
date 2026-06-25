@@ -40,8 +40,19 @@ public struct QuizView: View {
     /// week-of-year so the kit rotates over time without random churn.
     private let rotationSeed: Int
 
-    public init(rotationSeed: Int = Calendar.current.component(.weekOfYear, from: Date())) {
+    /// ForgeMasteryEngine Phase C — when set, the practice surface loads
+    /// the specified ``KitID`` rather than the seed-based rotation.
+    /// Used by the three-card "Practice with Bramble" surface on
+    /// ``ProgressTabView`` once the engine has signal; cold-launch /
+    /// new-kid paths still pass `nil` and inherit the rotation.
+    private let preselectedKit: KitID?
+
+    public init(
+        rotationSeed: Int = Calendar.current.component(.weekOfYear, from: Date()),
+        preselectedKit: KitID? = nil
+    ) {
         self.rotationSeed = rotationSeed
+        self.preselectedKit = preselectedKit
     }
 
     public var body: some View {
@@ -278,7 +289,17 @@ public struct QuizView: View {
     private func loadKitIfNeeded() {
         guard machine.kit == nil else { return }
         do {
-            let kit = try QuestionKitLoader.loadKitForRotation(seed: rotationSeed)
+            // ForgeMasteryEngine Phase C — when a recommendation-driven
+            // kit was passed via `preselectedKit`, prefer it over the
+            // week-of-year rotation. Falls back to the rotation when
+            // the requested kit's JSON isn't bundled (defensive
+            // against a future kit-id-ships-ahead-of-JSON case).
+            let kit: QuestionKit
+            if let preselectedKit, let resolved = try QuestionKitLoader.loadKit(forKitID: preselectedKit) {
+                kit = resolved
+            } else {
+                kit = try QuestionKitLoader.loadKitForRotation(seed: rotationSeed)
+            }
             machine.bootstrap(with: kit)
         } catch {
             loadError = String(describing: error)

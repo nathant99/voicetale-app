@@ -4,6 +4,7 @@ import Models
 import Services
 import SharedUI
 import ForgeGamification
+import ForgeMasteryEngine
 
 /// Phase 1 Progress tab — surfaces XP / level / streak / counted tales /
 /// per-mood breakdown. Reads value-type caches from ``VoiceTaleStore`` per
@@ -13,13 +14,24 @@ public struct ProgressTabView: View {
     @Environment(\.gamificationService) private var gamification
     @Environment(\.sessionTimer) private var sessionTimer
     @Environment(\.accessibilityReduceTransparency) private var reduceTransparency
+    /// ForgeMasteryEngine Phase C — read the per-(kid, kit) mastery
+    /// snapshot to drive the recommendation-first practice surface.
+    /// `nil` until ``AppRootView.task`` boots the store; consumer
+    /// branches on `nil` to fall back to the single-card surface.
+    @Environment(\.kitMasteryStore) private var kitMasteryStore
     @State private var progress: PlayerProgressData = PlayerProgressData()
     @State private var moods: [AnthologyMoodData] = []
     @State private var totalTales: Int = 0
     @State private var earnedBadges: [EarnedBadgeData] = []
     @State private var isPracticePresented: Bool = false
+    /// ForgeMasteryEngine Phase C — when set, the upcoming `.sheet`
+    /// presents ``QuizView`` with `preselectedKit:` instead of the
+    /// week-of-year rotation. Cleared on dismiss so the next tap
+    /// re-evaluates against the latest mastery snapshot.
+    @State private var pendingPreselectedKit: KitID?
 
     private let xpEngine = XPEngine(config: GamificationConfig())
+    private let recommender = KitMasteryRecommender()
 
     public init() {}
 
@@ -30,7 +42,7 @@ public struct ProgressTabView: View {
                     xpCard
                     streakCard
                     listeningTimeCard
-                    practiceCard
+                    practiceSurface
                     badgeShelf
                     moodBreakdown
                 }
@@ -38,10 +50,82 @@ public struct ProgressTabView: View {
             }
             .voiceTaleNavigationTitle("Progress")
             .onAppear(perform: reload)
-            .sheet(isPresented: $isPracticePresented, onDismiss: reload) {
-                QuizView()
+            .sheet(
+                isPresented: $isPracticePresented,
+                onDismiss: {
+                    pendingPreselectedKit = nil
+                    reload()
+                }
+            ) {
+                QuizView(preselectedKit: pendingPreselectedKit)
             }
         }
+    }
+
+    /// ForgeMasteryEngine Phase C — branches between the legacy single
+    /// "Practice with Bramble" card (cold launch / empty engine state)
+    /// and the three-card extend / consolidate / stretch surface
+    /// (engine has signal). Per
+    /// `@Docs/PLAN_FORGEMASTERY_INTEGRATION.md` § Phase C.
+    @ViewBuilder
+    private var practiceSurface: some View {
+        let recs = currentRecommendations()
+        if recs.isEmpty {
+            practiceCard
+        } else {
+            VStack(alignment: .leading, spacing: 12) {
+                Text("Practice with Bramble")
+                    .font(.headline)
+                    .padding(.horizontal, 4)
+                ForEach(recs) { rec in
+                    recommendationCard(rec)
+                }
+            }
+        }
+    }
+
+    /// Resolve the current three-card recommendations from the
+    /// store's cached snapshot. Returns `[]` when the store hasn't
+    /// been bootstrapped (preview, unbootstrapped tests, fresh
+    /// install before AppRootView.task lands) or when the engine
+    /// surfaces nothing.
+    private func currentRecommendations() -> [KitMasteryRecommendation] {
+        guard let store = kitMasteryStore else { return [] }
+        return recommender.recommendations(state: store.cachedStates)
+    }
+
+    /// Single recommendation card. Tap surfaces the practice sheet
+    /// with the recommended kit preselected. The Bramble copy is
+    /// resolved at the catalog seam — never authored inline so the
+    /// anti-shame token blocklist stays enforced.
+    private func recommendationCard(_ rec: KitMasteryRecommendation) -> some View {
+        Button {
+            pendingPreselectedKit = rec.kit
+            isPracticePresented = true
+        } label: {
+            HStack(spacing: 16) {
+                Image(systemName: rec.kind.symbolName)
+                    .font(.title2)
+                    .foregroundStyle(.tint)
+                    .frame(width: 44, height: 44)
+                    .background(.thinMaterial, in: Circle())
+                VStack(alignment: .leading, spacing: 4) {
+                    Text(rec.kit.displayName)
+                        .font(.headline)
+                    Text(rec.brambleCopy)
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                        .multilineTextAlignment(.leading)
+                }
+                Spacer(minLength: 8)
+                Image(systemName: "chevron.right")
+                    .foregroundStyle(.secondary)
+            }
+            .padding(16)
+            .navGridCardSurface(tint: .accentColor, reduceTransparency: reduceTransparency)
+        }
+        .buttonStyle(.plain)
+        .accessibilityHint(Text("Open the \(rec.kit.displayName) practice kit. Four questions; no grades."))
     }
 
     /// Phase 1.1 entry point — opens ``QuizView`` as a sheet so the kid
