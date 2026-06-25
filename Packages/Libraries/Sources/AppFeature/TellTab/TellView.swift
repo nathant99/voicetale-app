@@ -294,6 +294,12 @@ public struct TellView: View {
                 crisisResources: distressCrisisResources,
                 masteryMoment: masteryMoment,
                 surpriseMoment: surpriseMoment,
+                // ForgeReflection Phase B — pass the active kit number so
+                // the "Answer Bramble" sheet's config encodes per-kit
+                // scoping. `nil` while no kit cameo is active (the Phase 1
+                // free-form Tell-flow) — the catalog still emits a valid
+                // `bramble.socratic.freeform` config in that case.
+                reflectionKitNumber: activeKit?.kit,
                 onSave: saveToAnthology,
                 onRetell: retellFromScratch
             )

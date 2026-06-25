@@ -83,6 +83,14 @@ public enum VoiceTaleAnalyticsEvent: Sendable, Hashable {
     /// `tradition`); no prompt text, no user-facing copy, no PII. Per
     /// `Docs/HANDOFF_TO_USER_APP_INTENTS_REGISTRATION.md` Step 3.
     case intentDestinationRequested(destination: String)
+    /// ForgeReflection Phase B — fires when the kid lands a response on
+    /// the "Answer Bramble" reflection sheet (or chose the `.skip`
+    /// off-ramp). Categorical-only payload: the modality raw value
+    /// (`text` / `voice` / `drawing` / `emoji` / `skip`) travels; the
+    /// text payload NEVER does. Per `@Docs/PLAN_FORGEREFLECTION_LIFT.md`
+    /// § Phase B + `@.claude/rules/age-assurance.md` § "2026 FTC COPPA
+    /// Rule Amendments" (no PII surface from kid-typed text).
+    case brambleAnswered(modality: String)
 
     /// Event name in the underlying ForgeAnalytics store. Keep lowercase +
     /// snake_case so future analytics inspectors can grep cleanly.
@@ -110,6 +118,7 @@ public enum VoiceTaleAnalyticsEvent: Sendable, Hashable {
         case .firstFiveBeatTaleCelebrated:   return "first_five_beat_tale_celebrated"
         case .promptSwapped:                 return "prompt_swapped"
         case .intentDestinationRequested:    return "intent_destination_requested"
+        case .brambleAnswered:               return "bramble_answered"
         }
     }
 
@@ -181,6 +190,13 @@ public enum VoiceTaleAnalyticsEvent: Sendable, Hashable {
             // emitted; future fine-grained routing keeps this surface
             // stable.
             return ["destination": destination]
+        case .brambleAnswered(let modality):
+            // Modality raw value (`text` / `voice` / `drawing` / `emoji`
+            // / `skip`) travels; the text payload NEVER does. Anti-
+            // fingerprinting + COPPA-2026 anti-shame discipline: the
+            // `.skip` off-ramp still emits so cohort engagement signal
+            // includes the kid-engaged-then-skipped path.
+            return ["modality": modality]
         }
     }
 
