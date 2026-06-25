@@ -19,8 +19,17 @@ import ForgeModels
 public struct AdventureTabView: View {
     @Environment(\.modelContext) private var modelContext
     @Environment(\.accessibilityReduceTransparency) private var reduceTransparency
+    @Environment(\.kitMasteryStore) private var kitMasteryStore
+    @Environment(\.analyticsService) private var analytics
     @State private var talesSavedCount: Int = 0
     @State private var isPresentingTaleTrial = false
+    /// ForgeMasteryEngine Phase D — tracks which modes have already
+    /// emitted ``deeperChallengeAvailable(mode:)`` this appearance so
+    /// the analytics surface stays one-fire-per-mode. Cleared on
+    /// disappear via `.id`-driven re-init; the round-trip from
+    /// `.appear → .disappear → .appear` re-emits per the existing
+    /// view-state convention.
+    @State private var emittedDeeperChallengeModes: Set<String> = []
 
     public init() {}
 
@@ -86,7 +95,8 @@ public struct AdventureTabView: View {
         isUnlocked: Bool,
         unlockHint: String
     ) -> some View {
-        HStack(alignment: .top, spacing: 14) {
+        let deeperChallenge = deeperChallenge(for: mode, isUnlocked: isUnlocked)
+        return HStack(alignment: .top, spacing: 14) {
             ZStack {
                 Circle()
                     .fill(mode.color.opacity(0.18))
@@ -113,6 +123,9 @@ public struct AdventureTabView: View {
                         .font(.caption)
                         .foregroundStyle(.secondary)
                 }
+                if let deeperChallenge {
+                    deeperChallengePill(copy: deeperChallenge, tint: mode.color)
+                }
             }
             Spacer()
         }
@@ -120,6 +133,73 @@ public struct AdventureTabView: View {
         .modifier(NavGridCardSurface(tint: mode.color, reduceTransparency: reduceTransparency))
         .opacity(isUnlocked ? 1 : 0.6)
         .accessibilityHint(isUnlocked ? "Open this Word Workshop mode" : "Locked: \(unlockHint)")
+        .onAppear {
+            if deeperChallenge != nil {
+                emitDeeperChallengeAnalyticsOnce(for: mode.gateID)
+            }
+        }
+    }
+
+    /// ForgeMasteryEngine Phase D — small kid-readable pill that
+    /// surfaces ONLY on unlocked + mapped mode-cards whose dominant kit
+    /// crosses the edge-of-competence threshold per
+    /// ``DeeperChallengeAffordance/masteryThreshold``. Copy is sourced
+    /// from ``KitMasteryCopyCatalog`` (single seam; anti-shame token
+    /// blocklist enforced at the catalog).
+    private func deeperChallengePill(copy: String, tint: Color) -> some View {
+        Label {
+            Text(copy)
+                .font(.caption.weight(.semibold))
+                .lineLimit(2)
+        } icon: {
+            Image(systemName: DeeperChallengeAffordance.symbolName)
+        }
+        .padding(.horizontal, 10)
+        .padding(.vertical, 6)
+        .background(tint.opacity(0.14), in: Capsule())
+        .foregroundStyle(tint)
+        .padding(.top, 4)
+        .accessibilityHint("Bramble has a curiosity for this mode. Tap the card to open it.")
+    }
+
+    /// Resolve the deeper-challenge copy for a mode-card. Returns `nil`
+    /// when the card is locked, when the mode is unmapped (Tale Trial),
+    /// when the store is unbootstrapped, or when the kid's mastery on
+    /// the dominant kit hasn't crossed the
+    /// ``DeeperChallengeAffordance/masteryThreshold``.
+    private func deeperChallenge(for mode: ModeCard, isUnlocked: Bool) -> String? {
+        guard isUnlocked else { return nil }
+        guard let store = kitMasteryStore else { return nil }
+        guard let kit = ModeMasteryMapping.dominantKit(forGateID: mode.gateID) else { return nil }
+        let score = store.state(for: kit).masteryScore
+        guard DeeperChallengeAffordance.shouldSurface(masteryScore: score) else { return nil }
+        return DeeperChallengeAffordance.brambleCopy(for: kit)
+    }
+
+    /// Emit ``deeperChallengeAvailable(mode:)`` at most once per
+    /// appearance per mode so the analytics surface doesn't flood when
+    /// the kid scrolls + re-renders the same card.
+    private func emitDeeperChallengeAnalyticsOnce(for gateID: String) {
+        let raw = analyticsModeRawValue(for: gateID)
+        guard !emittedDeeperChallengeModes.contains(raw) else { return }
+        emittedDeeperChallengeModes.insert(raw)
+        analytics.track(.deeperChallengeAvailable(mode: raw))
+    }
+
+    /// Stable raw value the analytics event carries. Strips the
+    /// `voicetale.adventure.` prefix so the wire surface stays a kid-
+    /// readable mode slug (mirrors ``ModeMasteryMapping/ModeCard``).
+    private func analyticsModeRawValue(for gateID: String) -> String {
+        if let mode = ModeMasteryMapping.ModeCard(rawValue: gateID) {
+            switch mode {
+            case .hookBuilder:      return "hook_builder"
+            case .pacingWalk:       return "pacing_walk"
+            case .turnDrill:        return "turn_drill"
+            case .callbackRefrain:  return "callback_refrain"
+            case .taleTrial:        return "tale_trial"
+            }
+        }
+        return gateID
     }
 
     private func refreshTalesCount() {

@@ -123,6 +123,16 @@ public enum VoiceTaleAnalyticsEvent: Sendable, Hashable {
     /// shape stays in lockstep with the sibling
     /// ``reflectionsPurged(removed:)`` event.
     case parentReflectionJournalOpened(visibleCount: Int)
+    /// ForgeMasteryEngine Phase D — fires when the mastery-driven
+    /// "deeper challenge" affordance lights on an unlocked Adventure
+    /// mode-card. Categorical-only payload: the mode raw value travels
+    /// (`hook_builder` / `pacing_walk` / `turn_drill` /
+    /// `callback_refrain` — Tale Trial is unmapped per
+    /// ``Models/ModeMasteryMapping``). The kit, the mastery score, and
+    /// the Bramble copy NEVER travel (anti-fingerprinting +
+    /// anti-shame per `@Docs/PLAN_FORGEMASTERY_INTEGRATION.md` §
+    /// Phase D).
+    case deeperChallengeAvailable(mode: String)
 
     /// Event name in the underlying ForgeAnalytics store. Keep lowercase +
     /// snake_case so future analytics inspectors can grep cleanly.
@@ -154,6 +164,7 @@ public enum VoiceTaleAnalyticsEvent: Sendable, Hashable {
         case .kitMasteryAdvanced:            return "kit_mastery_advanced"
         case .reflectionsPurged:             return "reflections_purged"
         case .parentReflectionJournalOpened: return "parent_reflection_journal_opened"
+        case .deeperChallengeAvailable:      return "deeper_challenge_available"
         }
     }
 
@@ -255,6 +266,13 @@ public enum VoiceTaleAnalyticsEvent: Sendable, Hashable {
             // opt-in toggle itself is NOT on the wire — only the bucketed
             // visible-count signal once the opt-in already happened.
             return ["visible_count_bucket": ReflectionRetentionPolicy.removedCountBucket(visibleCount)]
+        case .deeperChallengeAvailable(let mode):
+            // Mode raw value travels (one of `hook_builder` /
+            // `pacing_walk` / `turn_drill` / `callback_refrain`); the
+            // mapped kit + the kid's mastery score + the Bramble copy
+            // NEVER travel. Anti-fingerprinting per
+            // `@Docs/PLAN_FORGEMASTERY_INTEGRATION.md` § Phase D.
+            return ["mode": mode]
         }
     }
 

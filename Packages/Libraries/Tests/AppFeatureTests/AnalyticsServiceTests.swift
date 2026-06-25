@@ -191,6 +191,29 @@ struct AnalyticsServiceTests {
 
     // MARK: - Event-vocabulary exhaustiveness / uniqueness audit
 
+    // MARK: - ForgeMasteryEngine Phase D — deeperChallengeAvailable
+
+    @Test func deeperChallengeAvailableEventNameIsStable() {
+        let event = VoiceTaleAnalyticsEvent.deeperChallengeAvailable(mode: "hook_builder")
+        #expect(event.name == "deeper_challenge_available")
+    }
+
+    @Test func deeperChallengeAvailableCarriesModeOnly() {
+        // Mode raw value travels (one of hook_builder / pacing_walk /
+        // turn_drill / callback_refrain). The kit + mastery score +
+        // Bramble copy MUST NOT travel — anti-fingerprinting per the
+        // PLAN § Phase D.
+        let modes = ["hook_builder", "pacing_walk", "turn_drill", "callback_refrain"]
+        for mode in modes {
+            let event = VoiceTaleAnalyticsEvent.deeperChallengeAvailable(mode: mode)
+            let props = event.properties
+            #expect(props == ["mode": mode])
+            #expect(props["kit"] == nil)
+            #expect(props["mastery_score"] == nil)
+            #expect(props["bramble_copy"] == nil)
+        }
+    }
+
     @Test func everyDeclaredEventHasAUniqueNonEmptyName() {
         // Centralized name-collision audit. New event cases must add an
         // entry below; the test fails if the names collide OR if a case
