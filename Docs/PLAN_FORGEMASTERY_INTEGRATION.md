@@ -184,9 +184,20 @@ calibration produces measurably better selection than date-keyed.
 
 ### Phase D — `VoiceTaleProgressionGate` mastery-driven challenge affordances
 
-- Each unlocked mode-card surfaces a "deeper challenge" affordance when the kid's mastery on the corresponding kit's topic crosses an edge-of-competence threshold (mastery score ≥ 0.80)
-- Bramble's reflection on a deeper-challenge tale opens with a specific "I noticed you went deeper there" register (additive to the existing `.deep` tier register)
-- Tests for the affordance gating + the new register
+**Affordance half ✅ SHIPPED PR #136 (2026-06-25 FIFTEENTH round)**:
+
+- ✅ Each unlocked Adventure mode-card surfaces a "deeper challenge" affordance when the kid's mastery on the corresponding kit's topic crosses an edge-of-competence threshold (mastery score ≥ 0.80 per the engine's Vygotsky-ZPD floor).
+- ✅ New `Models/ModeMasteryMapping` is the canonical mode-card → KitID table (Hook Builder → `.hookCraft`, Pacing Walk → `.pacingRhythm`, Turn Drill → `.surprisePivot`, Callback Refrain → `.closingGrace`). Tale Trial is intentionally unmapped — a mastery hint on a blind-judged surface would defeat the rubric.
+- ✅ New `Services/Adaptive/DeeperChallengeAffordance` is a pure value-type service: `shouldSurface(masteryScore:)` (nil-safe; cold-launch kid renders unadorned mode-card) + `brambleCopy(for:)` (delegates to `KitMasteryCopyCatalog.line(for: .stretch, kit:)` — single seam preserves anti-shame token blocklist enforcement) + `symbolName` (`sparkles` — matches the Practice-with-Bramble stretch card; trophy / star / medal / rosette explicitly blocked at the unit-test layer).
+- ✅ `AdventureTabView` reads the env-injected `KitMasteryStore` and renders the affordance pill below the subtitle on each unlocked + mapped mode-card.
+- ✅ New categorical `deeperChallengeAvailable(mode:)` analytics event travels the mode raw value only — never the kit, the mastery score, or the Bramble copy (anti-fingerprinting per COPPA-2026 anti-PII). One-fire-per-mode-per-appearance via a `@State Set`.
+- ✅ 19 new tests across the model mapping (9 in `ModeMasteryMappingTests`), the affordance service (8 in `DeeperChallengeAffordanceTests` — threshold gating at 0.79/0.80/1.0/nil, catalog single-seam delegation, anti-shame blocklist on every per-kit line, sparkles symbol + anti-judgment blocklist, threshold constant), and the analytics event (2 in `AnalyticsServiceTests`).
+
+**Bramble-register shift on reflection (Phase D's second half — DEFERRED to next round)**:
+
+- Bramble's reflection on a deeper-challenge tale opens with a specific "I noticed you went deeper there" register (additive to the existing `.deep` tier register; uses `KitMasteryCopyCatalog`)
+- Touches the TellMachine + BramblePromptBuilder + reflection-render layer; scoped out of PR #136 to keep that PR focused on the Adventure surface
+- Tests for the register shift
 
 ## Scope discipline (what this plan EXCLUDES)
 
