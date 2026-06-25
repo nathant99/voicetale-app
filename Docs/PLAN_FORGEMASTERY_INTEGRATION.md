@@ -1,8 +1,9 @@
 ---
-status: PROPOSED
+status: SHIPPED (Phase A → B → C → D-affordance-half → D-second-half across PR #124 / #128 / #132 / #136 / #139; six consecutive same-day-or-cross-day rounds 2026-06-24 → 2026-06-25)
 date: 2026-06-24
+last-updated: 2026-06-25
 adr-id: A-VT-001
-direction: planning
+direction: planning → shipped reference
 intent: enumerate the candidate paths for adopting ForgeKit 1.0.0-rc.2's `ForgeMasteryEngine` into VoiceTale, and ADR-decide migrate vs wrap vs defer
 freshness-horizon: 14 days
 ---
@@ -193,11 +194,17 @@ calibration produces measurably better selection than date-keyed.
 - ✅ New categorical `deeperChallengeAvailable(mode:)` analytics event travels the mode raw value only — never the kit, the mastery score, or the Bramble copy (anti-fingerprinting per COPPA-2026 anti-PII). One-fire-per-mode-per-appearance via a `@State Set`.
 - ✅ 19 new tests across the model mapping (9 in `ModeMasteryMappingTests`), the affordance service (8 in `DeeperChallengeAffordanceTests` — threshold gating at 0.79/0.80/1.0/nil, catalog single-seam delegation, anti-shame blocklist on every per-kit line, sparkles symbol + anti-judgment blocklist, threshold constant), and the analytics event (2 in `AnalyticsServiceTests`).
 
-**Bramble-register shift on reflection (Phase D's second half — DEFERRED to next round)**:
+**Bramble-register shift on reflection (Phase D's second half — ✅ SHIPPED PR #139 (2026-06-25 SIXTEENTH round))**:
 
-- Bramble's reflection on a deeper-challenge tale opens with a specific "I noticed you went deeper there" register (additive to the existing `.deep` tier register; uses `KitMasteryCopyCatalog`)
-- Touches the TellMachine + BramblePromptBuilder + reflection-render layer; scoped out of PR #136 to keep that PR focused on the Adventure surface
-- Tests for the register shift
+- ✅ Bramble's reflection on a deeper-challenge tale opens with a specific "Bramble noticed you [verbed] this time" register (additive to the existing `.deep` tier register; sourced from `KitMasteryCopyCatalog` via the new `.deeperChallengeOpener` `Kind` — 9 vetted lines, one per kit).
+- ✅ New `Models/TaleRecordingContext` value type (pure `nonisolated struct` carrying optional `deeperChallengeKit: KitID?`) + new `Services/Adaptive/RecordingContextCoordinator` (`@MainActor @Observable` process-singleton mirroring `IntentTabCoordinator` — one-shot consume + clear semantics) thread the Adventure-card pill-tap signal into `TellMachine.recordingContext` → `TellView.runReflection` → `BrambleMentor.reflect(..., deeperChallengeOpener:)`.
+- ✅ `BramblePromptBuilder.reflectionPrompt(..., deeperChallengeOpener:)` injects a "prepend verbatim" directive into the LM prompt body; `BrambleMentor.applyDeeperChallengeOpener(_:opener:)` (public static helper mirroring `applyFavoriteMoodCallback`) belt-and-braces prepends the opener to the first craft observation (idempotent against already-prefixed observations — the LM may obey the prompt OR may not).
+- ✅ `AdventureTabView` affordance pill becomes a `Button` — tap posts the kit to `RecordingContextCoordinator` + routes the kid to the Tell tab via `IntentTabCoordinator.shared.request(destination: .tell)`.
+- ✅ New categorical `deeperChallengeTaleStarted(mode:)` analytics event fires on pill-tap (distinct from the existing `.deeperChallengeAvailable(mode:)` which fires on pill-surface) — mode raw value travels; the dominant kit + mastery score + Bramble register-shift opener NEVER travel (anti-fingerprinting + COPPA-2026 anti-PII discipline replays the affordance-half wire shape).
+- ✅ Suppression: distress paths bypass the opener entirely (the hold-space register comes first); retell + beat-skipped paths bypass too (those surfaces are themselves register shifts; layering the opener would muddy the register).
+- ✅ **38 new tests across 5 suites** (`TaleRecordingContextTests` (6) + `KitMasteryCopyCatalogDeeperChallengeOpenerTests` (9) + `RecordingContextCoordinatorTests` (8) + `BrambleDeeperChallengeOpenerTests` + sibling `BramblePromptBuilderDeeperChallengeOpenerTests` (12) + `AnalyticsServiceTests` additions (3)); 48 regression tests across `ModeMasteryMappingTests` / `KitMasteryTopologyTests` / `DeeperChallengeAffordanceTests` / `BrambleFavoriteMoodCallbackTests` / `BrambleMentorTests` / `BramblePromptBuilderTierTests` all stable; `KitMasteryRecommenderTests.catalogIsComplete` auto-extends to 4 kinds × 9 kits = 36 entries; `copyCatalogAvoidsShameTokens` auto-covers all 36 entries including the 9 new opener lines.
+
+**Phase D second-half closure completes the full Phase A → B → C → D-affordance-half → D-second-half consumer-wiring lifecycle for ForgeMasteryEngine across a six-round chain (PR #124 → #128 → #132 → #136 → #139) — the first complete CLOSURE of a ForgeKit module's consumer-wiring lifecycle in the auto-cycle chain. ForgeMasteryEngine VoiceTale integration is now COMPLETE per this plan; future enhancements (Surface 1's Bramble reflection depth via per-beat mastery; Surface 4's daily-prompt rare-pool calibration) remain DEFERRED per the original Surface-vs-Surface ADR.**
 
 ## Scope discipline (what this plan EXCLUDES)
 
