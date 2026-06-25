@@ -210,11 +210,13 @@ typing surface.
 - Default retention horizon: **180 days** (kid-readable as "around half a year"); configurable via `@AppStorage("voicetale.reflection.retention_days")` for the grown-up settings surface
 - Tests for the purge round-trip + the 180-day default
 
-### Phase D — Parent-dashboard opt-in read-back
+### Phase D — Parent-dashboard opt-in read-back ✅ **SHIPPED PR #135 (2026-06-25 FIFTEENTH round)**
 
-- New `Packages/Libraries/Sources/AppFeature/ProfileTab/ReflectionJournalView.swift` — grown-up-facing surface in `SettingsView` that lists `parentVisibleEntries(forApp:promptVisibility:)` from the storage actor
-- Per-config `parentVisible: true` opt-in lives in the catalog (Phase A); V1 ships all configs at `parentVisible: false` (kid-only) and parent opt-in is a Phase D explicit UI toggle
-- Tests for the opt-in filter behaviour
+- ✅ New `Packages/Libraries/Sources/AppFeature/ProfileTab/ReflectionJournalView.swift` — grown-up-facing surface pushed from `SettingsView` via a `NavigationLink`. Reads `entries` from the env-injected `VoiceTaleReflectionStore` through `parentVisibleEntries(promptVisibility:)`.
+- ✅ Per-config `parentVisible: true` opt-in stays default `false` in V1; the explicit opt-in surface is a global `@AppStorage("voicetale.reflection.parent_journal_visible")` toggle hosted on the journal view (default OFF — kid-private posture is canonical per COPPA-2026 opt-in default). When the grown-up flips it ON, the closure becomes `{ _ in true }` so every cached entry surfaces; when OFF the closure is `{ _ in false }` so nothing surfaces.
+- ✅ Anti-PII discipline: rows surface modality + responded-at + (optional) kit number — the kid-typed `textValue` payload NEVER appears, even after opt-in. `.skip` rows render the engagement-then-private signal.
+- ✅ New categorical `parentReflectionJournalOpened(visibleCount:)` analytics event reuses `ReflectionRetentionPolicy.removedCountBucket` for wire-shape lockstep with `reflectionsPurged(removed:)`; raw counts NEVER travel.
+- ✅ 10 new `ReflectionJournalParentVisibilityTests` lock the opt-in default posture, per-promptID filter partition, `.skip`-row visibility without text payload, analytics-event bucketing, raw-count anti-leak invariant, and the `@AppStorage` key shape.
 
 ## Scope discipline (what this plan EXCLUDES)
 
