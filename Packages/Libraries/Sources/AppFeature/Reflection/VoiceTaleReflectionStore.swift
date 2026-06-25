@@ -93,4 +93,27 @@ public final class VoiceTaleReflectionStore {
         await refresh()
         return count
     }
+
+    /// Phase D — parent-dashboard read-back filter.
+    ///
+    /// Returns the cached snapshot filtered by the supplied
+    /// `(promptID) -> Bool` predicate. The closure is the seam where the
+    /// grown-up opt-in lives — the catalog ships every prompt at
+    /// `parentVisible: false` in V1, and ``ReflectionJournalView``
+    /// supplies a constant `{ _ in showAll }` closure driven by an
+    /// `@AppStorage` toggle so the kid's privacy posture is the default
+    /// and the grown-up has to explicitly flip it on. The COPPA-2026
+    /// "opt-in default" requirement (per `@.claude/rules/age-
+    /// assurance.md`) lives in this seam.
+    ///
+    /// Pure value-type pass-through over the cached snapshot — never
+    /// re-queries the storage actor (zero-`@Query` discipline per
+    /// `@.claude/rules/swiftdata.md` rule #3). The view that renders the
+    /// list reads this value; the snapshot underneath is the same one
+    /// `entries` exposes.
+    public func parentVisibleEntries(
+        promptVisibility: @Sendable (String) -> Bool
+    ) -> [ReflectionEntry] {
+        entries.filter { promptVisibility($0.promptID) }
+    }
 }

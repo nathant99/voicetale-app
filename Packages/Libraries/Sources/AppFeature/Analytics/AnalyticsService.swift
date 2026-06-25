@@ -112,6 +112,17 @@ public enum VoiceTaleAnalyticsEvent: Sendable, Hashable {
     /// anti-PII discipline). The bucketing matches
     /// ``ReflectionRetentionPolicy.removedCountBucket(_:)``.
     case reflectionsPurged(removed: Int)
+    /// ForgeReflection Phase D — fires when the grown-up opens the
+    /// parent-dashboard reflection journal in ``SettingsView``.
+    /// Categorical-only payload: the bucketed visible-entry count travels
+    /// (`zero` / `one_to_three` / `four_to_ten` / `eleven_plus`); the raw
+    /// `visibleCount` NEVER travels (anti-fingerprinting per
+    /// `@Docs/PLAN_FORGEREFLECTION_LIFT.md` § Phase D + COPPA-2026 anti-
+    /// PII discipline). Bucketing reuses
+    /// ``ReflectionRetentionPolicy.removedCountBucket(_:)`` so the wire
+    /// shape stays in lockstep with the sibling
+    /// ``reflectionsPurged(removed:)`` event.
+    case parentReflectionJournalOpened(visibleCount: Int)
 
     /// Event name in the underlying ForgeAnalytics store. Keep lowercase +
     /// snake_case so future analytics inspectors can grep cleanly.
@@ -142,6 +153,7 @@ public enum VoiceTaleAnalyticsEvent: Sendable, Hashable {
         case .brambleAnswered:               return "bramble_answered"
         case .kitMasteryAdvanced:            return "kit_mastery_advanced"
         case .reflectionsPurged:             return "reflections_purged"
+        case .parentReflectionJournalOpened: return "parent_reflection_journal_opened"
         }
     }
 
@@ -236,6 +248,13 @@ public enum VoiceTaleAnalyticsEvent: Sendable, Hashable {
             // entries this week" without surfacing per-kid engagement
             // depth via the run-by-run delete count signal.
             return ["removed_bucket": ReflectionRetentionPolicy.removedCountBucket(removed)]
+        case .parentReflectionJournalOpened(let visibleCount):
+            // Bucketed visible-entry count travels — raw count NEVER does.
+            // Reuses `removedCountBucket` so the wire surface stays in
+            // lockstep with `reflectionsPurged(removed:)`. The grown-up
+            // opt-in toggle itself is NOT on the wire — only the bucketed
+            // visible-count signal once the opt-in already happened.
+            return ["visible_count_bucket": ReflectionRetentionPolicy.removedCountBucket(visibleCount)]
         }
     }
 

@@ -165,6 +165,12 @@ public struct SettingsView: View {
     /// ("around 3 months" / "around half a year" / "around a year")
     /// avoid raw day-count framing that reads as adult-corporate-policy
     /// register.
+    ///
+    /// Phase D — adds a `NavigationLink` to ``ReflectionJournalView``
+    /// for the grown-up opt-in parent-dashboard read-back surface. The
+    /// per-config `parentVisible` flag stays default-false; the journal
+    /// view hosts the explicit opt-in toggle so the kid's
+    /// privacy-by-default posture is the canonical state.
     private var reflectionRetentionSection: some View {
         Section {
             Picker(
@@ -186,10 +192,26 @@ public struct SettingsView: View {
             )
             .pickerStyle(.menu)
             .accessibilityHint("Choose how long reflections persist before VoiceTale removes them.")
+            NavigationLink {
+                ReflectionJournalView()
+            } label: {
+                Label {
+                    VStack(alignment: .leading, spacing: 4) {
+                        Text("View kid's reflections")
+                            .font(.body.weight(.semibold))
+                        Text("Off by default. A separate toggle inside shows when and how your child answered Bramble — never the typed words.")
+                            .font(.caption)
+                            .foregroundStyle(.secondary)
+                    }
+                } icon: {
+                    Image(systemName: "book.closed")
+                }
+            }
+            .accessibilityHint("Opens the reflection journal. A separate toggle there controls whether any reflections are listed.")
         } header: {
             Text("Reflections")
         } footer: {
-            Text("Reflections never leave the device. This setting only controls how long they stay on it.")
+            Text("Reflections never leave the device. The retention picker controls how long they stay; the journal is off by default and stays kid-private until you flip it on.")
                 .font(.caption2)
         }
     }
