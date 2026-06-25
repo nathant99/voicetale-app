@@ -40,10 +40,23 @@ import ForgeMasteryEngine
 public nonisolated enum KitMasteryCopyCatalog {
 
     /// Static catalog by rationale-kind. The rationale-kind is the
-    /// stable string (one of `"extend" / "consolidate" / "stretch"`)
-    /// emitted by ``KitMasteryRecommendation/Kind``; the per-`KitID`
-    /// table inside each kind keys the per-kit line so each of the 9
-    /// craft kits has a vetted Bramble line per rationale.
+    /// stable string (one of `"extend" / "consolidate" / "stretch" /
+    /// "deeperChallengeOpener"`) emitted by either
+    /// ``KitMasteryRecommendation/Kind`` (the first three) or the
+    /// Phase D second-half "I noticed you went deeper there"
+    /// reflection-opener slot (the fourth); the per-`KitID` table
+    /// inside each kind keys the per-kit line so each of the 9 craft
+    /// kits has a vetted Bramble line per rationale.
+    ///
+    /// `.deeperChallengeOpener` opens Bramble's reflection on a tale
+    /// the kid started from a deeper-challenge affordance pill
+    /// (per ``Services/Adaptive/DeeperChallengeAffordance`` shipped
+    /// PR #136 + ``TaleRecordingContext`` threading shipped this round).
+    /// The line is prepended to the first craft observation by
+    /// ``AIMentor/BrambleMentor`` so the kid hears "Bramble noticed
+    /// you went deeper there" BEFORE the normal listening-back
+    /// reflection. The catalog stays the single seam — never inline
+    /// at the prompt-builder.
     public static let lines: [Kind: [KitID: String]] = [
         .extend: [
             .hookCraft:        "Bramble is curious how your next hook will land.",
@@ -78,6 +91,17 @@ public nonisolated enum KitMasteryCopyCatalog {
             .surprisePivot:    "Bramble's wondering what surprise is waiting to land.",
             .closingGrace:     "Bramble's curious what new closing shape is waiting for you.",
         ],
+        .deeperChallengeOpener: [
+            .hookCraft:        "Bramble noticed you reached for a sharper hook this time.",
+            .sensoryDetail:    "Bramble noticed you let the sensory details breathe further this time.",
+            .arcCompleteness:  "Bramble noticed you carried the arc all the way through this time.",
+            .mood:             "Bramble noticed you leaned further into the mood this time.",
+            .voiceCharacter:   "Bramble noticed you let the voice characters do more this time.",
+            .moodReprise:      "Bramble noticed the way the mood came back around this time.",
+            .pacingRhythm:     "Bramble noticed how the pacing breathed this time.",
+            .surprisePivot:    "Bramble noticed the way the surprise turned this time.",
+            .closingGrace:     "Bramble noticed how your closing breathed out this time.",
+        ],
     ]
 
     /// Look up the kid-readable Bramble line for a given recommendation
@@ -89,23 +113,33 @@ public nonisolated enum KitMasteryCopyCatalog {
         lines[kind]?[kit] ?? "Bramble's curious what you'll bring to this one."
     }
 
-    /// Stable string identifier for a recommendation kind. Mirrors the
-    /// per-rationale switch arms in
-    /// ``KitMasteryRecommendation/Kind/rawValue``. Catalog keys MUST
-    /// match these exactly.
+    /// Stable string identifier for a recommendation kind. The first
+    /// three cases mirror the per-rationale switch arms in
+    /// ``KitMasteryRecommendation/Kind/rawValue`` (Practice with
+    /// Bramble three-card surface). The fourth case
+    /// (`.deeperChallengeOpener`) opens Bramble's reflection on a
+    /// deeper-challenge tale — surfaced by ``AIMentor/BrambleMentor``
+    /// when ``TaleRecordingContext/isDeeperChallenge`` is true.
+    /// Catalog keys MUST match these exactly.
     public enum Kind: String, CaseIterable, Sendable, Hashable, Codable {
         case extend
         case consolidate
         case stretch
+        case deeperChallengeOpener
 
-        /// SF Symbol surfaced on the three-card practice surface. The
-        /// names are intentionally non-judgmental shapes — leaves /
-        /// circle / sparkles — and NEVER trophies / stars / ratings.
+        /// SF Symbol surfaced on the three-card practice surface +
+        /// (for `.deeperChallengeOpener`) the Adventure-card affordance
+        /// pill. The names are intentionally non-judgmental shapes —
+        /// leaves / circle / sparkles — and NEVER trophies / stars /
+        /// medals / rosettes / ratings. `.deeperChallengeOpener`
+        /// reuses `sparkles` so the visual continuity carries from
+        /// the affordance pill → reflection opener.
         public var symbolName: String {
             switch self {
-            case .extend:      return "leaf.fill"           // growing
-            case .consolidate: return "arrow.clockwise.circle.fill" // revisit
-            case .stretch:     return "sparkles"            // curiosity
+            case .extend:                return "leaf.fill"           // growing
+            case .consolidate:           return "arrow.clockwise.circle.fill" // revisit
+            case .stretch:               return "sparkles"            // curiosity
+            case .deeperChallengeOpener: return "sparkles"            // continuity with stretch
             }
         }
     }

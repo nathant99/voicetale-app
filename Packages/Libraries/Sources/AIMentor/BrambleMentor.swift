@@ -92,11 +92,23 @@ public final class BrambleMentor {
     /// craft observation per ``BrambleMoodMemory/callback(favoriteMood:todayMood:)``.
     /// Per the anti-shame contract on ``BrambleMoodMemory``, the callback
     /// is suppressed for distress paths + for non-matching moods.
+    ///
+    /// When `deeperChallengeOpener` is non-`nil` (the just-finished tale
+    /// was started from a deeper-challenge affordance pill on an Adventure
+    /// mode-card), the catalog-sourced opener is prepended to the first
+    /// craft observation BEFORE the favorite-mood callback. Per
+    /// `@Docs/PLAN_FORGEMASTERY_INTEGRATION.md` § Phase D second-half +
+    /// `Models/KitMasteryCopyCatalog` `.deeperChallengeOpener` kind.
+    /// Suppressed on distress paths (the hold-space register comes first).
+    /// The opener string is sourced by the caller from
+    /// ``Models/KitMasteryCopyCatalog/line(for:kit:)`` so AIMentor stays
+    /// unaware of `KitID` + the catalog single-seam discipline holds.
     public func reflect(
         transcript: String,
         mood: VoiceTaleMood,
         beat: ArcBeat,
-        favoriteMood: VoiceTaleMood? = nil
+        favoriteMood: VoiceTaleMood? = nil,
+        deeperChallengeOpener: String? = nil
     ) async -> VoiceStoryReflection {
         // Trauma-informed gate FIRST. Per
         // `@.claude/rules/trauma-informed-content.md` § "refer up", any
@@ -113,8 +125,9 @@ public final class BrambleMentor {
         lastDistressAxis = nil
         let fallback = staticFallback(for: mood, beat: beat)
         guard availability == .available else {
+            let withOpener = applyDeeperChallengeOpener(fallback, opener: deeperChallengeOpener)
             let withCallback = applyFavoriteMoodCallback(
-                fallback,
+                withOpener,
                 favoriteMood: favoriteMood,
                 todayMood: mood
             )
@@ -125,7 +138,8 @@ public final class BrambleMentor {
         let prompt = BramblePromptBuilder.reflectionPrompt(
             transcript: transcript,
             mood: mood,
-            beat: beat
+            beat: beat,
+            deeperChallengeOpener: deeperChallengeOpener
         )
         do {
             let response = try await workingSession.respond(
@@ -137,22 +151,72 @@ public final class BrambleMentor {
                 craftObservations: sanitizeObservations(generated.craftObservations, fallback: fallback),
                 socraticPrompt: sanitizePrompt(generated.socraticPrompt, fallback: fallback)
             )
+            // Belt-and-braces: if the model didn't prepend the opener verbatim
+            // (instructions are obeyed best-effort, not guaranteed), prepend
+            // it ourselves. Idempotent against an already-prefixed observation.
+            let withOpener = applyDeeperChallengeOpener(reflection, opener: deeperChallengeOpener)
             let withCallback = applyFavoriteMoodCallback(
-                reflection,
+                withOpener,
                 favoriteMood: favoriteMood,
                 todayMood: mood
             )
             lastReflection = withCallback
             return withCallback
         } catch {
+            let withOpener = applyDeeperChallengeOpener(fallback, opener: deeperChallengeOpener)
             let withCallback = applyFavoriteMoodCallback(
-                fallback,
+                withOpener,
                 favoriteMood: favoriteMood,
                 todayMood: mood
             )
             lastReflection = withCallback
             return withCallback
         }
+    }
+
+    /// Instance shim used by the existing ``reflect`` call sites for
+    /// natural-reading code. Delegates to the
+    /// `nonisolated public static` helper below.
+    nonisolated private func applyDeeperChallengeOpener(
+        _ reflection: VoiceStoryReflection,
+        opener: String?
+    ) -> VoiceStoryReflection {
+        Self.applyDeeperChallengeOpener(reflection, opener: opener)
+    }
+
+    /// Prepend the catalog-sourced deeper-challenge opener to the first
+    /// craft observation. `nil` opener → reflection unchanged. Empty opener
+    /// → reflection unchanged. Empty `craftObservations` → opener becomes
+    /// the first (+ only) observation so Bramble's bubble still renders.
+    /// Idempotent against an already-prefixed observation (the model may
+    /// obey the prompt's verbatim prepend instruction OR may not — we
+    /// belt-and-braces here so the opener surfaces regardless). Per
+    /// `@Docs/PLAN_FORGEMASTERY_INTEGRATION.md` § Phase D second-half +
+    /// the catalog-single-seam discipline. Public so tests can pin the
+    /// helper without spinning up a FoundationModels session — same
+    /// pattern as ``applyFavoriteMoodCallback(_:favoriteMood:todayMood:)``.
+    nonisolated public static func applyDeeperChallengeOpener(
+        _ reflection: VoiceStoryReflection,
+        opener: String?
+    ) -> VoiceStoryReflection {
+        guard let opener, !opener.isEmpty else { return reflection }
+        var observations = reflection.craftObservations
+        if let first = observations.first, !first.isEmpty {
+            // Idempotency: if the first observation already starts with
+            // the opener (the LM obeyed the prompt's "prepend verbatim"
+            // instruction), leave it alone.
+            if first.hasPrefix(opener) { return reflection }
+            observations[0] = "\(opener) \(first)"
+        } else {
+            // Empty observations / empty first slot: the opener becomes
+            // the first observation so the surface doesn't render an
+            // empty bubble (mirrors `applyFavoriteMoodCallback`'s shape).
+            observations.insert(opener, at: 0)
+        }
+        return VoiceStoryReflection(
+            craftObservations: observations,
+            socraticPrompt: reflection.socraticPrompt
+        )
     }
 
     /// Look up the hand-authored fallback for a given mood + beat. Public so

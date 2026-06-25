@@ -25,6 +25,13 @@ nonisolated public struct TellMachine: Sendable, Equatable {
     public var beatTimeline: [BeatSegment] = []
     public var reflection: VoiceStoryReflection?
     public var audioFileURL: URL?
+    /// Per-tale context (currently carries the Phase D second-half
+    /// deeper-challenge signal — the `KitID` that the Adventure mode-card
+    /// affordance pill surfaced when the kid started this tale). Default
+    /// ``TaleRecordingContext/none`` so every existing Tell-tab flow round-
+    /// trips byte-for-byte unchanged. Cleared by ``reset()``. Per
+    /// `@Docs/PLAN_FORGEMASTERY_INTEGRATION.md` § Phase D second-half.
+    public var recordingContext: TaleRecordingContext = .none
 
     public init() {}
 
