@@ -91,6 +91,15 @@ public enum VoiceTaleAnalyticsEvent: Sendable, Hashable {
     /// § Phase B + `@.claude/rules/age-assurance.md` § "2026 FTC COPPA
     /// Rule Amendments" (no PII surface from kid-typed text).
     case brambleAnswered(modality: String)
+    /// ForgeMasteryEngine Phase B — fires only on a band crossing of the
+    /// per-kit mastery score (banded into `emerging` / `developing` /
+    /// `meeting` / `deepening` quartiles). Raw `masteryScore` doubles
+    /// NEVER travel — anti-fingerprinting per
+    /// `@Docs/PLAN_FORGEMASTERY_INTEGRATION.md` § Phase B + COPPA-2026
+    /// anti-PII discipline. The 4-band bucketing matches the
+    /// `MasteryBand` enum used by the consumer view; the wire surface
+    /// is the raw value.
+    case kitMasteryAdvanced(kit: Int, fromBand: String, toBand: String)
 
     /// Event name in the underlying ForgeAnalytics store. Keep lowercase +
     /// snake_case so future analytics inspectors can grep cleanly.
@@ -119,6 +128,7 @@ public enum VoiceTaleAnalyticsEvent: Sendable, Hashable {
         case .promptSwapped:                 return "prompt_swapped"
         case .intentDestinationRequested:    return "intent_destination_requested"
         case .brambleAnswered:               return "bramble_answered"
+        case .kitMasteryAdvanced:            return "kit_mastery_advanced"
         }
     }
 
@@ -197,6 +207,16 @@ public enum VoiceTaleAnalyticsEvent: Sendable, Hashable {
             // `.skip` off-ramp still emits so cohort engagement signal
             // includes the kid-engaged-then-skipped path.
             return ["modality": modality]
+        case .kitMasteryAdvanced(let kit, let fromBand, let toBand):
+            // Bucketed band names travel — raw `masteryScore` doubles
+            // NEVER do. The from/to pair lets cohort analysis see
+            // direction-of-change (advances vs regressions) without
+            // exposing the underlying FSRS + recent-window state.
+            return [
+                "kit": String(kit),
+                "from_band": fromBand,
+                "to_band": toBand,
+            ]
         }
     }
 

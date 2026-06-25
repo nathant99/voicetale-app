@@ -4,6 +4,7 @@ import Models
 import Services
 import SharedUI
 import ForgeCelebration
+import ForgeMasteryEngine
 import ForgePedagogy
 
 /// Phase 1.1 kit walk-through surface. Loads one of the 4 Phase-1
@@ -23,6 +24,11 @@ public struct QuizView: View {
     @Environment(\.analyticsService) private var analytics
     @Environment(\.celebrationCoordinator) private var celebration
     @Environment(\.sessionTally) private var sessionTally
+    /// ForgeMasteryEngine Phase B — `nil` until ``AppRootView.task`` boots
+    /// + injects the shared store. When `nil` (e.g., previews +
+    /// unbootstrapped tests) `handleChoice` skips the engine call and
+    /// preserves the existing ``ForgePedagogy.PedagogySession`` path.
+    @Environment(\.kitMasteryStore) private var kitMasteryStore
 
     @State private var machine = QuizMachine()
     @State private var pedagogy = PedagogySession()
@@ -287,7 +293,37 @@ public struct QuizView: View {
         // reason about "kit 1 question 2 still wobbly".
         let conceptID = "kit_\(machine.kit?.kit ?? 0)_\(questionID)"
         _ = pedagogy.recordAnswer(conceptId: conceptID, correct: wasCorrect)
+        recordKitMasteryAttempt(wasCorrect: wasCorrect)
         machine.recordChoice(questionID: questionID, selectedIndex: selectedIndex)
+    }
+
+    /// ForgeMasteryEngine Phase B — record the per-(kid, kit) attempt
+    /// outcome through the shared ``KitMasteryStore`` and emit a
+    /// categorical analytics event on band crossings. Skipped when the
+    /// store is unbootstrapped (previews / unbootstrapped tests) or the
+    /// active kit number doesn't resolve to a ``KitID`` (defensive
+    /// against a future kit-number-out-of-range condition).
+    private func recordKitMasteryAttempt(wasCorrect: Bool) {
+        guard let store = kitMasteryStore else { return }
+        guard let kitNumber = machine.kit?.kit,
+              let kit = KitID(rawValue: kitNumber)
+        else { return }
+        let elapsed = machine.elapsedSeconds()
+        let outcome: AttemptOutcome = wasCorrect
+            ? .correctFirstTry(elapsedSeconds: elapsed)
+            : .incorrect(elapsedSeconds: elapsed)
+        let priorScore = store.state(for: kit).masteryScore
+        let next = store.record(outcome, for: kit)
+        let nextScore = next.masteryScore
+        let fromBand = MasteryBand.band(forScore: priorScore)
+        let toBand = MasteryBand.band(forScore: nextScore)
+        if fromBand != toBand {
+            analytics.track(.kitMasteryAdvanced(
+                kit: kitNumber,
+                fromBand: fromBand.rawValue,
+                toBand: toBand.rawValue
+            ))
+        }
     }
 
     private func awardCompletionIfNeeded() {
