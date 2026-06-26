@@ -218,6 +218,17 @@ Cross-day-boundary post-closure consumer-polish parity that completes the recomm
 - ✅ Anti-shame invariants (locked at the test layer): Tale Trial NEVER lights (unmapped per `ModeMasteryMapping`); `.stretch` deferred to `DeeperChallengeAffordance` (no double-render); catalog single-seam preserved; SF Symbols sourced from the catalog's anti-judgment shape register (no trophy / star / medal / rosette).
 - ✅ 11 new tests (8 in `PracticeWithBrambleBadgeTests` — Tale Trial unmapped / no double-render with stretch pill / mid-band kit surfaces extend or consolidate / catalog single-seam / exhaustive anti-shame blocklist over `(.extend, .consolidate) × KitID` / symbol register lock-down / cold-launch nil / no cross-kit leak + 3 in `AnalyticsServiceTests`); 0 regressions; 29/29 ServicesTests covered + 26/26 AnalyticsServiceTests pass.
 
+### Phase D parity polish tap-to-act — Adventure-card badge becomes a `Button` ✅ **SHIPPED PR #151 (2026-06-26 NINETEENTH round)**
+
+Scope-reversal follow-on to PR #145 — the badge that landed informational (NOT a `Button`) in the EIGHTEENTH round is promoted to a tap-affordance. The Progress-tab three-card surface stays canonical for cross-tab discovery; this PR adds a parallel same-tab tap-to-act path for kids who land on the Adventure tab first.
+
+- ✅ `AdventureTabView.practiceBadgeView(badge:tint:gateID:)` becomes a `Button`. Tap fires the new categorical analytics event AND presents `QuizView(preselectedKit: badge.kit)` via a new `.sheet` (mirrors `ProgressTabView.recommendationCard(_:)` from Phase C).
+- ✅ New `@State pendingPracticeKit: KitID?` + `@State isPracticePresented: Bool` mirror `ProgressTabView`'s sheet-presentation pattern. Sheet `onDismiss:` clears `pendingPracticeKit` so the next tap re-evaluates against the latest mastery snapshot.
+- ✅ New categorical analytics event `practiceWithBrambleStartedFromAdventure(mode:kind:)` mirrors the wire shape of `practiceWithBrambleAvailable(mode:kind:)` — mode + kind raw values travel; dominant kit + mastery score + Bramble copy NEVER travel (anti-fingerprinting per COPPA-2026 anti-PII).
+- ✅ Distinct event name lets cohort analysis separate "badge lit" (`practiceWithBrambleAvailable`) from "badge acted on" (`practiceWithBrambleStartedFromAdventure`) — same separation pattern as the `.deeperChallengeAvailable` ↔ `.deeperChallengeTaleStarted` split from Phase D second-half.
+- ✅ Anti-shame invariants preserved unchanged: Tale Trial NEVER lights (unmapped per `ModeMasteryMapping`); `.stretch` defers to `DeeperChallengeAffordance` (no double-render); catalog single-seam discipline preserved; copy still flows through `KitMasteryCopyCatalog.line(for:kit:)`.
+- ✅ 4 new tests in `AnalyticsServiceTests` (name stability + properties carry mode + kind only + name differs from badge-available + name differs from deeper-challenge-started). 0 regressions; 30/30 AnalyticsServiceTests + 8/8 PracticeWithBrambleBadgeTests pass.
+
 ## Scope discipline (what this plan EXCLUDES)
 
 - **DOES NOT** migrate `DifficultyController` to ForgeMasteryEngine (Surface 1 verdict = DEFER)
