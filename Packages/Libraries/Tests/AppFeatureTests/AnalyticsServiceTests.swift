@@ -248,6 +248,45 @@ struct AnalyticsServiceTests {
         #expect(avail.name != started.name)
     }
 
+    // MARK: - ForgeMasteryEngine Phase D parity polish — practiceWithBrambleAvailable
+
+    @Test func practiceWithBrambleAvailableEventNameIsStable() {
+        let event = VoiceTaleAnalyticsEvent.practiceWithBrambleAvailable(mode: "hook_builder", kind: "extend")
+        #expect(event.name == "practice_with_bramble_available")
+    }
+
+    @Test func practiceWithBrambleAvailableCarriesModeAndKind() {
+        // EIGHTEENTH-round parity polish — mode + kind raw values
+        // travel together; the dominant kit + mastery score + Bramble
+        // copy NEVER travel.
+        let modes: [String] = ["hook_builder", "pacing_walk", "turn_drill", "callback_refrain"]
+        let kinds: [String] = ["extend", "consolidate"]
+        for mode in modes {
+            for kind in kinds {
+                let event = VoiceTaleAnalyticsEvent.practiceWithBrambleAvailable(mode: mode, kind: kind)
+                #expect(event.properties.count == 2,
+                        "Event MUST carry exactly mode + kind — no other properties")
+                #expect(event.properties["mode"] == mode)
+                #expect(event.properties["kind"] == kind)
+                // Anti-PII discipline locks: the kit / mastery score /
+                // Bramble copy MUST NEVER appear on the wire.
+                #expect(event.properties["kit"] == nil)
+                #expect(event.properties["mastery_score"] == nil)
+                #expect(event.properties["bramble_copy"] == nil)
+            }
+        }
+    }
+
+    @Test func practiceWithBrambleAvailableNameDiffersFromDeeperChallenge() {
+        // Wire-shape separation invariant: the badge surface (`.extend`
+        // / `.consolidate`) and the pill surface (`.stretch`) MUST have
+        // distinct stable names so cohort analysis can attribute
+        // engagement-per-band.
+        let badge = VoiceTaleAnalyticsEvent.practiceWithBrambleAvailable(mode: "hook_builder", kind: "extend")
+        let pill = VoiceTaleAnalyticsEvent.deeperChallengeAvailable(mode: "hook_builder")
+        #expect(badge.name != pill.name)
+    }
+
     @Test func everyDeclaredEventHasAUniqueNonEmptyName() {
         // Centralized name-collision audit. New event cases must add an
         // entry below; the test fails if the names collide OR if a case

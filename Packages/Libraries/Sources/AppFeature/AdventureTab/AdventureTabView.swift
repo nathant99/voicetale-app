@@ -38,6 +38,14 @@ public struct AdventureTabView: View {
     /// `.appear → .disappear → .appear` re-emits per the existing
     /// view-state convention.
     @State private var emittedDeeperChallengeModes: Set<String> = []
+    /// EIGHTEENTH-round parity polish — tracks which (mode, kind)
+    /// pairs have already emitted
+    /// ``practiceWithBrambleAvailable(mode:kind:)`` this appearance so
+    /// the analytics surface stays one-fire-per-mode-per-kind. Keyed
+    /// by `"\(mode)|\(kind)"` so a card that swings from `.extend` →
+    /// `.consolidate` between appearances re-emits cleanly.
+    @State private var emittedPracticeBrambleBadges: Set<String> = []
+    private let badgeRecommender = KitMasteryRecommender()
 
     public init() {}
 
@@ -104,6 +112,7 @@ public struct AdventureTabView: View {
         unlockHint: String
     ) -> some View {
         let deeperChallenge = deeperChallenge(for: mode, isUnlocked: isUnlocked)
+        let badge = practiceBadge(for: mode, isUnlocked: isUnlocked, deeperChallengePresent: deeperChallenge != nil)
         return HStack(alignment: .top, spacing: 14) {
             ZStack {
                 Circle()
@@ -138,6 +147,8 @@ public struct AdventureTabView: View {
                         kit: deeperChallenge.kit,
                         gateID: mode.gateID
                     )
+                } else if let badge {
+                    practiceBadgeView(badge: badge, tint: mode.color)
                 }
             }
             Spacer()
@@ -149,6 +160,8 @@ public struct AdventureTabView: View {
         .onAppear {
             if deeperChallenge != nil {
                 emitDeeperChallengeAnalyticsOnce(for: mode.gateID)
+            } else if let badge {
+                emitPracticeBadgeAnalyticsOnce(for: mode.gateID, kind: badge.kind)
             }
         }
     }
@@ -230,6 +243,78 @@ public struct AdventureTabView: View {
         let score = store.state(for: kit).masteryScore
         guard DeeperChallengeAffordance.shouldSurface(masteryScore: score) else { return nil }
         return (DeeperChallengeAffordance.brambleCopy(for: kit), kit)
+    }
+
+    /// Resolve the practice-with-Bramble badge for a mode-card.
+    /// Returns `nil` when the card is locked, when the mode is unmapped
+    /// (Tale Trial), when the store is unbootstrapped, when the
+    /// deeper-challenge pill is already lit (no double-render), or
+    /// when the engine surfaces no `.extend` / `.consolidate`
+    /// recommendation for the dominant kit. Delegates to
+    /// ``Services/Adaptive/PracticeWithBrambleBadge`` which preserves
+    /// the catalog single-seam discipline.
+    private func practiceBadge(
+        for mode: ModeCard,
+        isUnlocked: Bool,
+        deeperChallengePresent: Bool
+    ) -> KitMasteryRecommendation? {
+        guard isUnlocked else { return nil }
+        guard !deeperChallengePresent else { return nil }
+        guard let store = kitMasteryStore else { return nil }
+        guard let kit = ModeMasteryMapping.dominantKit(forGateID: mode.gateID) else { return nil }
+        return PracticeWithBrambleBadge.badge(
+            for: kit,
+            masteryStates: store.cachedStates,
+            recommender: badgeRecommender
+        )
+    }
+
+    /// EIGHTEENTH-round parity polish — small-register badge that
+    /// surfaces ONLY on unlocked + mapped mode-cards whose dominant
+    /// kit lands in the `.extend` or `.consolidate` recommendation
+    /// band. Symbol comes from ``KitMasteryCopyCatalog/Kind/symbolName``
+    /// (`leaf.fill` / `arrow.clockwise.circle.fill`) — anti-judgment
+    /// shapes per the catalog's existing blocklist.
+    ///
+    /// Informational badge — NOT a `Button` (the `.stretch` pill on
+    /// Adventure owns the tap-to-act path via
+    /// ``RecordingContextCoordinator``; the broader `.extend` /
+    /// `.consolidate` tap-to-act path lives on
+    /// ``AppFeature/ProgressTab/ProgressTabView``'s three-card surface).
+    @ViewBuilder
+    private func practiceBadgeView(
+        badge: KitMasteryRecommendation,
+        tint: Color
+    ) -> some View {
+        Label {
+            Text(badge.brambleCopy)
+                .font(.caption2.weight(.medium))
+                .lineLimit(2)
+        } icon: {
+            Image(systemName: badge.kind.symbolName)
+        }
+        .padding(.horizontal, 8)
+        .padding(.vertical, 4)
+        .background(tint.opacity(0.10), in: Capsule())
+        .foregroundStyle(tint.opacity(0.85))
+        .padding(.top, 4)
+        .accessibilityHint("Bramble has a curiosity for this mode.")
+    }
+
+    /// Emit ``practiceWithBrambleAvailable(mode:kind:)`` at most once
+    /// per appearance per (mode, kind) so the analytics surface
+    /// doesn't flood when the kid scrolls + re-renders the same card.
+    /// Keyed by `"\(mode)|\(kind)"` so a card swinging between bands
+    /// across appearances re-emits cleanly.
+    private func emitPracticeBadgeAnalyticsOnce(
+        for gateID: String,
+        kind: KitMasteryCopyCatalog.Kind
+    ) {
+        let raw = analyticsModeRawValue(for: gateID)
+        let key = "\(raw)|\(kind.rawValue)"
+        guard !emittedPracticeBrambleBadges.contains(key) else { return }
+        emittedPracticeBrambleBadges.insert(key)
+        analytics.track(.practiceWithBrambleAvailable(mode: raw, kind: kind.rawValue))
     }
 
     /// Emit ``deeperChallengeAvailable(mode:)`` at most once per
