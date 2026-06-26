@@ -229,6 +229,18 @@ Post-closure consumer-polish that completes the recommended-next-session priorit
 - ✅ Anti-PII discipline: raw counts NEVER travel — only bucketed labels appear on the row. NO new `@AppStorage` keys + NO new analytics events (the existing `parentReflectionJournalOpened(visibleCount:)` already fires on open).
 - ✅ 13 new tests across 2 suites (`ReflectionWeeklyEngagementTests` (8) — empty / non-empty / per-modality fidelity / `.zero`-drop / bucket-boundary fidelity at 0/3/4/10/11+ / `.skip` modality preservation; `VoiceTaleReflectionStoreTests` weekly-engagement additions (5) — empty-store / window-filter / boundary-inclusive / strictly-older-exclusion / 11+ bucketing). 33 regression tests stable.
 
+### Phase D second-half polish sibling — Monthly engagement digest ✅ **SHIPPED PR #146 (2026-06-26 EIGHTEENTH round)**
+
+Cross-day-boundary post-closure consumer-polish parity that completes the recommended-next-session priority #2 from the SEVENTEENTH-round handoff. NOT a new phase — extends the existing Phase D surface (`ReflectionJournalView`) with a "This month" engagement digest row directly below the "This week" row shipped in PR #142.
+
+- ✅ New `VoiceTaleReflectionStore.monthlyEntries(now:)` + `monthlyEngagement(now:)` pure pass-through over the cached snapshot (zero-`@Query` discipline). 30-day boundary semantics identical to the weekly window (`>= cutoff` inclusive; strictly older dropped — mirrors `ReflectionRetentionPolicy.cutoff`).
+- ✅ Reuses the existing `ReflectionWeeklyEngagement.make(from:)` factory at the 30-day window — the value type's name is window-neutral; both digests share the same shape end-to-end.
+- ✅ `ReflectionJournalView.monthlyDigestSection` renders directly below `weeklyDigestSection` — same gating (ONLY when the grown-up has opted in AND the kid has engaged in the last 30 days). Empty-month edge case bypasses the section.
+- ✅ Renamed the view helper from `weeklyDigestHeadline` to window-neutral `digestHeadline` (single seam for the bucket-to-phrase mapping; both windows share it).
+- ✅ Visual register: same `Label` + calendar-themed SF symbol; uses `calendar` (vs week's `calendar.badge.clock`) so the eye can scan-distinguish the windows.
+- ✅ NO new analytics events. NO new `@AppStorage` keys. Anti-PII invariants preserved verbatim from PR #142 (raw counts NEVER travel; `.skip` modality dropped from per-modality phrase; `.zero` per-modality buckets dropped).
+- ✅ 6 new tests in `VoiceTaleReflectionStoreTests` (`monthlyEngagementOnEmptyStoreIsEmpty` / `monthlyEngagementIncludesOnlyEntriesInWindow` / `monthlyEngagementIncludesBoundaryEntry` / `monthlyEngagementExcludesEntryStrictlyOlderThanBoundary` / `monthlyEngagementDropsZeroModalityBuckets` / `monthlyDigestReusesFactoryShape`); 0 regressions; 19/19 VoiceTaleReflectionStoreTests + 8/8 ReflectionWeeklyEngagementTests pass.
+
 ## Scope discipline (what this plan EXCLUDES)
 
 - **DOES NOT** replace `BrambleReflectionView`'s listening-back register with the journaling sheet — Surface 1 is ADDITIVE, never substitutive

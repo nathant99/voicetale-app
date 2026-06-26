@@ -206,6 +206,18 @@ calibration produces measurably better selection than date-keyed.
 
 **Phase D second-half closure completes the full Phase A → B → C → D-affordance-half → D-second-half consumer-wiring lifecycle for ForgeMasteryEngine across a six-round chain (PR #124 → #128 → #132 → #136 → #139) — the first complete CLOSURE of a ForgeKit module's consumer-wiring lifecycle in the auto-cycle chain. ForgeMasteryEngine VoiceTale integration is now COMPLETE per this plan; future enhancements (Surface 1's Bramble reflection depth via per-beat mastery; Surface 4's daily-prompt rare-pool calibration) remain DEFERRED per the original Surface-vs-Surface ADR.**
 
+### Phase D parity polish — Adventure-card extend/consolidate badge ✅ **SHIPPED PR #145 (2026-06-26 EIGHTEENTH round)**
+
+Cross-day-boundary post-closure consumer-polish parity that completes the recommended-next-session priority #1 from the SEVENTEENTH-round handoff. NOT a new phase — extends the existing Phase D affordance surface (`AdventureTabView`) with a small in-context badge that brings the broader `KitMasteryRecommender` surface (previously visible only on `ProgressTabView`'s `practiceSurface` three-card stack per PR #132) onto each unlocked Adventure mode-card.
+
+- ✅ New pure value-type service `Packages/Libraries/Sources/Services/Adaptive/PracticeWithBrambleBadge.swift` (`nonisolated enum`; mirrors `DeeperChallengeAffordance` shape). Delegates to the existing `KitMasteryRecommender` — NO new threshold logic; the engine's bands stay canonical.
+- ✅ `badge(for:masteryStates:recommender:)` returns the first `(extend | consolidate)` recommendation matching the requested kit; returns `nil` for `.stretch` so the existing sparkles pill stays the sole stretch-band affordance (no double-render on the same card).
+- ✅ `AdventureTabView.practiceBadgeView(badge:tint:)` — small-register Label below the existing deeper-challenge pill slot. NOT a `Button` (informational; the Progress tab's three-card surface owns the tap-to-act path). Symbol comes from `KitMasteryCopyCatalog.Kind.symbolName` (`leaf.fill` for extend; `arrow.clockwise.circle.fill` for consolidate).
+- ✅ New categorical analytics event `practiceWithBrambleAvailable(mode:kind:)` mirrors `deeperChallengeAvailable(mode:)` wire shape — mode raw value + kind raw value (`extend` / `consolidate`) travel; the dominant kit + mastery score + Bramble copy NEVER travel (anti-fingerprinting per COPPA-2026 anti-PII).
+- ✅ One-fire-per-(mode, kind)-per-appearance via a new `@State Set` keyed by `"<mode>|<kind>"`. The existing deeper-challenge analytics surface stays unchanged.
+- ✅ Anti-shame invariants (locked at the test layer): Tale Trial NEVER lights (unmapped per `ModeMasteryMapping`); `.stretch` deferred to `DeeperChallengeAffordance` (no double-render); catalog single-seam preserved; SF Symbols sourced from the catalog's anti-judgment shape register (no trophy / star / medal / rosette).
+- ✅ 11 new tests (8 in `PracticeWithBrambleBadgeTests` — Tale Trial unmapped / no double-render with stretch pill / mid-band kit surfaces extend or consolidate / catalog single-seam / exhaustive anti-shame blocklist over `(.extend, .consolidate) × KitID` / symbol register lock-down / cold-launch nil / no cross-kit leak + 3 in `AnalyticsServiceTests`); 0 regressions; 29/29 ServicesTests covered + 26/26 AnalyticsServiceTests pass.
+
 ## Scope discipline (what this plan EXCLUDES)
 
 - **DOES NOT** migrate `DifficultyController` to ForgeMasteryEngine (Surface 1 verdict = DEFER)
