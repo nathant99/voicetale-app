@@ -241,6 +241,17 @@ Cross-day-boundary post-closure consumer-polish parity that completes the recomm
 - ✅ NO new analytics events. NO new `@AppStorage` keys. Anti-PII invariants preserved verbatim from PR #142 (raw counts NEVER travel; `.skip` modality dropped from per-modality phrase; `.zero` per-modality buckets dropped).
 - ✅ 6 new tests in `VoiceTaleReflectionStoreTests` (`monthlyEngagementOnEmptyStoreIsEmpty` / `monthlyEngagementIncludesOnlyEntriesInWindow` / `monthlyEngagementIncludesBoundaryEntry` / `monthlyEngagementExcludesEntryStrictlyOlderThanBoundary` / `monthlyEngagementDropsZeroModalityBuckets` / `monthlyDigestReusesFactoryShape`); 0 regressions; 19/19 VoiceTaleReflectionStoreTests + 8/8 ReflectionWeeklyEngagementTests pass.
 
+### Phase D second-half polish sibling — Quarterly engagement digest ✅ **SHIPPED PR #150 (2026-06-26 NINETEENTH round)**
+
+Natural 90-day extension of PR #146's monthly digest (which itself extended PR #142's weekly digest). Closes the recommended-next-session priority #1 from the EIGHTEENTH-round handoff. NOT a new phase — extends the existing Phase D surface (`ReflectionJournalView`) with a "Past 90 days" engagement digest row directly below the "This month" row.
+
+- ✅ New `VoiceTaleReflectionStore.quarterlyEntries(now:)` + `quarterlyEngagement(now:)` pure pass-through over the cached snapshot (zero-`@Query` discipline). 90-day boundary semantics identical to the weekly + monthly windows (`>= cutoff` inclusive; strictly older dropped — mirrors `ReflectionRetentionPolicy.cutoff`).
+- ✅ Reuses the existing `ReflectionWeeklyEngagement.make(from:)` factory at the 90-day window — the value type's name is window-neutral; all three digests share the same shape end-to-end. Locks the load-bearing window-neutral value-type convention from the EIGHTEENTH round.
+- ✅ `ReflectionJournalView.quarterlyDigestSection` renders directly below `monthlyDigestSection` — same gating (ONLY when the grown-up has opted in AND the kid has engaged in the last 90 days). Empty-quarter edge case bypasses the section.
+- ✅ Visual register: same `Label` + calendar-themed SF symbol; uses `calendar.badge.checkmark` (vs week's `calendar.badge.clock` + month's `calendar`) so the eye can scan-distinguish all three windows at a glance.
+- ✅ NO new analytics events. NO new `@AppStorage` keys. Anti-PII invariants preserved verbatim from PR #142 + PR #146 (raw counts NEVER travel; `.skip` modality dropped from per-modality phrase; `.zero` per-modality buckets dropped).
+- ✅ 6 new tests in `VoiceTaleReflectionStoreTests` (`quarterlyEngagementOnEmptyStoreIsEmpty` / `quarterlyEngagementIncludesOnlyEntriesInWindow` / `quarterlyEngagementIncludesBoundaryEntry` / `quarterlyEngagementExcludesEntryStrictlyOlderThanBoundary` / `quarterlyEngagementDropsZeroModalityBuckets` / `quarterlyDigestReusesFactoryShape`); 0 regressions; 25/25 VoiceTaleReflectionStoreTests pass.
+
 ## Scope discipline (what this plan EXCLUDES)
 
 - **DOES NOT** replace `BrambleReflectionView`'s listening-back register with the journaling sheet — Surface 1 is ADDITIVE, never substitutive
