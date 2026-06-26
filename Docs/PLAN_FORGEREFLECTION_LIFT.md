@@ -218,6 +218,17 @@ typing surface.
 - ✅ New categorical `parentReflectionJournalOpened(visibleCount:)` analytics event reuses `ReflectionRetentionPolicy.removedCountBucket` for wire-shape lockstep with `reflectionsPurged(removed:)`; raw counts NEVER travel.
 - ✅ 10 new `ReflectionJournalParentVisibilityTests` lock the opt-in default posture, per-promptID filter partition, `.skip`-row visibility without text payload, analytics-event bucketing, raw-count anti-leak invariant, and the `@AppStorage` key shape.
 
+### Phase D second-half polish — Weekly engagement digest ✅ **SHIPPED PR #142 (2026-06-25 SEVENTEENTH round)**
+
+Post-closure consumer-polish that completes the recommended-next-session priority #1 from the SIXTEENTH-round handoff. NOT a new phase — extends the existing Phase D surface (`ReflectionJournalView`) with a "This week" engagement digest row between the opt-in toggle and the per-entry list.
+
+- ✅ New pure value-type `Packages/Libraries/Sources/Models/ReflectionWeeklyEngagement.swift` (`totalBucket: String` + `perModalityBucket: [ReflectionResponseModality: String]`). Counts bucketed via the existing `ReflectionRetentionPolicy.removedCountBucket(_:)` so the wire shape stays in lockstep with the sibling `parentReflectionJournalOpened(visibleCount:)` / `reflectionsPurged(removed:)` analytics events.
+- ✅ `.zero` per-modality buckets are dropped from `perModalityBucket` so the view never renders "0 voice / 0 drawing / 0 emoji" rows for kids who only typed.
+- ✅ New `VoiceTaleReflectionStore.weeklyEntries(now:)` + `weeklyEngagement(now:)` pure pass-through over the cached snapshot (zero-`@Query` discipline per `@.claude/rules/swiftdata.md` rule #3). 7-day boundary semantics mirror `ReflectionRetentionPolicy.cutoff` (`>=` cutoff includes boundary entry; strictly older entries dropped).
+- ✅ View renders the digest section ONLY when the grown-up has opted in AND the kid has engaged in the last 7 days — empty-week edge case bypasses the section. `.skip` modality is intentionally dropped from the per-modality short-phrase (a grown-up second-guessing the kid's privacy choice is the anti-shame failure mode; the per-entry list's "Engaged then chose privacy" row already surfaces engagement-then-private signals at the row level).
+- ✅ Anti-PII discipline: raw counts NEVER travel — only bucketed labels appear on the row. NO new `@AppStorage` keys + NO new analytics events (the existing `parentReflectionJournalOpened(visibleCount:)` already fires on open).
+- ✅ 13 new tests across 2 suites (`ReflectionWeeklyEngagementTests` (8) — empty / non-empty / per-modality fidelity / `.zero`-drop / bucket-boundary fidelity at 0/3/4/10/11+ / `.skip` modality preservation; `VoiceTaleReflectionStoreTests` weekly-engagement additions (5) — empty-store / window-filter / boundary-inclusive / strictly-older-exclusion / 11+ bucketing). 33 regression tests stable.
+
 ## Scope discipline (what this plan EXCLUDES)
 
 - **DOES NOT** replace `BrambleReflectionView`'s listening-back register with the journaling sheet — Surface 1 is ADDITIVE, never substitutive
