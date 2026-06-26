@@ -297,7 +297,7 @@ Round 2026-06-26 EIGHTEENTH is the EIGHTEENTH consecutive same-author re-affirma
 
 **PR-C — EIGHTEENTH cross-day-boundary re-affirmation tri-surface doc propagation** (this PR). CLAUDE.md § "Xcode File Safety" extended with the EIGHTEENTH re-affirmation observation: the FIRST cross-day-boundary round after the 2026-06-25 five-same-day burst + post-closure-consumer-polish-parity-within-a-single-round Default (the round ships two parity-polish-only PRs across BOTH ForgeKit modules within a single auto-cycle round, demonstrating that the within-round multi-PR Default scales cleanly through cross-module post-closure parity polish). `.claude/rules/forgekit.md` § Versioning updated with the parity-polish reference impls (PR #145 + PR #146). `Docs/PLAN_FORGEMASTERY_INTEGRATION.md` § Phase D parity polish + `Docs/PLAN_FORGEREFLECTION_LIFT.md` § Phase D monthly-digest polish marked SHIPPED. This round close-out entry in FEATURE_PLAN.
 
-**PR-D — Round close-out + session handoff** (next PR). `Docs/SESSION_HANDOFF_2026-06-26_EIGHTEENTH_ROUND.md` per the per-round session-handoff discipline.
+**PR-D — Round close-out + session handoff** (this PR). `Docs/SESSION_HANDOFF_2026-06-26_EIGHTEENTH_ROUND.md` per the per-round session-handoff discipline.
 
 ### Round close-out 2026-06-25 SEVENTEENTH (PRs #142–#144) — FIFTH same-day on 2026-06-25 + ForgeReflection Phase D second-half POLISH SHIPPED (first-ever post-closure consumer-polish round in the chain)
 
