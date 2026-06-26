@@ -150,4 +150,37 @@ public final class VoiceTaleReflectionStore {
     public func weeklyEngagement(now: Date = .now) -> ReflectionWeeklyEngagement {
         ReflectionWeeklyEngagement.make(from: weeklyEntries(now: now))
     }
+
+    /// EIGHTEENTH-round polish sibling — entries whose `respondedAt`
+    /// lands on or after `now - 30 days`. Same boundary semantics as
+    /// ``weeklyEntries(now:)`` — entries at the boundary are kept;
+    /// strictly older entries are dropped. Pure value-type
+    /// pass-through; never re-queries the storage actor (zero-`@Query`
+    /// discipline per `@.claude/rules/swiftdata.md` rule #3).
+    ///
+    /// The view that hosts the monthly digest gates the call behind
+    /// the same opt-in toggle ``ReflectionJournalView`` already wires
+    /// for the per-entry list + weekly digest — so the kid's
+    /// reflections stay kid-private until the grown-up explicitly
+    /// opts in.
+    public func monthlyEntries(now: Date = .now) -> [ReflectionEntry] {
+        let cutoff = now.addingTimeInterval(-30 * 24 * 60 * 60)
+        return entries.filter { $0.respondedAt >= cutoff }
+    }
+
+    /// EIGHTEENTH-round polish sibling — bucketed engagement snapshot
+    /// for the "This month" digest row. Walks ``monthlyEntries(now:)``
+    /// once and emits a ``ReflectionWeeklyEngagement`` (the type's
+    /// name is window-neutral; the factory ``ReflectionWeeklyEngagement/make(from:)``
+    /// just buckets whatever entries it gets).
+    ///
+    /// Wire-shape lockstep with the existing ``weeklyEngagement(now:)``
+    /// + ``parentReflectionJournalOpened(visibleCount:)`` +
+    /// ``reflectionsPurged(removed:)`` family — all four reuse
+    /// ``Models/ReflectionRetentionPolicy/removedCountBucket(_:)`` so
+    /// cross-window cohort signal is comparable without leaking per-kid
+    /// raw counts.
+    public func monthlyEngagement(now: Date = .now) -> ReflectionWeeklyEngagement {
+        ReflectionWeeklyEngagement.make(from: monthlyEntries(now: now))
+    }
 }
