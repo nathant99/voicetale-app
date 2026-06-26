@@ -53,6 +53,7 @@ public struct ReflectionJournalView: View {
             opt_inSection
             weeklyDigestSection
             monthlyDigestSection
+            quarterlyDigestSection
             entriesSection
             privacyFooter
         }
@@ -163,6 +164,55 @@ public struct ReflectionJournalView: View {
                     }
                 } header: {
                     Text("This month")
+                }
+            }
+        }
+    }
+
+    /// "Past 90 days" engagement digest — NINETEENTH-round polish
+    /// sibling extending the weekly + monthly digests to a quarterly
+    /// window. Same gating, same wire-shape, same anti-PII discipline;
+    /// the only differences are the 90-day window (via
+    /// ``VoiceTaleReflectionStore/quarterlyEngagement(now:)``) and the
+    /// "past 90 days" suffix on the headline.
+    ///
+    /// The digest renders only when the grown-up has opted in AND the
+    /// kid has actually engaged with Bramble in the last 90 days. An
+    /// empty-quarter edge case bypasses the section so the grown-up
+    /// doesn't see a "Reflections past 90 days" row that quietly
+    /// reports zero engagement.
+    ///
+    /// Visual register matches the weekly + monthly digests
+    /// deliberately — all three rows use ``Label`` + a calendar-themed
+    /// SF symbol; only the quarter-specific symbol
+    /// (`calendar.badge.checkmark`) differs from the week's
+    /// `calendar.badge.clock` + the month's `calendar` so the eye can
+    /// scan-distinguish all three windows at a glance.
+    @ViewBuilder
+    private var quarterlyDigestSection: some View {
+        if parentJournalVisible, let store {
+            let digest = store.quarterlyEngagement()
+            if !digest.isEmpty {
+                Section {
+                    Label {
+                        VStack(alignment: .leading, spacing: 4) {
+                            Text("\(digestHeadline(digest.totalBucket)) past 90 days")
+                                .font(.body.weight(.semibold))
+                            if !digest.perModalityBucket.isEmpty {
+                                Text(perModalitySummary(digest))
+                                    .font(.caption)
+                                    .foregroundStyle(.secondary)
+                            } else {
+                                Text("Bramble heard from your child a few times this quarter — keep encouraging the curiosity.")
+                                    .font(.caption)
+                                    .foregroundStyle(.secondary)
+                            }
+                        }
+                    } icon: {
+                        Image(systemName: "calendar.badge.checkmark")
+                    }
+                } header: {
+                    Text("Past 90 days")
                 }
             }
         }
