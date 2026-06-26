@@ -161,6 +161,22 @@ public enum VoiceTaleAnalyticsEvent: Sendable, Hashable {
     /// per `@Docs/PLAN_FORGEMASTERY_INTEGRATION.md` § Phase D parity
     /// polish).
     case practiceWithBrambleAvailable(mode: String, kind: String)
+    /// ForgeMasteryEngine Phase D NINETEENTH-round tap-to-act —
+    /// fires when the kid taps the `.extend` / `.consolidate`
+    /// practice-with-Bramble badge on an unlocked Adventure mode-card.
+    /// Distinct from ``practiceWithBrambleAvailable(mode:kind:)`` (which
+    /// fires on badge-surface) so cohort analysis can separate
+    /// "badge lit" from "badge acted on" — same separation pattern
+    /// `.deeperChallengeAvailable` ↔ `.deeperChallengeTaleStarted`
+    /// established at Phase D second-half. Categorical-only payload:
+    /// the mode raw value travels (one of `hook_builder` / `pacing_walk`
+    /// / `turn_drill` / `callback_refrain` — Tale Trial is unmapped per
+    /// ``Models/ModeMasteryMapping``) AND the kind raw value travels
+    /// (`extend` / `consolidate`). The dominant kit, the kid's mastery
+    /// score, and the Bramble copy NEVER travel (anti-fingerprinting
+    /// per `@Docs/PLAN_FORGEMASTERY_INTEGRATION.md` § Phase D parity
+    /// polish tap-to-act).
+    case practiceWithBrambleStartedFromAdventure(mode: String, kind: String)
 
     /// Event name in the underlying ForgeAnalytics store. Keep lowercase +
     /// snake_case so future analytics inspectors can grep cleanly.
@@ -195,6 +211,8 @@ public enum VoiceTaleAnalyticsEvent: Sendable, Hashable {
         case .deeperChallengeAvailable:      return "deeper_challenge_available"
         case .deeperChallengeTaleStarted:    return "deeper_challenge_tale_started"
         case .practiceWithBrambleAvailable:  return "practice_with_bramble_available"
+        case .practiceWithBrambleStartedFromAdventure:
+            return "practice_with_bramble_started_from_adventure"
         }
     }
 
@@ -318,6 +336,15 @@ public enum VoiceTaleAnalyticsEvent: Sendable, Hashable {
             // polish. The kind partition gives cohort analysis a
             // direction-of-recommendation signal without leaking
             // per-kid mastery depth.
+            return ["mode": mode, "kind": kind]
+        case .practiceWithBrambleStartedFromAdventure(let mode, let kind):
+            // Identical wire shape to `.practiceWithBrambleAvailable` —
+            // the mode raw value + kind raw value travel; the dominant
+            // kit + mastery score + Bramble copy NEVER do. The two
+            // events differ only in name + intent (badge-lit vs
+            // badge-acted-on), mirroring the
+            // `.deeperChallengeAvailable` ↔ `.deeperChallengeTaleStarted`
+            // separation from Phase D second-half.
             return ["mode": mode, "kind": kind]
         }
     }
