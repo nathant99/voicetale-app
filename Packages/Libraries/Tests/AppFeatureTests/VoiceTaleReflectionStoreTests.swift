@@ -404,4 +404,150 @@ struct VoiceTaleReflectionStoreTests {
         #expect(weekly.totalBucket == monthly.totalBucket)
         #expect(weekly.perModalityBucket == monthly.perModalityBucket)
     }
+
+    // MARK: - Quarterly engagement (NINETEENTH-round polish sibling)
+
+    /// Empty store → empty quarterly digest. Sanity baseline mirroring
+    /// the weekly + monthly baselines at the 90-day boundary.
+    @Test func quarterlyEngagementOnEmptyStoreIsEmpty() async throws {
+        let (store, _) = try await newStore(scope: "quarterly-empty")
+        let digest = store.quarterlyEngagement(now: .now)
+        #expect(digest.isEmpty)
+        #expect(digest.totalBucket == "zero")
+        #expect(digest.perModalityBucket.isEmpty)
+    }
+
+    /// Entries inside the 90-day window count; entries outside do not.
+    /// Mirrors ``monthlyEngagementIncludesOnlyEntriesInWindow`` at the
+    /// quarterly boundary.
+    @Test func quarterlyEngagementIncludesOnlyEntriesInWindow() async throws {
+        let (store, _) = try await newStore(scope: "quarterly-window")
+        let now = Date(timeIntervalSinceReferenceDate: 800_000_000)
+        // Three inside the 90-day window — one inside the weekly band,
+        // one inside the monthly band, one strictly outside the monthly
+        // band but inside the quarterly band.
+        try await store.save(entry(
+            modality: .text,
+            appIdentifier: store.appIdentifier,
+            at: now.addingTimeInterval(-1 * 24 * 60 * 60)
+        ))
+        try await store.save(entry(
+            modality: .voice,
+            appIdentifier: store.appIdentifier,
+            at: now.addingTimeInterval(-20 * 24 * 60 * 60)
+        ))
+        try await store.save(entry(
+            modality: .drawing,
+            appIdentifier: store.appIdentifier,
+            at: now.addingTimeInterval(-80 * 24 * 60 * 60)
+        ))
+        // One strictly outside the 90-day window.
+        try await store.save(entry(
+            modality: .emoji,
+            appIdentifier: store.appIdentifier,
+            at: now.addingTimeInterval(-120 * 24 * 60 * 60)
+        ))
+        let quarterly = store.quarterlyEntries(now: now)
+        #expect(quarterly.count == 3,
+                "90-day window MUST include only the 3 in-window entries; got \(quarterly.count)")
+        let digest = store.quarterlyEngagement(now: now)
+        #expect(digest.totalBucket == "one_to_three")
+        #expect(digest.perModalityBucket[.text] == "one_to_three")
+        #expect(digest.perModalityBucket[.voice] == "one_to_three")
+        #expect(digest.perModalityBucket[.drawing] == "one_to_three")
+        // `.emoji` lives strictly outside the window — MUST NOT appear.
+        #expect(digest.perModalityBucket[.emoji] == nil)
+    }
+
+    /// Boundary entry at exactly `now - 90 days` lands inside the
+    /// window (`>= cutoff` inclusive — mirrors the weekly + monthly
+    /// boundary semantics + `ReflectionRetentionPolicy.cutoff`).
+    @Test func quarterlyEngagementIncludesBoundaryEntry() async throws {
+        let (store, _) = try await newStore(scope: "quarterly-boundary")
+        let now = Date(timeIntervalSinceReferenceDate: 800_000_000)
+        let boundary = entry(
+            modality: .text,
+            appIdentifier: store.appIdentifier,
+            at: now.addingTimeInterval(-90 * 24 * 60 * 60)
+        )
+        try await store.save(boundary)
+        let quarterly = store.quarterlyEntries(now: now)
+        #expect(quarterly.count == 1,
+                "Boundary entry at `now - 90d` MUST be inclusive")
+    }
+
+    /// Entry strictly older than the 90-day boundary is dropped.
+    @Test func quarterlyEngagementExcludesEntryStrictlyOlderThanBoundary() async throws {
+        let (store, _) = try await newStore(scope: "quarterly-outside")
+        let now = Date(timeIntervalSinceReferenceDate: 800_000_000)
+        let justOutside = entry(
+            modality: .text,
+            appIdentifier: store.appIdentifier,
+            at: now.addingTimeInterval(-90 * 24 * 60 * 60 - 0.001)
+        )
+        try await store.save(justOutside)
+        let quarterly = store.quarterlyEntries(now: now)
+        #expect(quarterly.isEmpty)
+    }
+
+    /// `.zero` per-modality buckets MUST drop at the quarterly window,
+    /// same convention as the weekly + monthly windows.
+    @Test func quarterlyEngagementDropsZeroModalityBuckets() async throws {
+        let (store, _) = try await newStore(scope: "quarterly-modality-breadth")
+        let now = Date(timeIntervalSinceReferenceDate: 800_000_000)
+        // Two text + one voice in the window. NO drawing / emoji /
+        // skip — those modalities MUST NOT appear in the digest.
+        try await store.save(entry(
+            modality: .text,
+            appIdentifier: store.appIdentifier,
+            at: now.addingTimeInterval(-10 * 24 * 60 * 60)
+        ))
+        try await store.save(entry(
+            modality: .text,
+            appIdentifier: store.appIdentifier,
+            at: now.addingTimeInterval(-45 * 24 * 60 * 60)
+        ))
+        try await store.save(entry(
+            modality: .voice,
+            appIdentifier: store.appIdentifier,
+            at: now.addingTimeInterval(-75 * 24 * 60 * 60)
+        ))
+        let digest = store.quarterlyEngagement(now: now)
+        #expect(digest.totalBucket == "one_to_three")
+        #expect(digest.perModalityBucket.count == 2,
+                "Only modalities with attempts MUST appear; .zero buckets MUST drop")
+        #expect(digest.perModalityBucket[.text] == "one_to_three")
+        #expect(digest.perModalityBucket[.voice] == "one_to_three")
+        #expect(digest.perModalityBucket[.drawing] == nil)
+        #expect(digest.perModalityBucket[.emoji] == nil)
+        #expect(digest.perModalityBucket[.skip] == nil)
+    }
+
+    /// Weekly + monthly + quarterly digests share the same
+    /// `ReflectionWeeklyEngagement` type. When every entry lands inside
+    /// the weekly window (and therefore inside the monthly + quarterly
+    /// windows too), all three digests MUST return identical bucket
+    /// shapes. Locks the factory reuse invariant across all three
+    /// window siblings.
+    @Test func quarterlyDigestReusesFactoryShape() async throws {
+        let (store, _) = try await newStore(scope: "quarterly-factory-reuse")
+        let now = Date(timeIntervalSinceReferenceDate: 800_000_000)
+        // 5 entries — all inside the 7-day window (and therefore inside
+        // the 30-day + 90-day windows too).
+        for offset in 0..<5 {
+            try await store.save(entry(
+                modality: .text,
+                appIdentifier: store.appIdentifier,
+                at: now.addingTimeInterval(-Double(offset) * 24 * 60 * 60)
+            ))
+        }
+        let weekly = store.weeklyEngagement(now: now)
+        let monthly = store.monthlyEngagement(now: now)
+        let quarterly = store.quarterlyEngagement(now: now)
+        // All three buckets should report identical shape.
+        #expect(weekly.totalBucket == quarterly.totalBucket)
+        #expect(monthly.totalBucket == quarterly.totalBucket)
+        #expect(weekly.perModalityBucket == quarterly.perModalityBucket)
+        #expect(monthly.perModalityBucket == quarterly.perModalityBucket)
+    }
 }

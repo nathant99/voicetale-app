@@ -183,4 +183,39 @@ public final class VoiceTaleReflectionStore {
     public func monthlyEngagement(now: Date = .now) -> ReflectionWeeklyEngagement {
         ReflectionWeeklyEngagement.make(from: monthlyEntries(now: now))
     }
+
+    /// NINETEENTH-round polish sibling — entries whose `respondedAt`
+    /// lands on or after `now - 90 days`. Identical boundary semantics
+    /// to ``weeklyEntries(now:)`` + ``monthlyEntries(now:)`` — entries
+    /// at the boundary are kept; strictly older entries are dropped.
+    /// Pure value-type pass-through; never re-queries the storage actor
+    /// (zero-`@Query` discipline per `@.claude/rules/swiftdata.md` rule
+    /// #3).
+    ///
+    /// The view that hosts the quarterly digest gates the call behind
+    /// the same opt-in toggle ``ReflectionJournalView`` already wires
+    /// for the per-entry list + weekly + monthly digests — so the kid's
+    /// reflections stay kid-private until the grown-up explicitly
+    /// opts in.
+    public func quarterlyEntries(now: Date = .now) -> [ReflectionEntry] {
+        let cutoff = now.addingTimeInterval(-90 * 24 * 60 * 60)
+        return entries.filter { $0.respondedAt >= cutoff }
+    }
+
+    /// NINETEENTH-round polish sibling — bucketed engagement snapshot
+    /// for the "Past 90 days" digest row. Walks ``quarterlyEntries(now:)``
+    /// once and emits a ``ReflectionWeeklyEngagement`` (the type's name
+    /// is window-neutral; the factory ``ReflectionWeeklyEngagement/make(from:)``
+    /// just buckets whatever entries it gets).
+    ///
+    /// Wire-shape lockstep with the existing ``weeklyEngagement(now:)`` +
+    /// ``monthlyEngagement(now:)`` +
+    /// ``parentReflectionJournalOpened(visibleCount:)`` +
+    /// ``reflectionsPurged(removed:)`` family — all five reuse
+    /// ``Models/ReflectionRetentionPolicy/removedCountBucket(_:)`` so
+    /// cross-window cohort signal is comparable across surfaces without
+    /// leaking per-kid raw counts.
+    public func quarterlyEngagement(now: Date = .now) -> ReflectionWeeklyEngagement {
+        ReflectionWeeklyEngagement.make(from: quarterlyEntries(now: now))
+    }
 }
