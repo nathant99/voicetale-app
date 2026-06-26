@@ -4,6 +4,7 @@ import SwiftData
 import ForgeModels
 @testable import AppFeature
 import Services
+import Models
 
 /// Phase A coverage for ``VoiceTaleReflectionStore`` per
 /// `@Docs/PLAN_FORGEREFLECTION_LIFT.md` § Phase A. Exercises the
@@ -160,5 +161,105 @@ struct VoiceTaleReflectionStoreTests {
         let store = VoiceTaleReflectionStore(appIdentifier: "test.purge-noboot")
         let purged = try await store.purgeOlderThan(.now)
         #expect(purged == 0)
+    }
+
+    // MARK: - Phase D second-half polish — weekly engagement digest
+
+    /// Empty store → empty week — no entries, total bucket "zero",
+    /// `isEmpty` true.
+    @Test func weeklyEngagementOnEmptyStoreIsEmpty() async throws {
+        let (store, _) = try await newStore(scope: "weekly-empty")
+        let digest = store.weeklyEngagement(now: .now)
+        #expect(digest.isEmpty)
+        #expect(digest.totalBucket == "zero")
+    }
+
+    /// Two entries inside the 7-day window flow into the digest;
+    /// entries strictly older than 7 days are excluded.
+    @Test func weeklyEngagementIncludesOnlyEntriesInWindow() async throws {
+        let (store, _) = try await newStore(scope: "weekly-window")
+        let now = Date(timeIntervalSinceReferenceDate: 800_000_000)
+        let inside1 = entry(
+            modality: .text,
+            appIdentifier: store.appIdentifier,
+            at: now.addingTimeInterval(-2 * 24 * 60 * 60)
+        )
+        let inside2 = entry(
+            modality: .voice,
+            appIdentifier: store.appIdentifier,
+            at: now.addingTimeInterval(-5 * 24 * 60 * 60)
+        )
+        let outside = entry(
+            modality: .drawing,
+            appIdentifier: store.appIdentifier,
+            at: now.addingTimeInterval(-30 * 24 * 60 * 60)
+        )
+        try await store.save(inside1)
+        try await store.save(inside2)
+        try await store.save(outside)
+        #expect(store.entries.count == 3)
+
+        let weekly = store.weeklyEntries(now: now)
+        #expect(weekly.count == 2)
+        let modalities = Set(weekly.map { $0.modality })
+        #expect(modalities == [.text, .voice])
+
+        let digest = store.weeklyEngagement(now: now)
+        #expect(digest.totalBucket == "one_to_three")
+        #expect(digest.perModalityBucket[.text] == "one_to_three")
+        #expect(digest.perModalityBucket[.voice] == "one_to_three")
+        #expect(digest.perModalityBucket[.drawing] == nil)
+    }
+
+    /// 7-day boundary: an entry at exactly `now - 7 days` is INCLUDED
+    /// (same boundary semantics as ``ReflectionRetentionPolicy.cutoff`` —
+    /// entries at the boundary are kept; strictly older entries are
+    /// dropped).
+    @Test func weeklyEngagementIncludesBoundaryEntry() async throws {
+        let (store, _) = try await newStore(scope: "weekly-boundary")
+        let now = Date(timeIntervalSinceReferenceDate: 800_000_000)
+        let boundary = entry(
+            modality: .text,
+            appIdentifier: store.appIdentifier,
+            at: now.addingTimeInterval(-7 * 24 * 60 * 60)
+        )
+        try await store.save(boundary)
+        let weekly = store.weeklyEntries(now: now)
+        #expect(weekly.count == 1)
+    }
+
+    /// 7-day boundary minus a millisecond: an entry strictly older
+    /// than 7 days is EXCLUDED. Locks the cutoff polarity (`>=` cutoff
+    /// includes; `<` cutoff excludes).
+    @Test func weeklyEngagementExcludesEntryStrictlyOlderThanBoundary() async throws {
+        let (store, _) = try await newStore(scope: "weekly-strict")
+        let now = Date(timeIntervalSinceReferenceDate: 800_000_000)
+        let justOutside = entry(
+            modality: .text,
+            appIdentifier: store.appIdentifier,
+            at: now.addingTimeInterval(-7 * 24 * 60 * 60 - 0.001)
+        )
+        try await store.save(justOutside)
+        let weekly = store.weeklyEntries(now: now)
+        #expect(weekly.isEmpty)
+    }
+
+    /// 11+ entries in the window produce the `"eleven_plus"` total
+    /// bucket — confirms the digest factory and store wiring agree on
+    /// bucket boundaries.
+    @Test func weeklyEngagementBucketsAtElevenPlus() async throws {
+        let (store, _) = try await newStore(scope: "weekly-many")
+        let now = Date(timeIntervalSinceReferenceDate: 800_000_000)
+        for offset in 0..<11 {
+            let payload = entry(
+                modality: .text,
+                appIdentifier: store.appIdentifier,
+                at: now.addingTimeInterval(-Double(offset) * 60)
+            )
+            try await store.save(payload)
+        }
+        let digest = store.weeklyEngagement(now: now)
+        #expect(digest.totalBucket == "eleven_plus")
+        #expect(digest.perModalityBucket[.text] == "eleven_plus")
     }
 }

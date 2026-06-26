@@ -182,7 +182,14 @@ let package = Package(
         // MARK: - Tests
         .testTarget(
             name: "ModelsTests",
-            dependencies: ["Models"],
+            dependencies: [
+                "Models",
+                // `ReflectionWeeklyEngagementTests` constructs `ReflectionEntry`
+                // value-type fixtures + iterates `ReflectionResponseModality.allCases`
+                // to lock the per-modality bucket-drop invariant. Pure value-type
+                // imports; no runtime SwiftData host needed.
+                .product(name: "ForgeModels", package: "forgekit"),
+            ],
             swiftSettings: defaultSwiftSettings
         ),
         .testTarget(

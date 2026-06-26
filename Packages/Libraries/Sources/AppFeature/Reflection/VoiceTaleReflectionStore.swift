@@ -3,6 +3,7 @@ import Observation
 import SwiftData
 import ForgeModels
 import ForgePersistence
+import Models
 
 /// `@MainActor @Observable` wrapper around the actor-isolated
 /// `ForgePersistence.ReflectionPromptStorage`. Mirrors the
@@ -115,5 +116,38 @@ public final class VoiceTaleReflectionStore {
         promptVisibility: @Sendable (String) -> Bool
     ) -> [ReflectionEntry] {
         entries.filter { promptVisibility($0.promptID) }
+    }
+
+    /// Phase D second-half polish — parent-dashboard "This week" digest.
+    ///
+    /// Returns the cached snapshot sliced to entries whose
+    /// `respondedAt` is on or after `now - 7 days` — same boundary
+    /// semantics as ``ReflectionRetentionPolicy/cutoff(inputs:now:)``
+    /// (entries at the boundary are kept; strictly older entries are
+    /// dropped). Pure value-type pass-through; never re-queries the
+    /// storage actor (zero-`@Query` discipline per
+    /// `@.claude/rules/swiftdata.md` rule #3).
+    ///
+    /// The view that hosts the digest gates the call behind the same
+    /// opt-in toggle ``ReflectionJournalView`` already wires for the
+    /// per-entry list — so the kid's reflections stay kid-private until
+    /// the grown-up explicitly opts in.
+    public func weeklyEntries(now: Date = .now) -> [ReflectionEntry] {
+        let cutoff = now.addingTimeInterval(-7 * 24 * 60 * 60)
+        return entries.filter { $0.respondedAt >= cutoff }
+    }
+
+    /// Phase D second-half polish — bucketed engagement snapshot for the
+    /// "This week" digest row. Walks ``weeklyEntries(now:)`` once and
+    /// emits a ``ReflectionWeeklyEngagement`` with bucketed totals.
+    ///
+    /// Wire-shape lockstep with the sibling
+    /// ``parentReflectionJournalOpened(visibleCount:)`` /
+    /// ``reflectionsPurged(removed:)`` analytics events — all three use
+    /// ``Models/ReflectionRetentionPolicy/removedCountBucket(_:)`` so the
+    /// cohort signal is comparable across surfaces without leaking
+    /// per-kid raw counts.
+    public func weeklyEngagement(now: Date = .now) -> ReflectionWeeklyEngagement {
+        ReflectionWeeklyEngagement.make(from: weeklyEntries(now: now))
     }
 }
