@@ -146,6 +146,21 @@ public enum VoiceTaleAnalyticsEvent: Sendable, Hashable {
     /// `@Docs/PLAN_FORGEMASTERY_INTEGRATION.md` § Phase D
     /// second-half).
     case deeperChallengeTaleStarted(mode: String)
+    /// ForgeMasteryEngine Phase D EIGHTEENTH-round parity polish —
+    /// fires when the `.extend` / `.consolidate` practice-with-Bramble
+    /// badge lights on an unlocked Adventure mode-card. Distinct from
+    /// ``deeperChallengeAvailable(mode:)`` (which fires for the
+    /// `.stretch` band only); the two affordances NEVER co-render on
+    /// the same card per ``Services/Adaptive/PracticeWithBrambleBadge``.
+    /// Categorical-only payload: the mode raw value travels
+    /// (`hook_builder` / `pacing_walk` / `turn_drill` /
+    /// `callback_refrain` — Tale Trial is unmapped per
+    /// ``Models/ModeMasteryMapping``) AND the kind raw value travels
+    /// (`extend` / `consolidate`). The dominant kit, the kid's mastery
+    /// score, and the Bramble copy NEVER travel (anti-fingerprinting
+    /// per `@Docs/PLAN_FORGEMASTERY_INTEGRATION.md` § Phase D parity
+    /// polish).
+    case practiceWithBrambleAvailable(mode: String, kind: String)
 
     /// Event name in the underlying ForgeAnalytics store. Keep lowercase +
     /// snake_case so future analytics inspectors can grep cleanly.
@@ -179,6 +194,7 @@ public enum VoiceTaleAnalyticsEvent: Sendable, Hashable {
         case .parentReflectionJournalOpened: return "parent_reflection_journal_opened"
         case .deeperChallengeAvailable:      return "deeper_challenge_available"
         case .deeperChallengeTaleStarted:    return "deeper_challenge_tale_started"
+        case .practiceWithBrambleAvailable:  return "practice_with_bramble_available"
         }
     }
 
@@ -294,6 +310,15 @@ public enum VoiceTaleAnalyticsEvent: Sendable, Hashable {
             // fingerprinting per `@Docs/PLAN_FORGEMASTERY_INTEGRATION.md`
             // § Phase D second-half.
             return ["mode": mode]
+        case .practiceWithBrambleAvailable(let mode, let kind):
+            // Mode raw value + kind raw value (`extend` / `consolidate`)
+            // travel. The mapped kit + the kid's mastery score + the
+            // Bramble copy NEVER travel. Anti-fingerprinting per
+            // `@Docs/PLAN_FORGEMASTERY_INTEGRATION.md` § Phase D parity
+            // polish. The kind partition gives cohort analysis a
+            // direction-of-recommendation signal without leaking
+            // per-kid mastery depth.
+            return ["mode": mode, "kind": kind]
         }
     }
 
