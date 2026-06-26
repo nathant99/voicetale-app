@@ -1,4 +1,5 @@
 import SwiftUI
+import Foundation
 import ForgeModels
 import Models
 
@@ -50,6 +51,7 @@ public struct ReflectionJournalView: View {
     public var body: some View {
         List {
             opt_inSection
+            weeklyDigestSection
             entriesSection
             privacyFooter
         }
@@ -76,6 +78,45 @@ public struct ReflectionJournalView: View {
             .accessibilityHint("When on, this surface lists how and when your child answered Bramble's questions. Their typed words are never shown either way.")
         } header: {
             Text("Privacy")
+        }
+    }
+
+    /// "This week" engagement digest. Renders only when the grown-up
+    /// has opted in (kid-private posture is the default) AND the kid
+    /// has actually engaged with Bramble in the last 7 days. The digest
+    /// reuses ``Models/ReflectionRetentionPolicy.removedCountBucket(_:)``
+    /// for bucketed counts so the wire shape mirrors the sibling
+    /// ``parentReflectionJournalOpened(visibleCount:)`` /
+    /// ``reflectionsPurged(removed:)`` analytics events. Raw counts
+    /// NEVER appear on the row — only the bucket label + (when present)
+    /// per-modality bucket labels.
+    @ViewBuilder
+    private var weeklyDigestSection: some View {
+        if parentJournalVisible, let store {
+            let digest = store.weeklyEngagement()
+            if !digest.isEmpty {
+                Section {
+                    Label {
+                        VStack(alignment: .leading, spacing: 4) {
+                            Text("\(weeklyDigestHeadline(digest.totalBucket)) this week")
+                                .font(.body.weight(.semibold))
+                            if !digest.perModalityBucket.isEmpty {
+                                Text(perModalitySummary(digest))
+                                    .font(.caption)
+                                    .foregroundStyle(.secondary)
+                            } else {
+                                Text("Bramble heard from your child a few times — keep encouraging the curiosity.")
+                                    .font(.caption)
+                                    .foregroundStyle(.secondary)
+                            }
+                        }
+                    } icon: {
+                        Image(systemName: "calendar.badge.clock")
+                    }
+                } header: {
+                    Text("This week")
+                }
+            }
         }
     }
 
@@ -186,6 +227,51 @@ public struct ReflectionJournalView: View {
         case .drawing: return "scribble.variable"
         case .emoji:   return "face.smiling.inverse"
         case .skip:    return "lock.fill"
+        }
+    }
+
+    /// Kid-readable headline derived from the bucketed total count.
+    /// Never speaks raw counts — only the cohort-safe bucket band.
+    private func weeklyDigestHeadline(_ totalBucket: String) -> String {
+        switch totalBucket {
+        case "one_to_three":  return "A few reflections"
+        case "four_to_ten":   return "Several reflections"
+        case "eleven_plus":   return "Lots of reflections"
+        default:              return "Reflections"
+        }
+    }
+
+    /// Renders the per-modality bucket map as a short comma-joined
+    /// phrase: "typed: a few, voice: several". Drops `.skip` from the
+    /// summary because surfacing "engaged then private" counts in a
+    /// week digest would invite the grown-up to second-guess the
+    /// kid's privacy choice — the per-entry list already surfaces
+    /// engagement-then-private signals at the row level.
+    private func perModalitySummary(_ digest: ReflectionWeeklyEngagement) -> String {
+        let order: [ReflectionResponseModality] = [.text, .voice, .drawing, .emoji]
+        let phrases = order.compactMap { modality -> String? in
+            guard let bucket = digest.perModalityBucket[modality] else { return nil }
+            return "\(modalityShortLabel(modality)): \(bucketShortLabel(bucket))"
+        }
+        return phrases.joined(separator: " · ")
+    }
+
+    private func modalityShortLabel(_ modality: ReflectionResponseModality) -> String {
+        switch modality {
+        case .text:    return "typed"
+        case .voice:   return "voice"
+        case .drawing: return "drawing"
+        case .emoji:   return "emoji"
+        case .skip:    return "private"
+        }
+    }
+
+    private func bucketShortLabel(_ bucket: String) -> String {
+        switch bucket {
+        case "one_to_three": return "a few"
+        case "four_to_ten":  return "several"
+        case "eleven_plus":  return "lots"
+        default:             return "none"
         }
     }
 
