@@ -52,6 +52,7 @@ public struct ReflectionJournalView: View {
         List {
             opt_inSection
             weeklyDigestSection
+            monthlyDigestSection
             entriesSection
             privacyFooter
         }
@@ -98,7 +99,7 @@ public struct ReflectionJournalView: View {
                 Section {
                     Label {
                         VStack(alignment: .leading, spacing: 4) {
-                            Text("\(weeklyDigestHeadline(digest.totalBucket)) this week")
+                            Text("\(digestHeadline(digest.totalBucket)) this week")
                                 .font(.body.weight(.semibold))
                             if !digest.perModalityBucket.isEmpty {
                                 Text(perModalitySummary(digest))
@@ -115,6 +116,53 @@ public struct ReflectionJournalView: View {
                     }
                 } header: {
                     Text("This week")
+                }
+            }
+        }
+    }
+
+    /// "This month" engagement digest — EIGHTEENTH-round polish sibling
+    /// of ``weeklyDigestSection``. Same gating, same wire-shape, same
+    /// anti-PII discipline; the only differences are the 30-day window
+    /// (via ``VoiceTaleReflectionStore/monthlyEngagement(now:)``) and the
+    /// "this month" suffix on the headline.
+    ///
+    /// The digest renders only when the grown-up has opted in AND the
+    /// kid has actually engaged with Bramble in the last 30 days. An
+    /// empty-month edge case bypasses the section so the grown-up
+    /// doesn't see a "Reflections this month" row that quietly reports
+    /// zero engagement.
+    ///
+    /// Visual register matches the weekly digest deliberately — both
+    /// rows use ``Label`` + a calendar-themed SF symbol; only the
+    /// month-specific symbol (`calendar`) differs from the week's
+    /// `calendar.badge.clock` so the eye can scan-distinguish the
+    /// windows at a glance.
+    @ViewBuilder
+    private var monthlyDigestSection: some View {
+        if parentJournalVisible, let store {
+            let digest = store.monthlyEngagement()
+            if !digest.isEmpty {
+                Section {
+                    Label {
+                        VStack(alignment: .leading, spacing: 4) {
+                            Text("\(digestHeadline(digest.totalBucket)) this month")
+                                .font(.body.weight(.semibold))
+                            if !digest.perModalityBucket.isEmpty {
+                                Text(perModalitySummary(digest))
+                                    .font(.caption)
+                                    .foregroundStyle(.secondary)
+                            } else {
+                                Text("Bramble heard from your child a few times this month — keep encouraging the curiosity.")
+                                    .font(.caption)
+                                    .foregroundStyle(.secondary)
+                            }
+                        }
+                    } icon: {
+                        Image(systemName: "calendar")
+                    }
+                } header: {
+                    Text("This month")
                 }
             }
         }
@@ -232,7 +280,10 @@ public struct ReflectionJournalView: View {
 
     /// Kid-readable headline derived from the bucketed total count.
     /// Never speaks raw counts — only the cohort-safe bucket band.
-    private func weeklyDigestHeadline(_ totalBucket: String) -> String {
+    /// Window-neutral — both the weekly and monthly digest sections
+    /// route through this helper so the bucket-to-phrase mapping stays
+    /// in a single seam.
+    private func digestHeadline(_ totalBucket: String) -> String {
         switch totalBucket {
         case "one_to_three":  return "A few reflections"
         case "four_to_ten":   return "Several reflections"

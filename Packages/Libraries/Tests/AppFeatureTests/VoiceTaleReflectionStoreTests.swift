@@ -262,4 +262,146 @@ struct VoiceTaleReflectionStoreTests {
         #expect(digest.totalBucket == "eleven_plus")
         #expect(digest.perModalityBucket[.text] == "eleven_plus")
     }
+
+    // MARK: - Monthly engagement (EIGHTEENTH-round polish sibling)
+
+    /// Empty store → empty monthly digest. Sanity baseline mirroring
+    /// the weekly baseline at the 30-day boundary.
+    @Test func monthlyEngagementOnEmptyStoreIsEmpty() async throws {
+        let (store, _) = try await newStore(scope: "monthly-empty")
+        let digest = store.monthlyEngagement(now: .now)
+        #expect(digest.isEmpty)
+        #expect(digest.totalBucket == "zero")
+        #expect(digest.perModalityBucket.isEmpty)
+    }
+
+    /// Entries inside the 30-day window count; entries outside do not.
+    /// Mirrors ``weeklyEngagementIncludesOnlyEntriesInWindow`` at the
+    /// monthly boundary.
+    @Test func monthlyEngagementIncludesOnlyEntriesInWindow() async throws {
+        let (store, _) = try await newStore(scope: "monthly-window")
+        let now = Date(timeIntervalSinceReferenceDate: 800_000_000)
+        // Three inside the 30-day window.
+        try await store.save(entry(
+            modality: .text,
+            appIdentifier: store.appIdentifier,
+            at: now.addingTimeInterval(-1 * 24 * 60 * 60)
+        ))
+        try await store.save(entry(
+            modality: .voice,
+            appIdentifier: store.appIdentifier,
+            at: now.addingTimeInterval(-15 * 24 * 60 * 60)
+        ))
+        try await store.save(entry(
+            modality: .drawing,
+            appIdentifier: store.appIdentifier,
+            at: now.addingTimeInterval(-29 * 24 * 60 * 60)
+        ))
+        // One strictly outside the 30-day window.
+        try await store.save(entry(
+            modality: .emoji,
+            appIdentifier: store.appIdentifier,
+            at: now.addingTimeInterval(-45 * 24 * 60 * 60)
+        ))
+        let monthly = store.monthlyEntries(now: now)
+        #expect(monthly.count == 3,
+                "30-day window MUST include only the 3 in-window entries; got \(monthly.count)")
+        let digest = store.monthlyEngagement(now: now)
+        #expect(digest.totalBucket == "one_to_three")
+        #expect(digest.perModalityBucket[.text] == "one_to_three")
+        #expect(digest.perModalityBucket[.voice] == "one_to_three")
+        #expect(digest.perModalityBucket[.drawing] == "one_to_three")
+        // `.emoji` lives strictly outside the window — MUST NOT appear.
+        #expect(digest.perModalityBucket[.emoji] == nil)
+    }
+
+    /// Boundary entry at exactly `now - 30 days` lands inside the
+    /// window (`>= cutoff` inclusive — mirrors the weekly boundary
+    /// semantics + `ReflectionRetentionPolicy.cutoff`).
+    @Test func monthlyEngagementIncludesBoundaryEntry() async throws {
+        let (store, _) = try await newStore(scope: "monthly-boundary")
+        let now = Date(timeIntervalSinceReferenceDate: 800_000_000)
+        let boundary = entry(
+            modality: .text,
+            appIdentifier: store.appIdentifier,
+            at: now.addingTimeInterval(-30 * 24 * 60 * 60)
+        )
+        try await store.save(boundary)
+        let monthly = store.monthlyEntries(now: now)
+        #expect(monthly.count == 1,
+                "Boundary entry at `now - 30d` MUST be inclusive")
+    }
+
+    /// Entry strictly older than the 30-day boundary is dropped.
+    @Test func monthlyEngagementExcludesEntryStrictlyOlderThanBoundary() async throws {
+        let (store, _) = try await newStore(scope: "monthly-outside")
+        let now = Date(timeIntervalSinceReferenceDate: 800_000_000)
+        let justOutside = entry(
+            modality: .text,
+            appIdentifier: store.appIdentifier,
+            at: now.addingTimeInterval(-30 * 24 * 60 * 60 - 0.001)
+        )
+        try await store.save(justOutside)
+        let monthly = store.monthlyEntries(now: now)
+        #expect(monthly.isEmpty)
+    }
+
+    /// Per-modality breadth matches: 4 modalities engaged in the
+    /// month → 4 entries in the per-modality bucket map (no `.zero`
+    /// buckets leak). Locks the `make(from:)` zero-drop convention at
+    /// the monthly window.
+    @Test func monthlyEngagementDropsZeroModalityBuckets() async throws {
+        let (store, _) = try await newStore(scope: "monthly-modality-breadth")
+        let now = Date(timeIntervalSinceReferenceDate: 800_000_000)
+        // Two text + one voice in the window. NO drawing / emoji /
+        // skip — those modalities MUST NOT appear in the digest.
+        try await store.save(entry(
+            modality: .text,
+            appIdentifier: store.appIdentifier,
+            at: now.addingTimeInterval(-1 * 24 * 60 * 60)
+        ))
+        try await store.save(entry(
+            modality: .text,
+            appIdentifier: store.appIdentifier,
+            at: now.addingTimeInterval(-2 * 24 * 60 * 60)
+        ))
+        try await store.save(entry(
+            modality: .voice,
+            appIdentifier: store.appIdentifier,
+            at: now.addingTimeInterval(-3 * 24 * 60 * 60)
+        ))
+        let digest = store.monthlyEngagement(now: now)
+        #expect(digest.totalBucket == "one_to_three")
+        #expect(digest.perModalityBucket.count == 2,
+                "Only modalities with attempts MUST appear; .zero buckets MUST drop")
+        #expect(digest.perModalityBucket[.text] == "one_to_three")
+        #expect(digest.perModalityBucket[.voice] == "one_to_three")
+        #expect(digest.perModalityBucket[.drawing] == nil)
+        #expect(digest.perModalityBucket[.emoji] == nil)
+        #expect(digest.perModalityBucket[.skip] == nil)
+    }
+
+    /// Weekly + monthly digests share the same `ReflectionWeeklyEngagement`
+    /// type — the type name is window-neutral. The same factory shape
+    /// returns both digests; they differ only by which window the
+    /// store's `*Entries(now:)` filter selects. Locks the factory reuse
+    /// invariant.
+    @Test func monthlyDigestReusesFactoryShape() async throws {
+        let (store, _) = try await newStore(scope: "factory-reuse")
+        let now = Date(timeIntervalSinceReferenceDate: 800_000_000)
+        // 5 entries — all inside both the 7-day and 30-day window.
+        for offset in 0..<5 {
+            try await store.save(entry(
+                modality: .text,
+                appIdentifier: store.appIdentifier,
+                at: now.addingTimeInterval(-Double(offset) * 24 * 60 * 60)
+            ))
+        }
+        let weekly = store.weeklyEngagement(now: now)
+        let monthly = store.monthlyEngagement(now: now)
+        // Both buckets should report `four_to_ten` (5 entries) and
+        // the same per-modality breakdown.
+        #expect(weekly.totalBucket == monthly.totalBucket)
+        #expect(weekly.perModalityBucket == monthly.perModalityBucket)
+    }
 }
