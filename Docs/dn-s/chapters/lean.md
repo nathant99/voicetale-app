@@ -8,6 +8,11 @@ register: warmly absurd with subtext (per labsmith DN-S R172 #606 spec) — Patt
 chapter-round: Round 228 #662
 status: SHIPPED
 word-count: ~835
+reflection-prompts:
+  - beat-after: 1
+    prompt: "Lean's body tips forward in the first five seconds when a story's opening pulls her in. Is there a story you've started telling — to a friend, in class, at dinner — where you could *feel* whether the first sentence pulled the listener forward or made them rock back?"
+  - beat-after: 4
+    prompt: "Lean says her body knows what her mind hasn't put into words yet. Have you ever noticed your body knowing something before your brain caught up — leaning toward a person, away from a room, into a question — and then later realizing your body was right?"
 ---
 # Chapter 1 — Lean and the Tipping-Forward at Second Five
 
