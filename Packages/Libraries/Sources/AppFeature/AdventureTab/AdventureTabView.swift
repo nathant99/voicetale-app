@@ -31,6 +31,13 @@ public struct AdventureTabView: View {
     @Environment(\.recordingContextCoordinator) private var recordingContextCoordinator
     @State private var talesSavedCount: Int = 0
     @State private var isPresentingTaleTrial = false
+    /// NINETEENTH-round tap-to-act — when set, the upcoming `.sheet`
+    /// presents ``QuizView`` with `preselectedKit:` so the kid lands
+    /// directly in the recommended kit. Cleared on dismiss so the next
+    /// tap re-evaluates against the latest mastery snapshot. Mirrors
+    /// the ``ProgressTabView.pendingPreselectedKit`` pattern (Phase C).
+    @State private var pendingPracticeKit: KitID?
+    @State private var isPracticePresented: Bool = false
     /// ForgeMasteryEngine Phase D — tracks which modes have already
     /// emitted ``deeperChallengeAvailable(mode:)`` this appearance so
     /// the analytics surface stays one-fire-per-mode. Cleared on
@@ -67,6 +74,12 @@ public struct AdventureTabView: View {
             .onAppear(perform: refreshTalesCount)
             .sheet(isPresented: $isPresentingTaleTrial) {
                 TaleTrialView()
+            }
+            .sheet(
+                isPresented: $isPracticePresented,
+                onDismiss: { pendingPracticeKit = nil }
+            ) {
+                QuizView(preselectedKit: pendingPracticeKit)
             }
         }
     }
@@ -148,7 +161,7 @@ public struct AdventureTabView: View {
                         gateID: mode.gateID
                     )
                 } else if let badge {
-                    practiceBadgeView(badge: badge, tint: mode.color)
+                    practiceBadgeView(badge: badge, tint: mode.color, gateID: mode.gateID)
                 }
             }
             Spacer()
@@ -276,29 +289,61 @@ public struct AdventureTabView: View {
     /// (`leaf.fill` / `arrow.clockwise.circle.fill`) — anti-judgment
     /// shapes per the catalog's existing blocklist.
     ///
-    /// Informational badge — NOT a `Button` (the `.stretch` pill on
-    /// Adventure owns the tap-to-act path via
-    /// ``RecordingContextCoordinator``; the broader `.extend` /
-    /// `.consolidate` tap-to-act path lives on
-    /// ``AppFeature/ProgressTab/ProgressTabView``'s three-card surface).
+    /// NINETEENTH-round tap-to-act — the badge is now a `Button`.
+    /// Tap presents ``QuizView(preselectedKit: badge.kit)`` via a sheet
+    /// (mirrors ``ProgressTabView.recommendationCard(_:)``) so the kid
+    /// who lands on the Adventure tab first has a same-tab affordance
+    /// for the recommended kit. The Progress-tab three-card surface
+    /// stays canonical for cross-tab discovery; this PR adds a parallel
+    /// same-tab path. Fires
+    /// ``practiceWithBrambleStartedFromAdventure(mode:kind:)`` —
+    /// categorical-only payload (mode + kind raw values); the dominant
+    /// kit + mastery score + Bramble copy NEVER travel
+    /// (anti-fingerprinting per COPPA-2026 anti-PII).
     @ViewBuilder
     private func practiceBadgeView(
         badge: KitMasteryRecommendation,
-        tint: Color
+        tint: Color,
+        gateID: String
     ) -> some View {
-        Label {
-            Text(badge.brambleCopy)
-                .font(.caption2.weight(.medium))
-                .lineLimit(2)
-        } icon: {
-            Image(systemName: badge.kind.symbolName)
+        Button {
+            handlePracticeBadgeTap(badge: badge, gateID: gateID)
+        } label: {
+            Label {
+                Text(badge.brambleCopy)
+                    .font(.caption2.weight(.medium))
+                    .lineLimit(2)
+            } icon: {
+                Image(systemName: badge.kind.symbolName)
+            }
+            .padding(.horizontal, 8)
+            .padding(.vertical, 4)
+            .background(tint.opacity(0.10), in: Capsule())
+            .foregroundStyle(tint.opacity(0.85))
         }
-        .padding(.horizontal, 8)
-        .padding(.vertical, 4)
-        .background(tint.opacity(0.10), in: Capsule())
-        .foregroundStyle(tint.opacity(0.85))
+        .buttonStyle(.plain)
         .padding(.top, 4)
-        .accessibilityHint("Bramble has a curiosity for this mode.")
+        .accessibilityHint("Bramble has a curiosity for this mode. Tap to open the practice kit.")
+    }
+
+    /// Handle a practice-with-Bramble badge tap. Fires the categorical
+    /// ``practiceWithBrambleStartedFromAdventure(mode:kind:)`` analytics
+    /// event AND presents ``QuizView`` with `preselectedKit:` set to
+    /// the badge's kit so the kid lands directly in the recommended
+    /// practice. Anti-fingerprinting per
+    /// `@Docs/PLAN_FORGEMASTERY_INTEGRATION.md` § Phase D parity polish
+    /// tap-to-act.
+    private func handlePracticeBadgeTap(
+        badge: KitMasteryRecommendation,
+        gateID: String
+    ) {
+        let raw = analyticsModeRawValue(for: gateID)
+        analytics.track(.practiceWithBrambleStartedFromAdventure(
+            mode: raw,
+            kind: badge.kind.rawValue
+        ))
+        pendingPracticeKit = badge.kit
+        isPracticePresented = true
     }
 
     /// Emit ``practiceWithBrambleAvailable(mode:kind:)`` at most once

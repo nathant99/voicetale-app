@@ -287,6 +287,76 @@ struct AnalyticsServiceTests {
         #expect(badge.name != pill.name)
     }
 
+    // MARK: - ForgeMasteryEngine Phase D NINETEENTH-round tap-to-act —
+    //         practiceWithBrambleStartedFromAdventure
+
+    @Test func practiceWithBrambleStartedFromAdventureEventNameIsStable() {
+        let event = VoiceTaleAnalyticsEvent.practiceWithBrambleStartedFromAdventure(
+            mode: "hook_builder",
+            kind: "extend"
+        )
+        #expect(event.name == "practice_with_bramble_started_from_adventure")
+    }
+
+    @Test func practiceWithBrambleStartedFromAdventureCarriesModeAndKind() {
+        // NINETEENTH-round tap-to-act — wire shape mirrors
+        // `.practiceWithBrambleAvailable`: mode + kind raw values
+        // travel; the dominant kit + mastery score + Bramble copy
+        // NEVER travel.
+        let modes: [String] = ["hook_builder", "pacing_walk", "turn_drill", "callback_refrain"]
+        let kinds: [String] = ["extend", "consolidate"]
+        for mode in modes {
+            for kind in kinds {
+                let event = VoiceTaleAnalyticsEvent.practiceWithBrambleStartedFromAdventure(
+                    mode: mode,
+                    kind: kind
+                )
+                #expect(event.properties.count == 2,
+                        "Event MUST carry exactly mode + kind — no other properties")
+                #expect(event.properties["mode"] == mode)
+                #expect(event.properties["kind"] == kind)
+                // Anti-PII discipline locks: the kit / mastery score /
+                // Bramble copy MUST NEVER appear on the wire.
+                #expect(event.properties["kit"] == nil)
+                #expect(event.properties["mastery_score"] == nil)
+                #expect(event.properties["bramble_copy"] == nil)
+            }
+        }
+    }
+
+    @Test func practiceWithBrambleStartedFromAdventureNameDiffersFromAvailable() {
+        // Wire-shape separation invariant: cohort analysis must be able
+        // to separate "badge lit" from "badge acted on" — the two
+        // events MUST have distinct stable names. Mirrors the
+        // `.deeperChallengeAvailable` ↔ `.deeperChallengeTaleStarted`
+        // separation from Phase D second-half.
+        let avail = VoiceTaleAnalyticsEvent.practiceWithBrambleAvailable(
+            mode: "hook_builder",
+            kind: "extend"
+        )
+        let started = VoiceTaleAnalyticsEvent.practiceWithBrambleStartedFromAdventure(
+            mode: "hook_builder",
+            kind: "extend"
+        )
+        #expect(avail.name != started.name)
+        // Wire shape should match — properties identical, names differ.
+        #expect(avail.properties == started.properties)
+    }
+
+    @Test func practiceWithBrambleStartedFromAdventureNameDiffersFromDeeperChallengeStarted() {
+        // The Adventure-tab badge tap MUST NOT collide with the
+        // Adventure-tab pill tap. Both are tap-to-act events on the
+        // Adventure tab but they cover different recommendation bands
+        // (`.extend`/`.consolidate` vs `.stretch`); cohort analysis
+        // depends on the separation.
+        let badge = VoiceTaleAnalyticsEvent.practiceWithBrambleStartedFromAdventure(
+            mode: "hook_builder",
+            kind: "extend"
+        )
+        let pill = VoiceTaleAnalyticsEvent.deeperChallengeTaleStarted(mode: "hook_builder")
+        #expect(badge.name != pill.name)
+    }
+
     @Test func everyDeclaredEventHasAUniqueNonEmptyName() {
         // Centralized name-collision audit. New event cases must add an
         // entry below; the test fails if the names collide OR if a case
