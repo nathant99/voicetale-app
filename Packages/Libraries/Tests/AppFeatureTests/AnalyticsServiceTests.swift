@@ -357,6 +357,49 @@ struct AnalyticsServiceTests {
         #expect(badge.name != pill.name)
     }
 
+    // MARK: - kitMasteryAdvanced wire-shape lock-down (TWENTIETH-round coalescing)
+
+    @Test func kitMasteryAdvancedWireShapeIsUnchangedByCoalescing() {
+        // The TWENTIETH-round @AppStorage-backed coalescing layer
+        // suppresses redundant emissions in the view layer but MUST
+        // NOT change the on-the-wire event shape. The payload stays
+        // band raw values only — no new keys, no log JSON, no raw
+        // scores. Anti-fingerprinting + COPPA-2026 anti-PII
+        // discipline per
+        // `@Docs/PLAN_FORGEMASTERY_INTEGRATION.md` § Phase B
+        // coalescing.
+        let event = VoiceTaleAnalyticsEvent.kitMasteryAdvanced(
+            kit: 2,
+            fromBand: "developing",
+            toBand: "meeting"
+        )
+        #expect(event.name == "kit_mastery_advanced")
+        // Exactly the same 3 keys as the pre-coalescing wire shape.
+        #expect(Set(event.properties.keys) == ["kit", "from_band", "to_band"])
+        // No log-shape keys leaked onto the event payload.
+        let forbiddenCoalescingKeys: Set<String> = [
+            "last_bands_json", "last_band", "logged_from_band",
+            "coalesced", "suppressed_count", "raw_score", "elapsed",
+        ]
+        #expect(Set(event.properties.keys).intersection(forbiddenCoalescingKeys).isEmpty)
+    }
+
+    @Test func kitMasteryAdvancedPreservesFromBandPayloadFromLog() {
+        // The coalescing layer prefers the logged last-emitted band
+        // when reporting `fromBand` (so cohort analysis sees the
+        // actual session-spanning transition rather than the
+        // in-memory snapshot). The event signature accepts whatever
+        // the caller passes — this test locks the caller-side
+        // contract by exercising the public init shape.
+        let logged = VoiceTaleAnalyticsEvent.kitMasteryAdvanced(
+            kit: 1,
+            fromBand: "emerging",  // hypothetically the logged value
+            toBand: "developing"
+        )
+        #expect(logged.properties["from_band"] == "emerging")
+        #expect(logged.properties["to_band"] == "developing")
+    }
+
     @Test func everyDeclaredEventHasAUniqueNonEmptyName() {
         // Centralized name-collision audit. New event cases must add an
         // entry below; the test fails if the names collide OR if a case

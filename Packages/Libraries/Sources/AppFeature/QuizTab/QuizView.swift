@@ -35,6 +35,17 @@ public struct QuizView: View {
     @State private var loadError: String?
     @State private var didAwardCompletion: Bool = false
 
+    /// ForgeMasteryEngine Phase B TWENTIETH-round coalescing — JSON-
+    /// encoded ``KitMasteryBandLog`` keyed by ``KitID`` raw value
+    /// (Int) → last-emitted ``MasteryBand`` raw value (String).
+    /// Suppresses redundant `kitMasteryAdvanced` emissions when the
+    /// kid's score oscillates around a quartile boundary across a
+    /// single session OR across cold launches. Anti-defeat: corrupt
+    /// JSON degrades to an empty log per
+    /// ``KitMasteryBandLog/init(json:)`` so a single corrupt write
+    /// never permanently suppresses emissions.
+    @AppStorage("voicetale.kitmastery.last_bands") private var lastBandsJSON: String = ""
+
     /// Seed used by ``QuestionKitLoader.loadKitForRotation(seed:)`` to
     /// pick which of the 4 kits to surface. Defaults to the current
     /// week-of-year so the kit rotates over time without random churn.
@@ -324,6 +335,18 @@ public struct QuizView: View {
     /// store is unbootstrapped (previews / unbootstrapped tests) or the
     /// active kit number doesn't resolve to a ``KitID`` (defensive
     /// against a future kit-number-out-of-range condition).
+    ///
+    /// TWENTIETH-round coalescing layer (per NINETEENTH-round handoff
+    /// priority #2): the in-memory `fromBand != toBand` guard remains
+    /// the fast path. When it passes, ``KitMasteryBandLog`` consults
+    /// the `@AppStorage`-backed last-emitted band per kit. Emission
+    /// proceeds only when the new `toBand` differs from the logged
+    /// last-emitted band — suppressing the noisy oscillation case
+    /// (kid bouncing across a quartile boundary across many attempts
+    /// in a single session). The emitted payload's `fromBand`
+    /// prefers the logged value when present so cohort analysis
+    /// sees the actual session-spanning transition rather than the
+    /// in-memory snapshot from a few attempts ago.
     private func recordKitMasteryAttempt(wasCorrect: Bool) {
         guard let store = kitMasteryStore else { return }
         guard let kitNumber = machine.kit?.kit,
@@ -338,13 +361,17 @@ public struct QuizView: View {
         let nextScore = next.masteryScore
         let fromBand = MasteryBand.band(forScore: priorScore)
         let toBand = MasteryBand.band(forScore: nextScore)
-        if fromBand != toBand {
-            analytics.track(.kitMasteryAdvanced(
-                kit: kitNumber,
-                fromBand: fromBand.rawValue,
-                toBand: toBand.rawValue
-            ))
-        }
+        guard fromBand != toBand else { return }
+        let log = KitMasteryBandLog(json: lastBandsJSON)
+        let toBandRaw = toBand.rawValue
+        guard log.shouldEmit(forKit: kitNumber, toBand: toBandRaw) else { return }
+        let emittedFromBand = log.lastBand(forKit: kitNumber) ?? fromBand.rawValue
+        analytics.track(.kitMasteryAdvanced(
+            kit: kitNumber,
+            fromBand: emittedFromBand,
+            toBand: toBandRaw
+        ))
+        lastBandsJSON = log.recording(forKit: kitNumber, band: toBandRaw).encoded()
     }
 
     private func awardCompletionIfNeeded() {
