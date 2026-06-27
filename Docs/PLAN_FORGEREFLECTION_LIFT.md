@@ -252,7 +252,7 @@ Natural 90-day extension of PR #146's monthly digest (which itself extended PR #
 - ✅ NO new analytics events. NO new `@AppStorage` keys. Anti-PII invariants preserved verbatim from PR #142 + PR #146 (raw counts NEVER travel; `.skip` modality dropped from per-modality phrase; `.zero` per-modality buckets dropped).
 - ✅ 6 new tests in `VoiceTaleReflectionStoreTests` (`quarterlyEngagementOnEmptyStoreIsEmpty` / `quarterlyEngagementIncludesOnlyEntriesInWindow` / `quarterlyEngagementIncludesBoundaryEntry` / `quarterlyEngagementExcludesEntryStrictlyOlderThanBoundary` / `quarterlyEngagementDropsZeroModalityBuckets` / `quarterlyDigestReusesFactoryShape`); 0 regressions; 25/25 VoiceTaleReflectionStoreTests pass.
 
-### Phase D second-half polish sibling — Yearly engagement digest (retention-gated) ✅ **SHIPPED PR (2026-06-27 TWENTIETH round)**
+### Phase D second-half polish sibling — Yearly engagement digest (retention-gated) ✅ **SHIPPED PR #153 (2026-06-27 TWENTIETH round)**
 
 Natural 365-day extension of PR #150's quarterly digest (which itself extended PR #146's monthly → PR #142's weekly). Closes the recommended-next-session priority #1 from the NINETEENTH-round handoff. NOT a new phase — extends the existing Phase D surface (`ReflectionJournalView`) with a "Past year" engagement digest row directly below the "Past 90 days" row.
 
