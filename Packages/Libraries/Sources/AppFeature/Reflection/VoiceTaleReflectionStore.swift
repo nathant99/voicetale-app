@@ -218,4 +218,44 @@ public final class VoiceTaleReflectionStore {
     public func quarterlyEngagement(now: Date = .now) -> ReflectionWeeklyEngagement {
         ReflectionWeeklyEngagement.make(from: quarterlyEntries(now: now))
     }
+
+    /// TWENTIETH-round polish sibling — entries whose `respondedAt`
+    /// lands on or after `now - 365 days`. Identical boundary semantics
+    /// to the weekly + monthly + quarterly windows — entries at the
+    /// boundary are kept; strictly older entries are dropped. Pure
+    /// value-type pass-through; never re-queries the storage actor
+    /// (zero-`@Query` discipline per `@.claude/rules/swiftdata.md` rule
+    /// #3).
+    ///
+    /// **Retention-horizon caveat**: at the yearly window the digest
+    /// would always report a window that exceeds the actual retention
+    /// horizon when the grown-up has chosen 90 or 180 days in
+    /// ``SettingsView``. The view that hosts the yearly digest gates
+    /// the section's rendering on the
+    /// `voicetale.reflection.retention_days` `@AppStorage` value
+    /// equalling 365 — anti-shame discipline says the grown-up never
+    /// sees a "past year" row the system can't actually back. The
+    /// store helper itself stays unguarded so tests + future consumers
+    /// can opt in independently.
+    public func yearlyEntries(now: Date = .now) -> [ReflectionEntry] {
+        let cutoff = now.addingTimeInterval(-365 * 24 * 60 * 60)
+        return entries.filter { $0.respondedAt >= cutoff }
+    }
+
+    /// TWENTIETH-round polish sibling — bucketed engagement snapshot
+    /// for the "Past year" digest row. Walks ``yearlyEntries(now:)``
+    /// once and emits a ``ReflectionWeeklyEngagement`` (the type's name
+    /// is window-neutral; the factory ``ReflectionWeeklyEngagement/make(from:)``
+    /// just buckets whatever entries it gets).
+    ///
+    /// Wire-shape lockstep with the existing ``weeklyEngagement(now:)`` +
+    /// ``monthlyEngagement(now:)`` + ``quarterlyEngagement(now:)`` +
+    /// ``parentReflectionJournalOpened(visibleCount:)`` +
+    /// ``reflectionsPurged(removed:)`` family — all six reuse
+    /// ``Models/ReflectionRetentionPolicy/removedCountBucket(_:)`` so
+    /// cross-window cohort signal is comparable across surfaces without
+    /// leaking per-kid raw counts.
+    public func yearlyEngagement(now: Date = .now) -> ReflectionWeeklyEngagement {
+        ReflectionWeeklyEngagement.make(from: yearlyEntries(now: now))
+    }
 }
