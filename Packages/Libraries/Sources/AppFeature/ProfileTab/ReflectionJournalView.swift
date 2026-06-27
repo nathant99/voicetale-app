@@ -45,6 +45,14 @@ public struct ReflectionJournalView: View {
     @Environment(\.analyticsService) private var analytics
     @Environment(\.dismiss) private var dismiss
     @AppStorage(ReflectionJournalView.parentJournalVisibleKey) private var parentJournalVisible: Bool = false
+    /// TWENTIETH-round polish gate — the yearly digest section reads
+    /// the same `voicetale.reflection.retention_days` key the
+    /// ``SettingsView`` picker writes (Phase C polish). The yearly row
+    /// renders only when this resolves to `365` — at 90 / 180, the
+    /// "past year" window would exceed the actual retention horizon
+    /// and mislead the grown-up. Anti-shame discipline: the digest
+    /// must never report a band that the system can't actually back.
+    @AppStorage(AppRootView.reflectionRetentionDaysKey) private var reflectionRetentionDays: Int = ReflectionRetentionPolicy.defaultRetentionDays
 
     public init() {}
 
@@ -54,6 +62,7 @@ public struct ReflectionJournalView: View {
             weeklyDigestSection
             monthlyDigestSection
             quarterlyDigestSection
+            yearlyDigestSection
             entriesSection
             privacyFooter
         }
@@ -213,6 +222,59 @@ public struct ReflectionJournalView: View {
                     }
                 } header: {
                     Text("Past 90 days")
+                }
+            }
+        }
+    }
+
+    /// "Past year" engagement digest — TWENTIETH-round polish sibling
+    /// extending the weekly + monthly + quarterly digests to a 365-day
+    /// window. Same anti-PII discipline; same window-neutral factory
+    /// reuse; but **with an extra gate**: the section renders only when
+    /// the grown-up has chosen the 365-day retention horizon in
+    /// ``SettingsView``. At 90 / 180 the yearly window would exceed
+    /// the actual data horizon and mislead the grown-up — anti-shame
+    /// discipline says the digest never reports a band the system
+    /// can't back.
+    ///
+    /// Three combined gates must pass before rendering:
+    /// 1. ``parentJournalVisible`` opt-in (kid-private posture default)
+    /// 2. ``reflectionRetentionDays == 365`` (retention-horizon match)
+    /// 3. Non-empty 365-day window (the kid actually engaged)
+    ///
+    /// Visual register matches the prior siblings deliberately —
+    /// ``Label`` + calendar-themed SF symbol; the year-specific symbol
+    /// (`calendar.badge.exclamationmark`) distinguishes it from the
+    /// week's `calendar.badge.clock`, the month's `calendar`, and the
+    /// quarter's `calendar.badge.checkmark` so the eye can
+    /// scan-distinguish all four windows at a glance.
+    @ViewBuilder
+    private var yearlyDigestSection: some View {
+        if parentJournalVisible,
+           reflectionRetentionDays == 365,
+           let store {
+            let digest = store.yearlyEngagement()
+            if !digest.isEmpty {
+                Section {
+                    Label {
+                        VStack(alignment: .leading, spacing: 4) {
+                            Text("\(digestHeadline(digest.totalBucket)) past year")
+                                .font(.body.weight(.semibold))
+                            if !digest.perModalityBucket.isEmpty {
+                                Text(perModalitySummary(digest))
+                                    .font(.caption)
+                                    .foregroundStyle(.secondary)
+                            } else {
+                                Text("Bramble heard from your child a few times this year — keep encouraging the curiosity.")
+                                    .font(.caption)
+                                    .foregroundStyle(.secondary)
+                            }
+                        }
+                    } icon: {
+                        Image(systemName: "calendar.badge.exclamationmark")
+                    }
+                } header: {
+                    Text("Past year")
                 }
             }
         }

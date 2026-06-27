@@ -252,6 +252,17 @@ Natural 90-day extension of PR #146's monthly digest (which itself extended PR #
 - ✅ NO new analytics events. NO new `@AppStorage` keys. Anti-PII invariants preserved verbatim from PR #142 + PR #146 (raw counts NEVER travel; `.skip` modality dropped from per-modality phrase; `.zero` per-modality buckets dropped).
 - ✅ 6 new tests in `VoiceTaleReflectionStoreTests` (`quarterlyEngagementOnEmptyStoreIsEmpty` / `quarterlyEngagementIncludesOnlyEntriesInWindow` / `quarterlyEngagementIncludesBoundaryEntry` / `quarterlyEngagementExcludesEntryStrictlyOlderThanBoundary` / `quarterlyEngagementDropsZeroModalityBuckets` / `quarterlyDigestReusesFactoryShape`); 0 regressions; 25/25 VoiceTaleReflectionStoreTests pass.
 
+### Phase D second-half polish sibling — Yearly engagement digest (retention-gated) ✅ **SHIPPED PR (2026-06-27 TWENTIETH round)**
+
+Natural 365-day extension of PR #150's quarterly digest (which itself extended PR #146's monthly → PR #142's weekly). Closes the recommended-next-session priority #1 from the NINETEENTH-round handoff. NOT a new phase — extends the existing Phase D surface (`ReflectionJournalView`) with a "Past year" engagement digest row directly below the "Past 90 days" row.
+
+- ✅ New `VoiceTaleReflectionStore.yearlyEntries(now:)` + `yearlyEngagement(now:)` pure pass-through over the cached snapshot (zero-`@Query` discipline). 365-day boundary semantics identical to the weekly + monthly + quarterly windows (`>= cutoff` inclusive; strictly older dropped — mirrors `ReflectionRetentionPolicy.cutoff`).
+- ✅ Reuses the existing `ReflectionWeeklyEngagement.make(from:)` factory at the 365-day window — the value type's name is window-neutral; all four digests share the same shape end-to-end. Extends the load-bearing window-neutral value-type convention from the EIGHTEENTH + NINETEENTH rounds.
+- ✅ `ReflectionJournalView.yearlyDigestSection` renders directly below `quarterlyDigestSection`. **NEW load-bearing third gate**: in addition to the opt-in toggle + non-empty window the prior siblings honor, the yearly section also reads the `voicetale.reflection.retention_days` `@AppStorage` value the grown-up sets in `SettingsView` and renders the section **only when retention == 365**. At 90 / 180 the yearly window would exceed the actual data horizon — anti-shame discipline says the digest never reports a band the system can't actually back.
+- ✅ Visual register: same `Label` + calendar-themed SF symbol; uses `calendar.badge.exclamationmark` (vs week's `calendar.badge.clock` + month's `calendar` + quarter's `calendar.badge.checkmark`) so the eye can scan-distinguish all four windows at a glance.
+- ✅ NO new analytics events. NO new `@AppStorage` keys (the retention-horizon gate reads the existing Phase C key). Anti-PII invariants preserved verbatim from PR #142 + #146 + #150 (raw counts NEVER travel; `.skip` modality dropped from per-modality phrase; `.zero` per-modality buckets dropped).
+- ✅ 6 new tests in `VoiceTaleReflectionStoreTests` (`yearlyEngagementOnEmptyStoreIsEmpty` / `yearlyEngagementIncludesOnlyEntriesInWindow` / `yearlyEngagementIncludesBoundaryEntry` / `yearlyEngagementExcludesEntryStrictlyOlderThanBoundary` / `yearlyEngagementDropsZeroModalityBuckets` / `yearlyDigestReusesFactoryShape`); 0 regressions; 31/31 VoiceTaleReflectionStoreTests pass.
+
 ## Scope discipline (what this plan EXCLUDES)
 
 - **DOES NOT** replace `BrambleReflectionView`'s listening-back register with the journaling sheet — Surface 1 is ADDITIVE, never substitutive

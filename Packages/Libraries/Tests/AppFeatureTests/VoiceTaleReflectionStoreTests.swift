@@ -550,4 +550,150 @@ struct VoiceTaleReflectionStoreTests {
         #expect(weekly.perModalityBucket == quarterly.perModalityBucket)
         #expect(monthly.perModalityBucket == quarterly.perModalityBucket)
     }
+
+    // MARK: - Yearly engagement (TWENTIETH-round polish)
+
+    /// Empty store → empty yearly digest. Sanity baseline mirroring
+    /// the weekly + monthly + quarterly empty-store invariants.
+    @Test func yearlyEngagementOnEmptyStoreIsEmpty() async throws {
+        let (store, _) = try await newStore(scope: "yearly-empty")
+        let digest = store.yearlyEngagement(now: .now)
+        #expect(digest.isEmpty)
+        #expect(digest.totalBucket == "zero")
+        #expect(digest.perModalityBucket.isEmpty)
+    }
+
+    /// Three entries inside the 365-day window + one strictly outside
+    /// MUST report exactly three entries on `yearlyEntries(now:)` and
+    /// a `one_to_three` total bucket — locks the 365-day boundary.
+    @Test func yearlyEngagementIncludesOnlyEntriesInWindow() async throws {
+        let (store, _) = try await newStore(scope: "yearly-window")
+        let now = Date(timeIntervalSinceReferenceDate: 800_000_000)
+        try await store.save(entry(
+            modality: .text,
+            appIdentifier: store.appIdentifier,
+            at: now.addingTimeInterval(-30 * 24 * 60 * 60)
+        ))
+        try await store.save(entry(
+            modality: .voice,
+            appIdentifier: store.appIdentifier,
+            at: now.addingTimeInterval(-180 * 24 * 60 * 60)
+        ))
+        try await store.save(entry(
+            modality: .drawing,
+            appIdentifier: store.appIdentifier,
+            at: now.addingTimeInterval(-330 * 24 * 60 * 60)
+        ))
+        // One strictly outside the 365-day window.
+        try await store.save(entry(
+            modality: .emoji,
+            appIdentifier: store.appIdentifier,
+            at: now.addingTimeInterval(-400 * 24 * 60 * 60)
+        ))
+        let yearly = store.yearlyEntries(now: now)
+        #expect(yearly.count == 3,
+                "365-day window MUST include only the 3 in-window entries; got \(yearly.count)")
+        let digest = store.yearlyEngagement(now: now)
+        #expect(digest.totalBucket == "one_to_three")
+        #expect(digest.perModalityBucket[.text] == "one_to_three")
+        #expect(digest.perModalityBucket[.voice] == "one_to_three")
+        #expect(digest.perModalityBucket[.drawing] == "one_to_three")
+        // `.emoji` lives strictly outside the window — MUST NOT appear.
+        #expect(digest.perModalityBucket[.emoji] == nil)
+    }
+
+    /// Boundary entry at exactly `now - 365 days` lands inside the
+    /// window (`>= cutoff` inclusive — mirrors the weekly + monthly +
+    /// quarterly boundary semantics + `ReflectionRetentionPolicy.cutoff`).
+    @Test func yearlyEngagementIncludesBoundaryEntry() async throws {
+        let (store, _) = try await newStore(scope: "yearly-boundary")
+        let now = Date(timeIntervalSinceReferenceDate: 800_000_000)
+        let boundary = entry(
+            modality: .text,
+            appIdentifier: store.appIdentifier,
+            at: now.addingTimeInterval(-365 * 24 * 60 * 60)
+        )
+        try await store.save(boundary)
+        let yearly = store.yearlyEntries(now: now)
+        #expect(yearly.count == 1,
+                "Boundary entry at `now - 365d` MUST be inclusive")
+    }
+
+    /// Entry strictly older than the 365-day boundary is dropped.
+    @Test func yearlyEngagementExcludesEntryStrictlyOlderThanBoundary() async throws {
+        let (store, _) = try await newStore(scope: "yearly-outside")
+        let now = Date(timeIntervalSinceReferenceDate: 800_000_000)
+        let justOutside = entry(
+            modality: .text,
+            appIdentifier: store.appIdentifier,
+            at: now.addingTimeInterval(-365 * 24 * 60 * 60 - 0.001)
+        )
+        try await store.save(justOutside)
+        let yearly = store.yearlyEntries(now: now)
+        #expect(yearly.isEmpty)
+    }
+
+    /// `.zero` per-modality buckets MUST drop at the yearly window,
+    /// same convention as the weekly + monthly + quarterly windows.
+    @Test func yearlyEngagementDropsZeroModalityBuckets() async throws {
+        let (store, _) = try await newStore(scope: "yearly-modality-breadth")
+        let now = Date(timeIntervalSinceReferenceDate: 800_000_000)
+        // Two text + one voice in the window. NO drawing / emoji /
+        // skip — those modalities MUST NOT appear in the digest.
+        try await store.save(entry(
+            modality: .text,
+            appIdentifier: store.appIdentifier,
+            at: now.addingTimeInterval(-30 * 24 * 60 * 60)
+        ))
+        try await store.save(entry(
+            modality: .text,
+            appIdentifier: store.appIdentifier,
+            at: now.addingTimeInterval(-200 * 24 * 60 * 60)
+        ))
+        try await store.save(entry(
+            modality: .voice,
+            appIdentifier: store.appIdentifier,
+            at: now.addingTimeInterval(-300 * 24 * 60 * 60)
+        ))
+        let digest = store.yearlyEngagement(now: now)
+        #expect(digest.totalBucket == "one_to_three")
+        #expect(digest.perModalityBucket.count == 2,
+                "Only modalities with attempts MUST appear; .zero buckets MUST drop")
+        #expect(digest.perModalityBucket[.text] == "one_to_three")
+        #expect(digest.perModalityBucket[.voice] == "one_to_three")
+        #expect(digest.perModalityBucket[.drawing] == nil)
+        #expect(digest.perModalityBucket[.emoji] == nil)
+        #expect(digest.perModalityBucket[.skip] == nil)
+    }
+
+    /// Weekly + monthly + quarterly + yearly digests share the same
+    /// `ReflectionWeeklyEngagement` type. When every entry lands inside
+    /// the weekly window (and therefore inside the monthly + quarterly
+    /// + yearly windows too), all four digests MUST return identical
+    /// bucket shapes. Locks the factory reuse invariant across all four
+    /// window siblings.
+    @Test func yearlyDigestReusesFactoryShape() async throws {
+        let (store, _) = try await newStore(scope: "yearly-factory-reuse")
+        let now = Date(timeIntervalSinceReferenceDate: 800_000_000)
+        // 5 entries — all inside the 7-day window (and therefore inside
+        // the 30-day + 90-day + 365-day windows too).
+        for offset in 0..<5 {
+            try await store.save(entry(
+                modality: .text,
+                appIdentifier: store.appIdentifier,
+                at: now.addingTimeInterval(-Double(offset) * 24 * 60 * 60)
+            ))
+        }
+        let weekly = store.weeklyEngagement(now: now)
+        let monthly = store.monthlyEngagement(now: now)
+        let quarterly = store.quarterlyEngagement(now: now)
+        let yearly = store.yearlyEngagement(now: now)
+        // All four buckets should report identical shape.
+        #expect(weekly.totalBucket == yearly.totalBucket)
+        #expect(monthly.totalBucket == yearly.totalBucket)
+        #expect(quarterly.totalBucket == yearly.totalBucket)
+        #expect(weekly.perModalityBucket == yearly.perModalityBucket)
+        #expect(monthly.perModalityBucket == yearly.perModalityBucket)
+        #expect(quarterly.perModalityBucket == yearly.perModalityBucket)
+    }
 }
