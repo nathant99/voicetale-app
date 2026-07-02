@@ -13,12 +13,6 @@ paths:
 
 **The Claude agent operates from INSIDE the Xcode workspace (via the Coding Assistant integration). Modifying files Xcode itself manages causes Xcode to detect "External Changes," prompt the user, or — worst case — force a workspace reload that terminates the agent session.**
 
-> **User direction (load-bearing, 2026-06-20; re-affirmed 2026-06-21; re-affirmed AGAIN 2026-06-22 morning — THIRD consecutive multi-commit auto-cycle round; re-affirmed AGAIN later 2026-06-22 — FOURTH same-day session, paired with "do not stop until fully done" full-autonomy approval covering within-round multi-PR sequencing; re-affirmed AGAIN 2026-06-22 evening — FIFTH same-day reaffirmation paired with explicit "Update CLAUDE.md, rules, docs about this" tri-surface doc-propagation instruction + an in-message memory-save acknowledgement + within-round-autonomy approval; re-affirmed AGAIN 2026-06-23 — SIXTH consecutive round paired with "describe and explain options before you start" preamble + "update docs as you go" + standing technical-design-doc-follow + standard-SPM-folder-structure reminders; re-affirmed AGAIN 2026-06-23 deep evening — SEVENTH consecutive same-day round paired with the same "describe and explain each option" preamble + "update docs as you go" + "create session handoff for the next CLAUDE session at the end of current session" instructions, alongside another in-message memory-save acknowledgement and within-round full-autonomy approval covering 5 planned PRs; re-affirmed AGAIN 2026-06-24 — EIGHTH consecutive re-affirmation, this one crossing the daily boundary from 2026-06-23 into 2026-06-24, paired with the same "describe and explain and give more details about each option before you start" preamble + "Update CLAUDE.md, rules, docs about this" tri-surface doc-propagation instruction + "Update docs as you go" + "Create session handoff for the next CLAUDE session at the end of current session" + standing "follow technical design doc" + "swift files in SPM modules follow standard project folder structure" reminders + in-message memory-save acknowledgement + within-round full-autonomy approval covering a 7-PR round explicitly framed as "Prioritize maximizing forgekit integration and feature plan and open handoff work. all of the above. everything is approved. go with all your recs. do not stop until fully done."; re-affirmed AGAIN later 2026-06-24 — NINTH consecutive same-author re-affirmation, the SECOND landing within the calendar day of the cross-day-boundary one (the EIGHTH crossed 2026-06-23 → 2026-06-24; the NINTH lands later 2026-06-24 after the V13 slow-breath ensemble chapter merge PR #103), paired with the IDENTICAL multi-axis-prioritization framing ("Prioritize maximizing forgekit integration and feature plan and open handoff work. all of the above. everything is approved. go with all your recs. do not stop until fully done.") + IDENTICAL "describe and explain and give more details about each option before you start" preamble + IDENTICAL "Update CLAUDE.md, rules, docs about this" tri-surface doc-propagation instruction + IDENTICAL "Update docs as you go" instruction + IDENTICAL "Create session handoff for the next CLAUDE session at the end of current session" per-round-handoff requirement + IDENTICAL "follow technical design doc" + "swift files in SPM modules follow standard project folder structure" standing reminders + in-message memory-save acknowledgement + within-round full-autonomy approval covering an 8-PR round; voicetale-app; re-affirmed AGAIN STILL later 2026-06-24 — TENTH consecutive same-author re-affirmation, the THIRD landing within the calendar day, the FIRST-EVER three-same-day-rounds-in-a-row run in the chain (the EIGHTH 2026-06-24 morning cross-day → NINTH 2026-06-24 mid-day after PR #103 V13 ensemble merge → TENTH 2026-06-24 later still after PR #111 NINTH-round closeout merge), paired with the IDENTICAL multi-axis-prioritization framing + IDENTICAL describe-and-explain preamble + IDENTICAL tri-surface doc-propagation instruction + IDENTICAL update-docs-as-you-go instruction + IDENTICAL per-round session-handoff requirement + IDENTICAL follow-technical-design + standard-SPM-folder-structure standing reminders + IDENTICAL in-message memory-save acknowledgement + within-round full-autonomy approval covering a 6-PR round; voicetale-app)**: *"Do not author or edit Xcode-managed files — including the Xcode **workspace** file (`*.xcworkspace/contents.xcworkspacedata`) and the Xcode **scheme** + **test plan** files (`*.xcscheme`, `*.xctestplan`). Instead, file a handoff doc with the user to do Xcode-UI work. Staging and committing Xcode-managed files (after the user generates them via Xcode) is OK; **authoring the bytes from disk is not**."* This reinforces the canonical table below — surfaces the workspace + scheme + test plan as explicit named files for handoff-doc routing, since they were the three the user direction specifically called out. The 2026-06-21 re-affirmation paired the rule with **pre-approved auto-cycle for multi-commit work** (feature branch → PR → merge → verify, no per-step confirmation; see `.claude/rules/workflow.md` § Auto-Cycle Default). The 2026-06-22 morning re-affirmation came alongside an explicit "Memory saved for future sessions: auto-cycle … without confirmation prompts for multi-commit work" — durable in agent memory + this file + CLAUDE.md. The 2026-06-22 same-day fourth pairing **extends auto-cycle from a per-cycle Default to a within-round multi-PR Default**: when the user pre-approves a round with phrasing like "go with all your recs / everything is approved / do not stop until fully done," the agent ships every planned PR in that round through branch → PR → merge → verify without intermediate confirmation, while still honoring the Xcode-managed-file ban as the non-negotiable inner constraint. The 2026-06-22 evening fifth pairing **codifies tri-surface doc-propagation discipline**: each re-affirmation MUST land in CLAUDE.md + `.claude/rules/xcode-agent-safety.md` + (when scope-relevant) `Docs/*.md` within the SAME round it was re-affirmed in — the user-direct phrasing ("Update CLAUDE.md, rules, docs about this") makes lockstep propagation a load-bearing companion rule alongside the named-file ban + auto-cycle Default. The 2026-06-23 deep-evening seventh pairing further codifies **per-round session-handoff discipline**: every round closes with a `Docs/SESSION_HANDOFF_<date>_<phase>.md` artifact for the next CC session, per the user-direct "create session handoff for the next CLAUDE session at the end of current session" instruction. The 2026-06-24 EIGHTH re-affirmation — the first cross-day-boundary re-affirmation in the chain — adds a load-bearing observation: **the rule survived a UTC day rollover with zero degradation**. Eight consecutive same-author re-affirmations across two calendar days + ~24 wall-clock hours is the strongest empirical signal yet that the rule is portfolio-canonical, not session-specific. **Lift status: SHIP-READY-WITH-URGENCY for next labsmith portfolio sync** (`scripts/copy_rules_to_repos.sh --apply`). The EIGHTH cross-day re-affirmation paired with explicit tri-surface doc-propagation + per-round session-handoff + "maximize forgekit integration AND feature plan AND open handoff work" multi-axis prioritization in a single round indicates the rule is structurally important enough that ANY new app repo SPAWNed from labsmith should inherit the entire compound rule (Xcode-managed-file ban + auto-cycle Default + within-round multi-PR Default + tri-surface doc-propagation discipline + per-round session-handoff discipline + cross-day-boundary-stable invariant) verbatim on first sync. The 2026-06-24 NINTH same-day-of-cross-day-boundary re-affirmation adds another load-bearing observation: **the compound rule replays VERBATIM across back-to-back same-day rounds without any degradation in the user-direct framing** — the EIGHTH and NINTH re-affirmations both arrived on 2026-06-24, used IDENTICAL multi-axis prioritization phrasing ("maximize forgekit integration AND feature plan AND open handoff work — all of the above. everything is approved."), IDENTICAL "describe and explain and give more details about each option before you start" preamble, IDENTICAL tri-surface doc-propagation instruction, IDENTICAL per-round session-handoff requirement, and IDENTICAL "Update docs as you go" + standing technical-design / SPM-folder-structure reminders. Nine consecutive same-author re-affirmations across the 2026-06-20 → 2026-06-24 four-and-a-half-day window with TWO cross-day-boundary transitions (one at the 2026-06-22 evening → 2026-06-23 morning SIXTH boundary; one at the EIGHTH 2026-06-23 → 2026-06-24 boundary) demonstrates the rule is stable across BOTH calendar-day transitions AND same-day repeats.
-
-The 2026-06-24 TENTH same-day-thrice re-affirmation contributes a new load-bearing observation: **the compound rule survives THREE consecutive same-day rounds (eighth/ninth/tenth) within a single UTC day without any degradation in user-direct framing, instruction shape, or pairing discipline** — every clause (multi-axis prioritization + describe-then-execute preamble + tri-surface doc-propagation + update-docs-as-you-go + per-round session-handoff + auto-cycle within-round full-autonomy + memory-save acknowledgement + standing technical-design + standard-SPM-folder-structure reminders) replayed verbatim across the EIGHTH ⇄ NINTH boundary AND the NINTH ⇄ TENTH boundary. Ten consecutive same-author re-affirmations across the 2026-06-20 → 2026-06-24 four-and-a-half-day window with TWO cross-day-boundary transitions (FIFTH evening 2026-06-22 → SIXTH 2026-06-23; EIGHTH 2026-06-23 → NINTH 2026-06-24) AND TWO same-day-back-to-back transitions (EIGHTH 2026-06-24 morning → NINTH 2026-06-24 mid-day after PR #103; NINTH 2026-06-24 mid-day → TENTH 2026-06-24 later after PR #111) demonstrates the rule is stable across BOTH calendar-day transitions AND multi-same-day repeats within a single calendar day.
-
-The compound rule (Xcode-managed-file ban + auto-cycle Default + within-round multi-PR Default + tri-surface doc-propagation discipline + per-round session-handoff discipline + cross-day-boundary-stable invariant + multi-axis-prioritization-within-a-single-round Default + same-day-back-to-back-replay-stable invariant + three-same-day-rounds-in-a-row replay-stable invariant) is now SHIP-READY-WITH-ABSOLUTE-MAXIMUM-URGENCY for labsmith portfolio sync (`scripts/copy_rules_to_repos.sh --apply`) — ten consecutive re-affirmations in 4.5 days with THREE same-day rounds in a single calendar day on top of two cross-day-boundary transitions is the strongest possible empirical signal short of an explicit user-direct "make this portfolio-canonical" command.
-
 This rule supersedes any per-file rules that say "Xcode must be closed when editing X" — those still hold for human workflows, but for an agent operating in-IDE, the safe rule is **don't touch Xcode-managed files at all**.
 
 ## Why this matters
@@ -74,81 +68,12 @@ The agent must **never** write these directly. Even reads are fine; writes are d
 
 ## Safe escape hatches
 
-When the agent legitimately needs to add a file that Xcode would normally have to register, follow these in order — **the handoff-doc pattern is the canonical fallback**.
+When the agent legitimately needs to add a file that Xcode would normally have to register:
 
-### 1. File a handoff doc (CANONICAL for Xcode-bound work)
-
-For anything that touches `Info.plist` / `*.entitlements` / `*.xcscheme` / `*.xctestplan` / `*.xcdatamodeld/` / `*.xcassets/Contents.json` / `project.pbxproj` / `*.xcworkspace/contents.xcworkspacedata`: **author a `Docs/HANDOFF_TO_USER_<TOPIC>.md`** describing the GUI steps the user takes in Xcode.
-
-This is not a workaround — it's the canonical agent workflow for Xcode-bound changes. The user does the Xcode-UI step; the agent commits whatever the Xcode UI generates.
-
-Required structure:
-
-```markdown
----
-status: ACTIVE
-date: YYYY-MM-DD
-direction: agent → user
-intent: <one-line summary of the Xcode-UI step the user must perform>
-freshness-horizon: 30 days
----
-
-# Handoff to User — <topic>
-
-Direction: **agent → user**. <Brief framing: why the agent cannot do this from disk + which rule clause forbids it.>
-
-## Step 1 — <action>
-1. <numbered Xcode-UI step>
-2. <click sequence>
-...
-**Expected result**: <what the user should see after>.
-
-## Why this step requires the user, not the agent
-
-| File the step touches | Why the agent cannot write it |
-|---|---|
-| <file path> | <which rule clause + risk class> |
-
-Codified in `.claude/rules/xcode-agent-safety.md`.
-
-## Cross-references
-- `.claude/rules/xcode-agent-safety.md`
-- <related handoff or design doc>
-```
-
-After the user completes the Xcode-UI step, the agent stages + commits whatever files Xcode regenerated (this is fine — Xcode-generated content is canonical; what's forbidden is the agent **authoring the bytes**).
-
-Reference impls (in this repo and the portfolio):
-
-- `voicetale-app/Docs/HANDOFF_TO_USER_XCODE_WORKSPACE_INTEGRATION.md` — 4 Xcode-UI steps for Phase 0 close-out (add local package / link AppFeature / add SPM test targets to test plan / add Info.plist usage descriptions)
-- The pattern propagates to every portfolio app via labsmith's `scripts/copy_rules_to_repos.sh`.
-
-### 2. Use synchronized folders (Xcode 16+)
-
-If the target is configured with a synchronized folder, the agent just writes the `.swift` file in the right directory and Xcode auto-includes it on next build. **Always check** `[AppName].xcodeproj/project.pbxproj` for `<FileSystemSynchronizedRootGroup>` markers; if present, the target uses synchronized folders.
-
-### 3. Use SPM source layout (canonical for new code)
-
-Files under `Packages/Libraries/Sources/<Target>/` and `Packages/Libraries/Tests/<Target>Tests/` are auto-discovered by SPM. No `project.pbxproj` edit needed. **All new code should land in SPM targets**, not the app shell — this is the standard portfolio pattern.
-
-Standard SPM folder structure per target:
-
-```
-Packages/Libraries/
-├── Package.swift
-├── Sources/
-│   └── <TargetName>/
-│       ├── <SourceFiles>.swift     # flat or subfoldered; SPM auto-discovers
-│       └── Resources/              # `.process("Resources")` in Package.swift
-│           └── <resource files>
-└── Tests/
-    └── <TargetName>Tests/
-        └── <TargetName>Tests.swift
-```
-
-### 4. Use MCP `xcode-tools`
-
-`XcodeWrite`, `XcodeMakeDir`, etc. — when available, the MCP tools route through Xcode's APIs instead of writing to disk directly. This avoids the External Changes dialog because Xcode is the one writing the file. **Prefer MCP tools** over filesystem `Write`/`Edit` for any Xcode-bound operation that is not handled by the handoff-doc pattern (#1).
+1. **Use synchronized folders (Xcode 16+)** — if the target is configured with a synchronized folder, the agent just writes the `.swift` file in the right directory and Xcode auto-includes it on next build. **Always check** `[AppName].xcodeproj/project.pbxproj` for `<FileSystemSynchronizedRootGroup>` markers; if present, the target uses synchronized folders.
+2. **Use SPM source layout** — files under `Libraries/Sources/<Target>/` and `Libraries/Tests/<Target>Tests/` are auto-discovered by SPM. No `project.pbxproj` edit needed. **All new code should land in SPM targets**, not the app shell
+3. **Defer Xcode-bound changes to a human task** — if the agent legitimately needs to add an entitlement, register a new app icon imageset, or create a new scheme, write a `Docs/HANDOFF_TO_USER_<TOPIC>.md` describing the GUI steps the user should take. Don't try to edit the Xcode-owned files directly
+4. **Use MCP `xcode-tools`** — `XcodeWrite`, `XcodeMakeDir`, etc. — when available, the MCP tools route through Xcode's APIs instead of writing to disk directly. This avoids the External Changes dialog because Xcode is the one writing the file. **Prefer MCP tools** over filesystem `Write`/`Edit` for any Xcode-bound operation
 
 ## Cross-references
 
@@ -175,7 +100,7 @@ If the agent accidentally wrote to an Xcode-managed file and Xcode shows Externa
 
 ## Documenting this rule
 
-When labsmith next syncs `.claude/rules/` across all 131 apps, this rule propagates portfolio-wide. App sessions invoking the Coding Assistant integration inherit it automatically.
+When hub next syncs `.claude/rules/` across all 131 apps, this rule propagates portfolio-wide. App sessions invoking the Coding Assistant integration inherit it automatically.
 
 ## Reference
 
