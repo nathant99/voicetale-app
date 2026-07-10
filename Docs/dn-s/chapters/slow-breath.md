@@ -9,6 +9,11 @@ chapter-round: V13-A-3
 register: "warmly absurd with subtext (V13 ensemble pipeline-and-ship; in-session Opus editorial review)"
 pair-bonds:
   - { name: Pacing Pair, members: [Slow, Breath] }
+reflection-prompts:
+  - beat-after: 2
+    prompt: "Slow reads a long, winding sentence and Breath sighs at the end, like they've just come home from a trip. Have you ever felt a story or a song stretch out so long and lovely that letting out a breath at the end felt good?"
+  - beat-after: 3
+    prompt: "Breath says the quiet pauses are where the story gets to sink into your heart. When something is happening too fast — a game, a busy day, a rush of feelings — how does it feel in your body when you finally get a moment to stop and breathe?"
 ---
 
 # Chapter X — Slow and Breath

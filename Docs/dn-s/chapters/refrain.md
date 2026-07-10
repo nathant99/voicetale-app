@@ -8,6 +8,11 @@ register: warmly absurd with subtext (per labsmith DN-S R172 #606 spec) — Patt
 chapter-round: Round 229 #663
 status: SHIPPED
 word-count: ~795
+reflection-prompts:
+  - beat-after: 2
+    prompt: "Refrain says the same phrase at the open and the close, and the second time it lands warm and full. Is there a phrase — a family saying, a friend's inside joke, a line from a song — that gives you a little tug in the chest every time you hear it come back around?"
+  - beat-after: 4
+    prompt: "When a story ends by returning to where it began, how does that feel to you? Notice the moment the closing lands — does something in you settle, or sigh, or feel quietly complete?"
 ---
 
 # Chapter 4 — Refrain and the Carved-Wood Phrase-Token
@@ -41,6 +46,8 @@ Bramble explains: *"The phrase you choose at the open should be *short* (three t
 Refrain nods. He holds the token carefully. He says — in his clear mockingbird-voice — *"Say it once at the open. Say it again at the close. Same words. Different weight."*
 
 When students ask Bramble whether callback craft is hard, Bramble says — quoting Refrain — *"It is not hard. It is *choosing one phrase and repeating it.* Pick a short, slightly mysterious phrase. Say it at the open. Tell the tale. Say the phrase again at the close. The repetition will land harder than any new line could."*
+
+And when the phrase comes back around at the end, the students feel it in their chests — a warm hush, a small ache of *yes,* the quiet fullness of something arriving home. Refrain feels it too. He holds his little wooden token close and goes still, glad, the way you are when a story finds its way back to where it started.
 
 ---
 

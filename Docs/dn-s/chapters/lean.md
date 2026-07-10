@@ -78,6 +78,8 @@ Sometimes students ask Bramble if **hook** craft is hard. Bramble smiles. He quo
 
 Bramble always adds this part. "We remember that many cultures have used these ways of telling stories for a very long time. West Africa has griots. Ireland has seanchaí. Japan has rakugo. Indigenous American people have their oral histories. Modern slam poets use them too. Each group made their story-hooks really good for a long, long time. We always say where these ideas come from."
 
+And every time a student's hook makes Lean tip forward, they feel it — a little warm flip in the chest, a lift under the ribs, the quiet, proud thrill of knowing they pulled someone in. Lean feels it too. Her body leans, and something in both of them settles, glad.
+
 ---
 
 ## Voice register

@@ -8,6 +8,11 @@ register: warmly absurd with subtext (per labsmith DN-S R172 #606 spec) — Patt
 chapter-round: Round 229 #663
 status: SHIPPED
 word-count: ~800
+reflection-prompts:
+  - beat-after: 3
+    prompt: "Pivot's head turns the moment a story's meaning suddenly shifts. Have you ever felt that little jolt inside — a small surprise, a quiet 'oh!' — when you realized a story wasn't about what you thought it was about?"
+  - beat-after: 4
+    prompt: "Think of a moment when someone you'd figured out one way turned out to be different than you thought. How did it feel in your chest when your idea of them flipped?"
 ---
 
 # Chapter 3 — Pivot and the 180-Degree Head Rotation
@@ -39,6 +44,8 @@ The students tell stories. Pivot listens. When the turn lands, his head rotates.
 Pivot adds — in his precise owlish voice — *"The turn is the moment. The head turns. The story turns. The listener turns. Three turnings, simultaneous. That is the goal."*
 
 When students ask Bramble whether crafting a turn is hard, Bramble says — quoting Pivot — *"It is not hard. It is *finding the moment the meaning shifts.* Plan a turn at beat 4. Set up the *first meaning* in beats 1-3. Reveal the *true meaning* at beat 4. Resolve in beat 5. Pivot's head will rotate when the turn lands."*
+
+And when it lands — when Pivot's head swings around and the whole circle gasps — the teller feels it too: a bright, tingling rush, the happy shiver of watching a room *get* it all at once. Pivot's quiet, precise face softens into something almost like a smile. He does not say it, but he feels glad, every single time.
 
 ---
 

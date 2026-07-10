@@ -8,6 +8,11 @@ register: warmly absurd with subtext (per labsmith DN-S R172 #606 spec) — Patt
 chapter-round: Round 229 #663
 status: SHIPPED
 word-count: ~805
+reflection-prompts:
+  - beat-after: 2
+    prompt: "Slow speeds up for the exciting parts and slows down for the quiet ones. When you tell someone about your day, do you feel yourself racing through the fun parts and lingering on the ones that mattered most? What does that quickening feel like inside?"
+  - beat-after: 4
+    prompt: "Slow says a story told at one flat speed feels flat. Have you ever listened to something told all in a rush, or all in a drone, and felt yourself go restless or sleepy? How does it feel when a story finally slows down and lets you rest at the end?"
 ---
 
 # Chapter 2 — Slow and the Wooden Hourglass
@@ -43,6 +48,8 @@ In Bramble's introductory lesson on pacing, he gestures at Slow — who is, as a
 Slow walks the arc. The students tell stories *to her walking.* The pacing settles. The tales acquire *shape.*
 
 When students ask Bramble whether pacing is hard, Bramble says — quoting Slow — *"It is not hard. It is *varying the tempo.* Each beat has its tempo. Walk Slow's arc. Tell your story to her walking. The shape will emerge."*
+
+And when a story finally slows for its close — when Slow's long, glowing trail stretches out across the grass and the last words settle — the tellers feel it: a soft loosening in the shoulders, a calm, full quiet, the good kind of tired that comes after telling something all the way through. Slow feels it too, and she rests her old head, content.
 
 ---
 
