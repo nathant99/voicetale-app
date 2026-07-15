@@ -1,0 +1,535 @@
+{
+  "id": "kit_11_gesture_body_language_gr67",
+  "name": "Gesture & Body Language",
+  "description": "Telling a story with your whole body",
+  "gradeBand": "gr6-7",
+  "topic": "Gesture & Body Language",
+  "questions": [
+    {
+      "id": "cba6df91-0644-5132-adc5-cc8ed2ce8ecf",
+      "prompt": "'Body language' in storytelling means —",
+      "correctAnswer": "using your body, hands, and face to help tell the story",
+      "distractors": [
+        "only your voice",
+        "only the words",
+        "sitting perfectly still"
+      ],
+      "bloomLevel": "remember",
+      "gradeBand": "gr6-7",
+      "topic": "Gesture & Body Language",
+      "subtopic": "Body language",
+      "standard": "CCSS.ELA-LITERACY.SL.5.5",
+      "hints": [
+        "Whole-body telling",
+        "Hands + face + body"
+      ],
+      "explanation": "Body language is using your body, hands, and face to help tell a story.",
+      "version": 1
+    },
+    {
+      "id": "f342018f-c49f-51e0-9c5d-ae1ead35b5fc",
+      "prompt": "A gesture can —",
+      "correctAnswer": "show an action or emphasize a point",
+      "distractors": [
+        "do nothing",
+        "confuse listeners always",
+        "hide the story"
+      ],
+      "bloomLevel": "understand",
+      "gradeBand": "gr6-7",
+      "topic": "Gesture & Body Language",
+      "subtopic": "Gestures",
+      "standard": "CCSS.ELA-LITERACY.SL.5.5",
+      "hints": [
+        "Show or emphasize",
+        "A meaningful movement"
+      ],
+      "explanation": "A gesture can show an action or emphasize a point, reinforcing the words.",
+      "version": 1
+    },
+    {
+      "id": "efc3b719-271f-54d1-90d0-f72174b62b9d",
+      "prompt": "Facial expressions help convey a character's or moment's —",
+      "correctAnswer": "emotion",
+      "distractors": [
+        "setting",
+        "page count",
+        "font"
+      ],
+      "bloomLevel": "understand",
+      "gradeBand": "gr6-7",
+      "topic": "Gesture & Body Language",
+      "subtopic": "Facial expression",
+      "standard": "CCSS.ELA-LITERACY.SL.5.5",
+      "hints": [
+        "Show feeling",
+        "The face tells"
+      ],
+      "explanation": "Facial expressions convey the emotion of a character or moment.",
+      "version": 1
+    },
+    {
+      "id": "c3ff6dbb-06f0-5394-a7a2-cb757bd45524",
+      "prompt": "Standing still and stiff the whole time can make a telling feel —",
+      "correctAnswer": "lifeless",
+      "distractors": [
+        "dynamic",
+        "exciting",
+        "engaging"
+      ],
+      "bloomLevel": "analyze",
+      "gradeBand": "gr6-7",
+      "topic": "Gesture & Body Language",
+      "subtopic": "Too stiff",
+      "standard": "CCSS.ELA-LITERACY.SL.5.5",
+      "hints": [
+        "Move naturally",
+        "Stiffness = lifeless"
+      ],
+      "explanation": "Standing stiff and still can make a telling feel lifeless; natural movement adds life.",
+      "version": 1
+    },
+    {
+      "id": "79b3be96-2b99-51b9-8c59-acf2ed4e507e",
+      "prompt": "Gestures should MATCH —",
+      "correctAnswer": "the words and action",
+      "distractors": [
+        "nothing",
+        "a random moment",
+        "the page count"
+      ],
+      "bloomLevel": "evaluate",
+      "gradeBand": "gr6-7",
+      "topic": "Gesture & Body Language",
+      "subtopic": "Matching gestures",
+      "standard": "CCSS.ELA-LITERACY.SL.5.5",
+      "hints": [
+        "Fit the words",
+        "Reinforce, don't distract"
+      ],
+      "explanation": "Gestures should match the words and action they accompany, reinforcing rather than distracting.",
+      "version": 1
+    },
+    {
+      "id": "a2bc113f-dd65-5050-b5e1-ef08b6ff5b3b",
+      "prompt": "Too MANY random gestures can —",
+      "correctAnswer": "distract from the story",
+      "distractors": [
+        "always help",
+        "improve clarity",
+        "add nothing but is fine"
+      ],
+      "bloomLevel": "analyze",
+      "gradeBand": "gr6-7",
+      "topic": "Gesture & Body Language",
+      "subtopic": "Overusing gestures",
+      "standard": "CCSS.ELA-LITERACY.SL.5.5",
+      "hints": [
+        "Purposeful, not fidgety",
+        "Don't distract"
+      ],
+      "explanation": "Too many random or fidgety gestures distract from the story; gestures should be purposeful.",
+      "version": 1
+    },
+    {
+      "id": "f10363f3-553f-5a05-b6d9-7b3ddbd3ccdd",
+      "prompt": "A teller can SHOW how big something is with —",
+      "correctAnswer": "their hands",
+      "distractors": [
+        "only words",
+        "no movement",
+        "the setting"
+      ],
+      "bloomLevel": "apply",
+      "gradeBand": "gr6-7",
+      "topic": "Gesture & Body Language",
+      "subtopic": "Showing size",
+      "standard": "CCSS.ELA-LITERACY.SL.5.5",
+      "hints": [
+        "Hands show size",
+        "Gesture the scale"
+      ],
+      "explanation": "A teller can show size or shape with their hands, adding a vivid visual to the words.",
+      "version": 1
+    },
+    {
+      "id": "06af55e6-fb87-5834-b36a-d45d2cc73a43",
+      "prompt": "Body language should reinforce, not —",
+      "correctAnswer": "contradict the words",
+      "distractors": [
+        "support the words",
+        "match the mood",
+        "help the story"
+      ],
+      "bloomLevel": "evaluate",
+      "gradeBand": "gr6-7",
+      "topic": "Gesture & Body Language",
+      "subtopic": "No contradiction",
+      "standard": "CCSS.ELA-LITERACY.SL.5.5",
+      "hints": [
+        "Match, don't clash",
+        "Reinforce the words"
+      ],
+      "explanation": "Body language should reinforce the words, not contradict them (like smiling while telling a sad part).",
+      "version": 1
+    },
+    {
+      "id": "0966aaaa-2f52-54f8-a902-1eba8e8e3985",
+      "prompt": "Posture can convey a character's —",
+      "correctAnswer": "confidence, fear, or age",
+      "distractors": [
+        "nothing",
+        "the setting",
+        "the font"
+      ],
+      "bloomLevel": "apply",
+      "gradeBand": "gr6-7",
+      "topic": "Gesture & Body Language",
+      "subtopic": "Posture",
+      "standard": "CCSS.ELA-LITERACY.SL.5.5",
+      "hints": [
+        "How they stand",
+        "Confidence/fear/age"
+      ],
+      "explanation": "Posture can convey a character's confidence, fear, age, or mood.",
+      "version": 1
+    },
+    {
+      "id": "4550813e-b3f8-5ec6-b74b-32ede385ade2",
+      "prompt": "Using SPACE (moving or leaning) can help —",
+      "correctAnswer": "show a change of scene or character",
+      "distractors": [
+        "confuse listeners",
+        "do nothing",
+        "hide the story"
+      ],
+      "bloomLevel": "apply",
+      "gradeBand": "gr6-7",
+      "topic": "Gesture & Body Language",
+      "subtopic": "Using space",
+      "standard": "CCSS.ELA-LITERACY.SL.5.5",
+      "hints": [
+        "Move to signal change",
+        "Scene/character shift"
+      ],
+      "explanation": "Moving or leaning in space can help signal a change of scene or a different character.",
+      "version": 1
+    },
+    {
+      "id": "089fc1e9-742d-5d4d-aee2-4ddd2287bbef",
+      "prompt": "Facial expression is especially important for —",
+      "correctAnswer": "showing emotion listeners can see",
+      "distractors": [
+        "hiding emotion",
+        "the setting",
+        "the page count"
+      ],
+      "bloomLevel": "understand",
+      "gradeBand": "gr6-7",
+      "topic": "Gesture & Body Language",
+      "subtopic": "Face + emotion",
+      "standard": "CCSS.ELA-LITERACY.SL.5.5",
+      "hints": [
+        "Visible emotion",
+        "The face shows feeling"
+      ],
+      "explanation": "Facial expression is especially important for showing emotion listeners can see.",
+      "version": 1
+    },
+    {
+      "id": "929b2bdd-7ca3-5857-8b65-3edd32aa6f4a",
+      "prompt": "A frozen face during an emotional moment can —",
+      "correctAnswer": "weaken the moment",
+      "distractors": [
+        "strengthen it",
+        "add emotion",
+        "help"
+      ],
+      "bloomLevel": "analyze",
+      "gradeBand": "gr6-7",
+      "topic": "Gesture & Body Language",
+      "subtopic": "Frozen face",
+      "standard": "CCSS.ELA-LITERACY.SL.5.5",
+      "hints": [
+        "Let the face react",
+        "Show the feeling"
+      ],
+      "explanation": "A frozen, expressionless face during an emotional moment weakens it; let your face react.",
+      "version": 1
+    },
+    {
+      "id": "50cabe42-21d4-554c-816d-e6c7a8b1b081",
+      "prompt": "Gestures work best when they are —",
+      "correctAnswer": "natural and purposeful",
+      "distractors": [
+        "forced and random",
+        "constant",
+        "hidden"
+      ],
+      "bloomLevel": "evaluate",
+      "gradeBand": "gr6-7",
+      "topic": "Gesture & Body Language",
+      "subtopic": "Natural gestures",
+      "standard": "CCSS.ELA-LITERACY.SL.5.5",
+      "hints": [
+        "Natural + purposeful",
+        "Not forced"
+      ],
+      "explanation": "Gestures work best when they feel natural and serve a purpose.",
+      "version": 1
+    },
+    {
+      "id": "b53ee8d8-6d32-51fe-a417-cd063e1ad8e6",
+      "prompt": "Miming an action (like opening a door) can —",
+      "correctAnswer": "make the story more vivid",
+      "distractors": [
+        "confuse listeners",
+        "bore them",
+        "hide the action"
+      ],
+      "bloomLevel": "apply",
+      "gradeBand": "gr6-7",
+      "topic": "Gesture & Body Language",
+      "subtopic": "Miming",
+      "standard": "CCSS.ELA-LITERACY.SL.5.5",
+      "hints": [
+        "Show the action",
+        "Vivid + visual"
+      ],
+      "explanation": "Miming an action can make a story more vivid by showing what's happening.",
+      "version": 1
+    },
+    {
+      "id": "5a396256-7a70-5f2c-8853-16c5fe5b2f65",
+      "prompt": "Eye contact combined with gesture helps a teller —",
+      "correctAnswer": "connect and engage",
+      "distractors": [
+        "hide",
+        "read a script",
+        "ignore listeners"
+      ],
+      "bloomLevel": "apply",
+      "gradeBand": "gr6-7",
+      "topic": "Gesture & Body Language",
+      "subtopic": "Eye contact + gesture",
+      "standard": "CCSS.ELA-LITERACY.SL.6.6",
+      "hints": [
+        "Look + move",
+        "Engage"
+      ],
+      "explanation": "Combining eye contact with gesture helps a teller connect with and engage the audience.",
+      "version": 1
+    },
+    {
+      "id": "4db199af-59d7-5875-b619-b2bb61a4c724",
+      "prompt": "Body language is a form of —",
+      "correctAnswer": "showing (not just telling)",
+      "distractors": [
+        "telling only",
+        "silence",
+        "reading"
+      ],
+      "bloomLevel": "understand",
+      "gradeBand": "gr6-7",
+      "topic": "Gesture & Body Language",
+      "subtopic": "Body = showing",
+      "standard": "CCSS.ELA-LITERACY.SL.5.5",
+      "hints": [
+        "Show physically",
+        "Not just words"
+      ],
+      "explanation": "Body language is a form of showing — conveying the story physically, not just with words.",
+      "version": 1
+    },
+    {
+      "id": "e7e9d320-4142-50ae-976d-467aadf86112",
+      "prompt": "A teller should practice gestures so they feel —",
+      "correctAnswer": "natural, not rehearsed-looking",
+      "distractors": [
+        "stiff",
+        "robotic",
+        "random"
+      ],
+      "bloomLevel": "evaluate",
+      "gradeBand": "gr6-7",
+      "topic": "Gesture & Body Language",
+      "subtopic": "Practicing gestures",
+      "standard": "CCSS.ELA-LITERACY.SL.5.5",
+      "hints": [
+        "Rehearse until natural",
+        "Smooth, not stiff"
+      ],
+      "explanation": "Practicing gestures helps them feel natural rather than stiff or rehearsed.",
+      "version": 1
+    },
+    {
+      "id": "8d694986-f196-5f9f-9647-4045b753344d",
+      "prompt": "Body language can help distinguish —",
+      "correctAnswer": "different characters",
+      "distractors": [
+        "nothing",
+        "the setting only",
+        "the font"
+      ],
+      "bloomLevel": "apply",
+      "gradeBand": "gr6-7",
+      "topic": "Gesture & Body Language",
+      "subtopic": "Body + characters",
+      "standard": "CCSS.ELA-LITERACY.SL.5.5",
+      "hints": [
+        "Different postures/movements",
+        "Tell characters apart"
+      ],
+      "explanation": "Different postures and movements can help distinguish characters in a told tale.",
+      "version": 1
+    },
+    {
+      "id": "301a71bb-4cb3-50a5-aead-95dcbbd2949c",
+      "prompt": "The whole POINT of gesture and body language is to —",
+      "correctAnswer": "support and enrich the story",
+      "distractors": [
+        "distract from it",
+        "replace the words",
+        "confuse listeners"
+      ],
+      "bloomLevel": "evaluate",
+      "gradeBand": "gr6-7",
+      "topic": "Gesture & Body Language",
+      "subtopic": "Purpose",
+      "standard": "CCSS.ELA-LITERACY.SL.5.5",
+      "hints": [
+        "Enrich the telling",
+        "Support the story"
+      ],
+      "explanation": "Gesture and body language exist to support and enrich the story, working with the words.",
+      "version": 1
+    },
+    {
+      "id": "7bdbe5a3-f382-5395-881f-0b8b69f1358b",
+      "prompt": "A teller who uses their whole body creates a telling that is —",
+      "correctAnswer": "more engaging and vivid",
+      "distractors": [
+        "flat",
+        "lifeless",
+        "boring"
+      ],
+      "bloomLevel": "evaluate",
+      "gradeBand": "gr6-7",
+      "topic": "Gesture & Body Language",
+      "subtopic": "Whole-body telling",
+      "standard": "CCSS.ELA-LITERACY.SL.5.5",
+      "hints": [
+        "Fully engaged",
+        "Vivid + engaging"
+      ],
+      "explanation": "A teller who uses their whole body creates a more engaging, vivid telling.",
+      "version": 1
+    },
+    {
+      "id": "f179bbe5-78eb-5511-bc1e-3f44a92295e7",
+      "prompt": "The BEST summary of gesture & body language is —",
+      "correctAnswer": "using purposeful movement, gesture, and expression to bring a story to life",
+      "distractors": [
+        "standing perfectly still",
+        "using only words",
+        "random fidgeting"
+      ],
+      "bloomLevel": "understand",
+      "gradeBand": "gr6-7",
+      "topic": "Gesture & Body Language",
+      "subtopic": "Summary",
+      "standard": "CCSS.ELA-LITERACY.SL.5.5",
+      "hints": [
+        "Purposeful movement",
+        "Bring it alive"
+      ],
+      "explanation": "Gesture and body language use purposeful movement, gesture, and expression to bring a story to life.",
+      "version": 1
+    },
+    {
+      "id": "1dbf3853-553c-59b9-8e20-58185965ee77",
+      "prompt": "Leaning IN toward the audience can create —",
+      "correctAnswer": "intimacy or suspense",
+      "distractors": [
+        "distance",
+        "boredom",
+        "confusion"
+      ],
+      "bloomLevel": "apply",
+      "gradeBand": "gr6-7",
+      "topic": "Gesture & Body Language",
+      "subtopic": "Leaning in",
+      "standard": "CCSS.ELA-LITERACY.SL.5.5",
+      "hints": [
+        "Draw them close",
+        "Intimacy/suspense"
+      ],
+      "explanation": "Leaning in toward the audience can create a feeling of intimacy or suspense.",
+      "version": 1
+    },
+    {
+      "id": "2c67bc20-a1de-5260-b1e7-312fad247010",
+      "prompt": "A gesture held a moment longer can —",
+      "correctAnswer": "add emphasis",
+      "distractors": [
+        "hide the point",
+        "confuse listeners",
+        "do nothing"
+      ],
+      "bloomLevel": "apply",
+      "gradeBand": "gr6-7",
+      "topic": "Gesture & Body Language",
+      "subtopic": "Holding a gesture",
+      "standard": "CCSS.ELA-LITERACY.SL.5.5",
+      "hints": [
+        "Hold for emphasis",
+        "Let it land"
+      ],
+      "explanation": "Holding a gesture a beat longer can add emphasis to a moment.",
+      "version": 1
+    },
+    {
+      "id": "18367be2-0239-5f02-a731-d7c2eee555d9",
+      "prompt": "Body language that contradicts the words (smiling at sad news) —",
+      "correctAnswer": "confuses the audience",
+      "distractors": [
+        "strengthens the moment",
+        "adds depth",
+        "helps"
+      ],
+      "bloomLevel": "analyze",
+      "gradeBand": "gr6-7",
+      "topic": "Gesture & Body Language",
+      "subtopic": "Contradicting body language",
+      "standard": "CCSS.ELA-LITERACY.SL.5.5",
+      "hints": [
+        "Match, don't clash",
+        "Confusing"
+      ],
+      "explanation": "Body language that contradicts the words confuses the audience; it should match the feeling.",
+      "version": 1
+    },
+    {
+      "id": "43a9f521-a649-5742-b829-8f85d22f2404",
+      "prompt": "Purposeful movement means the teller moves —",
+      "correctAnswer": "with a reason that serves the story",
+      "distractors": [
+        "randomly and constantly",
+        "never",
+        "to hide"
+      ],
+      "bloomLevel": "evaluate",
+      "gradeBand": "gr6-7",
+      "topic": "Gesture & Body Language",
+      "subtopic": "Purposeful movement",
+      "standard": "CCSS.ELA-LITERACY.SL.5.5",
+      "hints": [
+        "Moves for a reason",
+        "Serve the story"
+      ],
+      "explanation": "Purposeful movement means moving with a reason that serves the story, not random fidgeting.",
+      "version": 1
+    }
+  ],
+  "standardsFramework": "CCSS"
+}

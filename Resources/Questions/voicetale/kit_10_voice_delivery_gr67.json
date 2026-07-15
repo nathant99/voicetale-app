@@ -1,0 +1,535 @@
+{
+  "id": "kit_10_voice_delivery_gr67",
+  "name": "Voice & Delivery",
+  "description": "Using vocal variety to tell a story well",
+  "gradeBand": "gr6-7",
+  "topic": "Voice & Delivery",
+  "questions": [
+    {
+      "id": "0082d2b6-b4da-5a07-a797-f13986e311ea",
+      "prompt": "'Vocal variety' means —",
+      "correctAnswer": "changing your voice for effect (pitch, volume, pace)",
+      "distractors": [
+        "speaking in a monotone",
+        "never changing your voice",
+        "whispering always"
+      ],
+      "bloomLevel": "remember",
+      "gradeBand": "gr6-7",
+      "topic": "Voice & Delivery",
+      "subtopic": "Vocal variety",
+      "standard": "CCSS.ELA-LITERACY.SL.5.5",
+      "hints": [
+        "Vary the voice",
+        "Pitch + volume + pace"
+      ],
+      "explanation": "Vocal variety is changing your voice — pitch, volume, and pace — for effect.",
+      "version": 1
+    },
+    {
+      "id": "7f1d7116-da03-5ebe-9337-e653b22dc6ac",
+      "prompt": "A monotone (unchanging) voice tends to make listeners —",
+      "correctAnswer": "bored",
+      "distractors": [
+        "excited",
+        "engaged",
+        "hooked"
+      ],
+      "bloomLevel": "analyze",
+      "gradeBand": "gr6-7",
+      "topic": "Voice & Delivery",
+      "subtopic": "Monotone",
+      "standard": "CCSS.ELA-LITERACY.SL.5.5",
+      "hints": [
+        "Flat = boring",
+        "Vary the voice"
+      ],
+      "explanation": "A monotone voice quickly bores listeners; vocal variety keeps them engaged.",
+      "version": 1
+    },
+    {
+      "id": "1b0c345b-ff56-5b39-8274-36fc60cc4d7d",
+      "prompt": "VOLUME can be used to —",
+      "correctAnswer": "emphasize or create suspense (loud or soft)",
+      "distractors": [
+        "do nothing",
+        "confuse the listener",
+        "hide the story"
+      ],
+      "bloomLevel": "apply",
+      "gradeBand": "gr6-7",
+      "topic": "Voice & Delivery",
+      "subtopic": "Using volume",
+      "standard": "CCSS.ELA-LITERACY.SL.5.5",
+      "hints": [
+        "Loud + soft",
+        "Emphasis + suspense"
+      ],
+      "explanation": "Volume — getting louder or softer — emphasizes moments and can build suspense.",
+      "version": 1
+    },
+    {
+      "id": "8d692aa7-6626-50c4-8354-7db58f1d69a2",
+      "prompt": "Speaking SOFTLY can draw listeners —",
+      "correctAnswer": "closer, creating intimacy or suspense",
+      "distractors": [
+        "away",
+        "to sleep",
+        "out of the story"
+      ],
+      "bloomLevel": "apply",
+      "gradeBand": "gr6-7",
+      "topic": "Voice & Delivery",
+      "subtopic": "Soft voice",
+      "standard": "CCSS.ELA-LITERACY.SL.5.5",
+      "hints": [
+        "Quiet draws them in",
+        "Intimacy/suspense"
+      ],
+      "explanation": "Speaking softly can draw listeners closer, creating intimacy or suspense.",
+      "version": 1
+    },
+    {
+      "id": "7ad30c01-854d-5c27-a7b6-233e01024e7b",
+      "prompt": "PITCH (how high or low your voice is) can help —",
+      "correctAnswer": "distinguish characters or express emotion",
+      "distractors": [
+        "nothing",
+        "only the setting",
+        "the page count"
+      ],
+      "bloomLevel": "apply",
+      "gradeBand": "gr6-7",
+      "topic": "Voice & Delivery",
+      "subtopic": "Using pitch",
+      "standard": "CCSS.ELA-LITERACY.SL.5.5",
+      "hints": [
+        "High vs low",
+        "Characters + emotion"
+      ],
+      "explanation": "Varying pitch helps distinguish characters and express emotions.",
+      "version": 1
+    },
+    {
+      "id": "3071bb73-ff26-52a1-94e6-77b42154342e",
+      "prompt": "Clear ENUNCIATION (pronouncing words clearly) helps listeners —",
+      "correctAnswer": "understand the story",
+      "distractors": [
+        "get confused",
+        "miss words",
+        "ignore the teller"
+      ],
+      "bloomLevel": "understand",
+      "gradeBand": "gr6-7",
+      "topic": "Voice & Delivery",
+      "subtopic": "Enunciation",
+      "standard": "CCSS.ELA-LITERACY.SL.5.4",
+      "hints": [
+        "Speak clearly",
+        "Be understood"
+      ],
+      "explanation": "Clear enunciation ensures listeners can understand every word of the story.",
+      "version": 1
+    },
+    {
+      "id": "a1fe5c5f-ae5f-5bad-8e03-dbfb11fd25b4",
+      "prompt": "Speaking too FAST can cause listeners to —",
+      "correctAnswer": "miss important parts",
+      "distractors": [
+        "understand better",
+        "stay relaxed",
+        "feel calm"
+      ],
+      "bloomLevel": "analyze",
+      "gradeBand": "gr6-7",
+      "topic": "Voice & Delivery",
+      "subtopic": "Too fast",
+      "standard": "CCSS.ELA-LITERACY.SL.5.4",
+      "hints": [
+        "Slow down enough",
+        "Don't rush"
+      ],
+      "explanation": "Speaking too fast can cause listeners to miss important parts of the story.",
+      "version": 1
+    },
+    {
+      "id": "0a55139c-9a25-5f56-add4-6156cc6c5a47",
+      "prompt": "Emphasis on a KEY word can —",
+      "correctAnswer": "highlight its importance",
+      "distractors": [
+        "hide it",
+        "confuse listeners",
+        "do nothing"
+      ],
+      "bloomLevel": "apply",
+      "gradeBand": "gr6-7",
+      "topic": "Voice & Delivery",
+      "subtopic": "Word emphasis",
+      "standard": "CCSS.ELA-LITERACY.SL.5.5",
+      "hints": [
+        "Stress the key word",
+        "Highlight it"
+      ],
+      "explanation": "Emphasizing a key word highlights its importance to listeners.",
+      "version": 1
+    },
+    {
+      "id": "0f370de0-334c-5cff-9140-79aa214e36d3",
+      "prompt": "A teller's ENERGY and enthusiasm are —",
+      "correctAnswer": "contagious to the audience",
+      "distractors": [
+        "irrelevant",
+        "off-putting always",
+        "only for the setting"
+      ],
+      "bloomLevel": "analyze",
+      "gradeBand": "gr6-7",
+      "topic": "Voice & Delivery",
+      "subtopic": "Energy",
+      "standard": "CCSS.ELA-LITERACY.SL.5.5",
+      "hints": [
+        "Energy spreads",
+        "Contagious"
+      ],
+      "explanation": "A teller's energy and enthusiasm are contagious — they help the audience get excited too.",
+      "version": 1
+    },
+    {
+      "id": "d9318557-2168-561e-90c7-381afbc4b754",
+      "prompt": "Good delivery includes appropriate —",
+      "correctAnswer": "pauses",
+      "distractors": [
+        "no pauses ever",
+        "constant talking",
+        "only silence"
+      ],
+      "bloomLevel": "understand",
+      "gradeBand": "gr6-7",
+      "topic": "Voice & Delivery",
+      "subtopic": "Pauses in delivery",
+      "standard": "CCSS.ELA-LITERACY.SL.5.5",
+      "hints": [
+        "Use pauses",
+        "For effect"
+      ],
+      "explanation": "Good delivery uses well-placed pauses for emphasis, suspense, and clarity.",
+      "version": 1
+    },
+    {
+      "id": "96263cbb-7e04-5703-aac4-bb484ae624a4",
+      "prompt": "Matching your TONE of voice to the story's mood makes it —",
+      "correctAnswer": "more believable and immersive",
+      "distractors": [
+        "confusing",
+        "flat",
+        "boring"
+      ],
+      "bloomLevel": "evaluate",
+      "gradeBand": "gr6-7",
+      "topic": "Voice & Delivery",
+      "subtopic": "Tone match",
+      "standard": "CCSS.ELA-LITERACY.SL.5.5",
+      "hints": [
+        "Voice fits the mood",
+        "Believable"
+      ],
+      "explanation": "Matching your tone of voice to the story's mood makes the telling more believable and immersive.",
+      "version": 1
+    },
+    {
+      "id": "cf82958b-deb2-5348-8753-fd9e9c85dfa6",
+      "prompt": "Making eye contact while telling helps —",
+      "correctAnswer": "connect with the audience",
+      "distractors": [
+        "hide from them",
+        "read a script",
+        "ignore them"
+      ],
+      "bloomLevel": "apply",
+      "gradeBand": "gr6-7",
+      "topic": "Voice & Delivery",
+      "subtopic": "Eye contact",
+      "standard": "CCSS.ELA-LITERACY.SL.6.6",
+      "hints": [
+        "Look at listeners",
+        "Connection"
+      ],
+      "explanation": "Eye contact helps a teller connect with the audience during delivery.",
+      "version": 1
+    },
+    {
+      "id": "4132e246-1849-5b9f-910d-0c43c9ad7409",
+      "prompt": "A confident delivery comes largely from —",
+      "correctAnswer": "knowing the story and practicing",
+      "distractors": [
+        "never practicing",
+        "reading it cold",
+        "avoiding rehearsal"
+      ],
+      "bloomLevel": "understand",
+      "gradeBand": "gr6-7",
+      "topic": "Voice & Delivery",
+      "subtopic": "Confident delivery",
+      "standard": "CCSS.ELA-LITERACY.SL.5.4",
+      "hints": [
+        "Know it + practice",
+        "Confidence follows"
+      ],
+      "explanation": "Confident delivery comes from knowing the story well and practicing it.",
+      "version": 1
+    },
+    {
+      "id": "585d3b2f-6a22-5830-8876-e5660ea9a103",
+      "prompt": "Using different voices for different characters helps listeners —",
+      "correctAnswer": "follow who is speaking",
+      "distractors": [
+        "get confused",
+        "ignore the dialogue",
+        "lose track"
+      ],
+      "bloomLevel": "apply",
+      "gradeBand": "gr6-7",
+      "topic": "Voice & Delivery",
+      "subtopic": "Character voices",
+      "standard": "CCSS.ELA-LITERACY.SL.5.5",
+      "hints": [
+        "Distinct voices",
+        "Follow the speakers"
+      ],
+      "explanation": "Giving characters different voices helps listeners follow who is speaking.",
+      "version": 1
+    },
+    {
+      "id": "7a25f6df-2aa2-591d-8c0f-51aec675d4d2",
+      "prompt": "Delivery that is too QUIET throughout can cause —",
+      "correctAnswer": "listeners to miss the story",
+      "distractors": [
+        "perfect clarity",
+        "great emphasis",
+        "excitement"
+      ],
+      "bloomLevel": "analyze",
+      "gradeBand": "gr6-7",
+      "topic": "Voice & Delivery",
+      "subtopic": "Too quiet",
+      "standard": "CCSS.ELA-LITERACY.SL.5.4",
+      "hints": [
+        "Be heard",
+        "Project enough"
+      ],
+      "explanation": "Delivery that's too quiet throughout means listeners can't hear the story — project enough to be heard.",
+      "version": 1
+    },
+    {
+      "id": "e801b6b7-5397-5c38-849f-1f863ea44836",
+      "prompt": "Delivery that is too LOUD throughout leaves no room for —",
+      "correctAnswer": "emphasis or suspense",
+      "distractors": [
+        "clarity",
+        "energy",
+        "excitement"
+      ],
+      "bloomLevel": "analyze",
+      "gradeBand": "gr6-7",
+      "topic": "Voice & Delivery",
+      "subtopic": "Too loud",
+      "standard": "CCSS.ELA-LITERACY.SL.5.5",
+      "hints": [
+        "Contrast needs quiet too",
+        "Vary the volume"
+      ],
+      "explanation": "Constant loudness leaves no room for emphasis or suspense; contrast requires quieter moments too.",
+      "version": 1
+    },
+    {
+      "id": "55dc861b-8075-5fb6-bc35-06a3ef7d6c89",
+      "prompt": "The GOAL of good delivery is to —",
+      "correctAnswer": "help the audience experience the story",
+      "distractors": [
+        "show off",
+        "confuse listeners",
+        "read perfectly"
+      ],
+      "bloomLevel": "evaluate",
+      "gradeBand": "gr6-7",
+      "topic": "Voice & Delivery",
+      "subtopic": "Delivery goal",
+      "standard": "CCSS.ELA-LITERACY.SL.5.5",
+      "hints": [
+        "Serve the story",
+        "Help them experience it"
+      ],
+      "explanation": "The goal of delivery is to help the audience experience the story, not to show off.",
+      "version": 1
+    },
+    {
+      "id": "38c3f441-e1f1-5aca-8aa4-9c69333479b4",
+      "prompt": "A teller can use a FACIAL expression to —",
+      "correctAnswer": "reinforce the emotion of a moment",
+      "distractors": [
+        "hide emotion",
+        "confuse the listener",
+        "do nothing"
+      ],
+      "bloomLevel": "apply",
+      "gradeBand": "gr6-7",
+      "topic": "Voice & Delivery",
+      "subtopic": "Facial expression",
+      "standard": "CCSS.ELA-LITERACY.SL.5.5",
+      "hints": [
+        "Show the feeling",
+        "Reinforce emotion"
+      ],
+      "explanation": "Facial expressions reinforce the emotion of a moment, supporting vocal delivery.",
+      "version": 1
+    },
+    {
+      "id": "93009822-3cba-5837-80e2-40e1ef268abc",
+      "prompt": "Vocal variety includes changing —",
+      "correctAnswer": "pitch, pace, volume, and tone",
+      "distractors": [
+        "only volume",
+        "only pitch",
+        "nothing"
+      ],
+      "bloomLevel": "understand",
+      "gradeBand": "gr6-7",
+      "topic": "Voice & Delivery",
+      "subtopic": "Elements of vocal variety",
+      "standard": "CCSS.ELA-LITERACY.SL.5.5",
+      "hints": [
+        "All the vocal tools",
+        "Pitch/pace/volume/tone"
+      ],
+      "explanation": "Vocal variety means changing pitch, pace, volume, and tone for effect.",
+      "version": 1
+    },
+    {
+      "id": "80cdda82-cc41-5e05-8a07-fbbe8d42eb8a",
+      "prompt": "Delivery brings the WRITTEN story to —",
+      "correctAnswer": "life",
+      "distractors": [
+        "a stop",
+        "silence",
+        "the page"
+      ],
+      "bloomLevel": "understand",
+      "gradeBand": "gr6-7",
+      "topic": "Voice & Delivery",
+      "subtopic": "Delivery brings life",
+      "standard": "CCSS.ELA-LITERACY.SL.5.5",
+      "hints": [
+        "Make it live",
+        "Bring it alive"
+      ],
+      "explanation": "Delivery brings a story to life, turning words into a living experience.",
+      "version": 1
+    },
+    {
+      "id": "7223df9b-c1b8-5482-af63-8cb10e49ad02",
+      "prompt": "The BEST summary of voice & delivery is —",
+      "correctAnswer": "using vocal variety, clarity, and expression to bring a story to life",
+      "distractors": [
+        "a flat monotone",
+        "reading silently",
+        "no expression"
+      ],
+      "bloomLevel": "understand",
+      "gradeBand": "gr6-7",
+      "topic": "Voice & Delivery",
+      "subtopic": "Summary",
+      "standard": "CCSS.ELA-LITERACY.SL.5.5",
+      "hints": [
+        "Vocal variety + clarity + expression",
+        "Bring it alive"
+      ],
+      "explanation": "Voice and delivery use vocal variety, clarity, and expression to bring a story to life for listeners.",
+      "version": 1
+    },
+    {
+      "id": "fd52fd33-9866-508d-9d80-3324c249f180",
+      "prompt": "Projecting your voice means —",
+      "correctAnswer": "speaking so everyone can hear clearly",
+      "distractors": [
+        "shouting the whole time",
+        "whispering",
+        "mumbling"
+      ],
+      "bloomLevel": "understand",
+      "gradeBand": "gr6-7",
+      "topic": "Voice & Delivery",
+      "subtopic": "Projection",
+      "standard": "CCSS.ELA-LITERACY.SL.5.4",
+      "hints": [
+        "Be heard, not shout",
+        "Reach the back"
+      ],
+      "explanation": "Projecting means speaking clearly enough that everyone can hear — not shouting, but reaching the whole audience.",
+      "version": 1
+    },
+    {
+      "id": "468dfec9-a2d0-573e-8f2f-69f66230f2ed",
+      "prompt": "Changing your PACE within a telling is part of —",
+      "correctAnswer": "vocal delivery",
+      "distractors": [
+        "the setting",
+        "the plot only",
+        "the font"
+      ],
+      "bloomLevel": "understand",
+      "gradeBand": "gr6-7",
+      "topic": "Voice & Delivery",
+      "subtopic": "Pace as delivery",
+      "standard": "CCSS.ELA-LITERACY.SL.5.5",
+      "hints": [
+        "Delivery includes pace",
+        "Vary the speed"
+      ],
+      "explanation": "Varying your pace within a telling is part of expressive vocal delivery.",
+      "version": 1
+    },
+    {
+      "id": "2e370269-1949-5280-af0e-13d0b69d8c6f",
+      "prompt": "A teller who sounds bored will likely make the audience —",
+      "correctAnswer": "feel bored too",
+      "distractors": [
+        "feel excited",
+        "stay engaged",
+        "want more"
+      ],
+      "bloomLevel": "analyze",
+      "gradeBand": "gr6-7",
+      "topic": "Voice & Delivery",
+      "subtopic": "Energy transfers",
+      "standard": "CCSS.ELA-LITERACY.SL.5.5",
+      "hints": [
+        "Energy is contagious",
+        "Bored teller, bored audience"
+      ],
+      "explanation": "A teller's energy transfers to the audience — sounding bored makes listeners bored too.",
+      "version": 1
+    },
+    {
+      "id": "33c20cbb-7045-5161-8842-3f0e4020f6a7",
+      "prompt": "Emphasizing the RIGHT word in a sentence can change its —",
+      "correctAnswer": "meaning or impact",
+      "distractors": [
+        "length",
+        "font",
+        "page count"
+      ],
+      "bloomLevel": "apply",
+      "gradeBand": "gr6-7",
+      "topic": "Voice & Delivery",
+      "subtopic": "Emphasis + meaning",
+      "standard": "CCSS.ELA-LITERACY.SL.5.5",
+      "hints": [
+        "Stress matters",
+        "Changes the point"
+      ],
+      "explanation": "Emphasizing different words can change a sentence's meaning or impact — a key delivery skill.",
+      "version": 1
+    }
+  ],
+  "standardsFramework": "CCSS"
+}

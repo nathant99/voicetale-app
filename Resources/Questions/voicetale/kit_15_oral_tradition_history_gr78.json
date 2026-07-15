@@ -1,0 +1,535 @@
+{
+  "id": "kit_15_oral_tradition_history_gr78",
+  "name": "Oral Tradition & History",
+  "description": "Where storytelling comes from",
+  "gradeBand": "gr7-8",
+  "topic": "Oral Tradition & History",
+  "questions": [
+    {
+      "id": "c8abb905-a23e-52c4-97ea-6dea38f4bd71",
+      "prompt": "'Oral tradition' means —",
+      "correctAnswer": "stories passed down by telling, not writing",
+      "distractors": [
+        "stories only in books",
+        "stories on film",
+        "stories no one shares"
+      ],
+      "bloomLevel": "remember",
+      "gradeBand": "gr7-8",
+      "topic": "Oral Tradition & History",
+      "subtopic": "Oral tradition",
+      "standard": "CCSS.ELA-LITERACY.SL.5.4",
+      "hints": [
+        "Told, not written",
+        "Passed down aloud"
+      ],
+      "explanation": "Oral tradition is the passing down of stories, knowledge, and culture by telling rather than writing.",
+      "version": 1
+    },
+    {
+      "id": "ff8c3de2-f5f6-5cf4-b8a3-59adea31ea06",
+      "prompt": "Before writing, cultures preserved their history through —",
+      "correctAnswer": "oral storytelling",
+      "distractors": [
+        "books",
+        "the internet",
+        "no method"
+      ],
+      "bloomLevel": "understand",
+      "gradeBand": "gr7-8",
+      "topic": "Oral Tradition & History",
+      "subtopic": "Pre-writing history",
+      "standard": "CCSS.ELA-LITERACY.SL.5.4",
+      "hints": [
+        "Told across generations",
+        "Spoken history"
+      ],
+      "explanation": "Before writing, cultures preserved history, values, and knowledge through oral storytelling.",
+      "version": 1
+    },
+    {
+      "id": "b4dd2a31-be21-5481-aba0-6abc2d486c2d",
+      "prompt": "A 'folktale' is —",
+      "correctAnswer": "a traditional story passed down among a people",
+      "distractors": [
+        "a modern novel",
+        "a news report",
+        "a textbook"
+      ],
+      "bloomLevel": "remember",
+      "gradeBand": "gr7-8",
+      "topic": "Oral Tradition & History",
+      "subtopic": "Folktale",
+      "standard": "CCSS.ELA-LITERACY.SL.5.4",
+      "hints": [
+        "Traditional + shared",
+        "Passed down"
+      ],
+      "explanation": "A folktale is a traditional story passed down orally among a people.",
+      "version": 1
+    },
+    {
+      "id": "86636f0d-c47f-53d0-a97a-cb70e8678a64",
+      "prompt": "A 'myth' often explains —",
+      "correctAnswer": "how something in the world came to be",
+      "distractors": [
+        "the news",
+        "a math problem",
+        "the weather report"
+      ],
+      "bloomLevel": "understand",
+      "gradeBand": "gr7-8",
+      "topic": "Oral Tradition & History",
+      "subtopic": "Myth",
+      "standard": "CCSS.ELA-LITERACY.SL.5.4",
+      "hints": [
+        "Origin stories",
+        "Why things are"
+      ],
+      "explanation": "A myth is a traditional story that often explains how something in the world came to be.",
+      "version": 1
+    },
+    {
+      "id": "e18d6d07-cf9f-5bad-92d8-9455a04e425c",
+      "prompt": "A 'legend' is a story that —",
+      "correctAnswer": "is based on real people or events but is exaggerated over time",
+      "distractors": [
+        "is entirely factual",
+        "has no basis",
+        "is a modern invention"
+      ],
+      "bloomLevel": "understand",
+      "gradeBand": "gr7-8",
+      "topic": "Oral Tradition & History",
+      "subtopic": "Legend",
+      "standard": "CCSS.ELA-LITERACY.SL.5.4",
+      "hints": [
+        "Real roots, grown tall",
+        "Exaggerated over time"
+      ],
+      "explanation": "A legend is often rooted in real people or events but grows exaggerated as it's retold.",
+      "version": 1
+    },
+    {
+      "id": "812af4a1-d8dc-5a89-8628-cbf1ade87f42",
+      "prompt": "Oral traditions vary across —",
+      "correctAnswer": "cultures around the world",
+      "distractors": [
+        "no cultures",
+        "only one culture",
+        "only modern times"
+      ],
+      "bloomLevel": "understand",
+      "gradeBand": "gr7-8",
+      "topic": "Oral Tradition & History",
+      "subtopic": "Cultural variety",
+      "standard": "CCSS.ELA-LITERACY.SL.5.4",
+      "hints": [
+        "Every culture has them",
+        "Worldwide"
+      ],
+      "explanation": "Every culture has its own oral traditions — folktales, myths, and legends vary around the world.",
+      "version": 1
+    },
+    {
+      "id": "76c93b99-b68f-5b14-9c5c-2e62e4792ce2",
+      "prompt": "Storytelling helped pass down a culture's —",
+      "correctAnswer": "values, history, and wisdom",
+      "distractors": [
+        "only jokes",
+        "nothing",
+        "the weather"
+      ],
+      "bloomLevel": "analyze",
+      "gradeBand": "gr7-8",
+      "topic": "Oral Tradition & History",
+      "subtopic": "What stories carry",
+      "standard": "CCSS.ELA-LITERACY.SL.5.4",
+      "hints": [
+        "Values + history + wisdom",
+        "Cultural knowledge"
+      ],
+      "explanation": "Oral storytelling passed down a culture's values, history, and wisdom across generations.",
+      "version": 1
+    },
+    {
+      "id": "a929d550-561b-5e85-92c9-8dc74fb60998",
+      "prompt": "Because oral stories are retold, they often —",
+      "correctAnswer": "change a little over time",
+      "distractors": [
+        "stay exactly the same forever",
+        "disappear immediately",
+        "are written first"
+      ],
+      "bloomLevel": "understand",
+      "gradeBand": "gr7-8",
+      "topic": "Oral Tradition & History",
+      "subtopic": "Stories evolve",
+      "standard": "CCSS.ELA-LITERACY.SL.5.4",
+      "hints": [
+        "Retelling changes them",
+        "They evolve"
+      ],
+      "explanation": "Because oral stories are retold by many people over time, they often change and develop.",
+      "version": 1
+    },
+    {
+      "id": "a9402568-7517-5ca7-bf46-19e3f094916c",
+      "prompt": "Respecting a culture's stories means —",
+      "correctAnswer": "telling them accurately and giving credit",
+      "distractors": [
+        "changing them freely",
+        "claiming them as your own",
+        "ignoring their origin"
+      ],
+      "bloomLevel": "evaluate",
+      "gradeBand": "gr7-8",
+      "topic": "Oral Tradition & History",
+      "subtopic": "Respecting stories",
+      "standard": "CCSS.ELA-LITERACY.SL.6.6",
+      "hints": [
+        "Credit + accuracy",
+        "Respect the source"
+      ],
+      "explanation": "Respecting a culture's stories means telling them accurately and crediting where they come from.",
+      "version": 1
+    },
+    {
+      "id": "67e7dbc6-917c-5cfa-b510-57f67ebedbe8",
+      "prompt": "A 'fable' is a short story that —",
+      "correctAnswer": "teaches a lesson, often with animal characters",
+      "distractors": [
+        "has no lesson",
+        "is very long",
+        "is a news report"
+      ],
+      "bloomLevel": "remember",
+      "gradeBand": "gr7-8",
+      "topic": "Oral Tradition & History",
+      "subtopic": "Fable",
+      "standard": "CCSS.ELA-LITERACY.SL.5.4",
+      "hints": [
+        "A moral lesson",
+        "Often animals"
+      ],
+      "explanation": "A fable is a short story that teaches a lesson or moral, often using animal characters.",
+      "version": 1
+    },
+    {
+      "id": "5ae80fa2-9084-5753-8e28-c65e043b6149",
+      "prompt": "The 'moral' of a fable is —",
+      "correctAnswer": "the lesson it teaches",
+      "distractors": [
+        "the setting",
+        "the title",
+        "the page count"
+      ],
+      "bloomLevel": "remember",
+      "gradeBand": "gr7-8",
+      "topic": "Oral Tradition & History",
+      "subtopic": "Moral",
+      "standard": "CCSS.ELA-LITERACY.SL.5.4",
+      "hints": [
+        "The lesson",
+        "What it teaches"
+      ],
+      "explanation": "The moral of a fable is the lesson it teaches.",
+      "version": 1
+    },
+    {
+      "id": "7ebdda58-592b-5f95-b987-10b80d9b9dae",
+      "prompt": "Oral traditions are still alive today in —",
+      "correctAnswer": "family stories, jokes, and community storytelling",
+      "distractors": [
+        "no modern form",
+        "only ancient times",
+        "only books"
+      ],
+      "bloomLevel": "understand",
+      "gradeBand": "gr7-8",
+      "topic": "Oral Tradition & History",
+      "subtopic": "Living tradition",
+      "standard": "CCSS.ELA-LITERACY.SL.5.4",
+      "hints": [
+        "We still do it",
+        "Family stories, jokes"
+      ],
+      "explanation": "Oral tradition is still alive today — in family stories, jokes, and community storytelling.",
+      "version": 1
+    },
+    {
+      "id": "1107c969-d6ac-57b6-9126-69cae0752ded",
+      "prompt": "Learning traditional stories connects us to —",
+      "correctAnswer": "the people and cultures who told them",
+      "distractors": [
+        "nothing",
+        "only ourselves",
+        "the font"
+      ],
+      "bloomLevel": "analyze",
+      "gradeBand": "gr7-8",
+      "topic": "Oral Tradition & History",
+      "subtopic": "Connection through stories",
+      "standard": "CCSS.ELA-LITERACY.SL.5.4",
+      "hints": [
+        "A link to others",
+        "People + cultures"
+      ],
+      "explanation": "Learning traditional stories connects us to the people and cultures who told them before us.",
+      "version": 1
+    },
+    {
+      "id": "ba64b012-ddd8-5510-b8a4-f6553d5cdfdc",
+      "prompt": "Why did oral storytellers use rhyme and repetition?",
+      "correctAnswer": "To help remember and retell long stories accurately",
+      "distractors": [
+        "to confuse listeners",
+        "for no reason",
+        "to shorten stories"
+      ],
+      "bloomLevel": "analyze",
+      "gradeBand": "gr7-8",
+      "topic": "Oral Tradition & History",
+      "subtopic": "Memory devices",
+      "standard": "CCSS.ELA-LITERACY.SL.5.4",
+      "hints": [
+        "Aids to memory",
+        "Remember + retell"
+      ],
+      "explanation": "Rhyme and repetition helped oral storytellers remember and accurately retell long stories.",
+      "version": 1
+    },
+    {
+      "id": "947fb418-8cd2-557c-b578-327f641670c0",
+      "prompt": "A 'griot' (in West African tradition) is a —",
+      "correctAnswer": "storyteller and keeper of history",
+      "distractors": [
+        "a type of book",
+        "a modern invention",
+        "a setting"
+      ],
+      "bloomLevel": "understand",
+      "gradeBand": "gr7-8",
+      "topic": "Oral Tradition & History",
+      "subtopic": "Griot",
+      "standard": "CCSS.ELA-LITERACY.SL.5.4",
+      "hints": [
+        "A traditional storyteller",
+        "Keeper of history"
+      ],
+      "explanation": "A griot is a West African storyteller and keeper of a community's history and traditions.",
+      "version": 1
+    },
+    {
+      "id": "0cc2fd95-17da-536b-958b-095ff86d1f10",
+      "prompt": "Traditional stories often share common —",
+      "correctAnswer": "themes and patterns across cultures",
+      "distractors": [
+        "nothing in common",
+        "only differences",
+        "the same exact words"
+      ],
+      "bloomLevel": "analyze",
+      "gradeBand": "gr7-8",
+      "topic": "Oral Tradition & History",
+      "subtopic": "Universal patterns",
+      "standard": "CCSS.ELA-LITERACY.SL.5.4",
+      "hints": [
+        "Shared themes",
+        "Patterns across cultures"
+      ],
+      "explanation": "Traditional stories across cultures often share common themes and patterns (heroes, tricksters, journeys).",
+      "version": 1
+    },
+    {
+      "id": "68ae37d5-b052-5315-bd1a-dc5e62fc12cd",
+      "prompt": "Telling a traditional story keeps it —",
+      "correctAnswer": "alive for the next generation",
+      "distractors": [
+        "hidden",
+        "forgotten",
+        "unchanged forever"
+      ],
+      "bloomLevel": "understand",
+      "gradeBand": "gr7-8",
+      "topic": "Oral Tradition & History",
+      "subtopic": "Keeping stories alive",
+      "standard": "CCSS.ELA-LITERACY.SL.5.4",
+      "hints": [
+        "Pass it on",
+        "Alive for the future"
+      ],
+      "explanation": "Telling a traditional story keeps it alive and passes it to the next generation.",
+      "version": 1
+    },
+    {
+      "id": "5ed5a3df-249a-5d88-aef1-e99b16ad2afd",
+      "prompt": "When telling a story from another culture, it's important to —",
+      "correctAnswer": "learn about it and tell it respectfully",
+      "distractors": [
+        "change it to suit yourself",
+        "ignore its meaning",
+        "claim you invented it"
+      ],
+      "bloomLevel": "evaluate",
+      "gradeBand": "gr7-8",
+      "topic": "Oral Tradition & History",
+      "subtopic": "Cross-cultural telling",
+      "standard": "CCSS.ELA-LITERACY.SL.6.6",
+      "hints": [
+        "Learn + respect",
+        "Tell it faithfully"
+      ],
+      "explanation": "When telling a story from another culture, learn about it and tell it respectfully and accurately.",
+      "version": 1
+    },
+    {
+      "id": "9a3c730c-6c06-5c7a-b751-855f461d2e91",
+      "prompt": "Modern storytelling (books, films, games) grew out of —",
+      "correctAnswer": "the ancient oral tradition",
+      "distractors": [
+        "nothing",
+        "only recent inventions",
+        "no history"
+      ],
+      "bloomLevel": "understand",
+      "gradeBand": "gr7-8",
+      "topic": "Oral Tradition & History",
+      "subtopic": "Roots of modern storytelling",
+      "standard": "CCSS.ELA-LITERACY.SL.5.4",
+      "hints": [
+        "Ancient roots",
+        "Oral tradition first"
+      ],
+      "explanation": "Modern storytelling in books, films, and games grew from the ancient human tradition of telling stories aloud.",
+      "version": 1
+    },
+    {
+      "id": "2aa061c4-17d4-53cd-8331-0128ef6a2d94",
+      "prompt": "Understanding oral tradition helps a storyteller —",
+      "correctAnswer": "appreciate and use time-tested techniques",
+      "distractors": [
+        "ignore the past",
+        "avoid all techniques",
+        "forget the craft"
+      ],
+      "bloomLevel": "evaluate",
+      "gradeBand": "gr7-8",
+      "topic": "Oral Tradition & History",
+      "subtopic": "Learning from tradition",
+      "standard": "CCSS.ELA-LITERACY.SL.5.4",
+      "hints": [
+        "Time-tested tools",
+        "Learn from the past"
+      ],
+      "explanation": "Understanding oral tradition helps a storyteller appreciate and use techniques proven over generations.",
+      "version": 1
+    },
+    {
+      "id": "82ac386f-2244-5fef-a623-c77f7c85b1b4",
+      "prompt": "The BEST summary of oral tradition is —",
+      "correctAnswer": "the ancient, worldwide practice of passing stories, culture, and wisdom down by telling",
+      "distractors": [
+        "a modern invention",
+        "stories only in books",
+        "a single culture's habit"
+      ],
+      "bloomLevel": "understand",
+      "gradeBand": "gr7-8",
+      "topic": "Oral Tradition & History",
+      "subtopic": "Summary",
+      "standard": "CCSS.ELA-LITERACY.SL.5.4",
+      "hints": [
+        "Ancient + worldwide",
+        "Told down the generations"
+      ],
+      "explanation": "Oral tradition is the ancient, worldwide practice of passing stories, culture, and wisdom down by telling.",
+      "version": 1
+    },
+    {
+      "id": "d4c55c6a-dad6-53b7-8c04-f2bc47a3cb9b",
+      "prompt": "A 'tall tale' is a story that is —",
+      "correctAnswer": "wildly exaggerated for fun",
+      "distractors": [
+        "strictly factual",
+        "very short and dull",
+        "a news report"
+      ],
+      "bloomLevel": "remember",
+      "gradeBand": "gr7-8",
+      "topic": "Oral Tradition & History",
+      "subtopic": "Tall tale",
+      "standard": "CCSS.ELA-LITERACY.SL.5.4",
+      "hints": [
+        "Exaggerated for fun",
+        "Paul Bunyan-style"
+      ],
+      "explanation": "A tall tale is a story wildly exaggerated for humor and fun (like Paul Bunyan).",
+      "version": 1
+    },
+    {
+      "id": "858430a7-70c8-5c06-ac21-8e66b2333bfd",
+      "prompt": "A 'trickster' character (common in folktales) usually —",
+      "correctAnswer": "uses cleverness to outwit others",
+      "distractors": [
+        "is very strong",
+        "never appears",
+        "is the setting"
+      ],
+      "bloomLevel": "understand",
+      "gradeBand": "gr7-8",
+      "topic": "Oral Tradition & History",
+      "subtopic": "Trickster",
+      "standard": "CCSS.ELA-LITERACY.SL.5.4",
+      "hints": [
+        "Clever + sly",
+        "Outwits others"
+      ],
+      "explanation": "A trickster is a common folktale character who uses cleverness and mischief to outwit others.",
+      "version": 1
+    },
+    {
+      "id": "4f83d1ca-a925-56a7-994d-a64bc30fd876",
+      "prompt": "Oral stories were often told to —",
+      "correctAnswer": "teach, entertain, and preserve culture",
+      "distractors": [
+        "only entertain",
+        "only bore people",
+        "do nothing"
+      ],
+      "bloomLevel": "analyze",
+      "gradeBand": "gr7-8",
+      "topic": "Oral Tradition & History",
+      "subtopic": "Purposes of oral stories",
+      "standard": "CCSS.ELA-LITERACY.SL.5.4",
+      "hints": [
+        "Teach + entertain + preserve",
+        "Many roles"
+      ],
+      "explanation": "Oral stories served to teach lessons, entertain, and preserve a culture's history and values.",
+      "version": 1
+    },
+    {
+      "id": "0d122460-6056-50ca-a235-a9658449cc1b",
+      "prompt": "Studying folktales from many cultures shows storytelling is —",
+      "correctAnswer": "a universal human practice",
+      "distractors": [
+        "only Western",
+        "very rare",
+        "a modern invention"
+      ],
+      "bloomLevel": "evaluate",
+      "gradeBand": "gr7-8",
+      "topic": "Oral Tradition & History",
+      "subtopic": "Universal storytelling",
+      "standard": "CCSS.ELA-LITERACY.SL.5.4",
+      "hints": [
+        "Everyone tells stories",
+        "Universal"
+      ],
+      "explanation": "Folktales exist in every culture, showing that storytelling is a universal human practice.",
+      "version": 1
+    }
+  ],
+  "standardsFramework": "CCSS"
+}

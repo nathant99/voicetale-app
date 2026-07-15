@@ -1,0 +1,535 @@
+{
+  "id": "kit_01_what_is_storytelling_gr45",
+  "name": "What Is Storytelling?",
+  "description": "Oral storytelling, teller, and listener",
+  "gradeBand": "gr4-5",
+  "topic": "What Is Storytelling?",
+  "questions": [
+    {
+      "id": "7e27c694-7642-51ff-b3d5-5c81ff7b1dc1",
+      "prompt": "Oral storytelling means telling a story —",
+      "correctAnswer": "aloud, with your voice",
+      "distractors": [
+        "only in writing",
+        "with no words",
+        "using only pictures"
+      ],
+      "bloomLevel": "remember",
+      "gradeBand": "gr4-5",
+      "topic": "What Is Storytelling?",
+      "subtopic": "Oral storytelling",
+      "standard": "CCSS.ELA-LITERACY.SL.5.4",
+      "hints": [
+        "Out loud",
+        "Using your voice"
+      ],
+      "explanation": "Oral storytelling is telling a story aloud, using your voice (and often gesture and expression).",
+      "version": 1
+    },
+    {
+      "id": "418666f5-0a5c-5082-8f58-ab96ede53efb",
+      "prompt": "The person telling the story is the —",
+      "correctAnswer": "teller (storyteller)",
+      "distractors": [
+        "listener",
+        "setting",
+        "author only"
+      ],
+      "bloomLevel": "remember",
+      "gradeBand": "gr4-5",
+      "topic": "What Is Storytelling?",
+      "subtopic": "The teller",
+      "standard": "CCSS.ELA-LITERACY.SL.5.4",
+      "hints": [
+        "Who tells it",
+        "The storyteller"
+      ],
+      "explanation": "The teller (or storyteller) is the person telling the story aloud.",
+      "version": 1
+    },
+    {
+      "id": "efe35a30-e4de-547d-872b-f790210a5674",
+      "prompt": "The people who hear the story are the —",
+      "correctAnswer": "audience (listeners)",
+      "distractors": [
+        "the tellers",
+        "the setting",
+        "the characters"
+      ],
+      "bloomLevel": "remember",
+      "gradeBand": "gr4-5",
+      "topic": "What Is Storytelling?",
+      "subtopic": "The audience",
+      "standard": "CCSS.ELA-LITERACY.SL.6.6",
+      "hints": [
+        "Who listens",
+        "The listeners"
+      ],
+      "explanation": "The audience is the group of listeners hearing the story.",
+      "version": 1
+    },
+    {
+      "id": "037e97ce-7ab2-55bd-aacf-e28b7a61c6f8",
+      "prompt": "Oral storytelling is one of the OLDEST ways humans —",
+      "correctAnswer": "shared knowledge and entertained each other",
+      "distractors": [
+        "wrote books",
+        "made films",
+        "used computers"
+      ],
+      "bloomLevel": "understand",
+      "gradeBand": "gr4-5",
+      "topic": "What Is Storytelling?",
+      "subtopic": "History of storytelling",
+      "standard": "CCSS.ELA-LITERACY.SL.5.4",
+      "hints": [
+        "Before writing",
+        "Ancient tradition"
+      ],
+      "explanation": "Long before writing, people shared knowledge, history, and entertainment through spoken stories.",
+      "version": 1
+    },
+    {
+      "id": "41a794b8-a0ed-5aa4-97da-04232e6d586c",
+      "prompt": "A told story differs from a written one because the teller can use —",
+      "correctAnswer": "voice, pace, and gesture live",
+      "distractors": [
+        "only the words on a page",
+        "no expression",
+        "footnotes"
+      ],
+      "bloomLevel": "understand",
+      "gradeBand": "gr4-5",
+      "topic": "What Is Storytelling?",
+      "subtopic": "Telling vs writing",
+      "standard": "CCSS.ELA-LITERACY.SL.5.5",
+      "hints": [
+        "Live performance tools",
+        "Voice + gesture"
+      ],
+      "explanation": "A teller can use voice, pacing, and gesture in real time — tools a written page doesn't have.",
+      "version": 1
+    },
+    {
+      "id": "60479bfc-7ab9-5b01-9e6b-575d23e1fff6",
+      "prompt": "A good storyteller pays attention to —",
+      "correctAnswer": "the audience's reactions",
+      "distractors": [
+        "nothing but the script",
+        "only the setting",
+        "the page count"
+      ],
+      "bloomLevel": "understand",
+      "gradeBand": "gr4-5",
+      "topic": "What Is Storytelling?",
+      "subtopic": "Audience attention",
+      "standard": "CCSS.ELA-LITERACY.SL.6.6",
+      "hints": [
+        "Watch the listeners",
+        "React to them"
+      ],
+      "explanation": "A skilled teller watches the audience and adjusts to their reactions.",
+      "version": 1
+    },
+    {
+      "id": "4b046f24-e562-5652-a583-8bff3d194db2",
+      "prompt": "The main goal of storytelling is to —",
+      "correctAnswer": "connect with listeners and make them feel something",
+      "distractors": [
+        "use big words",
+        "talk as long as possible",
+        "confuse the audience"
+      ],
+      "bloomLevel": "understand",
+      "gradeBand": "gr4-5",
+      "topic": "What Is Storytelling?",
+      "subtopic": "Goal of storytelling",
+      "standard": "CCSS.ELA-LITERACY.SL.5.4",
+      "hints": [
+        "Connect + move them",
+        "Make them feel"
+      ],
+      "explanation": "Storytelling aims to connect with listeners and make them feel something — curiosity, wonder, laughter, or emotion.",
+      "version": 1
+    },
+    {
+      "id": "5548f189-2cab-515e-bb4e-f2891692c584",
+      "prompt": "A story usually has —",
+      "correctAnswer": "characters, a setting, and events",
+      "distractors": [
+        "only a title",
+        "no characters",
+        "just a list of facts"
+      ],
+      "bloomLevel": "remember",
+      "gradeBand": "gr4-5",
+      "topic": "What Is Storytelling?",
+      "subtopic": "Story parts",
+      "standard": "CCSS.ELA-LITERACY.W.5.3",
+      "hints": [
+        "Who, where, what happens",
+        "The basics"
+      ],
+      "explanation": "A story usually includes characters, a setting, and a sequence of events.",
+      "version": 1
+    },
+    {
+      "id": "9d4d016b-f6ca-5077-9be9-581c2948bd3d",
+      "prompt": "Storytelling is a SKILL that —",
+      "correctAnswer": "improves with practice",
+      "distractors": [
+        "you either have or don't",
+        "can't be learned",
+        "needs no practice"
+      ],
+      "bloomLevel": "understand",
+      "gradeBand": "gr4-5",
+      "topic": "What Is Storytelling?",
+      "subtopic": "Storytelling is learnable",
+      "standard": "CCSS.ELA-LITERACY.SL.5.4",
+      "hints": [
+        "Practice helps",
+        "A learnable craft"
+      ],
+      "explanation": "Storytelling is a craft that anyone can improve with practice.",
+      "version": 1
+    },
+    {
+      "id": "5e8816b6-14e1-59bd-b46c-d8011a3e6cbe",
+      "prompt": "A told story can change slightly each time because —",
+      "correctAnswer": "the teller adapts to the moment",
+      "distractors": [
+        "stories must be identical",
+        "it is memorized word-for-word always",
+        "the audience writes it"
+      ],
+      "bloomLevel": "understand",
+      "gradeBand": "gr4-5",
+      "topic": "What Is Storytelling?",
+      "subtopic": "Living stories",
+      "standard": "CCSS.ELA-LITERACY.SL.6.6",
+      "hints": [
+        "Adapts each telling",
+        "Alive in the moment"
+      ],
+      "explanation": "Oral stories can shift with each telling as the teller adapts to the audience and moment.",
+      "version": 1
+    },
+    {
+      "id": "2faaa005-5f9a-533a-a786-28d02a114465",
+      "prompt": "Eye contact with the audience helps a teller —",
+      "correctAnswer": "connect and hold attention",
+      "distractors": [
+        "hide from listeners",
+        "read a script",
+        "ignore the audience"
+      ],
+      "bloomLevel": "apply",
+      "gradeBand": "gr4-5",
+      "topic": "What Is Storytelling?",
+      "subtopic": "Eye contact",
+      "standard": "CCSS.ELA-LITERACY.SL.6.6",
+      "hints": [
+        "Look at them",
+        "Connection"
+      ],
+      "explanation": "Making eye contact helps the teller connect with listeners and hold their attention.",
+      "version": 1
+    },
+    {
+      "id": "86026b06-4808-5df8-89fe-36b5a7c7d594",
+      "prompt": "A storyteller's most important tool is their —",
+      "correctAnswer": "voice",
+      "distractors": [
+        "costume",
+        "the setting",
+        "the page count"
+      ],
+      "bloomLevel": "understand",
+      "gradeBand": "gr4-5",
+      "topic": "What Is Storytelling?",
+      "subtopic": "The teller's tool",
+      "standard": "CCSS.ELA-LITERACY.SL.5.4",
+      "hints": [
+        "How they speak",
+        "Voice first"
+      ],
+      "explanation": "The voice is a storyteller's primary tool — how they speak shapes the whole telling.",
+      "version": 1
+    },
+    {
+      "id": "4f3de8f4-7a37-5712-876f-1a244126f1f9",
+      "prompt": "Listening to great storytellers helps you —",
+      "correctAnswer": "learn techniques to use yourself",
+      "distractors": [
+        "forget how to tell",
+        "avoid storytelling",
+        "only copy exactly"
+      ],
+      "bloomLevel": "understand",
+      "gradeBand": "gr4-5",
+      "topic": "What Is Storytelling?",
+      "subtopic": "Learning by listening",
+      "standard": "CCSS.ELA-LITERACY.SL.5.4",
+      "hints": [
+        "Study the pros",
+        "Borrow techniques"
+      ],
+      "explanation": "Listening to skilled storytellers teaches techniques you can adapt in your own telling.",
+      "version": 1
+    },
+    {
+      "id": "c8b4285b-65de-5b85-9320-2bb3855bd329",
+      "prompt": "A story told to a young child differs from one told to teens because the teller —",
+      "correctAnswer": "adapts it to the audience",
+      "distractors": [
+        "tells it identically",
+        "ignores the audience",
+        "uses no words"
+      ],
+      "bloomLevel": "apply",
+      "gradeBand": "gr4-5",
+      "topic": "What Is Storytelling?",
+      "subtopic": "Adapting to audience",
+      "standard": "CCSS.ELA-LITERACY.SL.6.6",
+      "hints": [
+        "Fit the listeners",
+        "Adapt"
+      ],
+      "explanation": "A skilled teller adapts the story to fit the age and interests of the audience.",
+      "version": 1
+    },
+    {
+      "id": "b83ce18e-6731-58ac-88ca-faf11f838041",
+      "prompt": "Which is a benefit of oral storytelling?",
+      "correctAnswer": "It builds a live connection between teller and listener",
+      "distractors": [
+        "it removes all emotion",
+        "it needs no practice",
+        "it can't be shared"
+      ],
+      "bloomLevel": "analyze",
+      "gradeBand": "gr4-5",
+      "topic": "What Is Storytelling?",
+      "subtopic": "Benefits",
+      "standard": "CCSS.ELA-LITERACY.SL.5.4",
+      "hints": [
+        "Live human connection",
+        "Teller ↔ listener"
+      ],
+      "explanation": "Oral storytelling creates a live, human connection between teller and listener.",
+      "version": 1
+    },
+    {
+      "id": "00f28f27-7312-5db3-be0a-34c85f567d52",
+      "prompt": "Folktales, myths, and legends are often passed down through —",
+      "correctAnswer": "oral storytelling",
+      "distractors": [
+        "email",
+        "textbooks only",
+        "no one"
+      ],
+      "bloomLevel": "understand",
+      "gradeBand": "gr4-5",
+      "topic": "What Is Storytelling?",
+      "subtopic": "Oral tradition",
+      "standard": "CCSS.ELA-LITERACY.SL.5.4",
+      "hints": [
+        "Told across generations",
+        "Spoken tradition"
+      ],
+      "explanation": "Folktales, myths, and legends have long been passed down through oral storytelling across generations.",
+      "version": 1
+    },
+    {
+      "id": "ed271f64-66c5-5fa9-95a5-d640c3940445",
+      "prompt": "Confidence in storytelling grows from —",
+      "correctAnswer": "preparation and practice",
+      "distractors": [
+        "never practicing",
+        "avoiding audiences",
+        "memorizing nothing"
+      ],
+      "bloomLevel": "understand",
+      "gradeBand": "gr4-5",
+      "topic": "What Is Storytelling?",
+      "subtopic": "Confidence",
+      "standard": "CCSS.ELA-LITERACY.SL.5.4",
+      "hints": [
+        "Prepare + practice",
+        "Then confidence"
+      ],
+      "explanation": "Confidence comes from preparing your story and practicing telling it.",
+      "version": 1
+    },
+    {
+      "id": "f269c3b2-2673-5cdf-b7d8-1cd5adf05e6b",
+      "prompt": "A storyteller should know their story well enough to —",
+      "correctAnswer": "tell it without reading every word",
+      "distractors": [
+        "read it robotically",
+        "forget it entirely",
+        "never learn it"
+      ],
+      "bloomLevel": "apply",
+      "gradeBand": "gr4-5",
+      "topic": "What Is Storytelling?",
+      "subtopic": "Knowing your story",
+      "standard": "CCSS.ELA-LITERACY.SL.5.4",
+      "hints": [
+        "Know it, don't recite",
+        "Free to perform"
+      ],
+      "explanation": "Knowing your story well lets you tell it naturally, focusing on the audience rather than reading.",
+      "version": 1
+    },
+    {
+      "id": "4c0e1498-344d-5e07-b45c-8b1c8b78d851",
+      "prompt": "The 'flow' of a story is —",
+      "correctAnswer": "how smoothly it moves from one part to the next",
+      "distractors": [
+        "the setting",
+        "the font",
+        "the page count"
+      ],
+      "bloomLevel": "understand",
+      "gradeBand": "gr4-5",
+      "topic": "What Is Storytelling?",
+      "subtopic": "Flow",
+      "standard": "CCSS.ELA-LITERACY.SL.5.4",
+      "hints": [
+        "Smooth movement",
+        "Part to part"
+      ],
+      "explanation": "Flow is how smoothly a story moves from one part to the next.",
+      "version": 1
+    },
+    {
+      "id": "48778e79-6950-56c5-9820-83da1f94cdaa",
+      "prompt": "A storyteller can make a story feel real by —",
+      "correctAnswer": "using vivid details and expression",
+      "distractors": [
+        "listing facts flatly",
+        "whispering the whole time",
+        "using no details"
+      ],
+      "bloomLevel": "analyze",
+      "gradeBand": "gr4-5",
+      "topic": "What Is Storytelling?",
+      "subtopic": "Making it real",
+      "standard": "CCSS.ELA-LITERACY.W.5.3.D",
+      "hints": [
+        "Vivid details + expression",
+        "Bring it alive"
+      ],
+      "explanation": "Vivid details and expressive delivery make a told story feel real and alive.",
+      "version": 1
+    },
+    {
+      "id": "bea5f561-70e1-57cd-a5c0-82f56635bdf7",
+      "prompt": "Everyone can be a storyteller because —",
+      "correctAnswer": "we all tell stories in everyday life",
+      "distractors": [
+        "only experts can",
+        "it requires special tools",
+        "stories are rare"
+      ],
+      "bloomLevel": "understand",
+      "gradeBand": "gr4-5",
+      "topic": "What Is Storytelling?",
+      "subtopic": "Everyone tells stories",
+      "standard": "CCSS.ELA-LITERACY.SL.5.4",
+      "hints": [
+        "We all do it",
+        "Everyday storytelling"
+      ],
+      "explanation": "We all tell stories daily — about our day, our friends, what happened — so everyone is a storyteller.",
+      "version": 1
+    },
+    {
+      "id": "cbea89bc-f9dc-50e5-a930-ba9c8200e7e4",
+      "prompt": "The first step to telling a story well is to —",
+      "correctAnswer": "choose a story worth telling",
+      "distractors": [
+        "pick the longest story",
+        "avoid all stories",
+        "read from a page"
+      ],
+      "bloomLevel": "apply",
+      "gradeBand": "gr4-5",
+      "topic": "What Is Storytelling?",
+      "subtopic": "Choosing a story",
+      "standard": "CCSS.ELA-LITERACY.SL.5.4",
+      "hints": [
+        "Pick a good one",
+        "Worth telling"
+      ],
+      "explanation": "The first step is choosing a story that's worth telling — one that interests you and your audience.",
+      "version": 1
+    },
+    {
+      "id": "f2322823-04d7-5787-a370-a017ff884672",
+      "prompt": "Storytelling combines —",
+      "correctAnswer": "content (the story) and delivery (how you tell it)",
+      "distractors": [
+        "only the words",
+        "only the voice",
+        "neither"
+      ],
+      "bloomLevel": "understand",
+      "gradeBand": "gr4-5",
+      "topic": "What Is Storytelling?",
+      "subtopic": "Content + delivery",
+      "standard": "CCSS.ELA-LITERACY.SL.5.5",
+      "hints": [
+        "What + how",
+        "Both matter"
+      ],
+      "explanation": "Great storytelling combines a strong story (content) with skilled delivery (how you tell it).",
+      "version": 1
+    },
+    {
+      "id": "b974bc72-a2cc-5e74-924b-85c9cc4fe872",
+      "prompt": "The BEST summary of storytelling is —",
+      "correctAnswer": "sharing a story aloud to connect with and move an audience",
+      "distractors": [
+        "reading silently",
+        "listing facts",
+        "using no voice"
+      ],
+      "bloomLevel": "understand",
+      "gradeBand": "gr4-5",
+      "topic": "What Is Storytelling?",
+      "subtopic": "Summary",
+      "standard": "CCSS.ELA-LITERACY.SL.5.4",
+      "hints": [
+        "Tell to connect + move",
+        "Aloud, for an audience"
+      ],
+      "explanation": "Storytelling is sharing a story aloud, using voice and expression to connect with and move an audience.",
+      "version": 1
+    },
+    {
+      "id": "28b76364-e21b-5eea-85e0-c0b32778a6a8",
+      "prompt": "A storyteller and a reader-aloud differ because the storyteller —",
+      "correctAnswer": "tells from memory and adapts, not reading word-for-word",
+      "distractors": [
+        "reads every word exactly",
+        "uses no voice",
+        "never looks up"
+      ],
+      "bloomLevel": "understand",
+      "gradeBand": "gr4-5",
+      "topic": "What Is Storytelling?",
+      "subtopic": "Telling vs reading aloud",
+      "standard": "CCSS.ELA-LITERACY.SL.5.4",
+      "hints": [
+        "Tell, don't read",
+        "Adapt live"
+      ],
+      "explanation": "A storyteller tells from memory and adapts to the audience, rather than reading a text word-for-word.",
+      "version": 1
+    }
+  ],
+  "standardsFramework": "CCSS"
+}

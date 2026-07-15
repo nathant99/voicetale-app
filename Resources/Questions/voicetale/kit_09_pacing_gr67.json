@@ -1,0 +1,535 @@
+{
+  "id": "kit_09_pacing_gr67",
+  "name": "Pacing",
+  "description": "Controlling the speed of a told story",
+  "gradeBand": "gr6-7",
+  "topic": "Pacing",
+  "questions": [
+    {
+      "id": "d806559f-848f-505c-b49b-698502846f9b",
+      "prompt": "'Pacing' is —",
+      "correctAnswer": "how fast or slow a story moves",
+      "distractors": [
+        "the setting",
+        "the volume",
+        "the title"
+      ],
+      "bloomLevel": "remember",
+      "gradeBand": "gr6-7",
+      "topic": "Pacing",
+      "subtopic": "Pacing",
+      "standard": "CCSS.ELA-LITERACY.SL.5.4",
+      "hints": [
+        "Speed of the story",
+        "Fast vs slow"
+      ],
+      "explanation": "Pacing is how fast or slow a story moves — both its events and its telling.",
+      "version": 1
+    },
+    {
+      "id": "a2874065-cf2b-5324-8d2b-2d0b4655a288",
+      "prompt": "Slowing the pace is good for —",
+      "correctAnswer": "important or emotional moments",
+      "distractors": [
+        "boring parts",
+        "the whole story",
+        "nothing"
+      ],
+      "bloomLevel": "understand",
+      "gradeBand": "gr6-7",
+      "topic": "Pacing",
+      "subtopic": "Slow pace",
+      "standard": "CCSS.ELA-LITERACY.SL.5.5",
+      "hints": [
+        "Linger on the big moments",
+        "Let them land"
+      ],
+      "explanation": "Slowing the pace lets important or emotional moments land and gives listeners time to feel them.",
+      "version": 1
+    },
+    {
+      "id": "6720c6ac-2dc4-5e95-8455-2f2552dd3766",
+      "prompt": "Speeding up the pace is good for —",
+      "correctAnswer": "action and excitement",
+      "distractors": [
+        "quiet reflection",
+        "the ending only",
+        "nothing"
+      ],
+      "bloomLevel": "understand",
+      "gradeBand": "gr6-7",
+      "topic": "Pacing",
+      "subtopic": "Fast pace",
+      "standard": "CCSS.ELA-LITERACY.SL.5.5",
+      "hints": [
+        "Quicken for action",
+        "Excitement"
+      ],
+      "explanation": "Speeding up the pace suits action and exciting moments, building energy.",
+      "version": 1
+    },
+    {
+      "id": "99328be1-03c0-54cb-aea8-340134fbf7bb",
+      "prompt": "A story told at ONE unchanging pace tends to feel —",
+      "correctAnswer": "monotonous",
+      "distractors": [
+        "dynamic",
+        "exciting",
+        "well-paced"
+      ],
+      "bloomLevel": "analyze",
+      "gradeBand": "gr6-7",
+      "topic": "Pacing",
+      "subtopic": "Unvaried pace",
+      "standard": "CCSS.ELA-LITERACY.SL.5.5",
+      "hints": [
+        "Vary the speed",
+        "Same speed = flat"
+      ],
+      "explanation": "A single unchanging pace feels monotonous; varying the pace keeps a story lively.",
+      "version": 1
+    },
+    {
+      "id": "1fa1794d-a56f-579b-8e50-f3470f8841a6",
+      "prompt": "A pause in the telling can —",
+      "correctAnswer": "add emphasis or suspense",
+      "distractors": [
+        "ruin the story",
+        "bore listeners",
+        "mean nothing"
+      ],
+      "bloomLevel": "apply",
+      "gradeBand": "gr6-7",
+      "topic": "Pacing",
+      "subtopic": "The pause",
+      "standard": "CCSS.ELA-LITERACY.SL.5.5",
+      "hints": [
+        "Silence has power",
+        "Emphasis + suspense"
+      ],
+      "explanation": "A well-placed pause can add emphasis or suspense — silence is a pacing tool.",
+      "version": 1
+    },
+    {
+      "id": "84f5cb38-6015-5d9f-8f56-061d15ebb0da",
+      "prompt": "Rushing through an important moment can make it —",
+      "correctAnswer": "lose its impact",
+      "distractors": [
+        "stronger",
+        "more emotional",
+        "clearer"
+      ],
+      "bloomLevel": "analyze",
+      "gradeBand": "gr6-7",
+      "topic": "Pacing",
+      "subtopic": "Rushing",
+      "standard": "CCSS.ELA-LITERACY.SL.5.5",
+      "hints": [
+        "Don't rush the big beats",
+        "Let them breathe"
+      ],
+      "explanation": "Rushing through an important moment robs it of impact — big beats need room to breathe.",
+      "version": 1
+    },
+    {
+      "id": "35b8aa22-fefa-5df0-b166-ece8ff160c5d",
+      "prompt": "Lingering too long on an UNIMPORTANT part can make listeners —",
+      "correctAnswer": "lose interest",
+      "distractors": [
+        "more engaged",
+        "excited",
+        "hooked"
+      ],
+      "bloomLevel": "analyze",
+      "gradeBand": "gr6-7",
+      "topic": "Pacing",
+      "subtopic": "Over-lingering",
+      "standard": "CCSS.ELA-LITERACY.SL.5.5",
+      "hints": [
+        "Move past minor bits",
+        "Don't drag"
+      ],
+      "explanation": "Lingering too long on minor parts can make listeners lose interest — move through them faster.",
+      "version": 1
+    },
+    {
+      "id": "ca62b2f1-f302-57c4-8c05-764eef0a6cd9",
+      "prompt": "Good pacing means matching the SPEED to the —",
+      "correctAnswer": "moment's importance and energy",
+      "distractors": [
+        "page count",
+        "font",
+        "title"
+      ],
+      "bloomLevel": "evaluate",
+      "gradeBand": "gr6-7",
+      "topic": "Pacing",
+      "subtopic": "Matching pace",
+      "standard": "CCSS.ELA-LITERACY.SL.5.5",
+      "hints": [
+        "Fit the moment",
+        "Speed to importance"
+      ],
+      "explanation": "Good pacing matches the speed of telling to each moment's importance and energy.",
+      "version": 1
+    },
+    {
+      "id": "379b19ba-3d3e-5cb7-9697-35db9ed49fef",
+      "prompt": "The pace usually QUICKENS as a story approaches its —",
+      "correctAnswer": "climax",
+      "distractors": [
+        "introduction",
+        "setting",
+        "title"
+      ],
+      "bloomLevel": "understand",
+      "gradeBand": "gr6-7",
+      "topic": "Pacing",
+      "subtopic": "Pace + climax",
+      "standard": "CCSS.ELA-LITERACY.W.5.3",
+      "hints": [
+        "Speed up toward the peak",
+        "Building energy"
+      ],
+      "explanation": "Pace often quickens approaching the climax, building energy toward the peak.",
+      "version": 1
+    },
+    {
+      "id": "14b9d14d-17cb-50f8-881e-43090f92d0ac",
+      "prompt": "After the climax, the pace often —",
+      "correctAnswer": "slows for the resolution",
+      "distractors": [
+        "speeds up more",
+        "stops entirely",
+        "stays fastest"
+      ],
+      "bloomLevel": "understand",
+      "gradeBand": "gr6-7",
+      "topic": "Pacing",
+      "subtopic": "Pace + resolution",
+      "standard": "CCSS.ELA-LITERACY.W.5.3",
+      "hints": [
+        "Slow to wrap up",
+        "Wind down"
+      ],
+      "explanation": "After the climax, the pace often slows to wind down toward the resolution.",
+      "version": 1
+    },
+    {
+      "id": "83eebba6-b094-5e5d-aae0-8f88863164f2",
+      "prompt": "Varying the LENGTH of sentences can affect pace because —",
+      "correctAnswer": "short sentences feel fast; long ones feel slow",
+      "distractors": [
+        "all sentences feel the same",
+        "length has no effect",
+        "only volume matters"
+      ],
+      "bloomLevel": "analyze",
+      "gradeBand": "gr6-7",
+      "topic": "Pacing",
+      "subtopic": "Sentence length + pace",
+      "standard": "CCSS.ELA-LITERACY.SL.5.5",
+      "hints": [
+        "Short = fast, long = slow",
+        "Sentence rhythm"
+      ],
+      "explanation": "Short sentences feel fast and punchy; longer ones feel slower — sentence length shapes pace.",
+      "version": 1
+    },
+    {
+      "id": "764eb85c-7747-5058-a9c1-2fb44957734d",
+      "prompt": "A teller controls pace with —",
+      "correctAnswer": "speech speed, pauses, and sentence length",
+      "distractors": [
+        "only volume",
+        "only the setting",
+        "the font"
+      ],
+      "bloomLevel": "understand",
+      "gradeBand": "gr6-7",
+      "topic": "Pacing",
+      "subtopic": "Pacing tools",
+      "standard": "CCSS.ELA-LITERACY.SL.5.5",
+      "hints": [
+        "Speed + pauses + length",
+        "Multiple tools"
+      ],
+      "explanation": "A teller controls pace through speech speed, pauses, and sentence length.",
+      "version": 1
+    },
+    {
+      "id": "cb8143dc-05dc-50b0-9583-8073484d2c74",
+      "prompt": "Pacing helps a teller —",
+      "correctAnswer": "control the listener's experience of time and tension",
+      "distractors": [
+        "confuse the listener",
+        "ignore the audience",
+        "read a script"
+      ],
+      "bloomLevel": "evaluate",
+      "gradeBand": "gr6-7",
+      "topic": "Pacing",
+      "subtopic": "Why pacing matters",
+      "standard": "CCSS.ELA-LITERACY.SL.5.5",
+      "hints": [
+        "Control the experience",
+        "Time + tension"
+      ],
+      "explanation": "Pacing lets a teller control how listeners experience time and tension in a story.",
+      "version": 1
+    },
+    {
+      "id": "ed875720-de35-5192-bfa3-aad8c2eec48f",
+      "prompt": "A dramatic pause right before a reveal can —",
+      "correctAnswer": "heighten the impact",
+      "distractors": [
+        "spoil it",
+        "bore listeners",
+        "end the story"
+      ],
+      "bloomLevel": "apply",
+      "gradeBand": "gr6-7",
+      "topic": "Pacing",
+      "subtopic": "Pause before reveal",
+      "standard": "CCSS.ELA-LITERACY.SL.5.5",
+      "hints": [
+        "Build anticipation",
+        "Heighten the reveal"
+      ],
+      "explanation": "A dramatic pause right before a reveal heightens its impact by building anticipation.",
+      "version": 1
+    },
+    {
+      "id": "6abd073a-f302-58e2-aa14-822c341274cb",
+      "prompt": "Which part of a story usually deserves the SLOWEST, most careful pace?",
+      "correctAnswer": "The emotional climax or key moment",
+      "distractors": [
+        "A minor transition",
+        "The introduction of a background detail",
+        "A list of unimportant events"
+      ],
+      "bloomLevel": "evaluate",
+      "gradeBand": "gr6-7",
+      "topic": "Pacing",
+      "subtopic": "Where to slow down",
+      "standard": "CCSS.ELA-LITERACY.SL.5.5",
+      "hints": [
+        "The big emotional beat",
+        "Slow the climax"
+      ],
+      "explanation": "The emotional climax or key moment deserves the slowest, most careful pace so it lands fully.",
+      "version": 1
+    },
+    {
+      "id": "739c0f52-41e8-5650-ae65-cff763e3f69d",
+      "prompt": "Practicing a story aloud helps a teller find its —",
+      "correctAnswer": "natural pacing",
+      "distractors": [
+        "page count",
+        "font",
+        "title"
+      ],
+      "bloomLevel": "apply",
+      "gradeBand": "gr6-7",
+      "topic": "Pacing",
+      "subtopic": "Practice + pace",
+      "standard": "CCSS.ELA-LITERACY.SL.5.4",
+      "hints": [
+        "Rehearse the rhythm",
+        "Find the pacing"
+      ],
+      "explanation": "Practicing aloud helps a teller discover a story's natural pacing.",
+      "version": 1
+    },
+    {
+      "id": "6e6b8639-b828-59d6-a8ea-b97b57c1573f",
+      "prompt": "Pacing that is too FAST throughout can leave listeners —",
+      "correctAnswer": "unable to keep up or feel the moments",
+      "distractors": [
+        "perfectly comfortable",
+        "bored",
+        "relaxed"
+      ],
+      "bloomLevel": "analyze",
+      "gradeBand": "gr6-7",
+      "topic": "Pacing",
+      "subtopic": "Too fast",
+      "standard": "CCSS.ELA-LITERACY.SL.5.5",
+      "hints": [
+        "Give them time",
+        "Don't overwhelm"
+      ],
+      "explanation": "Pacing that's too fast throughout can leave listeners unable to keep up or feel the important moments.",
+      "version": 1
+    },
+    {
+      "id": "c91cfef1-7aad-5e58-b729-a5a4a5c703f0",
+      "prompt": "Pacing that is too SLOW throughout can make listeners —",
+      "correctAnswer": "lose interest",
+      "distractors": [
+        "stay gripped",
+        "feel excited",
+        "want more"
+      ],
+      "bloomLevel": "analyze",
+      "gradeBand": "gr6-7",
+      "topic": "Pacing",
+      "subtopic": "Too slow",
+      "standard": "CCSS.ELA-LITERACY.SL.5.5",
+      "hints": [
+        "Keep it moving",
+        "Don't drag"
+      ],
+      "explanation": "Pacing that's too slow throughout can make listeners lose interest — keep the story moving.",
+      "version": 1
+    },
+    {
+      "id": "0a80e9ea-7cd9-545e-8efd-56a3f03b9238",
+      "prompt": "Changing pace keeps a story feeling —",
+      "correctAnswer": "alive and dynamic",
+      "distractors": [
+        "flat",
+        "monotonous",
+        "boring"
+      ],
+      "bloomLevel": "evaluate",
+      "gradeBand": "gr6-7",
+      "topic": "Pacing",
+      "subtopic": "Dynamic pacing",
+      "standard": "CCSS.ELA-LITERACY.SL.5.5",
+      "hints": [
+        "Vary it",
+        "Alive"
+      ],
+      "explanation": "Changing pace throughout keeps a story feeling alive and dynamic.",
+      "version": 1
+    },
+    {
+      "id": "777b1567-f685-507b-b409-9314af774d02",
+      "prompt": "Good pacing serves the story by —",
+      "correctAnswer": "putting the emphasis where it belongs",
+      "distractors": [
+        "treating every moment the same",
+        "rushing everything",
+        "dragging everything"
+      ],
+      "bloomLevel": "evaluate",
+      "gradeBand": "gr6-7",
+      "topic": "Pacing",
+      "subtopic": "Purposeful pacing",
+      "standard": "CCSS.ELA-LITERACY.SL.5.5",
+      "hints": [
+        "Emphasis in the right places",
+        "Serve the story"
+      ],
+      "explanation": "Good pacing serves the story by placing emphasis where it belongs — slow for the big moments, quick for the rest.",
+      "version": 1
+    },
+    {
+      "id": "2288abc0-9d2f-58d4-a5bf-50df3092dd5d",
+      "prompt": "The BEST summary of pacing is —",
+      "correctAnswer": "varying the speed of telling to match each moment's importance and energy",
+      "distractors": [
+        "one speed throughout",
+        "always fast",
+        "always slow"
+      ],
+      "bloomLevel": "understand",
+      "gradeBand": "gr6-7",
+      "topic": "Pacing",
+      "subtopic": "Summary",
+      "standard": "CCSS.ELA-LITERACY.SL.5.5",
+      "hints": [
+        "Vary to fit the moment",
+        "Speed to importance"
+      ],
+      "explanation": "Pacing is varying the speed of telling to match each moment's importance and energy.",
+      "version": 1
+    },
+    {
+      "id": "f9d4fad6-6d23-5535-b7fe-4c6b7db7fcee",
+      "prompt": "A slow pace at a sad moment gives listeners time to —",
+      "correctAnswer": "feel the emotion",
+      "distractors": [
+        "forget it",
+        "rush past it",
+        "ignore it"
+      ],
+      "bloomLevel": "apply",
+      "gradeBand": "gr6-7",
+      "topic": "Pacing",
+      "subtopic": "Slow for emotion",
+      "standard": "CCSS.ELA-LITERACY.SL.5.5",
+      "hints": [
+        "Let feeling land",
+        "Time to feel"
+      ],
+      "explanation": "Slowing the pace at a sad moment gives listeners time to feel the emotion fully.",
+      "version": 1
+    },
+    {
+      "id": "85e89fca-763d-5781-b023-21c3c367696c",
+      "prompt": "Quick, short sentences during action help create —",
+      "correctAnswer": "a fast, exciting pace",
+      "distractors": [
+        "a slow, calm pace",
+        "confusion",
+        "boredom"
+      ],
+      "bloomLevel": "apply",
+      "gradeBand": "gr6-7",
+      "topic": "Pacing",
+      "subtopic": "Short sentences + pace",
+      "standard": "CCSS.ELA-LITERACY.SL.5.5",
+      "hints": [
+        "Short = fast",
+        "Action pace"
+      ],
+      "explanation": "Quick, short sentences during action create a fast, exciting pace.",
+      "version": 1
+    },
+    {
+      "id": "baa931e5-f873-5b64-a8e7-b6faa9ada042",
+      "prompt": "Pacing also includes knowing when to —",
+      "correctAnswer": "pause",
+      "distractors": [
+        "never stop talking",
+        "speed up only",
+        "whisper only"
+      ],
+      "bloomLevel": "understand",
+      "gradeBand": "gr6-7",
+      "topic": "Pacing",
+      "subtopic": "Pausing",
+      "standard": "CCSS.ELA-LITERACY.SL.5.5",
+      "hints": [
+        "Silence is pacing too",
+        "When to pause"
+      ],
+      "explanation": "Pacing includes knowing when to pause — silence is a powerful pacing tool.",
+      "version": 1
+    },
+    {
+      "id": "61426da0-ef0e-5635-9942-a2fb47a04ff2",
+      "prompt": "If listeners seem lost, the pacing fix is often to —",
+      "correctAnswer": "slow down and clarify",
+      "distractors": [
+        "speed up more",
+        "add detail everywhere",
+        "skip ahead"
+      ],
+      "bloomLevel": "apply",
+      "gradeBand": "gr6-7",
+      "topic": "Pacing",
+      "subtopic": "Fixing lost listeners",
+      "standard": "CCSS.ELA-LITERACY.SL.6.6",
+      "hints": [
+        "Slow + clarify",
+        "Bring them back"
+      ],
+      "explanation": "If listeners seem lost, slowing down and clarifying usually brings them back.",
+      "version": 1
+    }
+  ],
+  "standardsFramework": "CCSS"
+}

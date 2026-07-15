@@ -1,0 +1,535 @@
+{
+  "id": "kit_08_tension_suspense_gr56",
+  "name": "Tension & Suspense",
+  "description": "Building anticipation and keeping listeners hooked",
+  "gradeBand": "gr5-6",
+  "topic": "Tension & Suspense",
+  "questions": [
+    {
+      "id": "de6e86b6-7da3-5c1d-8332-aee5296ae397",
+      "prompt": "'Suspense' is the feeling of —",
+      "correctAnswer": "anxious anticipation about what will happen",
+      "distractors": [
+        "boredom",
+        "certainty",
+        "calm"
+      ],
+      "bloomLevel": "remember",
+      "gradeBand": "gr5-6",
+      "topic": "Tension & Suspense",
+      "subtopic": "Suspense",
+      "standard": "CCSS.ELA-LITERACY.SL.5.4",
+      "hints": [
+        "Anxious waiting",
+        "What happens next?"
+      ],
+      "explanation": "Suspense is the feeling of anxious anticipation about what will happen next.",
+      "version": 1
+    },
+    {
+      "id": "30f7f5f4-ae93-533b-95a9-c614967c1cd1",
+      "prompt": "'Tension' in a story is —",
+      "correctAnswer": "the sense that something important is at stake",
+      "distractors": [
+        "the setting",
+        "the page count",
+        "the font"
+      ],
+      "bloomLevel": "remember",
+      "gradeBand": "gr5-6",
+      "topic": "Tension & Suspense",
+      "subtopic": "Tension",
+      "standard": "CCSS.ELA-LITERACY.W.5.3",
+      "hints": [
+        "Something at stake",
+        "Pressure"
+      ],
+      "explanation": "Tension is the sense that something important is at stake, creating pressure in the story.",
+      "version": 1
+    },
+    {
+      "id": "2ffc1cc1-3047-5da1-8997-cabab9fdca1c",
+      "prompt": "Suspense keeps listeners —",
+      "correctAnswer": "eager to hear what happens next",
+      "distractors": [
+        "bored",
+        "leaving",
+        "asleep"
+      ],
+      "bloomLevel": "understand",
+      "gradeBand": "gr5-6",
+      "topic": "Tension & Suspense",
+      "subtopic": "Why suspense",
+      "standard": "CCSS.ELA-LITERACY.SL.5.4",
+      "hints": [
+        "Keeps them hooked",
+        "Eager for more"
+      ],
+      "explanation": "Suspense keeps listeners hooked and eager to hear what happens next.",
+      "version": 1
+    },
+    {
+      "id": "ff36ced0-ab54-5ee5-9e16-2ef50dc2ae0e",
+      "prompt": "A cliffhanger builds suspense by —",
+      "correctAnswer": "pausing at a tense moment",
+      "distractors": [
+        "resolving everything",
+        "ending calmly",
+        "skipping the tension"
+      ],
+      "bloomLevel": "understand",
+      "gradeBand": "gr5-6",
+      "topic": "Tension & Suspense",
+      "subtopic": "Cliffhanger",
+      "standard": "CCSS.ELA-LITERACY.SL.5.4",
+      "hints": [
+        "Stop at the peak",
+        "Leave them hanging"
+      ],
+      "explanation": "A cliffhanger pauses at a tense moment, leaving listeners hanging and eager for more.",
+      "version": 1
+    },
+    {
+      "id": "2f4b704f-dbf3-5dc2-bedb-c84e453cde87",
+      "prompt": "Slowing down at a crucial moment can —",
+      "correctAnswer": "increase suspense",
+      "distractors": [
+        "remove suspense",
+        "end the story",
+        "bore listeners"
+      ],
+      "bloomLevel": "apply",
+      "gradeBand": "gr5-6",
+      "topic": "Tension & Suspense",
+      "subtopic": "Slowing for suspense",
+      "standard": "CCSS.ELA-LITERACY.SL.5.5",
+      "hints": [
+        "Draw it out",
+        "Slow = tension"
+      ],
+      "explanation": "Slowing down at a crucial moment stretches the tension, increasing suspense.",
+      "version": 1
+    },
+    {
+      "id": "eb73f148-da5e-5080-8998-5c484c638c98",
+      "prompt": "Suspense grows when the listener —",
+      "correctAnswer": "cares about the outcome but doesn't know it yet",
+      "distractors": [
+        "already knows everything",
+        "doesn't care",
+        "is bored"
+      ],
+      "bloomLevel": "analyze",
+      "gradeBand": "gr5-6",
+      "topic": "Tension & Suspense",
+      "subtopic": "Source of suspense",
+      "standard": "CCSS.ELA-LITERACY.SL.5.4",
+      "hints": [
+        "Care + uncertainty",
+        "Want to know"
+      ],
+      "explanation": "Suspense grows when listeners care about the outcome but don't yet know how it will turn out.",
+      "version": 1
+    },
+    {
+      "id": "041bc0f8-ebb8-55c2-9a2d-fda5b086756d",
+      "prompt": "Raising the STAKES (what can be lost) —",
+      "correctAnswer": "increases tension",
+      "distractors": [
+        "lowers tension",
+        "ends the story",
+        "has no effect"
+      ],
+      "bloomLevel": "analyze",
+      "gradeBand": "gr5-6",
+      "topic": "Tension & Suspense",
+      "subtopic": "Stakes + tension",
+      "standard": "CCSS.ELA-LITERACY.W.5.3",
+      "hints": [
+        "More to lose = more tension",
+        "Raise the stakes"
+      ],
+      "explanation": "Raising the stakes — making more depend on the outcome — increases tension.",
+      "version": 1
+    },
+    {
+      "id": "0c212ea0-ad6b-5ed7-9b2f-94d75952ccde",
+      "prompt": "A ticking clock (a deadline) creates suspense because —",
+      "correctAnswer": "time is running out",
+      "distractors": [
+        "there is no pressure",
+        "nothing matters",
+        "it slows the plot"
+      ],
+      "bloomLevel": "apply",
+      "gradeBand": "gr5-6",
+      "topic": "Tension & Suspense",
+      "subtopic": "Ticking clock",
+      "standard": "CCSS.ELA-LITERACY.W.5.3",
+      "hints": [
+        "Time pressure",
+        "Deadline"
+      ],
+      "explanation": "A deadline (a 'ticking clock') creates suspense because time is running out.",
+      "version": 1
+    },
+    {
+      "id": "1a324c79-06f2-51f4-a7cd-c694ed47e391",
+      "prompt": "Suspense is strongest when the outcome is —",
+      "correctAnswer": "uncertain",
+      "distractors": [
+        "obvious",
+        "already known",
+        "unimportant"
+      ],
+      "bloomLevel": "evaluate",
+      "gradeBand": "gr5-6",
+      "topic": "Tension & Suspense",
+      "subtopic": "Uncertainty",
+      "standard": "CCSS.ELA-LITERACY.SL.5.4",
+      "hints": [
+        "Could go either way",
+        "Uncertain outcome"
+      ],
+      "explanation": "Suspense is strongest when the outcome is genuinely uncertain — it could go either way.",
+      "version": 1
+    },
+    {
+      "id": "4f426cad-9933-5d00-b2cd-019140c66155",
+      "prompt": "A pause (silence) at a tense moment can —",
+      "correctAnswer": "heighten suspense",
+      "distractors": [
+        "ruin it",
+        "end the story",
+        "bore listeners"
+      ],
+      "bloomLevel": "apply",
+      "gradeBand": "gr5-6",
+      "topic": "Tension & Suspense",
+      "subtopic": "Pauses for suspense",
+      "standard": "CCSS.ELA-LITERACY.SL.5.5",
+      "hints": [
+        "A well-timed pause",
+        "Silence adds tension"
+      ],
+      "explanation": "A well-timed pause or silence can heighten suspense at a tense moment.",
+      "version": 1
+    },
+    {
+      "id": "6a87c1b0-3b17-54f6-acd9-8b9fc40bc8d2",
+      "prompt": "Foreshadowing (a hint of trouble ahead) can —",
+      "correctAnswer": "build suspense",
+      "distractors": [
+        "remove suspense",
+        "end the story",
+        "confuse only"
+      ],
+      "bloomLevel": "understand",
+      "gradeBand": "gr5-6",
+      "topic": "Tension & Suspense",
+      "subtopic": "Foreshadowing",
+      "standard": "CCSS.ELA-LITERACY.W.5.3",
+      "hints": [
+        "A hint of what's coming",
+        "Build dread"
+      ],
+      "explanation": "Foreshadowing — hinting at trouble ahead — builds suspense and anticipation.",
+      "version": 1
+    },
+    {
+      "id": "6c8c68bf-4202-599a-af7a-be434b27c22f",
+      "prompt": "Too much CALM with no tension can make a story feel —",
+      "correctAnswer": "boring",
+      "distractors": [
+        "exciting",
+        "suspenseful",
+        "gripping"
+      ],
+      "bloomLevel": "analyze",
+      "gradeBand": "gr5-6",
+      "topic": "Tension & Suspense",
+      "subtopic": "No tension",
+      "standard": "CCSS.ELA-LITERACY.W.5.3",
+      "hints": [
+        "Needs some pressure",
+        "Flat without it"
+      ],
+      "explanation": "A story with no tension can feel boring; some pressure keeps listeners engaged.",
+      "version": 1
+    },
+    {
+      "id": "97fbc693-b57b-5a8f-8165-9daf2635de34",
+      "prompt": "A teller's voice can build tension by —",
+      "correctAnswer": "growing quieter or more urgent",
+      "distractors": [
+        "staying flat",
+        "ignoring the moment",
+        "laughing"
+      ],
+      "bloomLevel": "apply",
+      "gradeBand": "gr5-6",
+      "topic": "Tension & Suspense",
+      "subtopic": "Voice + tension",
+      "standard": "CCSS.ELA-LITERACY.SL.5.5",
+      "hints": [
+        "Quiet or urgent",
+        "Vocal tension"
+      ],
+      "explanation": "A teller builds tension by adjusting the voice — growing quieter or more urgent as the moment peaks.",
+      "version": 1
+    },
+    {
+      "id": "6947f9f9-d237-5bcd-b031-60547b062e89",
+      "prompt": "Suspense should build toward —",
+      "correctAnswer": "the climax",
+      "distractors": [
+        "the introduction",
+        "the setting",
+        "the title"
+      ],
+      "bloomLevel": "understand",
+      "gradeBand": "gr5-6",
+      "topic": "Tension & Suspense",
+      "subtopic": "Suspense + climax",
+      "standard": "CCSS.ELA-LITERACY.W.5.3",
+      "hints": [
+        "Toward the peak",
+        "The climax"
+      ],
+      "explanation": "Suspense builds toward the climax — the moment of greatest tension.",
+      "version": 1
+    },
+    {
+      "id": "e4c08e27-9ccd-51dc-b2ea-d41d823f1b9d",
+      "prompt": "Which line creates the MOST suspense?",
+      "correctAnswer": "\"She reached for the doorknob — and it turned on its own.\"",
+      "distractors": [
+        "\"She opened the door.\"",
+        "\"There was a door.\"",
+        "\"Doors can open.\""
+      ],
+      "bloomLevel": "apply",
+      "gradeBand": "gr5-6",
+      "topic": "Tension & Suspense",
+      "subtopic": "Suspenseful line",
+      "standard": "CCSS.ELA-LITERACY.SL.5.4",
+      "hints": [
+        "The unexpected turn",
+        "It turned on its own"
+      ],
+      "explanation": "A doorknob turning on its own is unexpected and threatening, creating strong suspense.",
+      "version": 1
+    },
+    {
+      "id": "cd557ae9-cc33-584b-b658-410fc5aa84ef",
+      "prompt": "Suspense is released at the —",
+      "correctAnswer": "climax and resolution",
+      "distractors": [
+        "very beginning",
+        "title",
+        "setting"
+      ],
+      "bloomLevel": "understand",
+      "gradeBand": "gr5-6",
+      "topic": "Tension & Suspense",
+      "subtopic": "Releasing tension",
+      "standard": "CCSS.ELA-LITERACY.W.5.3",
+      "hints": [
+        "Release at the peak + after",
+        "Tension let go"
+      ],
+      "explanation": "Built-up suspense is released at the climax and resolution.",
+      "version": 1
+    },
+    {
+      "id": "c7b16d77-ae0e-5604-aecc-4267d3f946a5",
+      "prompt": "Mystery (an unanswered question) creates suspense by making listeners —",
+      "correctAnswer": "want the answer",
+      "distractors": [
+        "stop caring",
+        "leave",
+        "get bored"
+      ],
+      "bloomLevel": "analyze",
+      "gradeBand": "gr5-6",
+      "topic": "Tension & Suspense",
+      "subtopic": "Mystery + suspense",
+      "standard": "CCSS.ELA-LITERACY.SL.5.4",
+      "hints": [
+        "An open question",
+        "They want to know"
+      ],
+      "explanation": "An unanswered question (mystery) creates suspense by making listeners want the answer.",
+      "version": 1
+    },
+    {
+      "id": "0de0a5e0-0eb6-5183-8530-c32cbafd5344",
+      "prompt": "The purpose of tension and suspense is to —",
+      "correctAnswer": "keep listeners engaged and caring",
+      "distractors": [
+        "bore them",
+        "confuse them",
+        "end the story fast"
+      ],
+      "bloomLevel": "understand",
+      "gradeBand": "gr5-6",
+      "topic": "Tension & Suspense",
+      "subtopic": "Purpose",
+      "standard": "CCSS.ELA-LITERACY.SL.5.4",
+      "hints": [
+        "Keep them hooked",
+        "Engaged + caring"
+      ],
+      "explanation": "Tension and suspense keep listeners engaged and emotionally invested in the outcome.",
+      "version": 1
+    },
+    {
+      "id": "5d894785-0817-5758-85a6-e1a30430d2a6",
+      "prompt": "Releasing tension too EARLY can make the rest of the story feel —",
+      "correctAnswer": "flat",
+      "distractors": [
+        "more exciting",
+        "more tense",
+        "gripping"
+      ],
+      "bloomLevel": "analyze",
+      "gradeBand": "gr5-6",
+      "topic": "Tension & Suspense",
+      "subtopic": "Early release",
+      "standard": "CCSS.ELA-LITERACY.W.5.3",
+      "hints": [
+        "Save the payoff",
+        "Don't release too soon"
+      ],
+      "explanation": "Releasing tension too early can leave the rest of the story feeling flat — save the payoff for the climax.",
+      "version": 1
+    },
+    {
+      "id": "80ac8e72-11a9-5b86-ac84-ed81815a0480",
+      "prompt": "Alternating tension and relief keeps a story —",
+      "correctAnswer": "engaging without exhausting listeners",
+      "distractors": [
+        "boring",
+        "monotonous",
+        "flat"
+      ],
+      "bloomLevel": "evaluate",
+      "gradeBand": "gr5-6",
+      "topic": "Tension & Suspense",
+      "subtopic": "Tension + relief",
+      "standard": "CCSS.ELA-LITERACY.W.5.3",
+      "hints": [
+        "Build + release + build",
+        "Balance"
+      ],
+      "explanation": "Alternating moments of tension and relief keeps a story engaging without exhausting listeners.",
+      "version": 1
+    },
+    {
+      "id": "3f2ec0a3-b983-5de3-b2f7-1b4d2e83f0d1",
+      "prompt": "The BEST summary of tension & suspense is —",
+      "correctAnswer": "building anticipation about an uncertain, high-stakes outcome to keep listeners hooked",
+      "distractors": [
+        "removing all pressure",
+        "the setting",
+        "the page count"
+      ],
+      "bloomLevel": "understand",
+      "gradeBand": "gr5-6",
+      "topic": "Tension & Suspense",
+      "subtopic": "Summary",
+      "standard": "CCSS.ELA-LITERACY.SL.5.4",
+      "hints": [
+        "Uncertain + high stakes",
+        "Keep them hooked"
+      ],
+      "explanation": "Tension and suspense build anticipation about an uncertain, high-stakes outcome, keeping listeners hooked.",
+      "version": 1
+    },
+    {
+      "id": "70b46412-3dd3-584f-9c82-2e28ac6c8a14",
+      "prompt": "Dramatic irony (the listener knows something a character doesn't) can build —",
+      "correctAnswer": "suspense",
+      "distractors": [
+        "boredom",
+        "the setting",
+        "calm"
+      ],
+      "bloomLevel": "understand",
+      "gradeBand": "gr5-6",
+      "topic": "Tension & Suspense",
+      "subtopic": "Dramatic irony",
+      "standard": "CCSS.ELA-LITERACY.W.5.3",
+      "hints": [
+        "We know; they don't",
+        "Suspense"
+      ],
+      "explanation": "Dramatic irony — when listeners know a danger a character doesn't — builds suspense.",
+      "version": 1
+    },
+    {
+      "id": "e7c128cc-db18-5a1b-b852-c424985dacd3",
+      "prompt": "Suspense fades if the listener —",
+      "correctAnswer": "stops caring about the outcome",
+      "distractors": [
+        "cares more",
+        "is uncertain",
+        "wants to know"
+      ],
+      "bloomLevel": "analyze",
+      "gradeBand": "gr5-6",
+      "topic": "Tension & Suspense",
+      "subtopic": "Losing suspense",
+      "standard": "CCSS.ELA-LITERACY.SL.5.4",
+      "hints": [
+        "No caring = no suspense",
+        "Keep them invested"
+      ],
+      "explanation": "Suspense fades when listeners stop caring about the outcome, so a teller keeps them invested.",
+      "version": 1
+    },
+    {
+      "id": "65407c43-60a4-535e-bf34-e66b62780a9e",
+      "prompt": "Interrupting a tense moment to switch scenes can —",
+      "correctAnswer": "increase suspense (a cliffhanger)",
+      "distractors": [
+        "end the suspense",
+        "bore listeners",
+        "resolve everything"
+      ],
+      "bloomLevel": "apply",
+      "gradeBand": "gr5-6",
+      "topic": "Tension & Suspense",
+      "subtopic": "Scene-cut suspense",
+      "standard": "CCSS.ELA-LITERACY.W.5.3",
+      "hints": [
+        "Cut away at the peak",
+        "Cliffhanger"
+      ],
+      "explanation": "Cutting away from a tense moment to another scene can heighten suspense, like a cliffhanger.",
+      "version": 1
+    },
+    {
+      "id": "d70a5de8-e587-5d5d-9bec-3431d3bfb2bc",
+      "prompt": "A story with steady tension and NO relief can leave listeners —",
+      "correctAnswer": "exhausted",
+      "distractors": [
+        "perfectly comfortable",
+        "bored",
+        "calm"
+      ],
+      "bloomLevel": "analyze",
+      "gradeBand": "gr5-6",
+      "topic": "Tension & Suspense",
+      "subtopic": "Unrelieved tension",
+      "standard": "CCSS.ELA-LITERACY.W.5.3",
+      "hints": [
+        "Give them a breather",
+        "Vary the tension"
+      ],
+      "explanation": "Unrelenting tension with no relief can exhaust listeners; alternate tension with moments of relief.",
+      "version": 1
+    }
+  ],
+  "standardsFramework": "CCSS"
+}

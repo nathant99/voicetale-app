@@ -1,0 +1,535 @@
+{
+  "id": "kit_07_mood_and_tone_gr56",
+  "name": "Mood & Tone",
+  "description": "Creating feeling and atmosphere",
+  "gradeBand": "gr5-6",
+  "topic": "Mood & Tone",
+  "questions": [
+    {
+      "id": "1ecf9725-bafc-5537-87c6-c03ee6e86307",
+      "prompt": "'Mood' in a story is —",
+      "correctAnswer": "the feeling or atmosphere it creates",
+      "distractors": [
+        "the plot",
+        "the setting only",
+        "the page count"
+      ],
+      "bloomLevel": "remember",
+      "gradeBand": "gr5-6",
+      "topic": "Mood & Tone",
+      "subtopic": "Mood",
+      "standard": "CCSS.ELA-LITERACY.SL.5.5",
+      "hints": [
+        "The feeling",
+        "Atmosphere"
+      ],
+      "explanation": "Mood is the overall feeling or atmosphere a story creates for the listener.",
+      "version": 1
+    },
+    {
+      "id": "a9b09455-8601-5210-9eaa-0eece8ad92fb",
+      "prompt": "'Tone' is —",
+      "correctAnswer": "the teller's attitude toward the story",
+      "distractors": [
+        "the setting",
+        "the page count",
+        "the font"
+      ],
+      "bloomLevel": "remember",
+      "gradeBand": "gr5-6",
+      "topic": "Mood & Tone",
+      "subtopic": "Tone",
+      "standard": "CCSS.ELA-LITERACY.SL.5.5",
+      "hints": [
+        "The attitude",
+        "How the teller feels about it"
+      ],
+      "explanation": "Tone is the teller's attitude toward the story — playful, serious, spooky, and so on.",
+      "version": 1
+    },
+    {
+      "id": "588096ca-1683-5118-a43e-9b810c4260cf",
+      "prompt": "A spooky mood can be created with —",
+      "correctAnswer": "dark settings, slow pace, and eerie details",
+      "distractors": [
+        "bright, cheerful details",
+        "fast jokes",
+        "a sunny setting"
+      ],
+      "bloomLevel": "apply",
+      "gradeBand": "gr5-6",
+      "topic": "Mood & Tone",
+      "subtopic": "Creating a mood",
+      "standard": "CCSS.ELA-LITERACY.SL.5.5",
+      "hints": [
+        "Match the details",
+        "Dark + slow + eerie"
+      ],
+      "explanation": "A spooky mood is built with dark settings, a slow pace, and eerie sensory details.",
+      "version": 1
+    },
+    {
+      "id": "047351f4-82fd-52eb-a4dc-1618198d2ea7",
+      "prompt": "A teller's VOICE can set the mood by —",
+      "correctAnswer": "matching tone to the feeling (hushed, bright, tense)",
+      "distractors": [
+        "staying monotone",
+        "ignoring the mood",
+        "always shouting"
+      ],
+      "bloomLevel": "apply",
+      "gradeBand": "gr5-6",
+      "topic": "Mood & Tone",
+      "subtopic": "Voice + mood",
+      "standard": "CCSS.ELA-LITERACY.SL.5.5",
+      "hints": [
+        "Vocal tone",
+        "Match the feeling"
+      ],
+      "explanation": "A teller sets mood with vocal tone — a hushed voice for suspense, a bright one for joy.",
+      "version": 1
+    },
+    {
+      "id": "858b8425-70a3-5454-a17d-6195bbd3587e",
+      "prompt": "Word choice affects mood because —",
+      "correctAnswer": "different words carry different feelings",
+      "distractors": [
+        "words have no feeling",
+        "only the setting matters",
+        "words are all the same"
+      ],
+      "bloomLevel": "analyze",
+      "gradeBand": "gr5-6",
+      "topic": "Mood & Tone",
+      "subtopic": "Word choice + mood",
+      "standard": "CCSS.ELA-LITERACY.SL.5.5",
+      "hints": [
+        "'Gloomy' vs 'cozy'",
+        "Words carry feeling"
+      ],
+      "explanation": "Word choice shapes mood — 'gloomy' and 'cozy' create very different feelings.",
+      "version": 1
+    },
+    {
+      "id": "a343a9cf-b0b8-51f3-9477-76a7eec5bdc9",
+      "prompt": "A cheerful mood might use —",
+      "correctAnswer": "bright images and a lively pace",
+      "distractors": [
+        "dark images and slow pace",
+        "eerie silence",
+        "gloomy words"
+      ],
+      "bloomLevel": "apply",
+      "gradeBand": "gr5-6",
+      "topic": "Mood & Tone",
+      "subtopic": "Cheerful mood",
+      "standard": "CCSS.ELA-LITERACY.SL.5.5",
+      "hints": [
+        "Bright + lively",
+        "Upbeat details"
+      ],
+      "explanation": "A cheerful mood uses bright images, warm details, and a lively pace.",
+      "version": 1
+    },
+    {
+      "id": "6aba00fc-1f3e-504e-8fc9-d20290dcfa23",
+      "prompt": "Mood and the story's events should —",
+      "correctAnswer": "match and reinforce each other",
+      "distractors": [
+        "clash randomly",
+        "be unrelated",
+        "ignore each other"
+      ],
+      "bloomLevel": "evaluate",
+      "gradeBand": "gr5-6",
+      "topic": "Mood & Tone",
+      "subtopic": "Mood matches events",
+      "standard": "CCSS.ELA-LITERACY.SL.5.5",
+      "hints": [
+        "Reinforce the story",
+        "They fit"
+      ],
+      "explanation": "Mood should match and reinforce the story's events for the strongest effect.",
+      "version": 1
+    },
+    {
+      "id": "07218a9e-1134-5f02-a1ba-e242706d31ab",
+      "prompt": "A sudden shift in mood can —",
+      "correctAnswer": "surprise listeners and add drama",
+      "distractors": [
+        "bore listeners",
+        "ruin the story always",
+        "mean nothing"
+      ],
+      "bloomLevel": "analyze",
+      "gradeBand": "gr5-6",
+      "topic": "Mood & Tone",
+      "subtopic": "Mood shift",
+      "standard": "CCSS.ELA-LITERACY.SL.5.5",
+      "hints": [
+        "A surprising turn",
+        "Drama"
+      ],
+      "explanation": "A well-timed shift in mood can surprise listeners and heighten the drama.",
+      "version": 1
+    },
+    {
+      "id": "c1ddea20-288b-59bc-8fc4-e04a1243d445",
+      "prompt": "Pace affects mood because a slow pace often feels —",
+      "correctAnswer": "tense or calm; a fast pace feels exciting",
+      "distractors": [
+        "always the same",
+        "only boring",
+        "only cheerful"
+      ],
+      "bloomLevel": "analyze",
+      "gradeBand": "gr5-6",
+      "topic": "Mood & Tone",
+      "subtopic": "Pace + mood",
+      "standard": "CCSS.ELA-LITERACY.SL.5.5",
+      "hints": [
+        "Slow vs fast",
+        "Different feelings"
+      ],
+      "explanation": "Pace shapes mood: a slow pace can feel tense or calm, while a fast pace feels exciting or urgent.",
+      "version": 1
+    },
+    {
+      "id": "661a4779-f99d-55f5-8a60-07165ff66ca8",
+      "prompt": "Consistent mood helps a story feel —",
+      "correctAnswer": "unified",
+      "distractors": [
+        "scattered",
+        "confusing",
+        "random"
+      ],
+      "bloomLevel": "evaluate",
+      "gradeBand": "gr5-6",
+      "topic": "Mood & Tone",
+      "subtopic": "Consistent mood",
+      "standard": "CCSS.ELA-LITERACY.SL.5.5",
+      "hints": [
+        "Hold the feeling",
+        "Unified"
+      ],
+      "explanation": "A consistent mood (unless a shift is intended) helps a story feel unified.",
+      "version": 1
+    },
+    {
+      "id": "02835433-436f-505b-8e2e-67a0e348384d",
+      "prompt": "Which detail creates a TENSE mood?",
+      "correctAnswer": "\"Somewhere down the hall, a door slowly creaked open.\"",
+      "distractors": [
+        "\"The sun was shining brightly.\"",
+        "\"Everyone laughed happily.\"",
+        "\"It was a calm, ordinary day.\""
+      ],
+      "bloomLevel": "apply",
+      "gradeBand": "gr5-6",
+      "topic": "Mood & Tone",
+      "subtopic": "Tense mood detail",
+      "standard": "CCSS.ELA-LITERACY.SL.5.5",
+      "hints": [
+        "Ominous + slow",
+        "Creaking door"
+      ],
+      "explanation": "A slowly creaking door down a dark hall creates a tense, suspenseful mood.",
+      "version": 1
+    },
+    {
+      "id": "85f2ac39-5d5d-59cc-855f-03ec714a314f",
+      "prompt": "Tone can be —",
+      "correctAnswer": "playful, serious, spooky, sad, or many other attitudes",
+      "distractors": [
+        "only serious",
+        "only playful",
+        "always the same"
+      ],
+      "bloomLevel": "understand",
+      "gradeBand": "gr5-6",
+      "topic": "Mood & Tone",
+      "subtopic": "Kinds of tone",
+      "standard": "CCSS.ELA-LITERACY.SL.5.5",
+      "hints": [
+        "Many attitudes",
+        "Playful/serious/spooky…"
+      ],
+      "explanation": "Tone can take many forms — playful, serious, spooky, sad — depending on the teller's attitude.",
+      "version": 1
+    },
+    {
+      "id": "6ccfa425-083f-53ed-9e2a-ebcce128c59f",
+      "prompt": "A mismatch between a happy tone and a sad story usually feels —",
+      "correctAnswer": "confusing",
+      "distractors": [
+        "powerful",
+        "perfect",
+        "clear"
+      ],
+      "bloomLevel": "analyze",
+      "gradeBand": "gr5-6",
+      "topic": "Mood & Tone",
+      "subtopic": "Tone mismatch",
+      "standard": "CCSS.ELA-LITERACY.SL.5.5",
+      "hints": [
+        "Tone should fit",
+        "Mismatch confuses"
+      ],
+      "explanation": "A tone that clashes with the story's events (a giggly tone for a sad tale) usually feels confusing.",
+      "version": 1
+    },
+    {
+      "id": "fd54f294-5c09-5e61-8e15-62bcd1cb9a46",
+      "prompt": "Mood is created through —",
+      "correctAnswer": "setting, word choice, pace, and delivery together",
+      "distractors": [
+        "only the setting",
+        "only the words",
+        "only the pace"
+      ],
+      "bloomLevel": "understand",
+      "gradeBand": "gr5-6",
+      "topic": "Mood & Tone",
+      "subtopic": "Building mood",
+      "standard": "CCSS.ELA-LITERACY.SL.5.5",
+      "hints": [
+        "Many tools together",
+        "Setting + words + pace + voice"
+      ],
+      "explanation": "Mood is built through the combination of setting, word choice, pace, and delivery.",
+      "version": 1
+    },
+    {
+      "id": "0ead475a-de80-507a-8bbc-3e8773cc7971",
+      "prompt": "A teller can lower their voice to create —",
+      "correctAnswer": "suspense or intimacy",
+      "distractors": [
+        "excitement only",
+        "no effect",
+        "confusion"
+      ],
+      "bloomLevel": "apply",
+      "gradeBand": "gr5-6",
+      "topic": "Mood & Tone",
+      "subtopic": "Lowering the voice",
+      "standard": "CCSS.ELA-LITERACY.SL.5.5",
+      "hints": [
+        "Quiet = suspense",
+        "Draw them in"
+      ],
+      "explanation": "Lowering the voice can create suspense or intimacy, drawing listeners closer.",
+      "version": 1
+    },
+    {
+      "id": "be6bb7d5-2e89-5824-ae0a-22f756e2d29c",
+      "prompt": "A teller can speed up their delivery to create —",
+      "correctAnswer": "excitement or urgency",
+      "distractors": [
+        "calm",
+        "boredom",
+        "no effect"
+      ],
+      "bloomLevel": "apply",
+      "gradeBand": "gr5-6",
+      "topic": "Mood & Tone",
+      "subtopic": "Speeding up",
+      "standard": "CCSS.ELA-LITERACY.SL.5.5",
+      "hints": [
+        "Fast = urgency",
+        "Excitement"
+      ],
+      "explanation": "Speeding up delivery can create excitement or urgency.",
+      "version": 1
+    },
+    {
+      "id": "3e928891-a645-5a63-b77c-21dab8a907e0",
+      "prompt": "The mood a story leaves listeners with at the END is —",
+      "correctAnswer": "part of its overall impact",
+      "distractors": [
+        "unimportant",
+        "the setting",
+        "the font"
+      ],
+      "bloomLevel": "evaluate",
+      "gradeBand": "gr5-6",
+      "topic": "Mood & Tone",
+      "subtopic": "Ending mood",
+      "standard": "CCSS.ELA-LITERACY.SL.5.5",
+      "hints": [
+        "The lasting feeling",
+        "Final impression"
+      ],
+      "explanation": "The mood a story leaves at the end is part of its lasting impact on listeners.",
+      "version": 1
+    },
+    {
+      "id": "3ac6f9db-0854-5813-b9e5-95f1bb07971f",
+      "prompt": "A skilled teller matches their FACE and body to —",
+      "correctAnswer": "the story's mood",
+      "distractors": [
+        "a random mood",
+        "no mood",
+        "the page count"
+      ],
+      "bloomLevel": "apply",
+      "gradeBand": "gr5-6",
+      "topic": "Mood & Tone",
+      "subtopic": "Body + mood",
+      "standard": "CCSS.ELA-LITERACY.SL.5.5",
+      "hints": [
+        "Match expression to mood",
+        "Whole-body telling"
+      ],
+      "explanation": "A skilled teller matches facial expression and body language to the story's mood.",
+      "version": 1
+    },
+    {
+      "id": "5930da1b-71cd-5f82-9c33-6fea0a05b6fe",
+      "prompt": "Building mood gradually can —",
+      "correctAnswer": "draw listeners deeper into the story",
+      "distractors": [
+        "push them away",
+        "end the story",
+        "confuse everyone"
+      ],
+      "bloomLevel": "analyze",
+      "gradeBand": "gr5-6",
+      "topic": "Mood & Tone",
+      "subtopic": "Gradual mood",
+      "standard": "CCSS.ELA-LITERACY.SL.5.5",
+      "hints": [
+        "Ease them in",
+        "Deepen immersion"
+      ],
+      "explanation": "Gradually building mood can draw listeners deeper into the story's world.",
+      "version": 1
+    },
+    {
+      "id": "fccd5c14-d36c-5e18-b152-acf454fca646",
+      "prompt": "Mood and tone give a story its —",
+      "correctAnswer": "emotional flavor",
+      "distractors": [
+        "page count",
+        "font",
+        "title only"
+      ],
+      "bloomLevel": "understand",
+      "gradeBand": "gr5-6",
+      "topic": "Mood & Tone",
+      "subtopic": "Emotional flavor",
+      "standard": "CCSS.ELA-LITERACY.SL.5.5",
+      "hints": [
+        "The feeling",
+        "Emotional flavor"
+      ],
+      "explanation": "Mood and tone give a story its emotional flavor — how it makes listeners feel.",
+      "version": 1
+    },
+    {
+      "id": "0d30eae8-7642-5589-9ede-111afe400d6d",
+      "prompt": "The BEST summary of mood & tone is —",
+      "correctAnswer": "the feeling of a story and the teller's attitude, built through details, pace, and voice",
+      "distractors": [
+        "the plot only",
+        "the setting only",
+        "the page count"
+      ],
+      "bloomLevel": "understand",
+      "gradeBand": "gr5-6",
+      "topic": "Mood & Tone",
+      "subtopic": "Summary",
+      "standard": "CCSS.ELA-LITERACY.SL.5.5",
+      "hints": [
+        "Feeling + attitude",
+        "Details + pace + voice"
+      ],
+      "explanation": "Mood is a story's feeling and tone is the teller's attitude — both built through details, pace, and delivery.",
+      "version": 1
+    },
+    {
+      "id": "e15d50f7-e661-59da-87f4-6a5ce248ef6d",
+      "prompt": "A calm, peaceful mood might use —",
+      "correctAnswer": "gentle images and a slow, soft voice",
+      "distractors": [
+        "harsh images and a loud voice",
+        "eerie silence",
+        "a frantic pace"
+      ],
+      "bloomLevel": "apply",
+      "gradeBand": "gr5-6",
+      "topic": "Mood & Tone",
+      "subtopic": "Calm mood",
+      "standard": "CCSS.ELA-LITERACY.SL.5.5",
+      "hints": [
+        "Gentle + slow + soft",
+        "Peaceful details"
+      ],
+      "explanation": "A calm, peaceful mood uses gentle images and a slow, soft delivery.",
+      "version": 1
+    },
+    {
+      "id": "e589ceba-d24f-54df-a4e2-cc9c2ef92fe6",
+      "prompt": "Tone can make the same events feel —",
+      "correctAnswer": "different (funny, sad, or scary)",
+      "distractors": [
+        "always identical",
+        "meaningless",
+        "only sad"
+      ],
+      "bloomLevel": "analyze",
+      "gradeBand": "gr5-6",
+      "topic": "Mood & Tone",
+      "subtopic": "Tone changes feeling",
+      "standard": "CCSS.ELA-LITERACY.SL.5.5",
+      "hints": [
+        "Attitude recolors events",
+        "Funny vs sad vs scary"
+      ],
+      "explanation": "The teller's tone can make the same events feel funny, sad, or scary — attitude recolors the story.",
+      "version": 1
+    },
+    {
+      "id": "61f518c2-04c1-5364-8b21-8d52dc4c082d",
+      "prompt": "A shift from a light tone to a serious one can signal —",
+      "correctAnswer": "an important turn in the story",
+      "distractors": [
+        "nothing",
+        "the setting",
+        "the title"
+      ],
+      "bloomLevel": "apply",
+      "gradeBand": "gr5-6",
+      "topic": "Mood & Tone",
+      "subtopic": "Tone shift",
+      "standard": "CCSS.ELA-LITERACY.SL.5.5",
+      "hints": [
+        "A meaningful turn",
+        "Something changed"
+      ],
+      "explanation": "Shifting from a light tone to a serious one can signal an important turn in the story.",
+      "version": 1
+    },
+    {
+      "id": "0093e47c-8112-52cf-be5b-abc5113d1af9",
+      "prompt": "Mood is created by all of these EXCEPT —",
+      "correctAnswer": "the page count",
+      "distractors": [
+        "word choice",
+        "pace",
+        "delivery"
+      ],
+      "bloomLevel": "analyze",
+      "gradeBand": "gr5-6",
+      "topic": "Mood & Tone",
+      "subtopic": "What builds mood",
+      "standard": "CCSS.ELA-LITERACY.SL.5.5",
+      "hints": [
+        "Pick the odd one",
+        "Page count ≠ mood"
+      ],
+      "explanation": "Mood is built by word choice, pace, and delivery — not by something like a page count in a told tale.",
+      "version": 1
+    }
+  ],
+  "standardsFramework": "CCSS"
+}

@@ -1,0 +1,535 @@
+{
+  "id": "kit_14_repetition_refrain_gr78",
+  "name": "Repetition & Refrain",
+  "description": "Oral patterns that make stories memorable",
+  "gradeBand": "gr7-8",
+  "topic": "Repetition & Refrain",
+  "questions": [
+    {
+      "id": "e7f60f50-79a3-5652-8187-48fe6f1de90e",
+      "prompt": "A 'refrain' is —",
+      "correctAnswer": "a repeated line or phrase in a story",
+      "distractors": [
+        "the setting",
+        "the ending only",
+        "the title"
+      ],
+      "bloomLevel": "remember",
+      "gradeBand": "gr7-8",
+      "topic": "Repetition & Refrain",
+      "subtopic": "Refrain",
+      "standard": "CCSS.ELA-LITERACY.SL.5.5",
+      "hints": [
+        "A repeated line",
+        "Comes back again"
+      ],
+      "explanation": "A refrain is a line or phrase that repeats throughout a story (like 'I'll huff and I'll puff...').",
+      "version": 1
+    },
+    {
+      "id": "39554ec2-6509-511f-bb05-ddf694c1b62e",
+      "prompt": "Repetition helps a told story be —",
+      "correctAnswer": "memorable",
+      "distractors": [
+        "forgettable",
+        "confusing",
+        "boring"
+      ],
+      "bloomLevel": "understand",
+      "gradeBand": "gr7-8",
+      "topic": "Repetition & Refrain",
+      "subtopic": "Repetition + memory",
+      "standard": "CCSS.ELA-LITERACY.SL.5.5",
+      "hints": [
+        "Repeats stick",
+        "Memorable"
+      ],
+      "explanation": "Repetition makes a told story more memorable — repeated lines stick in listeners' minds.",
+      "version": 1
+    },
+    {
+      "id": "0855a649-4030-56eb-b3fb-0192779d01a6",
+      "prompt": "A refrain invites the audience to —",
+      "correctAnswer": "join in and participate",
+      "distractors": [
+        "stay silent",
+        "leave",
+        "ignore the story"
+      ],
+      "bloomLevel": "apply",
+      "gradeBand": "gr7-8",
+      "topic": "Repetition & Refrain",
+      "subtopic": "Refrain + participation",
+      "standard": "CCSS.ELA-LITERACY.SL.6.6",
+      "hints": [
+        "They can say it too",
+        "Join in"
+      ],
+      "explanation": "A refrain invites the audience to join in, saying the repeated line with the teller.",
+      "version": 1
+    },
+    {
+      "id": "3cbf64ad-29dd-5f70-8933-2e53d8428ac4",
+      "prompt": "The 'rule of three' in storytelling means —",
+      "correctAnswer": "things often happen in threes (three tries, three characters)",
+      "distractors": [
+        "everything happens twice",
+        "nothing repeats",
+        "four is the magic number"
+      ],
+      "bloomLevel": "remember",
+      "gradeBand": "gr7-8",
+      "topic": "Repetition & Refrain",
+      "subtopic": "Rule of three",
+      "standard": "CCSS.ELA-LITERACY.SL.5.5",
+      "hints": [
+        "Three times",
+        "Three little pigs, three wishes"
+      ],
+      "explanation": "The 'rule of three' — three tries, three characters, three events — is a classic oral-storytelling pattern.",
+      "version": 1
+    },
+    {
+      "id": "c9108c4c-d110-53f9-8de9-b82bac7c7687",
+      "prompt": "Repetition with a small CHANGE each time (like three tries) builds —",
+      "correctAnswer": "anticipation",
+      "distractors": [
+        "boredom",
+        "confusion",
+        "nothing"
+      ],
+      "bloomLevel": "analyze",
+      "gradeBand": "gr7-8",
+      "topic": "Repetition & Refrain",
+      "subtopic": "Escalating repetition",
+      "standard": "CCSS.ELA-LITERACY.SL.5.5",
+      "hints": [
+        "Each try raises stakes",
+        "Anticipation"
+      ],
+      "explanation": "Repetition with escalation — each try harder or higher-stakes — builds anticipation toward a payoff.",
+      "version": 1
+    },
+    {
+      "id": "6adda932-a48d-56aa-954d-557087f22960",
+      "prompt": "Oral traditions use repetition partly to —",
+      "correctAnswer": "help tellers remember the story",
+      "distractors": [
+        "confuse tellers",
+        "shorten stories",
+        "hide the story"
+      ],
+      "bloomLevel": "understand",
+      "gradeBand": "gr7-8",
+      "topic": "Repetition & Refrain",
+      "subtopic": "Repetition as memory aid",
+      "standard": "CCSS.ELA-LITERACY.SL.5.4",
+      "hints": [
+        "Aids memory",
+        "Easier to remember"
+      ],
+      "explanation": "Repetition and patterns helped oral storytellers remember and pass down long stories accurately.",
+      "version": 1
+    },
+    {
+      "id": "549b7fe0-1e13-5b18-9a98-e661e4198ba1",
+      "prompt": "A repeated phrase can become a story's —",
+      "correctAnswer": "signature or hook",
+      "distractors": [
+        "setting",
+        "page count",
+        "font"
+      ],
+      "bloomLevel": "analyze",
+      "gradeBand": "gr7-8",
+      "topic": "Repetition & Refrain",
+      "subtopic": "Signature phrase",
+      "standard": "CCSS.ELA-LITERACY.SL.5.5",
+      "hints": [
+        "A memorable tagline",
+        "Signature"
+      ],
+      "explanation": "A repeated phrase can become a story's signature — the line everyone remembers.",
+      "version": 1
+    },
+    {
+      "id": "63156537-0703-5393-8730-617749c2b8d8",
+      "prompt": "Too much repetition with NO variation can become —",
+      "correctAnswer": "monotonous",
+      "distractors": [
+        "exciting",
+        "memorable",
+        "engaging"
+      ],
+      "bloomLevel": "analyze",
+      "gradeBand": "gr7-8",
+      "topic": "Repetition & Refrain",
+      "subtopic": "Over-repetition",
+      "standard": "CCSS.ELA-LITERACY.SL.5.5",
+      "hints": [
+        "Vary it",
+        "Monotony risk"
+      ],
+      "explanation": "Repetition with no variation can become monotonous; varying it keeps it fresh.",
+      "version": 1
+    },
+    {
+      "id": "daf21841-271c-5a79-84b6-59bc45416a5c",
+      "prompt": "A call-and-response involves —",
+      "correctAnswer": "the teller saying a line and the audience answering",
+      "distractors": [
+        "silence",
+        "the teller alone",
+        "reading"
+      ],
+      "bloomLevel": "understand",
+      "gradeBand": "gr7-8",
+      "topic": "Repetition & Refrain",
+      "subtopic": "Call and response",
+      "standard": "CCSS.ELA-LITERACY.SL.6.6",
+      "hints": [
+        "Teller calls, audience answers",
+        "Interactive"
+      ],
+      "explanation": "Call-and-response has the teller say a line and the audience answer, a lively participation pattern.",
+      "version": 1
+    },
+    {
+      "id": "5c4ff524-f392-584c-8b48-b72457e7ba11",
+      "prompt": "Repeated STRUCTURES (like each character facing the same test) create —",
+      "correctAnswer": "a satisfying pattern",
+      "distractors": [
+        "chaos",
+        "confusion",
+        "no pattern"
+      ],
+      "bloomLevel": "analyze",
+      "gradeBand": "gr7-8",
+      "topic": "Repetition & Refrain",
+      "subtopic": "Structural repetition",
+      "standard": "CCSS.ELA-LITERACY.SL.5.5",
+      "hints": [
+        "Parallel structure",
+        "Satisfying pattern"
+      ],
+      "explanation": "Repeated structures — each character facing the same test — create a satisfying, followable pattern.",
+      "version": 1
+    },
+    {
+      "id": "65ce8a13-7171-5f66-b0e5-bdad1901d116",
+      "prompt": "A refrain often appears at —",
+      "correctAnswer": "key moments or transitions",
+      "distractors": [
+        "random moments only",
+        "never",
+        "the title only"
+      ],
+      "bloomLevel": "understand",
+      "gradeBand": "gr7-8",
+      "topic": "Repetition & Refrain",
+      "subtopic": "Refrain placement",
+      "standard": "CCSS.ELA-LITERACY.SL.5.5",
+      "hints": [
+        "At key beats",
+        "Transitions"
+      ],
+      "explanation": "A refrain often appears at key moments or transitions, marking the story's rhythm.",
+      "version": 1
+    },
+    {
+      "id": "64991d6d-47c1-5d81-b7bd-858279b62a6f",
+      "prompt": "Repetition can build to a satisfying —",
+      "correctAnswer": "payoff when the pattern finally breaks or resolves",
+      "distractors": [
+        "nothing",
+        "a boring end",
+        "confusion"
+      ],
+      "bloomLevel": "analyze",
+      "gradeBand": "gr7-8",
+      "topic": "Repetition & Refrain",
+      "subtopic": "Pattern payoff",
+      "standard": "CCSS.ELA-LITERACY.SL.5.5",
+      "hints": [
+        "Break the pattern",
+        "The payoff"
+      ],
+      "explanation": "Repetition sets up a pattern, and breaking or resolving it delivers a satisfying payoff.",
+      "version": 1
+    },
+    {
+      "id": "13feb450-1e19-52c9-b65c-3b94ca1d2989",
+      "prompt": "Rhythm and repetition are especially powerful in —",
+      "correctAnswer": "stories for young children",
+      "distractors": [
+        "only stories for adults",
+        "no stories",
+        "textbooks only"
+      ],
+      "bloomLevel": "understand",
+      "gradeBand": "gr7-8",
+      "topic": "Repetition & Refrain",
+      "subtopic": "Repetition + young audiences",
+      "standard": "CCSS.ELA-LITERACY.SL.6.6",
+      "hints": [
+        "Kids love patterns",
+        "Predictable + fun"
+      ],
+      "explanation": "Rhythm and repetition are especially powerful for young children, who love predictable patterns.",
+      "version": 1
+    },
+    {
+      "id": "0f252228-4601-5bcf-b1fa-1006a442209f",
+      "prompt": "A repeated line works best when it is —",
+      "correctAnswer": "short and catchy",
+      "distractors": [
+        "long and complex",
+        "different every time",
+        "silent"
+      ],
+      "bloomLevel": "evaluate",
+      "gradeBand": "gr7-8",
+      "topic": "Repetition & Refrain",
+      "subtopic": "Catchy refrain",
+      "standard": "CCSS.ELA-LITERACY.SL.5.5",
+      "hints": [
+        "Short + catchy",
+        "Easy to remember"
+      ],
+      "explanation": "A refrain works best when it's short and catchy, easy for the audience to remember and repeat.",
+      "version": 1
+    },
+    {
+      "id": "13446dc6-f48f-500f-988d-b404e3c71c39",
+      "prompt": "Building repetition into a story helps a teller —",
+      "correctAnswer": "engage the audience and stay on track",
+      "distractors": [
+        "confuse listeners",
+        "forget the story",
+        "lose the audience"
+      ],
+      "bloomLevel": "evaluate",
+      "gradeBand": "gr7-8",
+      "topic": "Repetition & Refrain",
+      "subtopic": "Repetition benefits",
+      "standard": "CCSS.ELA-LITERACY.SL.5.5",
+      "hints": [
+        "Engage + remember",
+        "Two benefits"
+      ],
+      "explanation": "Repetition helps a teller engage the audience (they join in) and stay on track (a built-in memory aid).",
+      "version": 1
+    },
+    {
+      "id": "ce0cc70d-3cb3-551d-9bbe-cf79b4b992aa",
+      "prompt": "The 'three little pigs' uses repetition through —",
+      "correctAnswer": "three houses and a repeated threat",
+      "distractors": [
+        "no repetition",
+        "one house only",
+        "random events"
+      ],
+      "bloomLevel": "apply",
+      "gradeBand": "gr7-8",
+      "topic": "Repetition & Refrain",
+      "subtopic": "Repetition example",
+      "standard": "CCSS.ELA-LITERACY.SL.5.5",
+      "hints": [
+        "Three + a refrain",
+        "'Huff and puff'"
+      ],
+      "explanation": "'The Three Little Pigs' uses the rule of three (three houses) and a refrain ('I'll huff and I'll puff').",
+      "version": 1
+    },
+    {
+      "id": "96662a0f-7408-5ede-be86-4f71ff9d969a",
+      "prompt": "Repetition creates a sense of —",
+      "correctAnswer": "rhythm in a story",
+      "distractors": [
+        "chaos",
+        "the setting",
+        "the font"
+      ],
+      "bloomLevel": "understand",
+      "gradeBand": "gr7-8",
+      "topic": "Repetition & Refrain",
+      "subtopic": "Rhythm",
+      "standard": "CCSS.ELA-LITERACY.SL.5.5",
+      "hints": [
+        "A story beat",
+        "Rhythm"
+      ],
+      "explanation": "Repetition creates a sense of rhythm — a beat that carries a told story along.",
+      "version": 1
+    },
+    {
+      "id": "d210446f-f34a-5ebf-9372-e3d481cbba0f",
+      "prompt": "A refrain can also carry the story's —",
+      "correctAnswer": "theme or lesson",
+      "distractors": [
+        "page count",
+        "font",
+        "nothing"
+      ],
+      "bloomLevel": "analyze",
+      "gradeBand": "gr7-8",
+      "topic": "Repetition & Refrain",
+      "subtopic": "Refrain + theme",
+      "standard": "CCSS.ELA-LITERACY.SL.5.5",
+      "hints": [
+        "The repeated idea",
+        "Theme in a line"
+      ],
+      "explanation": "A refrain can carry a story's theme or lesson, driving it home each time it repeats.",
+      "version": 1
+    },
+    {
+      "id": "f5dacbd2-180d-5a18-868c-08af0c04ef60",
+      "prompt": "Varying a refrain slightly at the END can signal —",
+      "correctAnswer": "that something has changed",
+      "distractors": [
+        "nothing",
+        "the setting",
+        "the font"
+      ],
+      "bloomLevel": "apply",
+      "gradeBand": "gr7-8",
+      "topic": "Repetition & Refrain",
+      "subtopic": "Varying the refrain",
+      "standard": "CCSS.ELA-LITERACY.SL.5.5",
+      "hints": [
+        "A changed refrain",
+        "Signals change"
+      ],
+      "explanation": "Changing a refrain slightly at the end can powerfully signal that something has changed in the story.",
+      "version": 1
+    },
+    {
+      "id": "f0cbac0f-9a61-53ea-888a-662e835a0e0e",
+      "prompt": "Repetition and refrain are tools that make stories —",
+      "correctAnswer": "memorable, rhythmic, and participatory",
+      "distractors": [
+        "forgettable",
+        "chaotic",
+        "silent"
+      ],
+      "bloomLevel": "evaluate",
+      "gradeBand": "gr7-8",
+      "topic": "Repetition & Refrain",
+      "subtopic": "Purpose",
+      "standard": "CCSS.ELA-LITERACY.SL.5.5",
+      "hints": [
+        "Memorable + rhythmic + interactive",
+        "Three benefits"
+      ],
+      "explanation": "Repetition and refrain make stories memorable, rhythmic, and participatory.",
+      "version": 1
+    },
+    {
+      "id": "a542c6f3-c865-5729-a304-259829b5d006",
+      "prompt": "The BEST summary of repetition & refrain is —",
+      "correctAnswer": "repeated lines and patterns that make a told story memorable and inviting",
+      "distractors": [
+        "random unrepeated lines",
+        "the setting",
+        "the page count"
+      ],
+      "bloomLevel": "understand",
+      "gradeBand": "gr7-8",
+      "topic": "Repetition & Refrain",
+      "subtopic": "Summary",
+      "standard": "CCSS.ELA-LITERACY.SL.5.5",
+      "hints": [
+        "Repeats + patterns",
+        "Memorable + inviting"
+      ],
+      "explanation": "Repetition and refrain are repeated lines and patterns that make a told story memorable and inviting to join.",
+      "version": 1
+    },
+    {
+      "id": "8d7c74db-94c4-5f41-b028-616b45a53c88",
+      "prompt": "A refrain that the audience learns to expect creates —",
+      "correctAnswer": "anticipation and participation",
+      "distractors": [
+        "boredom",
+        "confusion",
+        "silence"
+      ],
+      "bloomLevel": "analyze",
+      "gradeBand": "gr7-8",
+      "topic": "Repetition & Refrain",
+      "subtopic": "Expected refrain",
+      "standard": "CCSS.ELA-LITERACY.SL.6.6",
+      "hints": [
+        "They wait for it",
+        "Join in"
+      ],
+      "explanation": "A refrain the audience learns to expect creates anticipation and invites them to join in.",
+      "version": 1
+    },
+    {
+      "id": "bf0c9e70-3511-5f93-abbd-6fefb38b903d",
+      "prompt": "Repetition helps young listeners —",
+      "correctAnswer": "predict and participate",
+      "distractors": [
+        "get confused",
+        "lose interest",
+        "leave"
+      ],
+      "bloomLevel": "understand",
+      "gradeBand": "gr7-8",
+      "topic": "Repetition & Refrain",
+      "subtopic": "Repetition + young listeners",
+      "standard": "CCSS.ELA-LITERACY.SL.6.6",
+      "hints": [
+        "Predictable + fun",
+        "They join in"
+      ],
+      "explanation": "Repetition helps young listeners predict what comes next and participate.",
+      "version": 1
+    },
+    {
+      "id": "e75449b1-2c48-5eac-a90d-36a68ed180e6",
+      "prompt": "Escalating repetition (bigger each time) builds toward a —",
+      "correctAnswer": "climax",
+      "distractors": [
+        "boring middle",
+        "flat ending",
+        "the setting"
+      ],
+      "bloomLevel": "analyze",
+      "gradeBand": "gr7-8",
+      "topic": "Repetition & Refrain",
+      "subtopic": "Escalation to climax",
+      "standard": "CCSS.ELA-LITERACY.SL.5.5",
+      "hints": [
+        "Each time bigger",
+        "Toward the peak"
+      ],
+      "explanation": "Repetition that escalates each time builds anticipation toward a climax.",
+      "version": 1
+    },
+    {
+      "id": "0b063f31-55f3-5961-af1e-286b38448c08",
+      "prompt": "A well-chosen refrain often captures the story's —",
+      "correctAnswer": "heart or main idea",
+      "distractors": [
+        "page count",
+        "font",
+        "unrelated fact"
+      ],
+      "bloomLevel": "evaluate",
+      "gradeBand": "gr7-8",
+      "topic": "Repetition & Refrain",
+      "subtopic": "Refrain + heart",
+      "standard": "CCSS.ELA-LITERACY.SL.5.5",
+      "hints": [
+        "The core idea",
+        "Heart of the story"
+      ],
+      "explanation": "A well-chosen refrain often captures the heart or main idea of the story, driving it home.",
+      "version": 1
+    }
+  ],
+  "standardsFramework": "CCSS"
+}

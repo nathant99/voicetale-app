@@ -1,0 +1,535 @@
+{
+  "id": "kit_16_capstone_whole_story_gr78",
+  "name": "Capstone: Telling a Whole Story",
+  "description": "Bringing every storytelling skill together",
+  "gradeBand": "gr7-8",
+  "topic": "Capstone: Telling a Whole Story",
+  "questions": [
+    {
+      "id": "2132d77c-a1ee-5de6-8729-7f499a9d38bc",
+      "prompt": "Telling a whole story well combines —",
+      "correctAnswer": "a strong story, structure, and expressive delivery",
+      "distractors": [
+        "only a good voice",
+        "only a good plot",
+        "only a setting"
+      ],
+      "bloomLevel": "evaluate",
+      "gradeBand": "gr7-8",
+      "topic": "Capstone: Telling a Whole Story",
+      "subtopic": "Whole telling",
+      "standard": "CCSS.ELA-LITERACY.SL.5.4",
+      "hints": [
+        "Story + structure + delivery",
+        "All together"
+      ],
+      "explanation": "Telling a whole story well combines a strong story, clear structure, and expressive delivery.",
+      "version": 1
+    },
+    {
+      "id": "4cd2f32c-8db0-5fbb-abfe-cc5ea9cfb983",
+      "prompt": "The FIRST step in preparing to tell a story is to —",
+      "correctAnswer": "choose a story worth telling",
+      "distractors": [
+        "memorize every word",
+        "pick the font",
+        "count the pages"
+      ],
+      "bloomLevel": "understand",
+      "gradeBand": "gr7-8",
+      "topic": "Capstone: Telling a Whole Story",
+      "subtopic": "First step",
+      "standard": "CCSS.ELA-LITERACY.SL.5.4",
+      "hints": [
+        "Pick a good one",
+        "Worth telling"
+      ],
+      "explanation": "The first step is choosing a story worth telling — one that interests you and your audience.",
+      "version": 1
+    },
+    {
+      "id": "2315b722-95db-5094-933f-417d0cefdb16",
+      "prompt": "A strong telling opens with a —",
+      "correctAnswer": "hook",
+      "distractors": [
+        "long slow introduction",
+        "the ending",
+        "a list of facts"
+      ],
+      "bloomLevel": "understand",
+      "gradeBand": "gr7-8",
+      "topic": "Capstone: Telling a Whole Story",
+      "subtopic": "Open with a hook",
+      "standard": "CCSS.ELA-LITERACY.SL.5.4",
+      "hints": [
+        "Grab attention first",
+        "The hook"
+      ],
+      "explanation": "A strong telling opens with a hook that grabs the audience's attention.",
+      "version": 1
+    },
+    {
+      "id": "b7c3a438-0b51-59b2-8c98-fc1419f77539",
+      "prompt": "Across the telling, the teller should —",
+      "correctAnswer": "build tension toward the climax",
+      "distractors": [
+        "release all tension early",
+        "avoid a climax",
+        "stay flat"
+      ],
+      "bloomLevel": "understand",
+      "gradeBand": "gr7-8",
+      "topic": "Capstone: Telling a Whole Story",
+      "subtopic": "Build to climax",
+      "standard": "CCSS.ELA-LITERACY.W.5.3",
+      "hints": [
+        "Rising tension",
+        "Toward the peak"
+      ],
+      "explanation": "Across a telling, the teller builds tension toward the climax.",
+      "version": 1
+    },
+    {
+      "id": "3f61a184-966d-5ba7-b59f-bb4f066a9ed9",
+      "prompt": "At key emotional moments, a teller should —",
+      "correctAnswer": "slow down and use expression",
+      "distractors": [
+        "rush through them",
+        "stay monotone",
+        "skip them"
+      ],
+      "bloomLevel": "apply",
+      "gradeBand": "gr7-8",
+      "topic": "Capstone: Telling a Whole Story",
+      "subtopic": "Delivering key moments",
+      "standard": "CCSS.ELA-LITERACY.SL.5.5",
+      "hints": [
+        "Slow + expressive",
+        "Let them land"
+      ],
+      "explanation": "At key emotional moments, a teller slows down and uses expression to let them land.",
+      "version": 1
+    },
+    {
+      "id": "5c5bdd83-70f6-5163-acec-d0fb89f36bc5",
+      "prompt": "A whole telling ends with a satisfying —",
+      "correctAnswer": "resolution",
+      "distractors": [
+        "cliffhanger with no payoff",
+        "random stop",
+        "new problem"
+      ],
+      "bloomLevel": "understand",
+      "gradeBand": "gr7-8",
+      "topic": "Capstone: Telling a Whole Story",
+      "subtopic": "Satisfying ending",
+      "standard": "CCSS.ELA-LITERACY.W.5.3",
+      "hints": [
+        "Resolve it",
+        "A satisfying close"
+      ],
+      "explanation": "A whole telling ends with a satisfying resolution that wraps up the story.",
+      "version": 1
+    },
+    {
+      "id": "691280ab-7603-5a0c-a478-3f203b253d77",
+      "prompt": "Throughout, a good teller stays aware of the —",
+      "correctAnswer": "audience and their reactions",
+      "distractors": [
+        "font",
+        "page count",
+        "clock only"
+      ],
+      "bloomLevel": "understand",
+      "gradeBand": "gr7-8",
+      "topic": "Capstone: Telling a Whole Story",
+      "subtopic": "Audience awareness",
+      "standard": "CCSS.ELA-LITERACY.SL.6.6",
+      "hints": [
+        "Read the room",
+        "Adapt to them"
+      ],
+      "explanation": "Throughout a telling, a good teller stays aware of the audience and adapts to their reactions.",
+      "version": 1
+    },
+    {
+      "id": "4cdf8c4b-3d37-56da-aaa0-a6e8f8c43fca",
+      "prompt": "Practicing a story before telling it helps a teller —",
+      "correctAnswer": "know it well and deliver it confidently",
+      "distractors": [
+        "forget it",
+        "read it cold",
+        "avoid delivery"
+      ],
+      "bloomLevel": "understand",
+      "gradeBand": "gr7-8",
+      "topic": "Capstone: Telling a Whole Story",
+      "subtopic": "Practice",
+      "standard": "CCSS.ELA-LITERACY.SL.5.4",
+      "hints": [
+        "Rehearse",
+        "Confidence"
+      ],
+      "explanation": "Practicing beforehand helps a teller know the story well and deliver it confidently.",
+      "version": 1
+    },
+    {
+      "id": "897e4fc5-ff56-55da-8442-78a451fe57ac",
+      "prompt": "The teller's tools include —",
+      "correctAnswer": "voice, pace, gesture, and expression",
+      "distractors": [
+        "only the words",
+        "only the plot",
+        "only the setting"
+      ],
+      "bloomLevel": "understand",
+      "gradeBand": "gr7-8",
+      "topic": "Capstone: Telling a Whole Story",
+      "subtopic": "The teller's toolkit",
+      "standard": "CCSS.ELA-LITERACY.SL.5.5",
+      "hints": [
+        "Voice + pace + gesture + face",
+        "All the tools"
+      ],
+      "explanation": "A teller's tools include voice, pacing, gesture, and facial expression — all working together.",
+      "version": 1
+    },
+    {
+      "id": "5d03ee08-7a3a-56c5-86a2-56a182fc5b5f",
+      "prompt": "A whole story should feel like —",
+      "correctAnswer": "a complete journey with a beginning, middle, and end",
+      "distractors": [
+        "random events",
+        "an endless middle",
+        "only an opening"
+      ],
+      "bloomLevel": "evaluate",
+      "gradeBand": "gr7-8",
+      "topic": "Capstone: Telling a Whole Story",
+      "subtopic": "Complete journey",
+      "standard": "CCSS.ELA-LITERACY.W.5.3",
+      "hints": [
+        "Beginning to end",
+        "A whole"
+      ],
+      "explanation": "A well-told story feels like a complete journey — a beginning, a middle, and a satisfying end.",
+      "version": 1
+    },
+    {
+      "id": "4eb1c1ee-d15d-515b-9d08-71c967d71f48",
+      "prompt": "The most important thing in storytelling is to —",
+      "correctAnswer": "connect with and move the audience",
+      "distractors": [
+        "use big words",
+        "show off",
+        "talk as long as possible"
+      ],
+      "bloomLevel": "evaluate",
+      "gradeBand": "gr7-8",
+      "topic": "Capstone: Telling a Whole Story",
+      "subtopic": "The heart of it",
+      "standard": "CCSS.ELA-LITERACY.SL.5.4",
+      "hints": [
+        "Connect + move them",
+        "The point"
+      ],
+      "explanation": "The heart of storytelling is connecting with and moving the audience.",
+      "version": 1
+    },
+    {
+      "id": "5f616d1a-5185-5059-b5de-9b922608bd08",
+      "prompt": "If a story isn't landing, a teller can —",
+      "correctAnswer": "adjust pace, energy, or detail in the moment",
+      "distractors": [
+        "give up",
+        "ignore the audience",
+        "read faster only"
+      ],
+      "bloomLevel": "apply",
+      "gradeBand": "gr7-8",
+      "topic": "Capstone: Telling a Whole Story",
+      "subtopic": "Adjusting live",
+      "standard": "CCSS.ELA-LITERACY.SL.6.6",
+      "hints": [
+        "Adapt in real time",
+        "Change what isn't working"
+      ],
+      "explanation": "If a story isn't landing, a teller can adjust pace, energy, or detail in the moment.",
+      "version": 1
+    },
+    {
+      "id": "53f252d0-723a-5c79-b885-c8c21524ffa8",
+      "prompt": "Sensory details and vivid characters make a telling —",
+      "correctAnswer": "immersive",
+      "distractors": [
+        "flat",
+        "confusing",
+        "boring"
+      ],
+      "bloomLevel": "evaluate",
+      "gradeBand": "gr7-8",
+      "topic": "Capstone: Telling a Whole Story",
+      "subtopic": "Immersive telling",
+      "standard": "CCSS.ELA-LITERACY.W.5.3.D",
+      "hints": [
+        "Vivid + immersive",
+        "Bring it alive"
+      ],
+      "explanation": "Sensory details and vivid characters make a telling immersive and alive.",
+      "version": 1
+    },
+    {
+      "id": "a6081f52-f397-563f-bbc8-71a979c64251",
+      "prompt": "A pause before a big reveal —",
+      "correctAnswer": "heightens its impact",
+      "distractors": [
+        "ruins it",
+        "bores the audience",
+        "does nothing"
+      ],
+      "bloomLevel": "apply",
+      "gradeBand": "gr7-8",
+      "topic": "Capstone: Telling a Whole Story",
+      "subtopic": "The dramatic pause",
+      "standard": "CCSS.ELA-LITERACY.SL.5.5",
+      "hints": [
+        "Build anticipation",
+        "Then reveal"
+      ],
+      "explanation": "A pause before a big reveal heightens its impact by building anticipation.",
+      "version": 1
+    },
+    {
+      "id": "35590abb-fadd-5891-b8ed-b6768c475fa4",
+      "prompt": "Revising a told story means —",
+      "correctAnswer": "improving it as you practice and perform",
+      "distractors": [
+        "never changing it",
+        "reading it cold each time",
+        "ignoring feedback"
+      ],
+      "bloomLevel": "understand",
+      "gradeBand": "gr7-8",
+      "topic": "Capstone: Telling a Whole Story",
+      "subtopic": "Revising a telling",
+      "standard": "CCSS.ELA-LITERACY.SL.5.4",
+      "hints": [
+        "Refine it",
+        "Improve with practice"
+      ],
+      "explanation": "Revising a told story means improving it as you practice and learn what works.",
+      "version": 1
+    },
+    {
+      "id": "688a873e-1347-5d87-b0f1-cfd1073128d3",
+      "prompt": "A great storyteller makes each telling feel —",
+      "correctAnswer": "fresh and alive",
+      "distractors": [
+        "identical and stale",
+        "rushed",
+        "flat"
+      ],
+      "bloomLevel": "evaluate",
+      "gradeBand": "gr7-8",
+      "topic": "Capstone: Telling a Whole Story",
+      "subtopic": "Fresh telling",
+      "standard": "CCSS.ELA-LITERACY.SL.6.6",
+      "hints": [
+        "Alive each time",
+        "Adapt + engage"
+      ],
+      "explanation": "A great storyteller makes each telling feel fresh and alive, adapting to the moment and audience.",
+      "version": 1
+    },
+    {
+      "id": "e86725e0-8e19-5b8e-a0cb-e66fdf2f0011",
+      "prompt": "The single most important skill from VoiceTale is —",
+      "correctAnswer": "telling a story aloud that connects with and moves listeners",
+      "distractors": [
+        "memorizing words",
+        "using big vocabulary",
+        "talking a long time"
+      ],
+      "bloomLevel": "evaluate",
+      "gradeBand": "gr7-8",
+      "topic": "Capstone: Telling a Whole Story",
+      "subtopic": "Key takeaway",
+      "standard": "CCSS.ELA-LITERACY.SL.5.4",
+      "hints": [
+        "Connect + move",
+        "Tell it well"
+      ],
+      "explanation": "VoiceTale's core skill: telling a story aloud in a way that connects with and moves listeners.",
+      "version": 1
+    },
+    {
+      "id": "2ee90373-f681-5589-9b72-b88034ee4bb2",
+      "prompt": "A whole telling combines CONTENT (the story) with —",
+      "correctAnswer": "DELIVERY (how you tell it)",
+      "distractors": [
+        "nothing else",
+        "only the setting",
+        "the page count"
+      ],
+      "bloomLevel": "understand",
+      "gradeBand": "gr7-8",
+      "topic": "Capstone: Telling a Whole Story",
+      "subtopic": "Content + delivery",
+      "standard": "CCSS.ELA-LITERACY.SL.5.5",
+      "hints": [
+        "What + how",
+        "Both together"
+      ],
+      "explanation": "A whole telling combines strong content (the story) with skilled delivery (how you tell it).",
+      "version": 1
+    },
+    {
+      "id": "1bddbcfa-c052-524b-86a2-cabf6124d54f",
+      "prompt": "Confidence in telling comes from —",
+      "correctAnswer": "preparation, practice, and knowing your story",
+      "distractors": [
+        "never practicing",
+        "reading cold",
+        "avoiding audiences"
+      ],
+      "bloomLevel": "understand",
+      "gradeBand": "gr7-8",
+      "topic": "Capstone: Telling a Whole Story",
+      "subtopic": "Confidence",
+      "standard": "CCSS.ELA-LITERACY.SL.5.4",
+      "hints": [
+        "Prepare + practice",
+        "Know your story"
+      ],
+      "explanation": "Confidence comes from preparation, practice, and truly knowing your story.",
+      "version": 1
+    },
+    {
+      "id": "fdbd9eff-e4fb-5597-9281-e2df1ab938c2",
+      "prompt": "Carrying these skills forward, you should now be able to —",
+      "correctAnswer": "choose, prepare, and tell a whole story with expression",
+      "distractors": [
+        "only read silently",
+        "avoid telling stories",
+        "memorize word-for-word only"
+      ],
+      "bloomLevel": "evaluate",
+      "gradeBand": "gr7-8",
+      "topic": "Capstone: Telling a Whole Story",
+      "subtopic": "Transfer",
+      "standard": "CCSS.ELA-LITERACY.SL.5.4",
+      "hints": [
+        "Choose + prepare + tell",
+        "The full craft"
+      ],
+      "explanation": "The capstone goal: choose, prepare, and tell a whole story aloud with structure and expression.",
+      "version": 1
+    },
+    {
+      "id": "cf91055d-3712-59a1-b901-23546f33eb0a",
+      "prompt": "The BEST one-sentence summary of VoiceTale is —",
+      "correctAnswer": "tell a well-shaped story aloud, with vivid detail and expressive delivery, to connect with and move an audience",
+      "distractors": [
+        "read a story silently",
+        "list facts flatly",
+        "memorize words with no expression"
+      ],
+      "bloomLevel": "understand",
+      "gradeBand": "gr7-8",
+      "topic": "Capstone: Telling a Whole Story",
+      "subtopic": "VoiceTale summary",
+      "standard": "CCSS.ELA-LITERACY.SL.5.4",
+      "hints": [
+        "Well-shaped + vivid + expressive",
+        "Connect + move"
+      ],
+      "explanation": "VoiceTale in one line: tell a well-shaped story aloud, with vivid detail and expressive delivery, to connect with and move an audience.",
+      "version": 1
+    },
+    {
+      "id": "7a75660b-7cb2-56c5-aec2-5c770550c1b4",
+      "prompt": "A story that is well-told but poorly SHAPED (no structure) will feel —",
+      "correctAnswer": "aimless",
+      "distractors": [
+        "perfectly clear",
+        "gripping",
+        "complete"
+      ],
+      "bloomLevel": "analyze",
+      "gradeBand": "gr7-8",
+      "topic": "Capstone: Telling a Whole Story",
+      "subtopic": "Shape matters",
+      "standard": "CCSS.ELA-LITERACY.W.5.3",
+      "hints": [
+        "Structure matters",
+        "Aimless without it"
+      ],
+      "explanation": "Even a well-delivered story feels aimless without a clear structure — both content and shape matter.",
+      "version": 1
+    },
+    {
+      "id": "b33c1511-8319-5432-a8bd-19aa686132aa",
+      "prompt": "A story that is well-shaped but poorly DELIVERED (monotone) will feel —",
+      "correctAnswer": "flat",
+      "distractors": [
+        "exciting",
+        "immersive",
+        "alive"
+      ],
+      "bloomLevel": "analyze",
+      "gradeBand": "gr7-8",
+      "topic": "Capstone: Telling a Whole Story",
+      "subtopic": "Delivery matters",
+      "standard": "CCSS.ELA-LITERACY.SL.5.5",
+      "hints": [
+        "Delivery matters too",
+        "Flat without it"
+      ],
+      "explanation": "A well-structured story falls flat if delivered in a lifeless monotone — delivery matters as much as content.",
+      "version": 1
+    },
+    {
+      "id": "1d46b110-f0d8-5660-bd2c-84819f017840",
+      "prompt": "The best way to improve as a storyteller is to —",
+      "correctAnswer": "tell stories often and learn from each telling",
+      "distractors": [
+        "never practice",
+        "avoid audiences",
+        "only read silently"
+      ],
+      "bloomLevel": "evaluate",
+      "gradeBand": "gr7-8",
+      "topic": "Capstone: Telling a Whole Story",
+      "subtopic": "Improving",
+      "standard": "CCSS.ELA-LITERACY.SL.5.4",
+      "hints": [
+        "Practice + reflect",
+        "Tell often"
+      ],
+      "explanation": "The best way to improve is to tell stories often and learn from each telling.",
+      "version": 1
+    },
+    {
+      "id": "2ebc2b0c-f5b6-55ec-a378-44d6782e02da",
+      "prompt": "Ultimately, a storyteller's success is measured by —",
+      "correctAnswer": "how the audience responds and feels",
+      "distractors": [
+        "how many words are used",
+        "the story's length",
+        "the font"
+      ],
+      "bloomLevel": "evaluate",
+      "gradeBand": "gr7-8",
+      "topic": "Capstone: Telling a Whole Story",
+      "subtopic": "Measuring success",
+      "standard": "CCSS.ELA-LITERACY.SL.6.6",
+      "hints": [
+        "Did it connect + move?",
+        "Audience response"
+      ],
+      "explanation": "A storyteller's success is measured by how the audience responds and feels — whether the story connected and moved them.",
+      "version": 1
+    }
+  ],
+  "standardsFramework": "CCSS"
+}

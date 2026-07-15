@@ -1,0 +1,535 @@
+{
+  "id": "kit_03_story_structure_gr45",
+  "name": "Story Structure",
+  "description": "Beginning, middle, end, and the story arc",
+  "gradeBand": "gr4-5",
+  "topic": "Story Structure",
+  "questions": [
+    {
+      "id": "8d586fb5-471b-563d-9a34-b7a34385e7f0",
+      "prompt": "A basic story has three main parts —",
+      "correctAnswer": "beginning, middle, and end",
+      "distractors": [
+        "only a beginning",
+        "only an ending",
+        "no parts"
+      ],
+      "bloomLevel": "remember",
+      "gradeBand": "gr4-5",
+      "topic": "Story Structure",
+      "subtopic": "Three parts",
+      "standard": "CCSS.ELA-LITERACY.W.5.3",
+      "hints": [
+        "Start, middle, finish",
+        "The three parts"
+      ],
+      "explanation": "A basic story has a beginning, a middle, and an end.",
+      "version": 1
+    },
+    {
+      "id": "224921b0-e83e-5eed-813f-15be3352c91e",
+      "prompt": "The BEGINNING of a story usually —",
+      "correctAnswer": "introduces characters and the situation",
+      "distractors": [
+        "resolves everything",
+        "is the climax",
+        "ends the story"
+      ],
+      "bloomLevel": "understand",
+      "gradeBand": "gr4-5",
+      "topic": "Story Structure",
+      "subtopic": "Beginning",
+      "standard": "CCSS.ELA-LITERACY.W.5.3",
+      "hints": [
+        "Set up",
+        "Meet characters + situation"
+      ],
+      "explanation": "The beginning introduces the characters and the situation, setting up the story.",
+      "version": 1
+    },
+    {
+      "id": "ef39cd7e-7760-575f-b8ae-78a3ccab1212",
+      "prompt": "The MIDDLE of a story usually —",
+      "correctAnswer": "builds the problem and the tension",
+      "distractors": [
+        "introduces everyone",
+        "ends the story",
+        "is the title"
+      ],
+      "bloomLevel": "understand",
+      "gradeBand": "gr4-5",
+      "topic": "Story Structure",
+      "subtopic": "Middle",
+      "standard": "CCSS.ELA-LITERACY.W.5.3",
+      "hints": [
+        "Rising action",
+        "Build the problem"
+      ],
+      "explanation": "The middle develops the problem and builds tension — the rising action.",
+      "version": 1
+    },
+    {
+      "id": "07247260-c64e-5237-85ed-75bc63e2d0ca",
+      "prompt": "The END of a story usually —",
+      "correctAnswer": "resolves the problem",
+      "distractors": [
+        "introduces the problem",
+        "starts the action",
+        "sets the scene"
+      ],
+      "bloomLevel": "understand",
+      "gradeBand": "gr4-5",
+      "topic": "Story Structure",
+      "subtopic": "End",
+      "standard": "CCSS.ELA-LITERACY.W.5.3",
+      "hints": [
+        "Resolution",
+        "Wrap it up"
+      ],
+      "explanation": "The end resolves the problem, bringing the story to a close.",
+      "version": 1
+    },
+    {
+      "id": "9b7a1226-54d4-5517-b40a-8430892a681f",
+      "prompt": "The 'climax' of a story is —",
+      "correctAnswer": "the moment of greatest tension or excitement",
+      "distractors": [
+        "the quietest part",
+        "the introduction",
+        "the title"
+      ],
+      "bloomLevel": "remember",
+      "gradeBand": "gr4-5",
+      "topic": "Story Structure",
+      "subtopic": "Climax",
+      "standard": "CCSS.ELA-LITERACY.W.5.3",
+      "hints": [
+        "The peak",
+        "Highest tension"
+      ],
+      "explanation": "The climax is the story's peak — the moment of greatest tension or excitement.",
+      "version": 1
+    },
+    {
+      "id": "2e7332b6-cbf9-566a-a6f0-f981acf7604c",
+      "prompt": "A story's problem or challenge is called the —",
+      "correctAnswer": "conflict",
+      "distractors": [
+        "setting",
+        "hook",
+        "ending"
+      ],
+      "bloomLevel": "remember",
+      "gradeBand": "gr4-5",
+      "topic": "Story Structure",
+      "subtopic": "Conflict",
+      "standard": "CCSS.ELA-LITERACY.W.5.3",
+      "hints": [
+        "The problem",
+        "What must be solved"
+      ],
+      "explanation": "The conflict is the problem or challenge the characters face.",
+      "version": 1
+    },
+    {
+      "id": "5f738362-aaef-5cb7-9c19-ef8c55ab050e",
+      "prompt": "Events in a story should usually be told in —",
+      "correctAnswer": "a clear order the listener can follow",
+      "distractors": [
+        "random order",
+        "no order",
+        "reverse only"
+      ],
+      "bloomLevel": "understand",
+      "gradeBand": "gr4-5",
+      "topic": "Story Structure",
+      "subtopic": "Sequence",
+      "standard": "CCSS.ELA-LITERACY.SL.5.4",
+      "hints": [
+        "Logical order",
+        "Easy to follow"
+      ],
+      "explanation": "Events should be told in a clear, logical order so listeners can follow the story.",
+      "version": 1
+    },
+    {
+      "id": "a31be5b1-1d95-56e1-af86-e42405d228ad",
+      "prompt": "A story without a clear structure often feels —",
+      "correctAnswer": "confusing or aimless",
+      "distractors": [
+        "perfectly clear",
+        "exciting",
+        "well-shaped"
+      ],
+      "bloomLevel": "analyze",
+      "gradeBand": "gr4-5",
+      "topic": "Story Structure",
+      "subtopic": "No structure",
+      "standard": "CCSS.ELA-LITERACY.W.5.3",
+      "hints": [
+        "Hard to follow",
+        "Aimless"
+      ],
+      "explanation": "Without a clear structure, a story can feel confusing or aimless.",
+      "version": 1
+    },
+    {
+      "id": "1c9e0b69-7df7-5902-b0fe-134f392133fa",
+      "prompt": "Building tension toward the climax keeps listeners —",
+      "correctAnswer": "engaged and wanting to know what happens",
+      "distractors": [
+        "bored",
+        "confused",
+        "asleep"
+      ],
+      "bloomLevel": "analyze",
+      "gradeBand": "gr4-5",
+      "topic": "Story Structure",
+      "subtopic": "Rising tension",
+      "standard": "CCSS.ELA-LITERACY.W.5.3",
+      "hints": [
+        "Build to the peak",
+        "Keeps them hooked"
+      ],
+      "explanation": "Building tension toward the climax keeps listeners engaged and eager for the outcome.",
+      "version": 1
+    },
+    {
+      "id": "99e59bb6-27ee-52e0-92b8-39af7328ba50",
+      "prompt": "The 'resolution' is where —",
+      "correctAnswer": "the conflict is settled",
+      "distractors": [
+        "the conflict begins",
+        "characters are introduced",
+        "the hook appears"
+      ],
+      "bloomLevel": "remember",
+      "gradeBand": "gr4-5",
+      "topic": "Story Structure",
+      "subtopic": "Resolution",
+      "standard": "CCSS.ELA-LITERACY.W.5.3",
+      "hints": [
+        "Settle the conflict",
+        "The wrap-up"
+      ],
+      "explanation": "The resolution is where the story's conflict is settled.",
+      "version": 1
+    },
+    {
+      "id": "1d9474d2-bb33-5b3d-b2c5-33e4881a800b",
+      "prompt": "A satisfying ending usually —",
+      "correctAnswer": "resolves the main problem",
+      "distractors": [
+        "ignores the problem",
+        "adds a new unrelated problem",
+        "cuts off randomly"
+      ],
+      "bloomLevel": "evaluate",
+      "gradeBand": "gr4-5",
+      "topic": "Story Structure",
+      "subtopic": "Satisfying ending",
+      "standard": "CCSS.ELA-LITERACY.W.5.3",
+      "hints": [
+        "Pay off the problem",
+        "Resolve it"
+      ],
+      "explanation": "A satisfying ending resolves the story's main problem.",
+      "version": 1
+    },
+    {
+      "id": "3f307c8f-d04d-52dd-8202-110ecbe8b6c8",
+      "prompt": "The story arc rises to a climax and then —",
+      "correctAnswer": "falls toward resolution",
+      "distractors": [
+        "keeps rising forever",
+        "stays flat",
+        "restarts"
+      ],
+      "bloomLevel": "understand",
+      "gradeBand": "gr4-5",
+      "topic": "Story Structure",
+      "subtopic": "Story arc shape",
+      "standard": "CCSS.ELA-LITERACY.W.5.3",
+      "hints": [
+        "Up then down",
+        "Peak then resolve"
+      ],
+      "explanation": "The story arc rises to a climax and then falls toward the resolution.",
+      "version": 1
+    },
+    {
+      "id": "f70f47b9-94ed-53e3-af0e-f79898854e15",
+      "prompt": "Introducing the conflict too LATE can make a story feel —",
+      "correctAnswer": "slow to start",
+      "distractors": [
+        "fast-paced",
+        "perfectly timed",
+        "over too soon"
+      ],
+      "bloomLevel": "analyze",
+      "gradeBand": "gr4-5",
+      "topic": "Story Structure",
+      "subtopic": "Late conflict",
+      "standard": "CCSS.ELA-LITERACY.W.5.3",
+      "hints": [
+        "Get to the problem",
+        "Don't wait too long"
+      ],
+      "explanation": "If the conflict is introduced too late, the story can feel slow to get going.",
+      "version": 1
+    },
+    {
+      "id": "a8cea36b-8fcc-5fef-beeb-b52ac7a8b0b6",
+      "prompt": "A cliffhanger is —",
+      "correctAnswer": "a suspenseful pause before revealing what happens",
+      "distractors": [
+        "a calm ending",
+        "the introduction",
+        "the setting"
+      ],
+      "bloomLevel": "understand",
+      "gradeBand": "gr4-5",
+      "topic": "Story Structure",
+      "subtopic": "Cliffhanger",
+      "standard": "CCSS.ELA-LITERACY.SL.5.4",
+      "hints": [
+        "Pause at the tension",
+        "Leave them hanging"
+      ],
+      "explanation": "A cliffhanger pauses at a suspenseful moment, making listeners eager to hear what happens next.",
+      "version": 1
+    },
+    {
+      "id": "43f9a475-ac01-5122-9d03-8dbd23a6f127",
+      "prompt": "Which order is the standard story shape?",
+      "correctAnswer": "Setup → rising action → climax → resolution",
+      "distractors": [
+        "Climax → setup → nothing",
+        "Resolution → setup → climax",
+        "No order"
+      ],
+      "bloomLevel": "apply",
+      "gradeBand": "gr4-5",
+      "topic": "Story Structure",
+      "subtopic": "Story order",
+      "standard": "CCSS.ELA-LITERACY.W.5.3",
+      "hints": [
+        "Setup to resolution",
+        "The arc"
+      ],
+      "explanation": "The standard shape is setup, rising action, climax, then resolution.",
+      "version": 1
+    },
+    {
+      "id": "94bdc828-6246-5a4e-8d45-aea4e972f4c9",
+      "prompt": "Every event in a well-structured story should —",
+      "correctAnswer": "move the story forward",
+      "distractors": [
+        "be unrelated",
+        "repeat the last event",
+        "describe the font"
+      ],
+      "bloomLevel": "evaluate",
+      "gradeBand": "gr4-5",
+      "topic": "Story Structure",
+      "subtopic": "Purposeful events",
+      "standard": "CCSS.ELA-LITERACY.W.5.3",
+      "hints": [
+        "Advance the story",
+        "Each part earns its place"
+      ],
+      "explanation": "In a well-structured story, each event moves the story forward.",
+      "version": 1
+    },
+    {
+      "id": "3ea05f04-3b4f-538d-8f2d-e7204516c616",
+      "prompt": "A story that ends right at the climax with no resolution can feel —",
+      "correctAnswer": "unfinished",
+      "distractors": [
+        "complete",
+        "well-resolved",
+        "satisfying"
+      ],
+      "bloomLevel": "analyze",
+      "gradeBand": "gr4-5",
+      "topic": "Story Structure",
+      "subtopic": "Missing resolution",
+      "standard": "CCSS.ELA-LITERACY.W.5.3",
+      "hints": [
+        "Needs a wrap-up",
+        "Unfinished feeling"
+      ],
+      "explanation": "Ending at the climax with no resolution can leave a story feeling unfinished.",
+      "version": 1
+    },
+    {
+      "id": "3b44cb2b-d95d-5875-a150-c86dddbcc3dd",
+      "prompt": "Structure helps a TELLER because it —",
+      "correctAnswer": "gives them a clear map to follow",
+      "distractors": [
+        "confuses them",
+        "removes the story",
+        "is only for writers"
+      ],
+      "bloomLevel": "understand",
+      "gradeBand": "gr4-5",
+      "topic": "Story Structure",
+      "subtopic": "Structure helps telling",
+      "standard": "CCSS.ELA-LITERACY.SL.5.4",
+      "hints": [
+        "A map to tell by",
+        "Stay on track"
+      ],
+      "explanation": "A clear structure gives the teller a map to follow, so the telling stays on track.",
+      "version": 1
+    },
+    {
+      "id": "72b498a7-03f1-5997-91b3-b3a0c0582e8f",
+      "prompt": "The rising action's job is to —",
+      "correctAnswer": "build toward the climax",
+      "distractors": [
+        "resolve the story",
+        "introduce the setting only",
+        "end the story"
+      ],
+      "bloomLevel": "understand",
+      "gradeBand": "gr4-5",
+      "topic": "Story Structure",
+      "subtopic": "Rising action",
+      "standard": "CCSS.ELA-LITERACY.W.5.3",
+      "hints": [
+        "Build up",
+        "Toward the peak"
+      ],
+      "explanation": "The rising action builds tension and events toward the climax.",
+      "version": 1
+    },
+    {
+      "id": "c2c531ed-465e-5e06-b75b-bdb334624a36",
+      "prompt": "A subplot is —",
+      "correctAnswer": "a smaller side story within the main story",
+      "distractors": [
+        "the main plot",
+        "the setting",
+        "the title"
+      ],
+      "bloomLevel": "understand",
+      "gradeBand": "gr4-5",
+      "topic": "Story Structure",
+      "subtopic": "Subplot",
+      "standard": "CCSS.ELA-LITERACY.W.5.3",
+      "hints": [
+        "A side story",
+        "Smaller thread"
+      ],
+      "explanation": "A subplot is a smaller secondary story woven alongside the main plot.",
+      "version": 1
+    },
+    {
+      "id": "068b0c8e-1b29-5850-949c-017a46b6cb5d",
+      "prompt": "A well-shaped story gives listeners a sense of —",
+      "correctAnswer": "a complete journey",
+      "distractors": [
+        "random events",
+        "no direction",
+        "an endless middle"
+      ],
+      "bloomLevel": "evaluate",
+      "gradeBand": "gr4-5",
+      "topic": "Story Structure",
+      "subtopic": "Complete journey",
+      "standard": "CCSS.ELA-LITERACY.W.5.3",
+      "hints": [
+        "Beginning to end",
+        "A whole"
+      ],
+      "explanation": "Good structure gives listeners the satisfying sense of a complete journey.",
+      "version": 1
+    },
+    {
+      "id": "31bcdf01-adc9-54eb-93c3-0226d01f7f93",
+      "prompt": "Knowing the structure lets a teller adjust the —",
+      "correctAnswer": "pacing of each part",
+      "distractors": [
+        "font",
+        "page count",
+        "cover"
+      ],
+      "bloomLevel": "analyze",
+      "gradeBand": "gr4-5",
+      "topic": "Story Structure",
+      "subtopic": "Structure + pacing",
+      "standard": "CCSS.ELA-LITERACY.SL.5.4",
+      "hints": [
+        "Speed up/slow down",
+        "By section"
+      ],
+      "explanation": "Knowing the structure helps a teller pace each part — lingering or speeding up where it helps.",
+      "version": 1
+    },
+    {
+      "id": "60bc4b2b-1766-5181-82aa-a14e5f894bb5",
+      "prompt": "The BEST summary of story structure is —",
+      "correctAnswer": "a beginning that sets up, a middle that builds to a climax, and an end that resolves",
+      "distractors": [
+        "random events",
+        "only a beginning",
+        "no shape"
+      ],
+      "bloomLevel": "understand",
+      "gradeBand": "gr4-5",
+      "topic": "Story Structure",
+      "subtopic": "Summary",
+      "standard": "CCSS.ELA-LITERACY.W.5.3",
+      "hints": [
+        "Setup → climax → resolve",
+        "The arc"
+      ],
+      "explanation": "Story structure is a beginning that sets up, a middle that builds to a climax, and an end that resolves the conflict.",
+      "version": 1
+    },
+    {
+      "id": "1acaef48-df7a-56a4-8aa5-a562a3f2e0ba",
+      "prompt": "The 'inciting incident' is the event that —",
+      "correctAnswer": "kicks off the story's main problem",
+      "distractors": [
+        "ends the story",
+        "is the resolution",
+        "is the title"
+      ],
+      "bloomLevel": "understand",
+      "gradeBand": "gr4-5",
+      "topic": "Story Structure",
+      "subtopic": "Inciting incident",
+      "standard": "CCSS.ELA-LITERACY.W.5.3",
+      "hints": [
+        "Starts the trouble",
+        "Kicks off the plot"
+      ],
+      "explanation": "The inciting incident is the event that sets the story's main problem in motion.",
+      "version": 1
+    },
+    {
+      "id": "341f77d0-3a4b-5f29-89d7-eeac8a42a4a1",
+      "prompt": "Falling action comes —",
+      "correctAnswer": "after the climax, leading to the resolution",
+      "distractors": [
+        "before the setup",
+        "at the very start",
+        "instead of a climax"
+      ],
+      "bloomLevel": "understand",
+      "gradeBand": "gr4-5",
+      "topic": "Story Structure",
+      "subtopic": "Falling action",
+      "standard": "CCSS.ELA-LITERACY.W.5.3",
+      "hints": [
+        "After the peak",
+        "Toward the end"
+      ],
+      "explanation": "Falling action follows the climax and leads the story toward its resolution.",
+      "version": 1
+    }
+  ],
+  "standardsFramework": "CCSS"
+}

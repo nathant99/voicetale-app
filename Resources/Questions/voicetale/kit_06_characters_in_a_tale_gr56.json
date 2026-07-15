@@ -1,0 +1,535 @@
+{
+  "id": "kit_06_characters_in_a_tale_gr56",
+  "name": "Characters in a Told Tale",
+  "description": "Bringing characters to life aloud",
+  "gradeBand": "gr5-6",
+  "topic": "Characters in a Told Tale",
+  "questions": [
+    {
+      "id": "0937b2cd-b6c7-5b03-bbde-c203012c8a59",
+      "prompt": "Characters in a story are —",
+      "correctAnswer": "the people or beings the story is about",
+      "distractors": [
+        "the setting",
+        "the problem",
+        "the title"
+      ],
+      "bloomLevel": "remember",
+      "gradeBand": "gr5-6",
+      "topic": "Characters in a Told Tale",
+      "subtopic": "Characters",
+      "standard": "CCSS.ELA-LITERACY.W.5.3",
+      "hints": [
+        "Who it's about",
+        "People or beings"
+      ],
+      "explanation": "Characters are the people or beings a story is about.",
+      "version": 1
+    },
+    {
+      "id": "55ab3a72-6005-5ee3-8a1c-9aa892599180",
+      "prompt": "Listeners connect to a story mostly through —",
+      "correctAnswer": "its characters",
+      "distractors": [
+        "the page count",
+        "the font",
+        "the title only"
+      ],
+      "bloomLevel": "understand",
+      "gradeBand": "gr5-6",
+      "topic": "Characters in a Told Tale",
+      "subtopic": "Connection via character",
+      "standard": "CCSS.ELA-LITERACY.W.5.3",
+      "hints": [
+        "We care about people",
+        "Character connection"
+      ],
+      "explanation": "Listeners connect to a story mainly through caring about its characters.",
+      "version": 1
+    },
+    {
+      "id": "df2cd1e8-5820-5633-a5da-bb2cca513656",
+      "prompt": "A teller can bring a character to life with —",
+      "correctAnswer": "a distinct voice or way of speaking",
+      "distractors": [
+        "a monotone",
+        "no expression",
+        "silence"
+      ],
+      "bloomLevel": "apply",
+      "gradeBand": "gr5-6",
+      "topic": "Characters in a Told Tale",
+      "subtopic": "Voicing a character",
+      "standard": "CCSS.ELA-LITERACY.SL.5.5",
+      "hints": [
+        "Give them a voice",
+        "Distinct speech"
+      ],
+      "explanation": "A teller can bring a character to life by giving them a distinct voice or manner of speaking.",
+      "version": 1
+    },
+    {
+      "id": "1b155316-2c3f-523a-8a93-05de60b95eb1",
+      "prompt": "A clear MAIN character helps listeners —",
+      "correctAnswer": "know who to follow and root for",
+      "distractors": [
+        "get confused",
+        "ignore the story",
+        "leave"
+      ],
+      "bloomLevel": "understand",
+      "gradeBand": "gr5-6",
+      "topic": "Characters in a Told Tale",
+      "subtopic": "Main character",
+      "standard": "CCSS.ELA-LITERACY.W.5.3",
+      "hints": [
+        "Someone to follow",
+        "Root for them"
+      ],
+      "explanation": "A clear main character gives listeners someone to follow and root for.",
+      "version": 1
+    },
+    {
+      "id": "a6398743-0d89-5222-95a9-8e90c54a7342",
+      "prompt": "Showing what a character WANTS helps listeners —",
+      "correctAnswer": "care about whether they get it",
+      "distractors": [
+        "forget the character",
+        "ignore the plot",
+        "leave"
+      ],
+      "bloomLevel": "analyze",
+      "gradeBand": "gr5-6",
+      "topic": "Characters in a Told Tale",
+      "subtopic": "Character want",
+      "standard": "CCSS.ELA-LITERACY.W.5.3",
+      "hints": [
+        "A goal to root for",
+        "We care about the outcome"
+      ],
+      "explanation": "Showing what a character wants makes listeners care about whether they achieve it.",
+      "version": 1
+    },
+    {
+      "id": "fedec786-cfb7-5670-bf4e-ce4886cda3d7",
+      "prompt": "A character's actions reveal —",
+      "correctAnswer": "who they are",
+      "distractors": [
+        "nothing",
+        "the setting only",
+        "the font"
+      ],
+      "bloomLevel": "understand",
+      "gradeBand": "gr5-6",
+      "topic": "Characters in a Told Tale",
+      "subtopic": "Actions reveal character",
+      "standard": "CCSS.ELA-LITERACY.W.5.3",
+      "hints": [
+        "Deeds show character",
+        "Actions > labels"
+      ],
+      "explanation": "What a character does reveals who they are.",
+      "version": 1
+    },
+    {
+      "id": "2675b31c-103c-57e2-8f79-3628dea80e3e",
+      "prompt": "Giving each character a distinct trait helps listeners —",
+      "correctAnswer": "tell them apart",
+      "distractors": [
+        "confuse them",
+        "forget them all",
+        "ignore them"
+      ],
+      "bloomLevel": "apply",
+      "gradeBand": "gr5-6",
+      "topic": "Characters in a Told Tale",
+      "subtopic": "Distinct characters",
+      "standard": "CCSS.ELA-LITERACY.W.5.3",
+      "hints": [
+        "Make them distinct",
+        "Tell them apart"
+      ],
+      "explanation": "Distinct traits help listeners tell characters apart in a told story.",
+      "version": 1
+    },
+    {
+      "id": "cabfa065-9167-5efa-9f66-35967846daf0",
+      "prompt": "A teller changing their voice for different characters is called —",
+      "correctAnswer": "voicing (characterization through voice)",
+      "distractors": [
+        "monotone",
+        "narration only",
+        "silence"
+      ],
+      "bloomLevel": "understand",
+      "gradeBand": "gr5-6",
+      "topic": "Characters in a Told Tale",
+      "subtopic": "Character voicing",
+      "standard": "CCSS.ELA-LITERACY.SL.5.5",
+      "hints": [
+        "Different voices",
+        "Voice acting"
+      ],
+      "explanation": "Changing your voice for different characters — 'voicing' — helps listeners follow who's speaking.",
+      "version": 1
+    },
+    {
+      "id": "050d14c8-0d64-5820-8cc8-0995a79dae63",
+      "prompt": "You don't need MANY characters; a told tale works well with —",
+      "correctAnswer": "a small, clear cast",
+      "distractors": [
+        "dozens of characters",
+        "no characters",
+        "only villains"
+      ],
+      "bloomLevel": "evaluate",
+      "gradeBand": "gr5-6",
+      "topic": "Characters in a Told Tale",
+      "subtopic": "Small cast",
+      "standard": "CCSS.ELA-LITERACY.W.5.3",
+      "hints": [
+        "Keep it small",
+        "Clear cast"
+      ],
+      "explanation": "A told tale works well with a small, clear cast — too many characters confuse listeners.",
+      "version": 1
+    },
+    {
+      "id": "072f278e-6bae-5407-9494-c18893609507",
+      "prompt": "A character listeners CARE about usually has —",
+      "correctAnswer": "a goal and a feeling",
+      "distractors": [
+        "no personality",
+        "only a name",
+        "no goals"
+      ],
+      "bloomLevel": "analyze",
+      "gradeBand": "gr5-6",
+      "topic": "Characters in a Told Tale",
+      "subtopic": "Relatable character",
+      "standard": "CCSS.ELA-LITERACY.W.5.3",
+      "hints": [
+        "Want + feeling",
+        "Something to care about"
+      ],
+      "explanation": "A character listeners care about usually has a clear goal and real feelings.",
+      "version": 1
+    },
+    {
+      "id": "7b70b11c-2ce1-58ef-9165-d096ad15262c",
+      "prompt": "Facial expression and gesture can help a teller —",
+      "correctAnswer": "show a character's emotions",
+      "distractors": [
+        "hide emotions",
+        "confuse listeners",
+        "read a script"
+      ],
+      "bloomLevel": "apply",
+      "gradeBand": "gr5-6",
+      "topic": "Characters in a Told Tale",
+      "subtopic": "Expression + character",
+      "standard": "CCSS.ELA-LITERACY.SL.5.5",
+      "hints": [
+        "Show feeling",
+        "Face + gesture"
+      ],
+      "explanation": "A teller's facial expressions and gestures help show a character's emotions.",
+      "version": 1
+    },
+    {
+      "id": "63142014-6f30-5990-a109-246c0b47730b",
+      "prompt": "A character's emotions should —",
+      "correctAnswer": "change with the events of the story",
+      "distractors": [
+        "stay flat throughout",
+        "never appear",
+        "ignore the plot"
+      ],
+      "bloomLevel": "analyze",
+      "gradeBand": "gr5-6",
+      "topic": "Characters in a Told Tale",
+      "subtopic": "Changing emotions",
+      "standard": "CCSS.ELA-LITERACY.W.5.3",
+      "hints": [
+        "Feelings respond to events",
+        "They react"
+      ],
+      "explanation": "A character's emotions should shift in response to the story's events, making them feel alive.",
+      "version": 1
+    },
+    {
+      "id": "262f6ba8-0e76-5ca5-95ee-6667542b2ac1",
+      "prompt": "Which brings a character to life BEST in a told tale?",
+      "correctAnswer": "Showing them act and speak in their own way",
+      "distractors": [
+        "Only naming them",
+        "Listing their traits flatly",
+        "Ignoring them"
+      ],
+      "bloomLevel": "evaluate",
+      "gradeBand": "gr5-6",
+      "topic": "Characters in a Told Tale",
+      "subtopic": "Bringing characters alive",
+      "standard": "CCSS.ELA-LITERACY.W.5.3",
+      "hints": [
+        "Show them in action",
+        "Act + speak"
+      ],
+      "explanation": "Showing a character act and speak in their own distinct way brings them to life better than a flat description.",
+      "version": 1
+    },
+    {
+      "id": "46d0a616-1070-5c56-afb7-d1d21d096d71",
+      "prompt": "A villain in a told tale is more interesting when they —",
+      "correctAnswer": "have a reason for what they do",
+      "distractors": [
+        "are evil for no reason",
+        "never appear",
+        "have no personality"
+      ],
+      "bloomLevel": "evaluate",
+      "gradeBand": "gr5-6",
+      "topic": "Characters in a Told Tale",
+      "subtopic": "Interesting villain",
+      "standard": "CCSS.ELA-LITERACY.W.5.3",
+      "hints": [
+        "Give them a why",
+        "Understandable motive"
+      ],
+      "explanation": "A villain is more interesting when they have understandable reasons, not just pure random evil.",
+      "version": 1
+    },
+    {
+      "id": "1af3dda8-58a0-58cf-a059-fc108a5fa036",
+      "prompt": "A character's growth (change) across a told tale gives it —",
+      "correctAnswer": "emotional depth",
+      "distractors": [
+        "no depth",
+        "confusion",
+        "only a setting"
+      ],
+      "bloomLevel": "analyze",
+      "gradeBand": "gr5-6",
+      "topic": "Characters in a Told Tale",
+      "subtopic": "Character growth",
+      "standard": "CCSS.ELA-LITERACY.W.5.3",
+      "hints": [
+        "They change",
+        "Depth via arc"
+      ],
+      "explanation": "A character who grows or changes across a told tale gives the story emotional depth.",
+      "version": 1
+    },
+    {
+      "id": "13eef56b-c2fd-5f49-8b56-d6c3062a28aa",
+      "prompt": "A teller should keep a character's voice —",
+      "correctAnswer": "consistent so listeners recognize them",
+      "distractors": [
+        "random",
+        "identical to every character",
+        "silent"
+      ],
+      "bloomLevel": "evaluate",
+      "gradeBand": "gr5-6",
+      "topic": "Characters in a Told Tale",
+      "subtopic": "Consistent voicing",
+      "standard": "CCSS.ELA-LITERACY.SL.5.5",
+      "hints": [
+        "Keep it recognizable",
+        "Consistent"
+      ],
+      "explanation": "Keeping a character's voice consistent helps listeners recognize them each time they speak.",
+      "version": 1
+    },
+    {
+      "id": "a274c4f2-fcdd-559a-ae97-5506e498a023",
+      "prompt": "Physical details of a character should be —",
+      "correctAnswer": "few but memorable",
+      "distractors": [
+        "exhaustive",
+        "none",
+        "only about clothing"
+      ],
+      "bloomLevel": "evaluate",
+      "gradeBand": "gr5-6",
+      "topic": "Characters in a Told Tale",
+      "subtopic": "Character details",
+      "standard": "CCSS.ELA-LITERACY.W.5.3",
+      "hints": [
+        "A couple strong ones",
+        "Memorable"
+      ],
+      "explanation": "A few memorable physical details bring a character to life without overwhelming the listener.",
+      "version": 1
+    },
+    {
+      "id": "da843d02-ba97-5bc2-b617-307fba6d6737",
+      "prompt": "A character listeners can PICTURE feels —",
+      "correctAnswer": "more real",
+      "distractors": [
+        "flat",
+        "distant",
+        "confusing"
+      ],
+      "bloomLevel": "understand",
+      "gradeBand": "gr5-6",
+      "topic": "Characters in a Told Tale",
+      "subtopic": "Picturable characters",
+      "standard": "CCSS.ELA-LITERACY.W.5.3",
+      "hints": [
+        "They can see them",
+        "More real"
+      ],
+      "explanation": "A character listeners can picture feels more real and vivid.",
+      "version": 1
+    },
+    {
+      "id": "12db8e5c-fc99-57be-91c4-33f6a6f7b5ac",
+      "prompt": "The relationship between two characters can create —",
+      "correctAnswer": "conflict or warmth (interest)",
+      "distractors": [
+        "nothing",
+        "only the setting",
+        "the font"
+      ],
+      "bloomLevel": "analyze",
+      "gradeBand": "gr5-6",
+      "topic": "Characters in a Told Tale",
+      "subtopic": "Character relationships",
+      "standard": "CCSS.ELA-LITERACY.W.5.3",
+      "hints": [
+        "Bonds + clashes",
+        "Interest"
+      ],
+      "explanation": "Relationships between characters create conflict or warmth, adding interest to a told tale.",
+      "version": 1
+    },
+    {
+      "id": "2b66f5e4-067a-5d5a-8377-d1028ddb85c4",
+      "prompt": "A teller connects listeners to a character by helping them —",
+      "correctAnswer": "feel what the character feels",
+      "distractors": [
+        "ignore the character",
+        "forget the character",
+        "focus on the font"
+      ],
+      "bloomLevel": "evaluate",
+      "gradeBand": "gr5-6",
+      "topic": "Characters in a Told Tale",
+      "subtopic": "Empathy",
+      "standard": "CCSS.ELA-LITERACY.W.5.3",
+      "hints": [
+        "Feel with them",
+        "Empathy"
+      ],
+      "explanation": "A teller connects listeners to a character by helping them feel what the character feels — empathy.",
+      "version": 1
+    },
+    {
+      "id": "e8e23736-6d17-5033-a7c9-f77b5d41a20c",
+      "prompt": "The BEST summary of characters in a told tale is —",
+      "correctAnswer": "a small, distinct cast brought to life through voice, action, and feeling",
+      "distractors": [
+        "a huge nameless cast",
+        "no characters",
+        "the setting only"
+      ],
+      "bloomLevel": "understand",
+      "gradeBand": "gr5-6",
+      "topic": "Characters in a Told Tale",
+      "subtopic": "Summary",
+      "standard": "CCSS.ELA-LITERACY.W.5.3",
+      "hints": [
+        "Small + distinct + alive",
+        "Voice + action + feeling"
+      ],
+      "explanation": "Characters in a told tale are a small, distinct cast brought to life through voice, action, and feeling.",
+      "version": 1
+    },
+    {
+      "id": "190868a1-ff29-5869-a592-78c9bc6d4066",
+      "prompt": "A teller can signal a NEW character is speaking by —",
+      "correctAnswer": "changing voice or posture",
+      "distractors": [
+        "staying identical",
+        "whispering everything",
+        "using no change"
+      ],
+      "bloomLevel": "apply",
+      "gradeBand": "gr5-6",
+      "topic": "Characters in a Told Tale",
+      "subtopic": "Signaling speakers",
+      "standard": "CCSS.ELA-LITERACY.SL.5.5",
+      "hints": [
+        "Switch voice/posture",
+        "Mark the change"
+      ],
+      "explanation": "A teller signals a new speaker by changing voice or posture, helping listeners follow the dialogue.",
+      "version": 1
+    },
+    {
+      "id": "4723eddb-e64a-5b30-a6da-5c4d16c5a417",
+      "prompt": "A character's WANT gives the listener —",
+      "correctAnswer": "a reason to care about the outcome",
+      "distractors": [
+        "nothing to follow",
+        "confusion",
+        "the setting"
+      ],
+      "bloomLevel": "analyze",
+      "gradeBand": "gr5-6",
+      "topic": "Characters in a Told Tale",
+      "subtopic": "Want + caring",
+      "standard": "CCSS.ELA-LITERACY.W.5.3",
+      "hints": [
+        "A goal to root for",
+        "We care"
+      ],
+      "explanation": "Showing what a character wants gives listeners a reason to care about whether they succeed.",
+      "version": 1
+    },
+    {
+      "id": "08d099f4-bc2d-50fb-b18a-cd5fea04695f",
+      "prompt": "Two characters who want DIFFERENT things create —",
+      "correctAnswer": "conflict",
+      "distractors": [
+        "agreement",
+        "no story",
+        "the setting"
+      ],
+      "bloomLevel": "analyze",
+      "gradeBand": "gr5-6",
+      "topic": "Characters in a Told Tale",
+      "subtopic": "Character conflict",
+      "standard": "CCSS.ELA-LITERACY.W.5.3",
+      "hints": [
+        "Clashing wants",
+        "Conflict"
+      ],
+      "explanation": "When two characters want different things, their clash creates conflict — the engine of story.",
+      "version": 1
+    },
+    {
+      "id": "883062a5-59c5-532d-a29c-d11ecadb0619",
+      "prompt": "A minor character in a told tale should be —",
+      "correctAnswer": "clear but not overshadow the main character",
+      "distractors": [
+        "more important than the hero",
+        "the same as the hero",
+        "invisible"
+      ],
+      "bloomLevel": "evaluate",
+      "gradeBand": "gr5-6",
+      "topic": "Characters in a Told Tale",
+      "subtopic": "Minor characters",
+      "standard": "CCSS.ELA-LITERACY.W.5.3",
+      "hints": [
+        "Support, don't steal focus",
+        "Keep the lead central"
+      ],
+      "explanation": "Minor characters should be clear but not overshadow the main character listeners are following.",
+      "version": 1
+    }
+  ],
+  "standardsFramework": "CCSS"
+}

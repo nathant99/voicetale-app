@@ -1,0 +1,535 @@
+{
+  "id": "kit_04_setting_the_scene_gr45",
+  "name": "Setting the Scene",
+  "description": "Where and when a story happens",
+  "gradeBand": "gr4-5",
+  "topic": "Setting the Scene",
+  "questions": [
+    {
+      "id": "99fac74c-d231-5076-b8b1-654706c8b92d",
+      "prompt": "The 'setting' of a story is —",
+      "correctAnswer": "where and when it takes place",
+      "distractors": [
+        "the main character",
+        "the problem",
+        "the ending"
+      ],
+      "bloomLevel": "remember",
+      "gradeBand": "gr4-5",
+      "topic": "Setting the Scene",
+      "subtopic": "Setting",
+      "standard": "CCSS.ELA-LITERACY.W.5.3",
+      "hints": [
+        "Place + time",
+        "Where + when"
+      ],
+      "explanation": "The setting is where and when a story takes place.",
+      "version": 1
+    },
+    {
+      "id": "f2425934-c5a6-5439-83cc-34af91d4e441",
+      "prompt": "A vivid setting helps listeners —",
+      "correctAnswer": "picture the story in their minds",
+      "distractors": [
+        "forget the story",
+        "ignore the characters",
+        "get confused"
+      ],
+      "bloomLevel": "understand",
+      "gradeBand": "gr4-5",
+      "topic": "Setting the Scene",
+      "subtopic": "Vivid setting",
+      "standard": "CCSS.ELA-LITERACY.W.5.3.D",
+      "hints": [
+        "Paint the picture",
+        "See it clearly"
+      ],
+      "explanation": "A vivid setting helps listeners picture the story in their imaginations.",
+      "version": 1
+    },
+    {
+      "id": "a630fc5f-9544-5ab0-9418-110fb92d1699",
+      "prompt": "Which SETS a scene most vividly?",
+      "correctAnswer": "\"Rain hammered the tin roof of the tiny cabin.\"",
+      "distractors": [
+        "\"It was a place.\"",
+        "\"They were somewhere.\"",
+        "\"The setting existed.\""
+      ],
+      "bloomLevel": "apply",
+      "gradeBand": "gr4-5",
+      "topic": "Setting the Scene",
+      "subtopic": "Vivid setting example",
+      "standard": "CCSS.ELA-LITERACY.W.5.3.D",
+      "hints": [
+        "Specific + sensory",
+        "Rain + tin roof"
+      ],
+      "explanation": "Specific, sensory details like 'rain hammered the tin roof' set a scene far more vividly than vague words.",
+      "version": 1
+    },
+    {
+      "id": "f14032c0-5e90-50f9-a0e2-247398f2b5e4",
+      "prompt": "Setting can affect a story's —",
+      "correctAnswer": "mood",
+      "distractors": [
+        "page count",
+        "font",
+        "title only"
+      ],
+      "bloomLevel": "analyze",
+      "gradeBand": "gr4-5",
+      "topic": "Setting the Scene",
+      "subtopic": "Setting + mood",
+      "standard": "CCSS.ELA-LITERACY.SL.5.5",
+      "hints": [
+        "Place shapes feeling",
+        "A storm vs a sunny day"
+      ],
+      "explanation": "The setting shapes the mood — a dark, stormy place feels different from a bright, sunny one.",
+      "version": 1
+    },
+    {
+      "id": "d4b5234b-c1b5-522f-8238-a79e16fda5cf",
+      "prompt": "You don't need to describe EVERYTHING about a setting; just —",
+      "correctAnswer": "the details that matter",
+      "distractors": [
+        "every single object",
+        "nothing at all",
+        "only the weather"
+      ],
+      "bloomLevel": "evaluate",
+      "gradeBand": "gr4-5",
+      "topic": "Setting the Scene",
+      "subtopic": "Selective setting",
+      "standard": "CCSS.ELA-LITERACY.W.5.3.D",
+      "hints": [
+        "Key details only",
+        "What matters"
+      ],
+      "explanation": "You only need the details that matter — a few well-chosen ones bring a setting to life without overloading listeners.",
+      "version": 1
+    },
+    {
+      "id": "e1e70c0b-fa08-5cd1-bf2d-84d1421f1f87",
+      "prompt": "A setting can be a real place or —",
+      "correctAnswer": "an imaginary one",
+      "distractors": [
+        "never imaginary",
+        "only the present",
+        "only Earth"
+      ],
+      "bloomLevel": "understand",
+      "gradeBand": "gr4-5",
+      "topic": "Setting the Scene",
+      "subtopic": "Real or imagined",
+      "standard": "CCSS.ELA-LITERACY.W.5.3",
+      "hints": [
+        "Real or invented",
+        "Fantasy settings too"
+      ],
+      "explanation": "A setting can be a real place or an entirely imagined one — a magical kingdom, a distant planet, or your own town.",
+      "version": 1
+    },
+    {
+      "id": "a45a4d10-7560-54a5-bc9b-12e4ee548b6a",
+      "prompt": "Establishing the setting early helps listeners —",
+      "correctAnswer": "ground themselves in the story",
+      "distractors": [
+        "get lost",
+        "skip the story",
+        "ignore the characters"
+      ],
+      "bloomLevel": "understand",
+      "gradeBand": "gr4-5",
+      "topic": "Setting the Scene",
+      "subtopic": "Early setting",
+      "standard": "CCSS.ELA-LITERACY.W.5.3",
+      "hints": [
+        "Ground them",
+        "Set the stage first"
+      ],
+      "explanation": "Establishing the setting early grounds listeners so they can picture where the story unfolds.",
+      "version": 1
+    },
+    {
+      "id": "1d06bc2b-e655-55ec-b7de-cab332428def",
+      "prompt": "A change in setting during a story can signal —",
+      "correctAnswer": "a change in the story (time or place shift)",
+      "distractors": [
+        "nothing",
+        "the end always",
+        "the title"
+      ],
+      "bloomLevel": "analyze",
+      "gradeBand": "gr4-5",
+      "topic": "Setting the Scene",
+      "subtopic": "Setting change",
+      "standard": "CCSS.ELA-LITERACY.W.5.3",
+      "hints": [
+        "New place/time",
+        "A shift"
+      ],
+      "explanation": "Moving to a new setting can signal a shift in time or place — a new part of the story.",
+      "version": 1
+    },
+    {
+      "id": "a1e0cdb4-7758-5e77-aff7-2002686aebc2",
+      "prompt": "Sensory details of a setting appeal to —",
+      "correctAnswer": "sight, sound, smell, touch, and taste",
+      "distractors": [
+        "only sight",
+        "no senses",
+        "only the title"
+      ],
+      "bloomLevel": "understand",
+      "gradeBand": "gr4-5",
+      "topic": "Setting the Scene",
+      "subtopic": "Sensory setting",
+      "standard": "CCSS.ELA-LITERACY.W.5.3.D",
+      "hints": [
+        "All five senses",
+        "Not just sight"
+      ],
+      "explanation": "Sensory details bring a setting alive through sight, sound, smell, touch, and taste.",
+      "version": 1
+    },
+    {
+      "id": "8172dc29-d42c-5097-a186-a1bb7b43b7b8",
+      "prompt": "A setting that matches the story's events is —",
+      "correctAnswer": "more powerful",
+      "distractors": [
+        "distracting",
+        "irrelevant",
+        "weaker"
+      ],
+      "bloomLevel": "evaluate",
+      "gradeBand": "gr4-5",
+      "topic": "Setting the Scene",
+      "subtopic": "Matching setting",
+      "standard": "CCSS.ELA-LITERACY.SL.5.5",
+      "hints": [
+        "Setting fits events",
+        "Reinforces the story"
+      ],
+      "explanation": "A setting that matches the story's events reinforces and strengthens them.",
+      "version": 1
+    },
+    {
+      "id": "fef82c9b-4089-5d03-843a-d98a7de39b11",
+      "prompt": "Too MUCH setting description at once can —",
+      "correctAnswer": "slow the story down",
+      "distractors": [
+        "speed it up",
+        "improve the pace always",
+        "hook the listener"
+      ],
+      "bloomLevel": "analyze",
+      "gradeBand": "gr4-5",
+      "topic": "Setting the Scene",
+      "subtopic": "Overdescribing",
+      "standard": "CCSS.ELA-LITERACY.W.5.3.D",
+      "hints": [
+        "Don't overload",
+        "Keep it moving"
+      ],
+      "explanation": "Too much setting description at once can bog down the story; weave details in as you go.",
+      "version": 1
+    },
+    {
+      "id": "258ca29d-0629-5638-a6bb-3bb5b9178673",
+      "prompt": "A skilled teller weaves setting details into —",
+      "correctAnswer": "the action, not a long list",
+      "distractors": [
+        "a separate boring list",
+        "the title only",
+        "nothing"
+      ],
+      "bloomLevel": "evaluate",
+      "gradeBand": "gr4-5",
+      "topic": "Setting the Scene",
+      "subtopic": "Weaving setting",
+      "standard": "CCSS.ELA-LITERACY.W.5.3.D",
+      "hints": [
+        "Blend it in",
+        "Not a list"
+      ],
+      "explanation": "Skilled tellers weave setting details into the action rather than pausing for a long description.",
+      "version": 1
+    },
+    {
+      "id": "3c34b512-ca21-529c-9607-e29e713dc54f",
+      "prompt": "Which detail best sets a WINTER scene?",
+      "correctAnswer": "\"Her breath turned to fog as snow crunched underfoot.\"",
+      "distractors": [
+        "\"It was winter.\"",
+        "\"The season was cold.\"",
+        "\"Winter is a season.\""
+      ],
+      "bloomLevel": "apply",
+      "gradeBand": "gr4-5",
+      "topic": "Setting the Scene",
+      "subtopic": "Seasonal setting",
+      "standard": "CCSS.ELA-LITERACY.W.5.3.D",
+      "hints": [
+        "Show the cold",
+        "Fog + crunching snow"
+      ],
+      "explanation": "Showing breath turning to fog and snow crunching sets a winter scene vividly through sensory detail.",
+      "version": 1
+    },
+    {
+      "id": "bfca67a2-e7ea-5852-afa6-939f1338891e",
+      "prompt": "Setting helps answer the questions —",
+      "correctAnswer": "where and when",
+      "distractors": [
+        "who and why only",
+        "how many pages",
+        "what font"
+      ],
+      "bloomLevel": "remember",
+      "gradeBand": "gr4-5",
+      "topic": "Setting the Scene",
+      "subtopic": "Setting questions",
+      "standard": "CCSS.ELA-LITERACY.W.5.3",
+      "hints": [
+        "Where + when",
+        "Place + time"
+      ],
+      "explanation": "Setting answers 'where' and 'when' the story happens.",
+      "version": 1
+    },
+    {
+      "id": "f7609294-b23c-5741-adeb-cfed968dd029",
+      "prompt": "A familiar setting (like a school) helps listeners —",
+      "correctAnswer": "relate quickly",
+      "distractors": [
+        "get confused",
+        "ignore the story",
+        "leave"
+      ],
+      "bloomLevel": "understand",
+      "gradeBand": "gr4-5",
+      "topic": "Setting the Scene",
+      "subtopic": "Familiar settings",
+      "standard": "CCSS.ELA-LITERACY.SL.6.6",
+      "hints": [
+        "Easy to picture",
+        "Relatable"
+      ],
+      "explanation": "A familiar setting lets listeners relate and picture the scene quickly.",
+      "version": 1
+    },
+    {
+      "id": "02e98442-1d87-59f9-b8c2-f0e1b6c7e8a5",
+      "prompt": "An unusual setting (like the bottom of the ocean) can —",
+      "correctAnswer": "spark curiosity and wonder",
+      "distractors": [
+        "bore listeners",
+        "confuse everyone always",
+        "ruin the story"
+      ],
+      "bloomLevel": "analyze",
+      "gradeBand": "gr4-5",
+      "topic": "Setting the Scene",
+      "subtopic": "Unusual settings",
+      "standard": "CCSS.ELA-LITERACY.W.5.3",
+      "hints": [
+        "Novelty intrigues",
+        "Wonder"
+      ],
+      "explanation": "An unusual setting can spark curiosity and wonder, drawing listeners into a new world.",
+      "version": 1
+    },
+    {
+      "id": "aa81129f-08a3-5b4e-943b-0a77dd1b08a5",
+      "prompt": "Setting details should support —",
+      "correctAnswer": "the story and its mood",
+      "distractors": [
+        "nothing",
+        "only the title",
+        "the page count"
+      ],
+      "bloomLevel": "evaluate",
+      "gradeBand": "gr4-5",
+      "topic": "Setting the Scene",
+      "subtopic": "Purposeful setting",
+      "standard": "CCSS.ELA-LITERACY.SL.5.5",
+      "hints": [
+        "Serve the story",
+        "Reinforce mood"
+      ],
+      "explanation": "The best setting details support the story and reinforce its mood.",
+      "version": 1
+    },
+    {
+      "id": "f49ab00c-b2b3-5107-8dee-e63966cbc996",
+      "prompt": "A teller can suggest a setting quickly with —",
+      "correctAnswer": "one or two strong details",
+      "distractors": [
+        "a dozen details at once",
+        "no details",
+        "only the title"
+      ],
+      "bloomLevel": "apply",
+      "gradeBand": "gr4-5",
+      "topic": "Setting the Scene",
+      "subtopic": "Efficient setting",
+      "standard": "CCSS.ELA-LITERACY.W.5.3.D",
+      "hints": [
+        "A couple strong details",
+        "Suggest, don't list"
+      ],
+      "explanation": "One or two strong, specific details can suggest a whole setting efficiently.",
+      "version": 1
+    },
+    {
+      "id": "6ad49630-4e75-58c1-8e00-60a4c5e1ad46",
+      "prompt": "The setting is like the story's —",
+      "correctAnswer": "stage",
+      "distractors": [
+        "ending",
+        "hook only",
+        "title"
+      ],
+      "bloomLevel": "understand",
+      "gradeBand": "gr4-5",
+      "topic": "Setting the Scene",
+      "subtopic": "Setting as stage",
+      "standard": "CCSS.ELA-LITERACY.W.5.3",
+      "hints": [
+        "Where it plays out",
+        "The stage"
+      ],
+      "explanation": "The setting is the stage on which the story's events play out.",
+      "version": 1
+    },
+    {
+      "id": "367afc56-5d7e-5d4e-9695-e78f149a3a0b",
+      "prompt": "Describing HOW a place feels (cozy, eerie) adds —",
+      "correctAnswer": "atmosphere",
+      "distractors": [
+        "confusion",
+        "nothing",
+        "only facts"
+      ],
+      "bloomLevel": "analyze",
+      "gradeBand": "gr4-5",
+      "topic": "Setting the Scene",
+      "subtopic": "Atmosphere",
+      "standard": "CCSS.ELA-LITERACY.SL.5.5",
+      "hints": [
+        "The feeling of a place",
+        "Atmosphere"
+      ],
+      "explanation": "Describing how a place feels — cozy, eerie, bustling — adds atmosphere to the setting.",
+      "version": 1
+    },
+    {
+      "id": "9ef52aea-47e9-5f80-ad41-cd310519ef1a",
+      "prompt": "A well-set scene makes the story feel —",
+      "correctAnswer": "real and immersive",
+      "distractors": [
+        "flat and distant",
+        "confusing",
+        "boring"
+      ],
+      "bloomLevel": "evaluate",
+      "gradeBand": "gr4-5",
+      "topic": "Setting the Scene",
+      "subtopic": "Immersive setting",
+      "standard": "CCSS.ELA-LITERACY.W.5.3.D",
+      "hints": [
+        "Real + immersive",
+        "Draws them in"
+      ],
+      "explanation": "A well-set scene makes the story feel real and immersive.",
+      "version": 1
+    },
+    {
+      "id": "676bdb1a-c2be-5424-a20a-861bc101b904",
+      "prompt": "The BEST summary of setting the scene is —",
+      "correctAnswer": "using vivid, selective details to show where and when the story happens",
+      "distractors": [
+        "describing everything",
+        "using no details",
+        "the title only"
+      ],
+      "bloomLevel": "understand",
+      "gradeBand": "gr4-5",
+      "topic": "Setting the Scene",
+      "subtopic": "Summary",
+      "standard": "CCSS.ELA-LITERACY.W.5.3.D",
+      "hints": [
+        "Vivid + selective",
+        "Where + when, shown"
+      ],
+      "explanation": "Setting the scene means using vivid, well-chosen details to show where and when a story happens.",
+      "version": 1
+    },
+    {
+      "id": "d499010c-d962-5d7e-b675-42fc43e4e782",
+      "prompt": "A setting can also affect the PLOT when —",
+      "correctAnswer": "the place creates an obstacle or opportunity",
+      "distractors": [
+        "it never matters",
+        "it is only decoration",
+        "it is the title"
+      ],
+      "bloomLevel": "analyze",
+      "gradeBand": "gr4-5",
+      "topic": "Setting the Scene",
+      "subtopic": "Setting affects plot",
+      "standard": "CCSS.ELA-LITERACY.W.5.3",
+      "hints": [
+        "Place shapes events",
+        "Obstacle or opportunity"
+      ],
+      "explanation": "A setting can shape the plot — a raging river, a locked castle — creating obstacles or opportunities.",
+      "version": 1
+    },
+    {
+      "id": "35656a5b-f8ab-5503-bb47-3414791b2fdd",
+      "prompt": "The best time to establish the setting is usually —",
+      "correctAnswer": "early, but woven into the action",
+      "distractors": [
+        "only at the very end",
+        "never",
+        "in a long list up front"
+      ],
+      "bloomLevel": "evaluate",
+      "gradeBand": "gr4-5",
+      "topic": "Setting the Scene",
+      "subtopic": "Establishing setting",
+      "standard": "CCSS.ELA-LITERACY.W.5.3.D",
+      "hints": [
+        "Early + woven in",
+        "Not a front-loaded list"
+      ],
+      "explanation": "Establish the setting early, but weave it into the action rather than pausing for a long description.",
+      "version": 1
+    },
+    {
+      "id": "1a91a38c-aeb2-5011-af21-e5194b06673e",
+      "prompt": "Which best sets a busy MARKET scene?",
+      "correctAnswer": "\"Vendors shouted prices over the clatter of carts and the smell of frying dough.\"",
+      "distractors": [
+        "\"It was a market.\"",
+        "\"People were there.\"",
+        "\"A place with stalls existed.\""
+      ],
+      "bloomLevel": "apply",
+      "gradeBand": "gr4-5",
+      "topic": "Setting the Scene",
+      "subtopic": "Vivid market scene",
+      "standard": "CCSS.ELA-LITERACY.W.5.3.D",
+      "hints": [
+        "Sound + smell + action",
+        "Show the bustle"
+      ],
+      "explanation": "Shouting vendors, clattering carts, and frying dough set a busy market through multiple senses.",
+      "version": 1
+    }
+  ],
+  "standardsFramework": "CCSS"
+}

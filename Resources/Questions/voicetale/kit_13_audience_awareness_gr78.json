@@ -1,0 +1,535 @@
+{
+  "id": "kit_13_audience_awareness_gr78",
+  "name": "Audience Awareness",
+  "description": "Reading and engaging your listeners",
+  "gradeBand": "gr7-8",
+  "topic": "Audience Awareness",
+  "questions": [
+    {
+      "id": "9729eaa4-bf75-5ae5-986e-7d799096092d",
+      "prompt": "'Audience awareness' means —",
+      "correctAnswer": "paying attention to who is listening and how they respond",
+      "distractors": [
+        "ignoring the audience",
+        "reading a script",
+        "only your own performance"
+      ],
+      "bloomLevel": "remember",
+      "gradeBand": "gr7-8",
+      "topic": "Audience Awareness",
+      "subtopic": "Audience awareness",
+      "standard": "CCSS.ELA-LITERACY.SL.6.6",
+      "hints": [
+        "Notice the listeners",
+        "Read the room"
+      ],
+      "explanation": "Audience awareness means paying attention to who is listening and how they're responding.",
+      "version": 1
+    },
+    {
+      "id": "20b04509-8b5d-5b69-995e-5014bac5d7f2",
+      "prompt": "A teller should adapt a story to the —",
+      "correctAnswer": "age and interests of the audience",
+      "distractors": [
+        "teller's mood only",
+        "page count",
+        "font"
+      ],
+      "bloomLevel": "understand",
+      "gradeBand": "gr7-8",
+      "topic": "Audience Awareness",
+      "subtopic": "Adapting to audience",
+      "standard": "CCSS.ELA-LITERACY.SL.6.6",
+      "hints": [
+        "Fit the listeners",
+        "Age + interests"
+      ],
+      "explanation": "A skilled teller adapts a story to the age and interests of the audience.",
+      "version": 1
+    },
+    {
+      "id": "fd57a543-7732-5ed2-8b5b-0f27a0630e26",
+      "prompt": "If the audience looks confused, a teller should —",
+      "correctAnswer": "clarify or slow down",
+      "distractors": [
+        "speed up",
+        "ignore it",
+        "keep going identically"
+      ],
+      "bloomLevel": "apply",
+      "gradeBand": "gr7-8",
+      "topic": "Audience Awareness",
+      "subtopic": "Reading confusion",
+      "standard": "CCSS.ELA-LITERACY.SL.6.6",
+      "hints": [
+        "Adjust in the moment",
+        "Clarify"
+      ],
+      "explanation": "If listeners look confused, a teller should clarify or slow down to bring them back.",
+      "version": 1
+    },
+    {
+      "id": "6d6553ff-5180-5b27-8e50-3285fcf1adf6",
+      "prompt": "If the audience looks bored, a teller might —",
+      "correctAnswer": "add energy or move to the exciting part",
+      "distractors": [
+        "slow down more",
+        "keep the same pace",
+        "add more detail"
+      ],
+      "bloomLevel": "apply",
+      "gradeBand": "gr7-8",
+      "topic": "Audience Awareness",
+      "subtopic": "Reading boredom",
+      "standard": "CCSS.ELA-LITERACY.SL.6.6",
+      "hints": [
+        "Re-energize",
+        "Get to the good part"
+      ],
+      "explanation": "If listeners look bored, a teller can add energy or move more quickly to the exciting part.",
+      "version": 1
+    },
+    {
+      "id": "132423ca-d54c-5f70-aa85-f9a8fb646d1e",
+      "prompt": "Telling a story to little kids vs teens, you'd change the —",
+      "correctAnswer": "vocabulary and complexity",
+      "distractors": [
+        "the plot only",
+        "nothing",
+        "the font"
+      ],
+      "bloomLevel": "apply",
+      "gradeBand": "gr7-8",
+      "topic": "Audience Awareness",
+      "subtopic": "Adjusting complexity",
+      "standard": "CCSS.ELA-LITERACY.SL.6.6",
+      "hints": [
+        "Simpler for younger",
+        "Fit the age"
+      ],
+      "explanation": "For younger listeners you'd use simpler vocabulary and less complexity than for teens.",
+      "version": 1
+    },
+    {
+      "id": "c6f62f6c-9345-52bd-bcb8-9ba09b0da2f1",
+      "prompt": "Reading the audience is possible because a live teller can —",
+      "correctAnswer": "see and hear their reactions",
+      "distractors": [
+        "not see them",
+        "ignore them",
+        "read a script only"
+      ],
+      "bloomLevel": "understand",
+      "gradeBand": "gr7-8",
+      "topic": "Audience Awareness",
+      "subtopic": "Live feedback",
+      "standard": "CCSS.ELA-LITERACY.SL.6.6",
+      "hints": [
+        "Watch + listen",
+        "Live reactions"
+      ],
+      "explanation": "A live teller can see and hear the audience's reactions, unlike a writer of a book.",
+      "version": 1
+    },
+    {
+      "id": "37abad01-db15-58e5-8bee-bf648903c87a",
+      "prompt": "Involving the audience (a question, a repeated line) can —",
+      "correctAnswer": "increase engagement",
+      "distractors": [
+        "bore them",
+        "confuse everyone",
+        "end the story"
+      ],
+      "bloomLevel": "apply",
+      "gradeBand": "gr7-8",
+      "topic": "Audience Awareness",
+      "subtopic": "Audience participation",
+      "standard": "CCSS.ELA-LITERACY.SL.6.6",
+      "hints": [
+        "Invite them in",
+        "Boost engagement"
+      ],
+      "explanation": "Involving the audience — with a question or a line to repeat — can boost their engagement.",
+      "version": 1
+    },
+    {
+      "id": "dfce5f00-0e8e-5ba2-9948-9a1daf7573a9",
+      "prompt": "A good teller balances their PLAN with —",
+      "correctAnswer": "flexibility to adapt in the moment",
+      "distractors": [
+        "rigidly ignoring the audience",
+        "no plan at all",
+        "reading word-for-word"
+      ],
+      "bloomLevel": "evaluate",
+      "gradeBand": "gr7-8",
+      "topic": "Audience Awareness",
+      "subtopic": "Plan + flexibility",
+      "standard": "CCSS.ELA-LITERACY.SL.6.6",
+      "hints": [
+        "Prepared but flexible",
+        "Adapt live"
+      ],
+      "explanation": "A good teller balances a solid plan with the flexibility to adapt to the audience in the moment.",
+      "version": 1
+    },
+    {
+      "id": "49434940-5196-5c9e-9917-6c1baaff0ebd",
+      "prompt": "Adapting a story does NOT mean —",
+      "correctAnswer": "changing its core meaning or heart",
+      "distractors": [
+        "adjusting the vocabulary",
+        "adjusting the pace",
+        "adjusting the length"
+      ],
+      "bloomLevel": "analyze",
+      "gradeBand": "gr7-8",
+      "topic": "Audience Awareness",
+      "subtopic": "Limits of adapting",
+      "standard": "CCSS.ELA-LITERACY.SL.6.6",
+      "hints": [
+        "Keep the heart",
+        "Adapt delivery, not soul"
+      ],
+      "explanation": "Adapting for an audience means adjusting delivery, vocabulary, or length — not gutting the story's core meaning.",
+      "version": 1
+    },
+    {
+      "id": "46a0fd0e-500f-51eb-b842-d38e3696fd1d",
+      "prompt": "Knowing your audience helps you choose —",
+      "correctAnswer": "the right story and the right details",
+      "distractors": [
+        "the font",
+        "the page count",
+        "nothing"
+      ],
+      "bloomLevel": "understand",
+      "gradeBand": "gr7-8",
+      "topic": "Audience Awareness",
+      "subtopic": "Choosing for the audience",
+      "standard": "CCSS.ELA-LITERACY.SL.6.6",
+      "hints": [
+        "Pick what fits",
+        "Right story + details"
+      ],
+      "explanation": "Knowing your audience helps you choose the right story and the details that will land.",
+      "version": 1
+    },
+    {
+      "id": "34059438-25f5-52c9-b285-eb3c884be4a9",
+      "prompt": "A joke that lands with one audience might —",
+      "correctAnswer": "not land with another",
+      "distractors": [
+        "always land the same",
+        "never matter",
+        "be identical everywhere"
+      ],
+      "bloomLevel": "analyze",
+      "gradeBand": "gr7-8",
+      "topic": "Audience Awareness",
+      "subtopic": "Audience differences",
+      "standard": "CCSS.ELA-LITERACY.SL.6.6",
+      "hints": [
+        "Audiences differ",
+        "Adjust the humor"
+      ],
+      "explanation": "Humor that lands with one audience may not land with another — audiences differ.",
+      "version": 1
+    },
+    {
+      "id": "75fa4edb-bc4e-5c4a-a3ba-43b10ffeb888",
+      "prompt": "A respectful teller is sensitive to the audience's —",
+      "correctAnswer": "background and feelings",
+      "distractors": [
+        "nothing",
+        "only the setting",
+        "the page count"
+      ],
+      "bloomLevel": "evaluate",
+      "gradeBand": "gr7-8",
+      "topic": "Audience Awareness",
+      "subtopic": "Respectful telling",
+      "standard": "CCSS.ELA-LITERACY.SL.6.6",
+      "hints": [
+        "Be considerate",
+        "Background + feelings"
+      ],
+      "explanation": "A respectful teller is sensitive to the audience's background and feelings when choosing and telling a story.",
+      "version": 1
+    },
+    {
+      "id": "b28c41de-177a-5d8e-b6a0-19ed697005f3",
+      "prompt": "Making eye contact helps a teller —",
+      "correctAnswer": "gauge and connect with the audience",
+      "distractors": [
+        "ignore them",
+        "read a script",
+        "hide"
+      ],
+      "bloomLevel": "apply",
+      "gradeBand": "gr7-8",
+      "topic": "Audience Awareness",
+      "subtopic": "Eye contact + awareness",
+      "standard": "CCSS.ELA-LITERACY.SL.6.6",
+      "hints": [
+        "Read + connect",
+        "See their reactions"
+      ],
+      "explanation": "Eye contact helps a teller gauge reactions and connect with the audience.",
+      "version": 1
+    },
+    {
+      "id": "a4c2e770-9b80-5f69-bc8d-78be401574e9",
+      "prompt": "If the audience is very quiet, it might mean they are —",
+      "correctAnswer": "deeply engaged OR bored — read other cues",
+      "distractors": [
+        "definitely bored",
+        "definitely gone",
+        "not listening"
+      ],
+      "bloomLevel": "analyze",
+      "gradeBand": "gr7-8",
+      "topic": "Audience Awareness",
+      "subtopic": "Reading quiet",
+      "standard": "CCSS.ELA-LITERACY.SL.6.6",
+      "hints": [
+        "Quiet is ambiguous",
+        "Check other cues"
+      ],
+      "explanation": "Quiet can mean deep engagement or boredom, so a teller reads other cues (faces, posture) to tell which.",
+      "version": 1
+    },
+    {
+      "id": "d07eb5bf-b8ba-52da-9045-eb72aaeeda87",
+      "prompt": "Adapting length to the audience's attention span is —",
+      "correctAnswer": "smart audience awareness",
+      "distractors": [
+        "disrespectful",
+        "impossible",
+        "irrelevant"
+      ],
+      "bloomLevel": "evaluate",
+      "gradeBand": "gr7-8",
+      "topic": "Audience Awareness",
+      "subtopic": "Length + audience",
+      "standard": "CCSS.ELA-LITERACY.SL.6.6",
+      "hints": [
+        "Fit their attention",
+        "Shorter for little kids"
+      ],
+      "explanation": "Adjusting a story's length to the audience's attention span is smart audience awareness.",
+      "version": 1
+    },
+    {
+      "id": "7f1fd295-2276-5b1f-baa0-31ade82eeb7d",
+      "prompt": "A teller who ignores the audience entirely risks —",
+      "correctAnswer": "losing their attention",
+      "distractors": [
+        "perfect engagement",
+        "a great connection",
+        "nothing"
+      ],
+      "bloomLevel": "analyze",
+      "gradeBand": "gr7-8",
+      "topic": "Audience Awareness",
+      "subtopic": "Ignoring the audience",
+      "standard": "CCSS.ELA-LITERACY.SL.6.6",
+      "hints": [
+        "They tune out",
+        "Lose attention"
+      ],
+      "explanation": "A teller who ignores the audience risks losing their attention and connection.",
+      "version": 1
+    },
+    {
+      "id": "fac36ceb-cc2d-5861-81a5-53f65da09a2e",
+      "prompt": "Audience awareness turns a telling into a —",
+      "correctAnswer": "shared experience",
+      "distractors": [
+        "one-way lecture",
+        "silent reading",
+        "monologue only"
+      ],
+      "bloomLevel": "understand",
+      "gradeBand": "gr7-8",
+      "topic": "Audience Awareness",
+      "subtopic": "Shared experience",
+      "standard": "CCSS.ELA-LITERACY.SL.6.6",
+      "hints": [
+        "Two-way connection",
+        "Shared"
+      ],
+      "explanation": "Audience awareness turns storytelling into a shared experience between teller and listeners.",
+      "version": 1
+    },
+    {
+      "id": "4f19ab1e-0a0e-5399-9402-c985c1b5aac7",
+      "prompt": "Before telling, it helps to know —",
+      "correctAnswer": "who your audience will be",
+      "distractors": [
+        "the font",
+        "the page count",
+        "nothing"
+      ],
+      "bloomLevel": "apply",
+      "gradeBand": "gr7-8",
+      "topic": "Audience Awareness",
+      "subtopic": "Knowing the audience ahead",
+      "standard": "CCSS.ELA-LITERACY.SL.6.6",
+      "hints": [
+        "Learn about them first",
+        "Who will listen"
+      ],
+      "explanation": "Knowing who your audience will be helps you prepare the right story and approach.",
+      "version": 1
+    },
+    {
+      "id": "e2ef0eaa-7309-54f3-b76c-5b70b29f1f04",
+      "prompt": "Adjusting in real time is a skill that comes with —",
+      "correctAnswer": "experience and attention",
+      "distractors": [
+        "ignoring the audience",
+        "never practicing",
+        "reading scripts"
+      ],
+      "bloomLevel": "understand",
+      "gradeBand": "gr7-8",
+      "topic": "Audience Awareness",
+      "subtopic": "Real-time skill",
+      "standard": "CCSS.ELA-LITERACY.SL.6.6",
+      "hints": [
+        "Practice + attention",
+        "Learned skill"
+      ],
+      "explanation": "Adjusting to an audience in real time is a skill that grows with experience and attention.",
+      "version": 1
+    },
+    {
+      "id": "cf4e389a-72f8-56e1-8981-2672f46f45d0",
+      "prompt": "The most important thing about an audience is that they —",
+      "correctAnswer": "are the reason you're telling the story",
+      "distractors": [
+        "don't matter",
+        "are only a background",
+        "should be ignored"
+      ],
+      "bloomLevel": "evaluate",
+      "gradeBand": "gr7-8",
+      "topic": "Audience Awareness",
+      "subtopic": "Audience matters",
+      "standard": "CCSS.ELA-LITERACY.SL.6.6",
+      "hints": [
+        "Tell FOR them",
+        "They're the point"
+      ],
+      "explanation": "The audience is the reason you're telling the story — keeping them in mind is the heart of good storytelling.",
+      "version": 1
+    },
+    {
+      "id": "daf482f2-f0fa-5df4-bdf9-120dd175b1d7",
+      "prompt": "The BEST summary of audience awareness is —",
+      "correctAnswer": "reading and adapting to your listeners to keep them engaged",
+      "distractors": [
+        "ignoring listeners",
+        "reading a fixed script",
+        "the setting"
+      ],
+      "bloomLevel": "understand",
+      "gradeBand": "gr7-8",
+      "topic": "Audience Awareness",
+      "subtopic": "Summary",
+      "standard": "CCSS.ELA-LITERACY.SL.6.6",
+      "hints": [
+        "Read + adapt",
+        "Keep them engaged"
+      ],
+      "explanation": "Audience awareness is reading and adapting to your listeners to keep them engaged and connected.",
+      "version": 1
+    },
+    {
+      "id": "6a6d8009-6d6b-5f28-94e7-74d84a9dc5fa",
+      "prompt": "For a very young audience, a teller should keep the story —",
+      "correctAnswer": "shorter and simpler",
+      "distractors": [
+        "long and complex",
+        "full of hard words",
+        "the same as for adults"
+      ],
+      "bloomLevel": "apply",
+      "gradeBand": "gr7-8",
+      "topic": "Audience Awareness",
+      "subtopic": "Young audience",
+      "standard": "CCSS.ELA-LITERACY.SL.6.6",
+      "hints": [
+        "Short + simple",
+        "Fit little kids"
+      ],
+      "explanation": "For very young listeners, keep the story shorter and simpler to match their attention and understanding.",
+      "version": 1
+    },
+    {
+      "id": "1faa4701-8fa6-5723-9636-c9c4eadea2cc",
+      "prompt": "Asking the audience a question mid-story can —",
+      "correctAnswer": "re-engage them",
+      "distractors": [
+        "bore them",
+        "end the story",
+        "confuse them"
+      ],
+      "bloomLevel": "apply",
+      "gradeBand": "gr7-8",
+      "topic": "Audience Awareness",
+      "subtopic": "Re-engaging",
+      "standard": "CCSS.ELA-LITERACY.SL.6.6",
+      "hints": [
+        "Invite them in",
+        "Boost engagement"
+      ],
+      "explanation": "Asking the audience a question mid-story can re-engage them and renew their attention.",
+      "version": 1
+    },
+    {
+      "id": "c1ab24e4-a6ac-5e38-b92f-fb06f3034c1b",
+      "prompt": "A teller should notice if the audience is —",
+      "correctAnswer": "engaged, confused, or losing interest",
+      "distractors": [
+        "irrelevant",
+        "always the same",
+        "only the setting"
+      ],
+      "bloomLevel": "understand",
+      "gradeBand": "gr7-8",
+      "topic": "Audience Awareness",
+      "subtopic": "Reading the room",
+      "standard": "CCSS.ELA-LITERACY.SL.6.6",
+      "hints": [
+        "Watch their reactions",
+        "Read the room"
+      ],
+      "explanation": "A teller should notice whether the audience is engaged, confused, or losing interest, and adjust.",
+      "version": 1
+    },
+    {
+      "id": "5f10f426-bb30-5962-9ee6-d72b690b6853",
+      "prompt": "Adapting to the audience is a mark of a —",
+      "correctAnswer": "skilled, responsive teller",
+      "distractors": [
+        "scripted reader",
+        "beginner who ignores listeners",
+        "poor teller"
+      ],
+      "bloomLevel": "evaluate",
+      "gradeBand": "gr7-8",
+      "topic": "Audience Awareness",
+      "subtopic": "Responsive teller",
+      "standard": "CCSS.ELA-LITERACY.SL.6.6",
+      "hints": [
+        "Responsive = skilled",
+        "Adapt live"
+      ],
+      "explanation": "Adapting to the audience in the moment is a mark of a skilled, responsive storyteller.",
+      "version": 1
+    }
+  ],
+  "standardsFramework": "CCSS"
+}
