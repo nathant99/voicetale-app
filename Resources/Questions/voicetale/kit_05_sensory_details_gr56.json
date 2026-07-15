@@ -1,0 +1,535 @@
+{
+  "id": "kit_05_sensory_details_gr56",
+  "name": "Sensory Details",
+  "description": "Using the five senses to bring a story alive",
+  "gradeBand": "gr5-6",
+  "topic": "Sensory Details",
+  "questions": [
+    {
+      "id": "051e8877-3166-5a28-a1ab-28a90af2e50a",
+      "prompt": "Sensory details appeal to —",
+      "correctAnswer": "the five senses (sight, sound, smell, touch, taste)",
+      "distractors": [
+        "only sight",
+        "only hearing",
+        "no senses"
+      ],
+      "bloomLevel": "remember",
+      "gradeBand": "gr5-6",
+      "topic": "Sensory Details",
+      "subtopic": "Sensory details",
+      "standard": "CCSS.ELA-LITERACY.W.5.3.D",
+      "hints": [
+        "The five senses",
+        "See/hear/smell/touch/taste"
+      ],
+      "explanation": "Sensory details appeal to the five senses: sight, sound, smell, touch, and taste.",
+      "version": 1
+    },
+    {
+      "id": "095fedf7-3022-52cf-a61c-7a9e4e3c6020",
+      "prompt": "Sensory details help listeners —",
+      "correctAnswer": "experience the story vividly",
+      "distractors": [
+        "ignore the story",
+        "forget the details",
+        "get confused"
+      ],
+      "bloomLevel": "understand",
+      "gradeBand": "gr5-6",
+      "topic": "Sensory Details",
+      "subtopic": "Why sensory details",
+      "standard": "CCSS.ELA-LITERACY.W.5.3.D",
+      "hints": [
+        "Feel like they're there",
+        "Vivid experience"
+      ],
+      "explanation": "Sensory details help listeners feel like they're inside the story, experiencing it vividly.",
+      "version": 1
+    },
+    {
+      "id": "ab1f0cc3-c173-553a-9a8a-7f9060ccc610",
+      "prompt": "Which uses a SOUND detail?",
+      "correctAnswer": "\"The floorboards creaked with every step.\"",
+      "distractors": [
+        "\"The room was there.\"",
+        "\"It looked normal.\"",
+        "\"Nothing happened.\""
+      ],
+      "bloomLevel": "apply",
+      "gradeBand": "gr5-6",
+      "topic": "Sensory Details",
+      "subtopic": "Sound detail",
+      "standard": "CCSS.ELA-LITERACY.W.5.3.D",
+      "hints": [
+        "What you hear",
+        "Creaking floorboards"
+      ],
+      "explanation": "'The floorboards creaked' uses a sound detail to bring the scene alive.",
+      "version": 1
+    },
+    {
+      "id": "65ce3ace-5543-5f25-967d-f6415b474e6a",
+      "prompt": "Which uses a SMELL detail?",
+      "correctAnswer": "\"The kitchen filled with the scent of warm cinnamon.\"",
+      "distractors": [
+        "\"The kitchen was a room.\"",
+        "\"It was a place.\"",
+        "\"They cooked.\""
+      ],
+      "bloomLevel": "apply",
+      "gradeBand": "gr5-6",
+      "topic": "Sensory Details",
+      "subtopic": "Smell detail",
+      "standard": "CCSS.ELA-LITERACY.W.5.3.D",
+      "hints": [
+        "What you smell",
+        "Cinnamon scent"
+      ],
+      "explanation": "'The scent of warm cinnamon' uses a smell detail — one of the most memory-rich senses.",
+      "version": 1
+    },
+    {
+      "id": "f057b4b3-506f-5dfe-bb03-ff934acb74d4",
+      "prompt": "Beginning tellers often overuse —",
+      "correctAnswer": "sight, forgetting the other senses",
+      "distractors": [
+        "smell",
+        "taste",
+        "touch"
+      ],
+      "bloomLevel": "analyze",
+      "gradeBand": "gr5-6",
+      "topic": "Sensory Details",
+      "subtopic": "Overusing sight",
+      "standard": "CCSS.ELA-LITERACY.W.5.3.D",
+      "hints": [
+        "Use all senses",
+        "Not just sight"
+      ],
+      "explanation": "Beginners often rely on sight alone; adding sound, smell, touch, and taste makes storytelling richer.",
+      "version": 1
+    },
+    {
+      "id": "48143c3b-7346-57ab-baa8-bc077808dcf2",
+      "prompt": "A sensory detail is stronger when it is —",
+      "correctAnswer": "specific",
+      "distractors": [
+        "vague",
+        "general",
+        "abstract"
+      ],
+      "bloomLevel": "evaluate",
+      "gradeBand": "gr5-6",
+      "topic": "Sensory Details",
+      "subtopic": "Specific details",
+      "standard": "CCSS.ELA-LITERACY.W.5.3.D",
+      "hints": [
+        "Concrete + specific",
+        "Not vague"
+      ],
+      "explanation": "Specific sensory details ('sharp lemon tang') are stronger than vague ones ('a taste').",
+      "version": 1
+    },
+    {
+      "id": "61853cf9-66b1-51e4-9037-50afdc2dc389",
+      "prompt": "Which is a TOUCH detail?",
+      "correctAnswer": "\"The rope burned rough against her palms.\"",
+      "distractors": [
+        "\"The rope was there.\"",
+        "\"It was a rope.\"",
+        "\"She held something.\""
+      ],
+      "bloomLevel": "apply",
+      "gradeBand": "gr5-6",
+      "topic": "Sensory Details",
+      "subtopic": "Touch detail",
+      "standard": "CCSS.ELA-LITERACY.W.5.3.D",
+      "hints": [
+        "What you feel",
+        "Rough, burning rope"
+      ],
+      "explanation": "'Burned rough against her palms' is a touch detail conveying texture and sensation.",
+      "version": 1
+    },
+    {
+      "id": "eda39b9f-929d-5936-8c6b-3ac5fb6a83f8",
+      "prompt": "Sensory details are a form of —",
+      "correctAnswer": "showing, not telling",
+      "distractors": [
+        "telling only",
+        "listing facts",
+        "summarizing"
+      ],
+      "bloomLevel": "understand",
+      "gradeBand": "gr5-6",
+      "topic": "Sensory Details",
+      "subtopic": "Sensory = showing",
+      "standard": "CCSS.ELA-LITERACY.W.5.3.D",
+      "hints": [
+        "Show through senses",
+        "Not just labels"
+      ],
+      "explanation": "Sensory details 'show' the story through the senses rather than flatly telling it.",
+      "version": 1
+    },
+    {
+      "id": "787c894a-ceca-5973-9ba0-d17df9106dd1",
+      "prompt": "Too many sensory details at once can —",
+      "correctAnswer": "overwhelm the listener",
+      "distractors": [
+        "always help",
+        "clarify everything",
+        "speed the story up"
+      ],
+      "bloomLevel": "analyze",
+      "gradeBand": "gr5-6",
+      "topic": "Sensory Details",
+      "subtopic": "Overloading senses",
+      "standard": "CCSS.ELA-LITERACY.W.5.3.D",
+      "hints": [
+        "A few strong ones",
+        "Don't overload"
+      ],
+      "explanation": "Piling on too many details at once can overwhelm; a few strong, well-placed ones work best.",
+      "version": 1
+    },
+    {
+      "id": "83461794-66d3-5db9-bf9e-4880fc68428b",
+      "prompt": "A taste detail might describe food as —",
+      "correctAnswer": "\"sweet and sticky, like melted honey\"",
+      "distractors": [
+        "\"food\"",
+        "\"a meal\"",
+        "\"something to eat\""
+      ],
+      "bloomLevel": "apply",
+      "gradeBand": "gr5-6",
+      "topic": "Sensory Details",
+      "subtopic": "Taste detail",
+      "standard": "CCSS.ELA-LITERACY.W.5.3.D",
+      "hints": [
+        "What you taste",
+        "Sweet + sticky"
+      ],
+      "explanation": "'Sweet and sticky, like melted honey' is a taste detail that makes the food vivid.",
+      "version": 1
+    },
+    {
+      "id": "4e8cc8bd-0228-50bb-8e43-43b59d89b291",
+      "prompt": "Choosing the RIGHT sense for a moment makes it —",
+      "correctAnswer": "more powerful",
+      "distractors": [
+        "weaker",
+        "confusing",
+        "boring"
+      ],
+      "bloomLevel": "evaluate",
+      "gradeBand": "gr5-6",
+      "topic": "Sensory Details",
+      "subtopic": "Right sense",
+      "standard": "CCSS.ELA-LITERACY.W.5.3.D",
+      "hints": [
+        "Match sense to moment",
+        "Powerful"
+      ],
+      "explanation": "Choosing the sense that best fits a moment (a smell for a memory, a sound for suspense) makes it more powerful.",
+      "version": 1
+    },
+    {
+      "id": "77b2e8db-4688-5dc0-ab22-904923d917fe",
+      "prompt": "Sensory details can trigger —",
+      "correctAnswer": "listeners' own memories and emotions",
+      "distractors": [
+        "nothing",
+        "confusion only",
+        "the setting only"
+      ],
+      "bloomLevel": "analyze",
+      "gradeBand": "gr5-6",
+      "topic": "Sensory Details",
+      "subtopic": "Details trigger memory",
+      "standard": "CCSS.ELA-LITERACY.W.5.3.D",
+      "hints": [
+        "Connect to their experience",
+        "Memory + emotion"
+      ],
+      "explanation": "Sensory details can trigger listeners' own memories and emotions, deepening their connection to the story.",
+      "version": 1
+    },
+    {
+      "id": "6bdc4a2a-8c20-5d61-bf9f-7795b05d3a5f",
+      "prompt": "A good rule is to include sensory detail at —",
+      "correctAnswer": "important moments",
+      "distractors": [
+        "every single sentence",
+        "never",
+        "only the title"
+      ],
+      "bloomLevel": "evaluate",
+      "gradeBand": "gr5-6",
+      "topic": "Sensory Details",
+      "subtopic": "Where to add detail",
+      "standard": "CCSS.ELA-LITERACY.W.5.3.D",
+      "hints": [
+        "At key moments",
+        "Where it matters"
+      ],
+      "explanation": "Add sensory detail at important moments to make them vivid, rather than at every single sentence.",
+      "version": 1
+    },
+    {
+      "id": "3707ce52-b62f-5f8f-a895-70898c503f6f",
+      "prompt": "Which sense is often the MOST powerful for memory?",
+      "correctAnswer": "Smell",
+      "distractors": [
+        "Sight",
+        "Hearing",
+        "Taste"
+      ],
+      "bloomLevel": "understand",
+      "gradeBand": "gr5-6",
+      "topic": "Sensory Details",
+      "subtopic": "Smell + memory",
+      "standard": "CCSS.ELA-LITERACY.W.5.3.D",
+      "hints": [
+        "Smell triggers memory",
+        "Strongly linked to memory"
+      ],
+      "explanation": "Smell is often the most powerful sense for triggering memory, making smell details especially evocative.",
+      "version": 1
+    },
+    {
+      "id": "6df287d2-ad9c-5883-b285-e2290d8f160a",
+      "prompt": "Sensory details help turn 'telling' into —",
+      "correctAnswer": "'showing'",
+      "distractors": [
+        "'listing'",
+        "'summarizing'",
+        "'skipping'"
+      ],
+      "bloomLevel": "understand",
+      "gradeBand": "gr5-6",
+      "topic": "Sensory Details",
+      "subtopic": "Show via senses",
+      "standard": "CCSS.ELA-LITERACY.W.5.3.D",
+      "hints": [
+        "Show, don't tell",
+        "Through the senses"
+      ],
+      "explanation": "Sensory details turn flat 'telling' into vivid 'showing.'",
+      "version": 1
+    },
+    {
+      "id": "7c812480-a12b-57e8-b8cd-6501603df867",
+      "prompt": "Describing what a character HEARS in a tense moment can —",
+      "correctAnswer": "build suspense",
+      "distractors": [
+        "remove suspense",
+        "end the story",
+        "bore listeners"
+      ],
+      "bloomLevel": "apply",
+      "gradeBand": "gr5-6",
+      "topic": "Sensory Details",
+      "subtopic": "Sound + suspense",
+      "standard": "CCSS.ELA-LITERACY.W.5.3.D",
+      "hints": [
+        "A creak, a footstep",
+        "Build tension"
+      ],
+      "explanation": "Focusing on what a character hears in a tense moment (a creak, a footstep) can build suspense.",
+      "version": 1
+    },
+    {
+      "id": "6aa43f84-3f31-59d7-a562-6bf72019ad3a",
+      "prompt": "A specific color is a stronger detail than —",
+      "correctAnswer": "just saying 'colorful'",
+      "distractors": [
+        "a specific texture",
+        "a specific sound",
+        "a specific smell"
+      ],
+      "bloomLevel": "evaluate",
+      "gradeBand": "gr5-6",
+      "topic": "Sensory Details",
+      "subtopic": "Specific over general",
+      "standard": "CCSS.ELA-LITERACY.W.5.3.D",
+      "hints": [
+        "'Crimson' > 'colorful'",
+        "Be specific"
+      ],
+      "explanation": "A specific color like 'crimson' is a stronger detail than the vague 'colorful.'",
+      "version": 1
+    },
+    {
+      "id": "223302e4-b93d-53a2-aa56-db8cf06b04e4",
+      "prompt": "Sensory details work best when they —",
+      "correctAnswer": "serve the story and its mood",
+      "distractors": [
+        "are random",
+        "are unrelated",
+        "describe the font"
+      ],
+      "bloomLevel": "evaluate",
+      "gradeBand": "gr5-6",
+      "topic": "Sensory Details",
+      "subtopic": "Purposeful details",
+      "standard": "CCSS.ELA-LITERACY.SL.5.5",
+      "hints": [
+        "Serve the story",
+        "Fit the mood"
+      ],
+      "explanation": "The best sensory details serve the story and reinforce its mood, rather than being random decoration.",
+      "version": 1
+    },
+    {
+      "id": "f3d91654-2cbf-521c-9d0b-65675f07a356",
+      "prompt": "A teller can use their VOICE to add a sensory feel by —",
+      "correctAnswer": "changing tone to match the mood",
+      "distractors": [
+        "speaking in a monotone",
+        "whispering everything",
+        "using no expression"
+      ],
+      "bloomLevel": "apply",
+      "gradeBand": "gr5-6",
+      "topic": "Sensory Details",
+      "subtopic": "Voice + senses",
+      "standard": "CCSS.ELA-LITERACY.SL.5.5",
+      "hints": [
+        "Match tone to mood",
+        "Vocal color"
+      ],
+      "explanation": "A teller can reinforce sensory mood with vocal tone — a hushed voice for something eerie, a bright one for joy.",
+      "version": 1
+    },
+    {
+      "id": "903a1b4b-0169-5d37-88aa-d08bcb5758ab",
+      "prompt": "Sensory details make a story feel —",
+      "correctAnswer": "immersive and real",
+      "distractors": [
+        "flat and distant",
+        "confusing",
+        "boring"
+      ],
+      "bloomLevel": "evaluate",
+      "gradeBand": "gr5-6",
+      "topic": "Sensory Details",
+      "subtopic": "Immersive detail",
+      "standard": "CCSS.ELA-LITERACY.W.5.3.D",
+      "hints": [
+        "Draw them in",
+        "Real + vivid"
+      ],
+      "explanation": "Sensory details make a story feel immersive and real, pulling listeners inside it.",
+      "version": 1
+    },
+    {
+      "id": "2b0d8beb-635e-569d-bec6-df4cb43e1cb5",
+      "prompt": "The best storytellers appeal to —",
+      "correctAnswer": "several senses across a story",
+      "distractors": [
+        "only one sense",
+        "no senses",
+        "only the title"
+      ],
+      "bloomLevel": "evaluate",
+      "gradeBand": "gr5-6",
+      "topic": "Sensory Details",
+      "subtopic": "Multiple senses",
+      "standard": "CCSS.ELA-LITERACY.W.5.3.D",
+      "hints": [
+        "Vary the senses",
+        "Sight + sound + smell…"
+      ],
+      "explanation": "The best storytellers appeal to several senses across a story, not just sight.",
+      "version": 1
+    },
+    {
+      "id": "05115aa3-97fb-5652-ac2b-320c2a445003",
+      "prompt": "The BEST summary of sensory details is —",
+      "correctAnswer": "specific sights, sounds, smells, touches, and tastes that make a story vivid",
+      "distractors": [
+        "vague descriptions",
+        "only sight",
+        "no details"
+      ],
+      "bloomLevel": "understand",
+      "gradeBand": "gr5-6",
+      "topic": "Sensory Details",
+      "subtopic": "Summary",
+      "standard": "CCSS.ELA-LITERACY.W.5.3.D",
+      "hints": [
+        "All five senses, specific",
+        "Make it vivid"
+      ],
+      "explanation": "Sensory details are specific appeals to the five senses that make a story vivid and immersive.",
+      "version": 1
+    },
+    {
+      "id": "dce4729e-c3a8-5fdd-a472-552a5c3f0c40",
+      "prompt": "A single strong sensory detail can be —",
+      "correctAnswer": "more powerful than many weak ones",
+      "distractors": [
+        "weaker than many weak ones",
+        "always worse",
+        "pointless"
+      ],
+      "bloomLevel": "evaluate",
+      "gradeBand": "gr5-6",
+      "topic": "Sensory Details",
+      "subtopic": "One strong detail",
+      "standard": "CCSS.ELA-LITERACY.W.5.3.D",
+      "hints": [
+        "Quality over quantity",
+        "One vivid detail"
+      ],
+      "explanation": "One strong, specific sensory detail can be more powerful than a pile of weak, vague ones.",
+      "version": 1
+    },
+    {
+      "id": "6318a6b7-cbb1-5a5f-be47-495c1b0dd653",
+      "prompt": "Sensory details are most effective at —",
+      "correctAnswer": "the story's important moments",
+      "distractors": [
+        "every single sentence",
+        "only the title",
+        "the very end only"
+      ],
+      "bloomLevel": "evaluate",
+      "gradeBand": "gr5-6",
+      "topic": "Sensory Details",
+      "subtopic": "Placing detail",
+      "standard": "CCSS.ELA-LITERACY.W.5.3.D",
+      "hints": [
+        "At key moments",
+        "Where it matters"
+      ],
+      "explanation": "Sensory details land best at the story's important moments, not scattered on every line.",
+      "version": 1
+    },
+    {
+      "id": "bbe541a7-6a22-5a5a-a89c-5423c8ccc04e",
+      "prompt": "Which is a SIGHT detail that shows fear?",
+      "correctAnswer": "\"His eyes went wide and his face drained of color.\"",
+      "distractors": [
+        "\"He was afraid.\"",
+        "\"Fear is an emotion.\"",
+        "\"He felt scared.\""
+      ],
+      "bloomLevel": "apply",
+      "gradeBand": "gr5-6",
+      "topic": "Sensory Details",
+      "subtopic": "Sight detail for emotion",
+      "standard": "CCSS.ELA-LITERACY.W.5.3.D",
+      "hints": [
+        "Show the fear",
+        "Wide eyes, pale face"
+      ],
+      "explanation": "Wide eyes and a colorless face show fear through sight, rather than telling it.",
+      "version": 1
+    }
+  ],
+  "standardsFramework": "CCSS"
+}

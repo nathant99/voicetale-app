@@ -1,0 +1,535 @@
+{
+  "id": "kit_12_surprise_twist_gr67",
+  "name": "The Surprise / Twist",
+  "description": "Using the unexpected to delight listeners",
+  "gradeBand": "gr6-7",
+  "topic": "The Surprise / Twist",
+  "questions": [
+    {
+      "id": "64be7f08-f190-50e6-b106-b0aa4edf6163",
+      "prompt": "A 'twist' is —",
+      "correctAnswer": "an unexpected turn in the story",
+      "distractors": [
+        "the setting",
+        "the ending always",
+        "the title"
+      ],
+      "bloomLevel": "remember",
+      "gradeBand": "gr6-7",
+      "topic": "The Surprise / Twist",
+      "subtopic": "Twist",
+      "standard": "CCSS.ELA-LITERACY.W.5.3",
+      "hints": [
+        "The unexpected",
+        "A surprising turn"
+      ],
+      "explanation": "A twist is an unexpected turn in the story that surprises the listener.",
+      "version": 1
+    },
+    {
+      "id": "f461cdf3-8de1-5c5f-ab76-f7233f6ac2dc",
+      "prompt": "A good twist should be —",
+      "correctAnswer": "surprising yet believable",
+      "distractors": [
+        "random and impossible",
+        "obvious",
+        "unrelated to the story"
+      ],
+      "bloomLevel": "evaluate",
+      "gradeBand": "gr6-7",
+      "topic": "The Surprise / Twist",
+      "subtopic": "Good twist",
+      "standard": "CCSS.ELA-LITERACY.W.5.3",
+      "hints": [
+        "Surprising + earned",
+        "Makes sense after"
+      ],
+      "explanation": "A good twist is surprising yet believable — it makes sense once you look back.",
+      "version": 1
+    },
+    {
+      "id": "e26479de-ca06-59e9-87b6-efb2c84aa9b6",
+      "prompt": "A twist that comes from NOWHERE (no setup) tends to feel —",
+      "correctAnswer": "cheap or confusing",
+      "distractors": [
+        "satisfying",
+        "clever",
+        "earned"
+      ],
+      "bloomLevel": "analyze",
+      "gradeBand": "gr6-7",
+      "topic": "The Surprise / Twist",
+      "subtopic": "Unearned twist",
+      "standard": "CCSS.ELA-LITERACY.W.5.3",
+      "hints": [
+        "Needs setup",
+        "No setup = cheap"
+      ],
+      "explanation": "A twist with no setup feels cheap or confusing; the best twists are quietly prepared.",
+      "version": 1
+    },
+    {
+      "id": "cc3f24c1-e215-5033-bfc6-36818b2c38c5",
+      "prompt": "Foreshadowing helps a twist by —",
+      "correctAnswer": "planting hints so it feels earned",
+      "distractors": [
+        "spoiling it",
+        "removing it",
+        "confusing listeners"
+      ],
+      "bloomLevel": "understand",
+      "gradeBand": "gr6-7",
+      "topic": "The Surprise / Twist",
+      "subtopic": "Foreshadowing a twist",
+      "standard": "CCSS.ELA-LITERACY.W.5.3",
+      "hints": [
+        "Plant hints",
+        "Earn the surprise"
+      ],
+      "explanation": "Foreshadowing plants subtle hints so a twist feels earned rather than random.",
+      "version": 1
+    },
+    {
+      "id": "ebf9fea6-f82a-5206-a082-9ec7a9fb73c5",
+      "prompt": "The BEST place for a big twist is often near the —",
+      "correctAnswer": "climax or end",
+      "distractors": [
+        "very first line",
+        "middle of the setup",
+        "title"
+      ],
+      "bloomLevel": "understand",
+      "gradeBand": "gr6-7",
+      "topic": "The Surprise / Twist",
+      "subtopic": "Twist placement",
+      "standard": "CCSS.ELA-LITERACY.W.5.3",
+      "hints": [
+        "Late for impact",
+        "Climax or end"
+      ],
+      "explanation": "A big twist often lands best near the climax or end, for maximum impact.",
+      "version": 1
+    },
+    {
+      "id": "73ce6502-d34a-5bd2-8b72-d2e73f25fa86",
+      "prompt": "A surprise ending should still —",
+      "correctAnswer": "make sense with the rest of the story",
+      "distractors": [
+        "contradict everything",
+        "be unrelated",
+        "confuse listeners"
+      ],
+      "bloomLevel": "evaluate",
+      "gradeBand": "gr6-7",
+      "topic": "The Surprise / Twist",
+      "subtopic": "Surprise ending",
+      "standard": "CCSS.ELA-LITERACY.W.5.3",
+      "hints": [
+        "Fit the story",
+        "Earned + coherent"
+      ],
+      "explanation": "A surprise ending should still make sense with everything that came before.",
+      "version": 1
+    },
+    {
+      "id": "4e3d584c-f088-5186-a9d0-f6ebe2a458dd",
+      "prompt": "A twist works because it —",
+      "correctAnswer": "overturns the listener's expectation",
+      "distractors": [
+        "confirms every expectation",
+        "means nothing",
+        "repeats the setup"
+      ],
+      "bloomLevel": "analyze",
+      "gradeBand": "gr6-7",
+      "topic": "The Surprise / Twist",
+      "subtopic": "How twists work",
+      "standard": "CCSS.ELA-LITERACY.W.5.3",
+      "hints": [
+        "Subvert expectation",
+        "The unexpected"
+      ],
+      "explanation": "A twist works by overturning what the listener expected to happen.",
+      "version": 1
+    },
+    {
+      "id": "e7e5cc6f-e794-517c-b4e5-ca8c71cd2e86",
+      "prompt": "Too many twists can make a story feel —",
+      "correctAnswer": "confusing or gimmicky",
+      "distractors": [
+        "clearer",
+        "better always",
+        "more believable"
+      ],
+      "bloomLevel": "analyze",
+      "gradeBand": "gr6-7",
+      "topic": "The Surprise / Twist",
+      "subtopic": "Too many twists",
+      "standard": "CCSS.ELA-LITERACY.W.5.3",
+      "hints": [
+        "Don't overdo it",
+        "One strong twist"
+      ],
+      "explanation": "Piling on too many twists can make a story feel confusing or gimmicky; one strong twist is often best.",
+      "version": 1
+    },
+    {
+      "id": "16e00204-d46f-5e65-8dfa-415062e6ca4c",
+      "prompt": "A twist can change how the listener sees —",
+      "correctAnswer": "the whole story",
+      "distractors": [
+        "nothing",
+        "only the setting",
+        "the font"
+      ],
+      "bloomLevel": "analyze",
+      "gradeBand": "gr6-7",
+      "topic": "The Surprise / Twist",
+      "subtopic": "Twist reframes",
+      "standard": "CCSS.ELA-LITERACY.W.5.3",
+      "hints": [
+        "Recolors everything",
+        "New understanding"
+      ],
+      "explanation": "A great twist can change how the listener sees the whole story, casting earlier events in a new light.",
+      "version": 1
+    },
+    {
+      "id": "1d6b9809-5926-5239-bf6e-88797bcd0db4",
+      "prompt": "Delivering a twist well often uses a —",
+      "correctAnswer": "pause right before the reveal",
+      "distractors": [
+        "a rush through it",
+        "no change in delivery",
+        "a whisper of the setup only"
+      ],
+      "bloomLevel": "apply",
+      "gradeBand": "gr6-7",
+      "topic": "The Surprise / Twist",
+      "subtopic": "Delivering a twist",
+      "standard": "CCSS.ELA-LITERACY.SL.5.5",
+      "hints": [
+        "Pause, then reveal",
+        "Build anticipation"
+      ],
+      "explanation": "A pause right before the reveal builds anticipation and heightens a twist's impact.",
+      "version": 1
+    },
+    {
+      "id": "86c40898-0487-5f2d-a556-73c6d9fe6cde",
+      "prompt": "A predictable 'twist' isn't really a twist because it —",
+      "correctAnswer": "doesn't surprise anyone",
+      "distractors": [
+        "surprises everyone",
+        "is well-hidden",
+        "is earned"
+      ],
+      "bloomLevel": "analyze",
+      "gradeBand": "gr6-7",
+      "topic": "The Surprise / Twist",
+      "subtopic": "Predictable twist",
+      "standard": "CCSS.ELA-LITERACY.W.5.3",
+      "hints": [
+        "No surprise = no twist",
+        "Must be unexpected"
+      ],
+      "explanation": "If listeners see it coming, a 'twist' isn't surprising — and a twist needs to be unexpected.",
+      "version": 1
+    },
+    {
+      "id": "9901d833-80c4-5938-9c82-dd08fa48d1bb",
+      "prompt": "A twist should serve the story, not just —",
+      "correctAnswer": "shock for its own sake",
+      "distractors": [
+        "fit the story",
+        "reveal character",
+        "resolve the plot"
+      ],
+      "bloomLevel": "evaluate",
+      "gradeBand": "gr6-7",
+      "topic": "The Surprise / Twist",
+      "subtopic": "Purposeful twist",
+      "standard": "CCSS.ELA-LITERACY.W.5.3",
+      "hints": [
+        "Serve the story",
+        "Not just shock"
+      ],
+      "explanation": "A twist should serve the story's meaning, not exist merely to shock.",
+      "version": 1
+    },
+    {
+      "id": "58bcdae4-ab49-529a-bb73-39cdbcc73d27",
+      "prompt": "A satisfying twist often makes the listener want to —",
+      "correctAnswer": "look back and see the clues",
+      "distractors": [
+        "stop listening",
+        "forget the story",
+        "leave"
+      ],
+      "bloomLevel": "analyze",
+      "gradeBand": "gr6-7",
+      "topic": "The Surprise / Twist",
+      "subtopic": "Rewatchable twist",
+      "standard": "CCSS.ELA-LITERACY.W.5.3",
+      "hints": [
+        "'It was there all along!'",
+        "See the clues"
+      ],
+      "explanation": "A satisfying twist makes listeners want to look back and spot the clues they missed.",
+      "version": 1
+    },
+    {
+      "id": "519e664e-8f34-54ce-a594-d87a0dca60cb",
+      "prompt": "A twist that contradicts established facts feels —",
+      "correctAnswer": "like a mistake",
+      "distractors": [
+        "clever",
+        "earned",
+        "satisfying"
+      ],
+      "bloomLevel": "evaluate",
+      "gradeBand": "gr6-7",
+      "topic": "The Surprise / Twist",
+      "subtopic": "Contradictory twist",
+      "standard": "CCSS.ELA-LITERACY.W.5.3",
+      "hints": [
+        "Must be consistent",
+        "No contradictions"
+      ],
+      "explanation": "A twist that contradicts what the story established feels like a mistake, not a clever surprise.",
+      "version": 1
+    },
+    {
+      "id": "8a423357-7ba9-50b3-b3e7-683d5086d0e1",
+      "prompt": "A small surprise (not just a big twist) can also —",
+      "correctAnswer": "keep listeners engaged",
+      "distractors": [
+        "bore them",
+        "end the story",
+        "confuse them"
+      ],
+      "bloomLevel": "understand",
+      "gradeBand": "gr6-7",
+      "topic": "The Surprise / Twist",
+      "subtopic": "Small surprises",
+      "standard": "CCSS.ELA-LITERACY.W.5.3",
+      "hints": [
+        "Little surprises too",
+        "Keep it fresh"
+      ],
+      "explanation": "Small surprises throughout, not just one big twist, keep listeners engaged and the story fresh.",
+      "version": 1
+    },
+    {
+      "id": "185c582b-4f42-59ca-96b8-8966c1b5d89d",
+      "prompt": "A twist in a scary story might reveal —",
+      "correctAnswer": "the danger was closer than anyone thought",
+      "distractors": [
+        "nothing scary",
+        "a boring fact",
+        "the setting only"
+      ],
+      "bloomLevel": "apply",
+      "gradeBand": "gr6-7",
+      "topic": "The Surprise / Twist",
+      "subtopic": "Twist in a genre",
+      "standard": "CCSS.ELA-LITERACY.W.5.3",
+      "hints": [
+        "Fit the genre",
+        "A scary reveal"
+      ],
+      "explanation": "A twist in a scary story might reveal the danger was closer than anyone realized — fitting the genre.",
+      "version": 1
+    },
+    {
+      "id": "5dc8f64e-32c8-5727-a103-d345d844f117",
+      "prompt": "The key to a surprise is —",
+      "correctAnswer": "controlling what the listener knows and when",
+      "distractors": [
+        "telling everything at once",
+        "hiding the whole story",
+        "the setting"
+      ],
+      "bloomLevel": "analyze",
+      "gradeBand": "gr6-7",
+      "topic": "The Surprise / Twist",
+      "subtopic": "Controlling information",
+      "standard": "CCSS.ELA-LITERACY.W.5.3",
+      "hints": [
+        "Manage the reveal",
+        "What they know, when"
+      ],
+      "explanation": "The key to a surprise is controlling what the listener knows and when they learn it.",
+      "version": 1
+    },
+    {
+      "id": "6cf36c2f-d66e-56b7-a3cf-48f84b65e290",
+      "prompt": "A twist ending should feel —",
+      "correctAnswer": "surprising AND satisfying",
+      "distractors": [
+        "only surprising",
+        "only confusing",
+        "predictable"
+      ],
+      "bloomLevel": "evaluate",
+      "gradeBand": "gr6-7",
+      "topic": "The Surprise / Twist",
+      "subtopic": "Best twist ending",
+      "standard": "CCSS.ELA-LITERACY.W.5.3",
+      "hints": [
+        "Surprising + satisfying",
+        "Both"
+      ],
+      "explanation": "The best twist ending feels both surprising and satisfying — earned by the story.",
+      "version": 1
+    },
+    {
+      "id": "daf844b0-90e1-5aa5-8227-a9ad5c5d97db",
+      "prompt": "A twist reveals the writer/teller has planned —",
+      "correctAnswer": "ahead, hiding clues in plain sight",
+      "distractors": [
+        "nothing",
+        "only the ending",
+        "the setting"
+      ],
+      "bloomLevel": "understand",
+      "gradeBand": "gr6-7",
+      "topic": "The Surprise / Twist",
+      "subtopic": "Planning a twist",
+      "standard": "CCSS.ELA-LITERACY.W.5.3",
+      "hints": [
+        "Plant the clues",
+        "Plan ahead"
+      ],
+      "explanation": "A good twist shows the teller planned ahead, hiding clues in plain sight.",
+      "version": 1
+    },
+    {
+      "id": "38255774-760a-5175-a28b-d0647a2a8f5c",
+      "prompt": "Surprise keeps storytelling —",
+      "correctAnswer": "fresh and exciting",
+      "distractors": [
+        "predictable",
+        "boring",
+        "flat"
+      ],
+      "bloomLevel": "understand",
+      "gradeBand": "gr6-7",
+      "topic": "The Surprise / Twist",
+      "subtopic": "Surprise + freshness",
+      "standard": "CCSS.ELA-LITERACY.W.5.3",
+      "hints": [
+        "Keep it unexpected",
+        "Fresh + exciting"
+      ],
+      "explanation": "Surprise keeps storytelling fresh and exciting, resisting predictability.",
+      "version": 1
+    },
+    {
+      "id": "bb246b20-7a89-5ab2-9ac8-2a5f9748a2fb",
+      "prompt": "The BEST summary of the surprise/twist is —",
+      "correctAnswer": "an unexpected but earned turn that delights listeners and reframes the story",
+      "distractors": [
+        "a random shock",
+        "a predictable ending",
+        "the setting"
+      ],
+      "bloomLevel": "understand",
+      "gradeBand": "gr6-7",
+      "topic": "The Surprise / Twist",
+      "subtopic": "Summary",
+      "standard": "CCSS.ELA-LITERACY.W.5.3",
+      "hints": [
+        "Surprising + earned",
+        "Delight + reframe"
+      ],
+      "explanation": "A surprise or twist is an unexpected but earned turn that delights listeners and can reframe the whole story.",
+      "version": 1
+    },
+    {
+      "id": "4a145511-d845-59d1-afa3-afa87763d8bf",
+      "prompt": "A red herring is —",
+      "correctAnswer": "a false clue that misleads listeners away from the truth",
+      "distractors": [
+        "the real answer",
+        "the setting",
+        "the title"
+      ],
+      "bloomLevel": "understand",
+      "gradeBand": "gr6-7",
+      "topic": "The Surprise / Twist",
+      "subtopic": "Red herring",
+      "standard": "CCSS.ELA-LITERACY.W.5.3",
+      "hints": [
+        "A misleading clue",
+        "Points the wrong way"
+      ],
+      "explanation": "A red herring is a false clue that misleads listeners, making a twist more surprising.",
+      "version": 1
+    },
+    {
+      "id": "5820ad5f-36a4-5d63-b688-f5f3fd8386fd",
+      "prompt": "The best twists reward listeners who —",
+      "correctAnswer": "paid attention to the clues",
+      "distractors": [
+        "ignored everything",
+        "left early",
+        "didn't listen"
+      ],
+      "bloomLevel": "analyze",
+      "gradeBand": "gr6-7",
+      "topic": "The Surprise / Twist",
+      "subtopic": "Rewarding attention",
+      "standard": "CCSS.ELA-LITERACY.W.5.3",
+      "hints": [
+        "Clues were there",
+        "Reward the attentive"
+      ],
+      "explanation": "The best twists reward attentive listeners — the clues were there to be noticed.",
+      "version": 1
+    },
+    {
+      "id": "f16090da-f3da-548f-af2c-300dbcd3334c",
+      "prompt": "A twist should NOT rely on —",
+      "correctAnswer": "information the listener never had a chance to know",
+      "distractors": [
+        "planted clues",
+        "foreshadowing",
+        "consistent facts"
+      ],
+      "bloomLevel": "evaluate",
+      "gradeBand": "gr6-7",
+      "topic": "The Surprise / Twist",
+      "subtopic": "Fair twists",
+      "standard": "CCSS.ELA-LITERACY.W.5.3",
+      "hints": [
+        "Play fair",
+        "Give a chance to guess"
+      ],
+      "explanation": "A fair twist doesn't rely on hidden information the listener never had — it plants clues to be found.",
+      "version": 1
+    },
+    {
+      "id": "3c00ed0d-b39d-58f9-b681-30c9be25f429",
+      "prompt": "The emotional payoff of a twist comes from the —",
+      "correctAnswer": "surprise combined with sudden understanding",
+      "distractors": [
+        "confusion alone",
+        "the setting",
+        "the length"
+      ],
+      "bloomLevel": "analyze",
+      "gradeBand": "gr6-7",
+      "topic": "The Surprise / Twist",
+      "subtopic": "Twist payoff",
+      "standard": "CCSS.ELA-LITERACY.W.5.3",
+      "hints": [
+        "Surprise + 'aha'",
+        "It clicks"
+      ],
+      "explanation": "A twist's payoff comes from surprise plus the sudden 'aha' of understanding.",
+      "version": 1
+    }
+  ],
+  "standardsFramework": "CCSS"
+}

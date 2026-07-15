@@ -1,0 +1,535 @@
+{
+  "id": "kit_02_the_hook_gr45",
+  "name": "The Hook",
+  "description": "Grabbing attention at the start",
+  "gradeBand": "gr4-5",
+  "topic": "The Hook",
+  "questions": [
+    {
+      "id": "19edd2d4-3a0e-5a3e-9081-7845c4a1e0c7",
+      "prompt": "A 'hook' is —",
+      "correctAnswer": "an opening that grabs the listener's attention",
+      "distractors": [
+        "the ending",
+        "the setting only",
+        "the title"
+      ],
+      "bloomLevel": "remember",
+      "gradeBand": "gr4-5",
+      "topic": "The Hook",
+      "subtopic": "Hook",
+      "standard": "CCSS.ELA-LITERACY.SL.5.4",
+      "hints": [
+        "The grabber",
+        "The start that pulls you in"
+      ],
+      "explanation": "A hook is an opening that immediately grabs the listener's attention and makes them want more.",
+      "version": 1
+    },
+    {
+      "id": "6215f4e4-7101-5d10-8283-eed250171cd9",
+      "prompt": "A strong hook usually appears —",
+      "correctAnswer": "at the very beginning of the story",
+      "distractors": [
+        "at the end",
+        "in the middle only",
+        "never"
+      ],
+      "bloomLevel": "understand",
+      "gradeBand": "gr4-5",
+      "topic": "The Hook",
+      "subtopic": "Where the hook goes",
+      "standard": "CCSS.ELA-LITERACY.SL.5.4",
+      "hints": [
+        "Right at the start",
+        "First moments"
+      ],
+      "explanation": "The hook comes at the very start — the first thing that makes listeners lean in.",
+      "version": 1
+    },
+    {
+      "id": "1385a9d7-d72f-538d-b8c6-c7ce543d8505",
+      "prompt": "Which is the STRONGEST hook?",
+      "correctAnswer": "\"The night the lights went out, everything changed.\"",
+      "distractors": [
+        "\"This is a story.\"",
+        "\"Um, so, hello.\"",
+        "\"Here are some facts.\""
+      ],
+      "bloomLevel": "apply",
+      "gradeBand": "gr4-5",
+      "topic": "The Hook",
+      "subtopic": "Identify a hook",
+      "standard": "CCSS.ELA-LITERACY.SL.5.4",
+      "hints": [
+        "Intriguing + specific",
+        "Makes you curious"
+      ],
+      "explanation": "An intriguing, specific opening like 'the night the lights went out' pulls listeners in far better than a flat start.",
+      "version": 1
+    },
+    {
+      "id": "dcfa58cb-3dc6-5508-8b6b-b376c2b80c20",
+      "prompt": "A hook works by making the listener —",
+      "correctAnswer": "curious about what happens next",
+      "distractors": [
+        "bored",
+        "confused about everything",
+        "want to leave"
+      ],
+      "bloomLevel": "understand",
+      "gradeBand": "gr4-5",
+      "topic": "The Hook",
+      "subtopic": "How hooks work",
+      "standard": "CCSS.ELA-LITERACY.SL.5.4",
+      "hints": [
+        "Spark curiosity",
+        "Want to know more"
+      ],
+      "explanation": "A good hook sparks curiosity, making the listener want to find out what happens next.",
+      "version": 1
+    },
+    {
+      "id": "d26ebc12-9bb6-5de0-945e-6c6b5ce554b3",
+      "prompt": "Starting a story with an interesting QUESTION can —",
+      "correctAnswer": "hook the audience",
+      "distractors": [
+        "bore the audience",
+        "end the story",
+        "confuse everyone"
+      ],
+      "bloomLevel": "apply",
+      "gradeBand": "gr4-5",
+      "topic": "The Hook",
+      "subtopic": "Question hook",
+      "standard": "CCSS.ELA-LITERACY.SL.5.4",
+      "hints": [
+        "A question invites",
+        "Draws them in"
+      ],
+      "explanation": "Opening with an intriguing question is one way to hook an audience.",
+      "version": 1
+    },
+    {
+      "id": "fb1d01cd-d247-5159-9b57-19a9c4e20480",
+      "prompt": "Starting with ACTION (something happening) can —",
+      "correctAnswer": "grab attention right away",
+      "distractors": [
+        "slow the story down",
+        "hide the story",
+        "bore listeners"
+      ],
+      "bloomLevel": "apply",
+      "gradeBand": "gr4-5",
+      "topic": "The Hook",
+      "subtopic": "Action hook",
+      "standard": "CCSS.ELA-LITERACY.SL.5.4",
+      "hints": [
+        "Jump into action",
+        "Immediate energy"
+      ],
+      "explanation": "Beginning with action drops listeners into something happening, grabbing attention immediately.",
+      "version": 1
+    },
+    {
+      "id": "411f06fc-dc7b-5c8f-89f0-045476d66471",
+      "prompt": "A weak opening like 'This is a story about a dog' tends to —",
+      "correctAnswer": "not grab attention",
+      "distractors": [
+        "hook listeners strongly",
+        "build suspense",
+        "surprise the audience"
+      ],
+      "bloomLevel": "analyze",
+      "gradeBand": "gr4-5",
+      "topic": "The Hook",
+      "subtopic": "Weak opening",
+      "standard": "CCSS.ELA-LITERACY.SL.5.4",
+      "hints": [
+        "Flat = no hook",
+        "Nothing to grab"
+      ],
+      "explanation": "A flat, generic opening gives listeners nothing to grab onto and fails as a hook.",
+      "version": 1
+    },
+    {
+      "id": "e3324ad7-40a7-5166-8521-04fb3790cf08",
+      "prompt": "A hook should connect to —",
+      "correctAnswer": "the rest of the story",
+      "distractors": [
+        "nothing in the story",
+        "only the ending",
+        "a different story"
+      ],
+      "bloomLevel": "evaluate",
+      "gradeBand": "gr4-5",
+      "topic": "The Hook",
+      "subtopic": "Relevant hook",
+      "standard": "CCSS.ELA-LITERACY.SL.5.4",
+      "hints": [
+        "Fits the story",
+        "Not a random gimmick"
+      ],
+      "explanation": "A hook should genuinely connect to the story, not be a random gimmick unrelated to what follows.",
+      "version": 1
+    },
+    {
+      "id": "2c6b6d34-92e3-5040-9516-13d0143dda67",
+      "prompt": "Surprise or mystery in an opening can —",
+      "correctAnswer": "make listeners want to keep listening",
+      "distractors": [
+        "end the story",
+        "bore the audience",
+        "reveal everything at once"
+      ],
+      "bloomLevel": "apply",
+      "gradeBand": "gr4-5",
+      "topic": "The Hook",
+      "subtopic": "Mystery hook",
+      "standard": "CCSS.ELA-LITERACY.SL.5.4",
+      "hints": [
+        "A little mystery",
+        "Keeps them listening"
+      ],
+      "explanation": "A touch of surprise or mystery in the opening makes listeners want to keep listening.",
+      "version": 1
+    },
+    {
+      "id": "1f99e54f-7800-5cc0-a967-067616941c32",
+      "prompt": "Specific details in a hook are —",
+      "correctAnswer": "stronger than vague ones",
+      "distractors": [
+        "weaker than vague ones",
+        "the same as vague ones",
+        "never used"
+      ],
+      "bloomLevel": "evaluate",
+      "gradeBand": "gr4-5",
+      "topic": "The Hook",
+      "subtopic": "Specific hooks",
+      "standard": "CCSS.ELA-LITERACY.W.5.3.D",
+      "hints": [
+        "Specific pulls harder",
+        "Concrete details"
+      ],
+      "explanation": "Specific, concrete details make a hook more vivid and gripping than vague generalities.",
+      "version": 1
+    },
+    {
+      "id": "9e571ce0-2fbc-5ded-a494-1e5d8cafcfd7",
+      "prompt": "A good hook can be —",
+      "correctAnswer": "an image, a question, action, or a surprising statement",
+      "distractors": [
+        "only a question",
+        "only action",
+        "only the title"
+      ],
+      "bloomLevel": "understand",
+      "gradeBand": "gr4-5",
+      "topic": "The Hook",
+      "subtopic": "Kinds of hooks",
+      "standard": "CCSS.ELA-LITERACY.SL.5.4",
+      "hints": [
+        "Many forms",
+        "Image/question/action/surprise"
+      ],
+      "explanation": "Hooks come in many forms: a striking image, an intriguing question, action, or a surprising statement.",
+      "version": 1
+    },
+    {
+      "id": "08a33132-3007-5e33-a3fe-71d97302e776",
+      "prompt": "The purpose of a hook is to earn the listener's —",
+      "correctAnswer": "attention for the rest of the story",
+      "distractors": [
+        "confusion",
+        "boredom",
+        "silence"
+      ],
+      "bloomLevel": "understand",
+      "gradeBand": "gr4-5",
+      "topic": "The Hook",
+      "subtopic": "Purpose of a hook",
+      "standard": "CCSS.ELA-LITERACY.SL.5.4",
+      "hints": [
+        "Win their attention",
+        "For what follows"
+      ],
+      "explanation": "A hook earns the listener's attention so they'll stay for the rest of the story.",
+      "version": 1
+    },
+    {
+      "id": "0c70c20c-3e68-50e1-9cf3-6e731f8c4e8f",
+      "prompt": "If a story starts slow, the fix is often to —",
+      "correctAnswer": "open with something more gripping",
+      "distractors": [
+        "make it even slower",
+        "remove the story",
+        "add a title"
+      ],
+      "bloomLevel": "apply",
+      "gradeBand": "gr4-5",
+      "topic": "The Hook",
+      "subtopic": "Fixing a slow start",
+      "standard": "CCSS.ELA-LITERACY.SL.5.4",
+      "hints": [
+        "Start with a grabber",
+        "Move the hook up"
+      ],
+      "explanation": "A slow start is often fixed by opening with a more gripping moment or image.",
+      "version": 1
+    },
+    {
+      "id": "e4e12e73-2ef0-5c88-b1e2-841794ceb603",
+      "prompt": "A hook that gives away the WHOLE story at once is —",
+      "correctAnswer": "usually too much (leaves nothing to discover)",
+      "distractors": [
+        "ideal",
+        "always best",
+        "required"
+      ],
+      "bloomLevel": "evaluate",
+      "gradeBand": "gr4-5",
+      "topic": "The Hook",
+      "subtopic": "Over-hooking",
+      "standard": "CCSS.ELA-LITERACY.SL.5.4",
+      "hints": [
+        "Don't spoil it",
+        "Leave something to find"
+      ],
+      "explanation": "A hook should intrigue, not spoil — revealing everything at once leaves nothing to discover.",
+      "version": 1
+    },
+    {
+      "id": "82179900-11c1-539d-b564-d9cce401fee0",
+      "prompt": "Practicing your opening line helps because —",
+      "correctAnswer": "the first moments set the tone",
+      "distractors": [
+        "openings don't matter",
+        "only endings matter",
+        "it wastes time"
+      ],
+      "bloomLevel": "understand",
+      "gradeBand": "gr4-5",
+      "topic": "The Hook",
+      "subtopic": "Practicing the opening",
+      "standard": "CCSS.ELA-LITERACY.SL.5.4",
+      "hints": [
+        "Nail the start",
+        "Sets the tone"
+      ],
+      "explanation": "The first moments set the tone, so practicing your opening line is worth the effort.",
+      "version": 1
+    },
+    {
+      "id": "fa5ba98e-f6bc-5ceb-a114-ba1f19cab90b",
+      "prompt": "A hook can create an emotional pull by —",
+      "correctAnswer": "hinting at something at stake",
+      "distractors": [
+        "listing facts",
+        "avoiding all feeling",
+        "describing the font"
+      ],
+      "bloomLevel": "analyze",
+      "gradeBand": "gr4-5",
+      "topic": "The Hook",
+      "subtopic": "Emotional hook",
+      "standard": "CCSS.ELA-LITERACY.SL.5.4",
+      "hints": [
+        "Stakes hook us",
+        "Something to care about"
+      ],
+      "explanation": "Hinting at something at stake creates an emotional pull that hooks the listener.",
+      "version": 1
+    },
+    {
+      "id": "48a5ef33-9e3a-5bd5-a44b-7e237aea7037",
+      "prompt": "Which hook best fits a scary story?",
+      "correctAnswer": "\"No one had opened that door in a hundred years — until tonight.\"",
+      "distractors": [
+        "\"This is a scary story.\"",
+        "\"Doors are common.\"",
+        "\"Let me list some facts.\""
+      ],
+      "bloomLevel": "apply",
+      "gradeBand": "gr4-5",
+      "topic": "The Hook",
+      "subtopic": "Matching hook to story",
+      "standard": "CCSS.ELA-LITERACY.SL.5.4",
+      "hints": [
+        "Ominous + specific",
+        "Sets the mood"
+      ],
+      "explanation": "An ominous, specific opening matches a scary story and hooks the listener with dread and curiosity.",
+      "version": 1
+    },
+    {
+      "id": "374a47b3-6847-53dc-bd0b-cbef1a274270",
+      "prompt": "A hook and the story's mood should —",
+      "correctAnswer": "match each other",
+      "distractors": [
+        "clash on purpose",
+        "be unrelated",
+        "ignore each other"
+      ],
+      "bloomLevel": "evaluate",
+      "gradeBand": "gr4-5",
+      "topic": "The Hook",
+      "subtopic": "Hook + mood",
+      "standard": "CCSS.ELA-LITERACY.SL.5.5",
+      "hints": [
+        "Same tone",
+        "Set the right mood"
+      ],
+      "explanation": "A hook should match the story's mood, setting the right tone from the first words.",
+      "version": 1
+    },
+    {
+      "id": "d5988d4a-6acd-5944-b02a-a74b426fcda4",
+      "prompt": "The best test of a hook is whether it makes the listener —",
+      "correctAnswer": "want to hear what happens next",
+      "distractors": [
+        "check the time",
+        "walk away",
+        "fall asleep"
+      ],
+      "bloomLevel": "evaluate",
+      "gradeBand": "gr4-5",
+      "topic": "The Hook",
+      "subtopic": "Testing a hook",
+      "standard": "CCSS.ELA-LITERACY.SL.5.4",
+      "hints": [
+        "Do they lean in?",
+        "Want more"
+      ],
+      "explanation": "The best test of a hook: does it make the listener want to hear what happens next?",
+      "version": 1
+    },
+    {
+      "id": "2c0e85ff-8c41-5b27-9f05-1bc5fc773db1",
+      "prompt": "A hook should be —",
+      "correctAnswer": "short and punchy, not long and slow",
+      "distractors": [
+        "long and rambling",
+        "the whole story",
+        "silent"
+      ],
+      "bloomLevel": "evaluate",
+      "gradeBand": "gr4-5",
+      "topic": "The Hook",
+      "subtopic": "Hook length",
+      "standard": "CCSS.ELA-LITERACY.SL.5.4",
+      "hints": [
+        "Short + punchy",
+        "Grab quickly"
+      ],
+      "explanation": "A hook works best when it's short and punchy — grabbing attention quickly.",
+      "version": 1
+    },
+    {
+      "id": "74eb96a0-becc-5887-b7fe-fdafcb3bd803",
+      "prompt": "Repeating an intriguing PHRASE at the start can —",
+      "correctAnswer": "create a memorable hook",
+      "distractors": [
+        "bore the listener",
+        "hide the story",
+        "end it"
+      ],
+      "bloomLevel": "apply",
+      "gradeBand": "gr4-5",
+      "topic": "The Hook",
+      "subtopic": "Phrase hook",
+      "standard": "CCSS.ELA-LITERACY.SL.5.5",
+      "hints": [
+        "A catchy phrase",
+        "Memorable start"
+      ],
+      "explanation": "A memorable repeated phrase at the start can serve as a catchy, effective hook.",
+      "version": 1
+    },
+    {
+      "id": "f058e0f9-7878-5154-ad44-71ca71d2d3b7",
+      "prompt": "A hook earns its place when it —",
+      "correctAnswer": "makes the audience commit to listening",
+      "distractors": [
+        "fills time",
+        "means nothing",
+        "confuses everyone"
+      ],
+      "bloomLevel": "evaluate",
+      "gradeBand": "gr4-5",
+      "topic": "The Hook",
+      "subtopic": "Earning the hook",
+      "standard": "CCSS.ELA-LITERACY.SL.5.4",
+      "hints": [
+        "Wins commitment",
+        "They're in"
+      ],
+      "explanation": "A hook earns its place by making the audience commit to listening to the rest.",
+      "version": 1
+    },
+    {
+      "id": "b0e9e9da-a469-5b9f-93f3-18812ff8ef4b",
+      "prompt": "The BEST summary of the hook is —",
+      "correctAnswer": "a gripping opening that grabs attention and makes listeners want more",
+      "distractors": [
+        "a slow, flat start",
+        "the ending",
+        "the title"
+      ],
+      "bloomLevel": "understand",
+      "gradeBand": "gr4-5",
+      "topic": "The Hook",
+      "subtopic": "Summary",
+      "standard": "CCSS.ELA-LITERACY.SL.5.4",
+      "hints": [
+        "Grab + intrigue",
+        "Make them want more"
+      ],
+      "explanation": "The hook is a gripping opening that grabs attention and makes listeners want to hear the rest.",
+      "version": 1
+    },
+    {
+      "id": "2336a667-b18e-5bba-a19d-8e0852cf1203",
+      "prompt": "Opening with a vivid IMAGE can hook listeners by —",
+      "correctAnswer": "painting a picture they want to explore",
+      "distractors": [
+        "listing facts",
+        "boring them",
+        "hiding the story"
+      ],
+      "bloomLevel": "apply",
+      "gradeBand": "gr4-5",
+      "topic": "The Hook",
+      "subtopic": "Image hook",
+      "standard": "CCSS.ELA-LITERACY.SL.5.4",
+      "hints": [
+        "A striking picture",
+        "Draw them in"
+      ],
+      "explanation": "A vivid opening image paints a picture listeners want to explore, hooking them into the story.",
+      "version": 1
+    },
+    {
+      "id": "21c3c09a-14b7-53a2-86fd-e2aa251e3ecc",
+      "prompt": "A hook makes a promise to the listener that the story will —",
+      "correctAnswer": "be worth their attention",
+      "distractors": [
+        "waste their time",
+        "have no point",
+        "never end"
+      ],
+      "bloomLevel": "understand",
+      "gradeBand": "gr4-5",
+      "topic": "The Hook",
+      "subtopic": "The hook's promise",
+      "standard": "CCSS.ELA-LITERACY.SL.5.4",
+      "hints": [
+        "A promise of payoff",
+        "Worth listening"
+      ],
+      "explanation": "A hook makes an implicit promise that the story will be worth the listener's attention.",
+      "version": 1
+    }
+  ],
+  "standardsFramework": "CCSS"
+}
