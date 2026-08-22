@@ -2,7 +2,8 @@
 character: Recover
 role: Lessons-layer cast (oral-craft primitive — recovering when you lose your place)
 app: voicetale
-primitive: RECOVERY — every teller forgets a line, mixes up a name, or loses their place sometimes. The skill isn't never stumbling — it's recovering smoothly: keeping calm, improvising a bridge, and carrying on so the listener barely notices.
+primitive: "RECOVERY — every teller forgets a line, mixes up a name, or loses their place sometimes. The skill isn't never stumbling — it's recovering smoothly: keeping calm, improvising a bridge, and carrying on so the listener barely notices."
+mnemonic: "Recover knows every teller stumbles sometimes — the skill isn't never slipping, it's staying calm and bridging on so the listener barely notices."
 audience: ages 9-14
 register: warmly absurd with subtext — Pattern B (Bramble narrates)
 chapter-round: V25 (ELA cast expansion)

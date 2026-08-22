@@ -3,6 +3,7 @@ character: Refrain
 role: Lessons-layer cast (oral-craft primitive — callback / refrain)
 app: voicetale
 primitive: CALLBACK / REFRAIN — repeating one phrase identically at the closing, with all the meaning the story has built up around it. Same words. Said again. Said better — because context has filled them.
+mnemonic: "Refrain repeats one phrase at the close — the same words said again, but said better, because the story has filled them with meaning."
 audience: ages 9-14
 register: warmly absurd with subtext (per labsmith DN-S R172 #606 spec) — Pattern B (Bramble narrates)
 chapter-round: Round 229 #663

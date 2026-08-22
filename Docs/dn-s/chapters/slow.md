@@ -3,6 +3,7 @@ character: Slow
 role: Lessons-layer cast (oral-craft primitive — pacing across the 5-beat arc)
 app: voicetale
 primitive: PACING — the deliberate variation of tempo across the 5-beat arc (hook → setup → rising → turn → close). Each beat has its characteristic tempo; the variation is what gives a told tale its shape.
+mnemonic: "Slow varies the tempo across the arc — hook, setup, rising, turn, close each have their own speed, and the variation gives a tale its shape."
 audience: ages 9-14
 register: warmly absurd with subtext (per labsmith DN-S R172 #606 spec) — Pattern B (Bramble narrates)
 chapter-round: Round 229 #663

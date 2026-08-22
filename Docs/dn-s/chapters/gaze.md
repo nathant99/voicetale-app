@@ -3,6 +3,7 @@ character: Gaze
 role: Lessons-layer cast (oral-craft primitive — eye contact / reading the listeners)
 app: voicetale
 primitive: EYE CONTACT — a told story is a two-way thing. Looking at your listeners (instead of the floor) holds them with you, and watching their faces tells you whether to slow down, speed up, or linger. The teller and the circle breathe together.
+mnemonic: "Gaze looks at the listeners, not the floor — it holds them with you and reads their faces to know whether to slow down or linger."
 audience: ages 9-14
 register: warmly absurd with subtext — Pattern B (Bramble narrates)
 chapter-round: V25 (ELA cast expansion)

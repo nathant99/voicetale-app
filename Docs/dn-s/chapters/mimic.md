@@ -3,6 +3,7 @@ character: Mimic
 role: Lessons-layer cast (oral-craft primitive — character voices)
 app: voicetale
 primitive: CHARACTER VOICES — when you tell a story with more than one character, giving each one a slightly different voice makes the listener always know who is talking, without you having to say "she said" every time.
+mnemonic: "Mimic gives each character a slightly different voice — so the listener always knows who's talking without you saying 'she said.'"
 audience: ages 9-14
 register: warmly absurd with subtext — Pattern B (Bramble narrates)
 chapter-round: V25 (ELA cast expansion)

@@ -3,6 +3,7 @@ character: Toss and Latch
 role: Ensemble cast (a pair embodying tandem telling — two tellers passing one story back and forth so smoothly the seam disappears; each must listen to the other's last beat and match its tone, rhythm, and momentum to catch the thread without a bump)
 app: voicetale
 primitive: tandem telling / the handoff — two tellers passing one story back and forth so the seam disappears; each listens to the other's last beat and matches its tone, rhythm, and momentum to catch the thread without a bump
+mnemonic: "Toss passes the story and Latch catches it — two tellers matching each other's tone and rhythm so smoothly the seam disappears."
 audience: ages 9-14
 tier: 1
 status: SHIPPED

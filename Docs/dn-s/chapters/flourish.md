@@ -3,6 +3,7 @@ character: Flourish
 role: Lessons-layer cast (oral-craft primitive — gesture / using your hands and body)
 app: voicetale
 primitive: GESTURE — when you tell a story out loud, your hands and body can paint the pictures your words describe. A spread of the arms makes a thing feel huge; a shrinking gesture makes it tiny. The body helps the listener see.
+mnemonic: "Flourish paints with the hands and body — arms spread make a thing huge, a shrinking gesture makes it tiny, so the listener can see."
 audience: ages 9-14
 register: warmly absurd with subtext — Pattern B (Bramble narrates)
 chapter-round: V25 (ELA cast expansion)

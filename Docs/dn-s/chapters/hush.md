@@ -3,6 +3,7 @@ character: Hush
 role: Lessons-layer cast (oral-craft primitive — the pause / strategic silence)
 app: voicetale
 primitive: THE PAUSE — in a told story, a short silence right before the important part makes the listener lean in and wait. The pause is not empty. It is a tool. A held beat of quiet can land harder than any word.
+mnemonic: "Hush drops a short silence right before the important part — the pause isn't empty, it makes the listener lean in and wait."
 audience: ages 9-14
 register: warmly absurd with subtext — Pattern B (Bramble narrates)
 chapter-round: V25 (ELA cast expansion)

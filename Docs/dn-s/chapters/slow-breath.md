@@ -3,6 +3,7 @@ character: Slow and Breath
 role: Ensemble cast (cohort embodying pacing pair — Slow is rhythm at the sentence level (long sentences, deliberate beats). Breath is rhythm at the paragraph level (where the reader inhales, where they rest). Together they teach pacing across both scales.)
 app: voicetale
 primitive: pacing pair — Slow is rhythm at the sentence level (long sentences, deliberate beats). Breath is rhythm at the paragraph level (where the reader inhales, where they rest). Together they teach pacing across both scales.
+mnemonic: "Slow sets the rhythm at the sentence level and Breath sets it at the paragraph level — pacing works at both scales at once."
 audience: ages 9-14
 status: SHIPPED
 chapter-round: V13-A-3

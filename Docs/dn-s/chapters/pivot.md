@@ -2,7 +2,8 @@
 character: Pivot
 role: Lessons-layer cast (oral-craft primitive — the turn at beat 4)
 app: voicetale
-primitive: THE TURN — the moment in a told tale (typically at beat 4 of the 5-beat arc) where story / teller / listener turn together: the realization, the reveal, the change in meaning that makes everything before it land differently.
+primitive: "THE TURN — the moment in a told tale (typically at beat 4 of the 5-beat arc) where story / teller / listener turn together: the realization, the reveal, the change in meaning that makes everything before it land differently."
+mnemonic: "Pivot is the moment story, teller, and listener turn together — the reveal that makes everything before it land differently."
 audience: ages 9-14
 register: warmly absurd with subtext (per labsmith DN-S R172 #606 spec) — Pattern B (Bramble narrates)
 chapter-round: Round 229 #663

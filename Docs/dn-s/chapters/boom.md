@@ -3,6 +3,7 @@ character: Boom
 role: Lessons-layer cast (oral-craft primitive — volume + emphasis / dynamics)
 app: voicetale
 primitive: VOLUME + EMPHASIS — a told story should not stay at one loudness. Going soft pulls listeners closer; going loud at the right moment lands a surprise. Changing your volume is how you point at the parts that matter.
+mnemonic: "Boom never stays at one loudness — going soft pulls listeners closer, going loud lands a surprise, and changing volume points at what matters."
 audience: ages 9-14
 register: warmly absurd with subtext — Pattern B (Bramble narrates)
 chapter-round: V25 (ELA cast expansion)

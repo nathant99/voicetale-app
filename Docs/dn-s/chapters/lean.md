@@ -3,6 +3,7 @@ character: Lean
 role: Lessons-layer cast (oral-craft primitive — hook / leanability)
 app: voicetale
 primitive: HOOK / LEANABILITY — the opening seconds of a told story must *make the listener lean in.* In a 60-120 second told tale, the first 5-10 seconds determine whether the listener gives the rest of the story their attention.
+mnemonic: "Lean makes the first few seconds make a listener lean in — the opening decides whether they give you the rest of the story."
 audience: ages 9-14
 register: warmly absurd with subtext (per labsmith DN-S R172 #606 spec) — Pattern B (Bramble narrates)
 chapter-round: Round 228 #662
