@@ -8,7 +8,7 @@
       "sourceChapterSlugs": [
         "lean"
       ],
-      "durationSeconds": 385.62,
+      "durationSeconds": 379.92,
       "bundlePath": "AudioDramas/voicetale/lean-tipping-forward.caf",
       "webM4APath": "AudioDramas/voicetale/lean-tipping-forward.m4a",
       "webVTTPath": "AudioDramas/voicetale/lean-tipping-forward.vtt",
@@ -220,25 +220,25 @@
         {
           "index": 35,
           "startMs": 350172,
-          "endMs": 359063,
+          "endMs": 359006,
           "character": "NARRATOR"
         },
         {
           "index": 36,
-          "startMs": 359063,
-          "endMs": 367834,
+          "startMs": 359006,
+          "endMs": 362134,
           "character": "NARRATOR"
         },
         {
           "index": 37,
-          "startMs": 367834,
-          "endMs": 372925,
+          "startMs": 362134,
+          "endMs": 367225,
           "character": "NARRATOR"
         },
         {
           "index": 38,
-          "startMs": 372925,
-          "endMs": 385616,
+          "startMs": 367225,
+          "endMs": 379916,
           "character": "NARRATOR"
         }
       ],
@@ -305,7 +305,7 @@
       "sourceChapterSlugs": [
         "lean"
       ],
-      "durationSeconds": 160.69,
+      "durationSeconds": 155.79,
       "bundlePath": "AudioDramas/voicetale/lean-hook-leanability.caf",
       "webM4APath": "AudioDramas/voicetale/lean-hook-leanability.m4a",
       "webVTTPath": "AudioDramas/voicetale/lean-hook-leanability.vtt",
@@ -409,19 +409,19 @@
         {
           "index": 17,
           "startMs": 136055,
-          "endMs": 144506,
+          "endMs": 139568,
           "character": "NARRATOR"
         },
         {
           "index": 18,
-          "startMs": 144506,
-          "endMs": 149397,
+          "startMs": 139568,
+          "endMs": 144459,
           "character": "NARRATOR"
         },
         {
           "index": 19,
-          "startMs": 149397,
-          "endMs": 160688,
+          "startMs": 144459,
+          "endMs": 155750,
           "character": "NARRATOR"
         }
       ],
@@ -478,7 +478,7 @@
       "sourceChapterSlugs": [
         "pivot"
       ],
-      "durationSeconds": 191.41,
+      "durationSeconds": 186.2,
       "bundlePath": "AudioDramas/voicetale/pivot-the-turn.caf",
       "webM4APath": "AudioDramas/voicetale/pivot-the-turn.m4a",
       "webVTTPath": "AudioDramas/voicetale/pivot-the-turn.vtt",
@@ -582,19 +582,19 @@
         {
           "index": 17,
           "startMs": 166935,
-          "endMs": 174746,
+          "endMs": 169502,
           "character": "NARRATOR"
         },
         {
           "index": 18,
-          "startMs": 174746,
-          "endMs": 179317,
+          "startMs": 169502,
+          "endMs": 174073,
           "character": "NARRATOR"
         },
         {
           "index": 19,
-          "startMs": 179317,
-          "endMs": 191408,
+          "startMs": 174073,
+          "endMs": 186164,
           "character": "NARRATOR"
         }
       ],
@@ -651,7 +651,7 @@
       "sourceChapterSlugs": [
         "refrain"
       ],
-      "durationSeconds": 191.96,
+      "durationSeconds": 186.7,
       "bundlePath": "AudioDramas/voicetale/refrain-callback-refrain.caf",
       "webM4APath": "AudioDramas/voicetale/refrain-callback-refrain.m4a",
       "webVTTPath": "AudioDramas/voicetale/refrain-callback-refrain.vtt",
@@ -743,25 +743,25 @@
         {
           "index": 15,
           "startMs": 156313,
-          "endMs": 165684,
+          "endMs": 165578,
           "character": "NARRATOR"
         },
         {
           "index": 16,
-          "startMs": 165684,
-          "endMs": 173295,
+          "startMs": 165578,
+          "endMs": 167998,
           "character": "NARRATOR"
         },
         {
           "index": 17,
-          "startMs": 173295,
-          "endMs": 178066,
+          "startMs": 167998,
+          "endMs": 172769,
           "character": "NARRATOR"
         },
         {
           "index": 18,
-          "startMs": 178066,
-          "endMs": 191957,
+          "startMs": 172769,
+          "endMs": 186660,
           "character": "NARRATOR"
         }
       ],
@@ -818,7 +818,7 @@
       "sourceChapterSlugs": [
         "slow"
       ],
-      "durationSeconds": 176.05,
+      "durationSeconds": 170.8,
       "bundlePath": "AudioDramas/voicetale/slow-pacing.caf",
       "webM4APath": "AudioDramas/voicetale/slow-pacing.m4a",
       "webVTTPath": "AudioDramas/voicetale/slow-pacing.vtt",
@@ -916,25 +916,25 @@
         {
           "index": 16,
           "startMs": 144284,
-          "endMs": 152775,
+          "endMs": 152737,
           "character": "NARRATOR"
         },
         {
           "index": 17,
-          "startMs": 152775,
-          "endMs": 160306,
+          "startMs": 152737,
+          "endMs": 155018,
           "character": "NARRATOR"
         },
         {
           "index": 18,
-          "startMs": 160306,
-          "endMs": 164397,
+          "startMs": 155018,
+          "endMs": 159109,
           "character": "NARRATOR"
         },
         {
           "index": 19,
-          "startMs": 164397,
-          "endMs": 176048,
+          "startMs": 159109,
+          "endMs": 170760,
           "character": "NARRATOR"
         }
       ],
