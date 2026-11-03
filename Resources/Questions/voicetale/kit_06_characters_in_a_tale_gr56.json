@@ -386,7 +386,7 @@
     {
       "id": "12db8e5c-fc99-57be-91c4-33f6a6f7b5ac",
       "prompt": "The relationship between two characters can create —",
-      "correctAnswer": "conflict or warmth (interest)",
+      "correctAnswer": "conflict or warmth",
       "distractors": [
         "nothing",
         "only the setting",

@@ -281,7 +281,7 @@
     {
       "id": "a4c2e770-9b80-5f69-bc8d-78be401574e9",
       "prompt": "If the audience is very quiet, it might mean they are —",
-      "correctAnswer": "deeply engaged OR bored — read other cues",
+      "correctAnswer": "deeply engaged OR bored",
       "distractors": [
         "definitely bored",
         "definitely gone",

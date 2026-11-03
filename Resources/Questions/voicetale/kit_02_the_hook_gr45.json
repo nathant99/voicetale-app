@@ -281,7 +281,7 @@
     {
       "id": "e4e12e73-2ef0-5c88-b1e2-841794ceb603",
       "prompt": "A hook that gives away the WHOLE story at once is —",
-      "correctAnswer": "usually too much (leaves nothing to discover)",
+      "correctAnswer": "usually too much",
       "distractors": [
         "ideal",
         "always best",
