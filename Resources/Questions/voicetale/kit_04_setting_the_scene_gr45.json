@@ -155,7 +155,7 @@
     {
       "id": "1d06bc2b-e655-55ec-b7de-cab332428def",
       "prompt": "A change in setting during a story can signal —",
-      "correctAnswer": "a change in the story (time or place shift)",
+      "correctAnswer": "a change in the story",
       "distractors": [
         "nothing",
         "the end always",

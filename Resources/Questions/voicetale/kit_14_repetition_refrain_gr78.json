@@ -71,7 +71,7 @@
     {
       "id": "3cbf64ad-29dd-5f70-8933-2e53d8428ac4",
       "prompt": "The 'rule of three' in storytelling means —",
-      "correctAnswer": "things often happen in threes (three tries, three characters)",
+      "correctAnswer": "things often happen in threes",
       "distractors": [
         "everything happens twice",
         "nothing repeats",
