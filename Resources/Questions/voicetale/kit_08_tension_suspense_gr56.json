@@ -20,8 +20,8 @@
       "subtopic": "Suspense",
       "standard": "CCSS.ELA-LITERACY.SL.5.4",
       "hints": [
-        "Anxious waiting",
-        "What happens next?"
+        "How do you feel waiting for the next part of a scary story?",
+        "What question is in your head when you can't wait to hear more?"
       ],
       "explanation": "Suspense is the feeling of anxious anticipation about what will happen next.",
       "version": 1
@@ -41,7 +41,7 @@
       "subtopic": "Tension",
       "standard": "CCSS.ELA-LITERACY.W.5.3",
       "hints": [
-        "Something at stake",
+        "Why do listeners hold their breath during a scene?",
         "Pressure"
       ],
       "explanation": "Tension is the sense that something important is at stake, creating pressure in the story.",
@@ -63,7 +63,7 @@
       "standard": "CCSS.ELA-LITERACY.SL.5.4",
       "hints": [
         "Keeps them hooked",
-        "Eager for more"
+        "What do listeners want when they can't guess the outcome?"
       ],
       "explanation": "Suspense keeps listeners hooked and eager to hear what happens next.",
       "version": 1
@@ -167,8 +167,8 @@
       "subtopic": "Ticking clock",
       "standard": "CCSS.ELA-LITERACY.W.5.3",
       "hints": [
-        "Time pressure",
-        "Deadline"
+        "Why does a countdown make a scene feel urgent?",
+        "What is shrinking when a deadline is near?"
       ],
       "explanation": "A deadline (a 'ticking clock') creates suspense because time is running out.",
       "version": 1
@@ -231,7 +231,7 @@
       "standard": "CCSS.ELA-LITERACY.W.5.3",
       "hints": [
         "A hint of what's coming",
-        "Build dread"
+        "How does a small warning sign early on make listeners feel later?"
       ],
       "explanation": "Foreshadowing — hinting at trouble ahead — builds suspense and anticipation.",
       "version": 1
@@ -272,7 +272,7 @@
       "subtopic": "Voice + tension",
       "standard": "CCSS.ELA-LITERACY.SL.5.5",
       "hints": [
-        "Quiet or urgent",
+        "How might a teller's voice change as danger gets closer?",
         "Vocal tension"
       ],
       "explanation": "A teller builds tension by adjusting the voice — growing quieter or more urgent as the moment peaks.",
@@ -356,8 +356,8 @@
       "subtopic": "Mystery + suspense",
       "standard": "CCSS.ELA-LITERACY.SL.5.4",
       "hints": [
-        "An open question",
-        "They want to know"
+        "Think about why you keep reading when a chapter ends unresolved.",
+        "How does it feel to hear a riddle when no one tells you the solution?"
       ],
       "explanation": "An unanswered question (mystery) creates suspense by making listeners want the answer.",
       "version": 1
@@ -377,8 +377,8 @@
       "subtopic": "Purpose",
       "standard": "CCSS.ELA-LITERACY.SL.5.4",
       "hints": [
-        "Keep them hooked",
-        "Engaged + caring"
+        "Why build up worry in a story at all?",
+        "What do listeners do when they're worried about a character?"
       ],
       "explanation": "Tension and suspense keep listeners engaged and emotionally invested in the outcome.",
       "version": 1
@@ -482,7 +482,7 @@
       "subtopic": "Losing suspense",
       "standard": "CCSS.ELA-LITERACY.SL.5.4",
       "hints": [
-        "No caring = no suspense",
+        "If a listener doesn't mind what happens, can they feel suspense?",
         "Keep them invested"
       ],
       "explanation": "Suspense fades when listeners stop caring about the outcome, so a teller keeps them invested.",
@@ -504,7 +504,7 @@
       "standard": "CCSS.ELA-LITERACY.W.5.3",
       "hints": [
         "Cut away at the peak",
-        "Cliffhanger"
+        "What do listeners call it when a story stops right at the edge?"
       ],
       "explanation": "Cutting away from a tense moment to another scene can heighten suspense, like a cliffhanger.",
       "version": 1

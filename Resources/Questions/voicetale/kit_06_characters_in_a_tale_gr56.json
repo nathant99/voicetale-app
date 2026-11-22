@@ -20,8 +20,8 @@
       "subtopic": "Characters",
       "standard": "CCSS.ELA-LITERACY.W.5.3",
       "hints": [
-        "Who it's about",
-        "People or beings"
+        "Think about who we follow through a story.",
+        "Do they have to be human, or could a fox or a robot count?"
       ],
       "explanation": "Characters are the people or beings a story is about.",
       "version": 1
@@ -41,8 +41,8 @@
       "subtopic": "Connection via character",
       "standard": "CCSS.ELA-LITERACY.W.5.3",
       "hints": [
-        "We care about people",
-        "Character connection"
+        "What do listeners care about most when they hear a story?",
+        "Who do listeners worry about, cheer for, and remember?"
       ],
       "explanation": "Listeners connect to a story mainly through caring about its characters.",
       "version": 1
@@ -62,8 +62,8 @@
       "subtopic": "Voicing a character",
       "standard": "CCSS.ELA-LITERACY.SL.5.5",
       "hints": [
-        "Give them a voice",
-        "Distinct speech"
+        "How can listeners tell who is talking without being told?",
+        "Would a grumpy giant and a nervous mouse sound the same?"
       ],
       "explanation": "A teller can bring a character to life by giving them a distinct voice or manner of speaking.",
       "version": 1
@@ -83,8 +83,8 @@
       "subtopic": "Main character",
       "standard": "CCSS.ELA-LITERACY.W.5.3",
       "hints": [
-        "Someone to follow",
-        "Root for them"
+        "What do listeners need to latch onto in a story?",
+        "Who do listeners hope wins in the end?"
       ],
       "explanation": "A clear main character gives listeners someone to follow and root for.",
       "version": 1
@@ -105,7 +105,7 @@
       "standard": "CCSS.ELA-LITERACY.W.5.3",
       "hints": [
         "A goal to root for",
-        "We care about the outcome"
+        "If a character wants nothing, what is there to hope for?"
       ],
       "explanation": "Showing what a character wants makes listeners care about whether they achieve it.",
       "version": 1
@@ -167,7 +167,7 @@
       "subtopic": "Character voicing",
       "standard": "CCSS.ELA-LITERACY.SL.5.5",
       "hints": [
-        "Different voices",
+        "What does a teller do when a different character starts talking?",
         "Voice acting"
       ],
       "explanation": "Changing your voice for different characters — 'voicing' — helps listeners follow who's speaking.",
@@ -188,8 +188,8 @@
       "subtopic": "Small cast",
       "standard": "CCSS.ELA-LITERACY.W.5.3",
       "hints": [
-        "Keep it small",
-        "Clear cast"
+        "How many characters can a listener keep track of without a page to look back at?",
+        "Would a crowd of twenty names help or confuse someone listening once?"
       ],
       "explanation": "A told tale works well with a small, clear cast — too many characters confuse listeners.",
       "version": 1
@@ -209,7 +209,7 @@
       "subtopic": "Relatable character",
       "standard": "CCSS.ELA-LITERACY.W.5.3",
       "hints": [
-        "Want + feeling",
+        "What two things make you care about someone in a story?",
         "Something to care about"
       ],
       "explanation": "A character listeners care about usually has a clear goal and real feelings.",
@@ -230,8 +230,8 @@
       "subtopic": "Expression + character",
       "standard": "CCSS.ELA-LITERACY.SL.5.5",
       "hints": [
-        "Show feeling",
-        "Face + gesture"
+        "What can a listener learn from a frown or a raised hand that the words alone might not say?",
+        "What can a teller's face and hands add to the words?"
       ],
       "explanation": "A teller's facial expressions and gestures help show a character's emotions.",
       "version": 1
@@ -251,8 +251,8 @@
       "subtopic": "Changing emotions",
       "standard": "CCSS.ELA-LITERACY.W.5.3",
       "hints": [
-        "Feelings respond to events",
-        "They react"
+        "When something bad happens, should the character feel the same as before?",
+        "Think of a time your mood shifted during a day. What caused it?"
       ],
       "explanation": "A character's emotions should shift in response to the story's events, making them feel alive.",
       "version": 1
@@ -272,8 +272,8 @@
       "subtopic": "Bringing characters alive",
       "standard": "CCSS.ELA-LITERACY.W.5.3",
       "hints": [
-        "Show them in action",
-        "Act + speak"
+        "Is naming a character enough to make them feel alive?",
+        "What could listeners watch the character do and hear them say?"
       ],
       "explanation": "Showing a character act and speak in their own distinct way brings them to life better than a flat description.",
       "version": 1
@@ -335,8 +335,8 @@
       "subtopic": "Consistent voicing",
       "standard": "CCSS.ELA-LITERACY.SL.5.5",
       "hints": [
-        "Keep it recognizable",
-        "Consistent"
+        "How can you tell who's talking in a cartoon with your eyes closed?",
+        "What helps listeners keep track of who is who?"
       ],
       "explanation": "Keeping a character's voice consistent helps listeners recognize them each time they speak.",
       "version": 1
@@ -356,8 +356,8 @@
       "subtopic": "Character details",
       "standard": "CCSS.ELA-LITERACY.W.5.3",
       "hints": [
-        "A couple strong ones",
-        "Memorable"
+        "How many physical details can a listener hold onto?",
+        "Which kind of detail sticks in your head: a long list, or one striking thing?"
       ],
       "explanation": "A few memorable physical details bring a character to life without overwhelming the listener.",
       "version": 1
@@ -377,8 +377,8 @@
       "subtopic": "Picturable characters",
       "standard": "CCSS.ELA-LITERACY.W.5.3",
       "hints": [
-        "They can see them",
-        "When you can see someone in your mind, do they seem flat and made-up, or more like a real person?"
+        "What changes when listeners can see a character in their mind?",
+        "When you can see someone in your mind, do they seem made-up, or more like a person you could meet?"
       ],
       "explanation": "A character listeners can picture feels more real and vivid.",
       "version": 1
@@ -419,8 +419,8 @@
       "subtopic": "Empathy",
       "standard": "CCSS.ELA-LITERACY.W.5.3",
       "hints": [
-        "Feel with them",
-        "Empathy"
+        "Think of a story where you held your breath for a character. Why did you care?",
+        "What makes a character seem like someone you know?"
       ],
       "explanation": "A teller connects listeners to a character by helping them feel what the character feels — empathy.",
       "version": 1
@@ -461,8 +461,8 @@
       "subtopic": "Signaling speakers",
       "standard": "CCSS.ELA-LITERACY.SL.5.5",
       "hints": [
-        "Switch voice/posture",
-        "Mark the change"
+        "How can listeners tell someone new has started talking?",
+        "Without saying 'he said', how could you signal a new speaker?"
       ],
       "explanation": "A teller signals a new speaker by changing voice or posture, helping listeners follow the dialogue.",
       "version": 1
@@ -482,8 +482,8 @@
       "subtopic": "Want + caring",
       "standard": "CCSS.ELA-LITERACY.W.5.3",
       "hints": [
-        "A goal to root for",
-        "We care"
+        "Why does it matter whether the character gets what they're after?",
+        "If a character wants nothing, does the listener have anything to hope for?"
       ],
       "explanation": "Showing what a character wants gives listeners a reason to care about whether they succeed.",
       "version": 1

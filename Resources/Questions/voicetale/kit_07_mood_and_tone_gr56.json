@@ -20,8 +20,8 @@
       "subtopic": "Mood",
       "standard": "CCSS.ELA-LITERACY.SL.5.5",
       "hints": [
-        "The feeling",
-        "Atmosphere"
+        "Think about a haunted-house story: what hangs in the air before anything happens?",
+        "How is mood different from plot?"
       ],
       "explanation": "Mood is the overall feeling or atmosphere a story creates for the listener.",
       "version": 1
@@ -41,8 +41,8 @@
       "subtopic": "Tone",
       "standard": "CCSS.ELA-LITERACY.SL.5.5",
       "hints": [
-        "The attitude",
-        "How the teller feels about it"
+        "Think of saying 'great job' kindly, then sarcastically. What changes?",
+        "What does a sarcastic voice reveal about the speaker?"
       ],
       "explanation": "Tone is the teller's attitude toward the story — playful, serious, spooky, and so on.",
       "version": 1
@@ -63,7 +63,7 @@
       "standard": "CCSS.ELA-LITERACY.SL.5.5",
       "hints": [
         "Match the details",
-        "Dark + slow + eerie"
+        "What would make you lean back and shiver?"
       ],
       "explanation": "A spooky mood is built with dark settings, a slow pace, and eerie sensory details.",
       "version": 1
@@ -83,8 +83,8 @@
       "subtopic": "Voice + mood",
       "standard": "CCSS.ELA-LITERACY.SL.5.5",
       "hints": [
-        "Vocal tone",
-        "Match the feeling"
+        "How does your voice change for a scary part, compared with a happy part?",
+        "Should the voice fit what the scene is about?"
       ],
       "explanation": "A teller sets mood with vocal tone — a hushed voice for suspense, a bright one for joy.",
       "version": 1
@@ -105,7 +105,7 @@
       "standard": "CCSS.ELA-LITERACY.SL.5.5",
       "hints": [
         "'Gloomy' vs 'cozy'",
-        "Words carry feeling"
+        "Do 'gloomy' and 'cozy' leave you feeling the same?"
       ],
       "explanation": "Word choice shapes mood — 'gloomy' and 'cozy' create very different feelings.",
       "version": 1
@@ -125,8 +125,8 @@
       "subtopic": "Cheerful mood",
       "standard": "CCSS.ELA-LITERACY.SL.5.5",
       "hints": [
-        "Bright + lively",
-        "Upbeat details"
+        "What kind of pictures and speed would make a scene feel happy?",
+        "Would gloomy images help a happy scene?"
       ],
       "explanation": "A cheerful mood uses bright images, warm details, and a lively pace.",
       "version": 1
@@ -146,8 +146,8 @@
       "subtopic": "Mood matches events",
       "standard": "CCSS.ELA-LITERACY.SL.5.5",
       "hints": [
-        "Reinforce the story",
-        "They fit"
+        "Should the feeling of a scene fit what is happening in it?",
+        "Would a cheerful feeling suit a scary event?"
       ],
       "explanation": "Mood should match and reinforce the story's events for the strongest effect.",
       "version": 1
@@ -168,7 +168,7 @@
       "standard": "CCSS.ELA-LITERACY.SL.5.5",
       "hints": [
         "A surprising turn",
-        "Drama"
+        "What does an unexpected change in feeling do to listeners?"
       ],
       "explanation": "A well-timed shift in mood can surprise listeners and heighten the drama.",
       "version": 1
@@ -188,8 +188,8 @@
       "subtopic": "Pace + mood",
       "standard": "CCSS.ELA-LITERACY.SL.5.5",
       "hints": [
-        "Slow vs fast",
-        "Different feelings"
+        "Does a story feel the same at a crawl and at a sprint?",
+        "How might a slow telling feel compared with a fast one?"
       ],
       "explanation": "Pace shapes mood: a slow pace can feel tense or calm, while a fast pace feels exciting or urgent.",
       "version": 1
@@ -231,7 +231,7 @@
       "standard": "CCSS.ELA-LITERACY.SL.5.5",
       "hints": [
         "Ominous + slow",
-        "Creaking door"
+        "Which option has a sound and a slow movement that make you nervous?"
       ],
       "explanation": "A slowly creaking door down a dark hall creates a tense, suspenseful mood.",
       "version": 1
@@ -251,8 +251,8 @@
       "subtopic": "Kinds of tone",
       "standard": "CCSS.ELA-LITERACY.SL.5.5",
       "hints": [
-        "Many attitudes",
-        "Playful/serious/spooky…"
+        "Is there only one attitude a teller can take?",
+        "Could a teller sound silly about one story and solemn about another?"
       ],
       "explanation": "Tone can take many forms — playful, serious, spooky, sad — depending on the teller's attitude.",
       "version": 1
@@ -273,7 +273,7 @@
       "standard": "CCSS.ELA-LITERACY.SL.5.5",
       "hints": [
         "Tone should fit",
-        "Mismatch confuses"
+        "What happens when the attitude doesn't match the events?"
       ],
       "explanation": "A tone that clashes with the story's events (a giggly tone for a sad tale) usually feels confusing.",
       "version": 1
@@ -293,8 +293,8 @@
       "subtopic": "Building mood",
       "standard": "CCSS.ELA-LITERACY.SL.5.5",
       "hints": [
-        "Many tools together",
-        "Setting + words + pace + voice"
+        "Does one tool make the mood, or do several work at once?",
+        "Think about the place, the words, the speed and the voice. Which of those shape the feeling?"
       ],
       "explanation": "Mood is built through the combination of setting, word choice, pace, and delivery.",
       "version": 1
@@ -314,7 +314,7 @@
       "subtopic": "Lowering the voice",
       "standard": "CCSS.ELA-LITERACY.SL.5.5",
       "hints": [
-        "Quiet = suspense",
+        "What happens to a room when the teller drops their voice?",
         "Draw them in"
       ],
       "explanation": "Lowering the voice can create suspense or intimacy, drawing listeners closer.",
@@ -335,8 +335,8 @@
       "subtopic": "Speeding up",
       "standard": "CCSS.ELA-LITERACY.SL.5.5",
       "hints": [
-        "Fast = urgency",
-        "Excitement"
+        "How does a story feel when the teller starts talking faster?",
+        "Does a fast telling make you relax, or sit up?"
       ],
       "explanation": "Speeding up delivery can create excitement or urgency.",
       "version": 1
@@ -461,7 +461,7 @@
       "subtopic": "Calm mood",
       "standard": "CCSS.ELA-LITERACY.SL.5.5",
       "hints": [
-        "Gentle + slow + soft",
+        "How would you describe a quiet garden at dusk, and how would you sound?",
         "Peaceful details"
       ],
       "explanation": "A calm, peaceful mood uses gentle images and a slow, soft delivery.",
@@ -482,8 +482,8 @@
       "subtopic": "Tone changes feeling",
       "standard": "CCSS.ELA-LITERACY.SL.5.5",
       "hints": [
-        "Attitude recolors events",
-        "Funny vs sad vs scary"
+        "Imagine telling a story about a spilled lunch twice: once laughing, once with a frown.",
+        "Do the events change between the two tellings, or something else?"
       ],
       "explanation": "The teller's tone can make the same events feel funny, sad, or scary — attitude recolors the story.",
       "version": 1
@@ -503,8 +503,8 @@
       "subtopic": "Tone shift",
       "standard": "CCSS.ELA-LITERACY.SL.5.5",
       "hints": [
-        "A meaningful turn",
-        "Something changed"
+        "What does it mean when a joking teller suddenly turns serious?",
+        "When a friend's voice drops in the middle of a story, what do you expect next?"
       ],
       "explanation": "Shifting from a light tone to a serious one can signal an important turn in the story.",
       "version": 1
@@ -525,7 +525,7 @@
       "standard": "CCSS.ELA-LITERACY.SL.5.5",
       "hints": [
         "Pick the odd one",
-        "Page count ≠ mood"
+        "Which option has nothing to do with how a story feels?"
       ],
       "explanation": "Mood is built by word choice, pace, and delivery — not by something like a page count in a told tale.",
       "version": 1

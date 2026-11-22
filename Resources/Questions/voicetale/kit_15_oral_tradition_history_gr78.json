@@ -20,8 +20,8 @@
       "subtopic": "Oral tradition",
       "standard": "CCSS.ELA-LITERACY.SL.5.4",
       "hints": [
-        "Told, not written",
-        "Passed down aloud"
+        "How did stories travel before books?",
+        "How do grandparents hand stories to grandchildren without paper?"
       ],
       "explanation": "Oral tradition is the passing down of stories, knowledge, and culture by telling rather than writing.",
       "version": 1
@@ -62,8 +62,8 @@
       "subtopic": "Folktale",
       "standard": "CCSS.ELA-LITERACY.SL.5.4",
       "hints": [
-        "Traditional + shared",
-        "Passed down"
+        "Do we know who first made up 'Jack and the Beanstalk'?",
+        "How did these stories reach us?"
       ],
       "explanation": "A folktale is a traditional story passed down orally among a people.",
       "version": 1
@@ -146,7 +146,7 @@
       "subtopic": "What stories carry",
       "standard": "CCSS.ELA-LITERACY.SL.5.4",
       "hints": [
-        "Values + history + wisdom",
+        "What did a community want its children to know and remember?",
         "Cultural knowledge"
       ],
       "explanation": "Oral storytelling passed down a culture's values, history, and wisdom across generations.",
@@ -188,8 +188,8 @@
       "subtopic": "Respecting stories",
       "standard": "CCSS.ELA-LITERACY.SL.6.6",
       "hints": [
-        "Credit + accuracy",
-        "Respect the source"
+        "What do you owe the people a story came from?",
+        "How would you want a stranger to retell your family's story?"
       ],
       "explanation": "Respecting a culture's stories means telling them accurately and crediting where they come from.",
       "version": 1
@@ -209,8 +209,8 @@
       "subtopic": "Fable",
       "standard": "CCSS.ELA-LITERACY.SL.5.4",
       "hints": [
-        "A moral lesson",
-        "Often animals"
+        "Think about how 'The Tortoise and the Hare' ends.",
+        "What do Aesop's stories leave you with at the end?"
       ],
       "explanation": "A fable is a short story that teaches a lesson or moral, often using animal characters.",
       "version": 1
@@ -230,8 +230,8 @@
       "subtopic": "Moral",
       "standard": "CCSS.ELA-LITERACY.SL.5.4",
       "hints": [
-        "The lesson",
-        "What it teaches"
+        "Think about the line at the end of a fable that begins 'So remember…'",
+        "What is that line for?"
       ],
       "explanation": "The moral of a fable is the lesson it teaches.",
       "version": 1
@@ -252,7 +252,7 @@
       "standard": "CCSS.ELA-LITERACY.SL.5.4",
       "hints": [
         "We still do it",
-        "Family stories, jokes"
+        "Where did you last hear someone tell a story out loud?"
       ],
       "explanation": "Oral tradition is still alive today — in family stories, jokes, and community storytelling.",
       "version": 1
@@ -272,8 +272,8 @@
       "subtopic": "Connection through stories",
       "standard": "CCSS.ELA-LITERACY.SL.5.4",
       "hints": [
-        "A link to others",
-        "People + cultures"
+        "Think about a story an older relative told you.",
+        "Where did these stories come from?"
       ],
       "explanation": "Learning traditional stories connects us to the people and cultures who told them before us.",
       "version": 1
@@ -293,8 +293,8 @@
       "subtopic": "Memory devices",
       "standard": "CCSS.ELA-LITERACY.SL.5.4",
       "hints": [
-        "Aids to memory",
-        "Remember + retell"
+        "Why would rhyme help a teller without a book?",
+        "Try learning a poem that rhymes, then one that doesn't. Which sticks?"
       ],
       "explanation": "Rhyme and repetition helped oral storytellers remember and accurately retell long stories.",
       "version": 1
@@ -314,8 +314,8 @@
       "subtopic": "Griot",
       "standard": "CCSS.ELA-LITERACY.SL.5.4",
       "hints": [
-        "A traditional storyteller",
-        "Keeper of history"
+        "Is a griot a thing, a place, or a person?",
+        "What does a griot look after for their people?"
       ],
       "explanation": "A griot is a West African storyteller and keeper of a community's history and traditions.",
       "version": 1
@@ -335,8 +335,8 @@
       "subtopic": "Universal patterns",
       "standard": "CCSS.ELA-LITERACY.SL.5.4",
       "hints": [
-        "Shared themes",
-        "Patterns across cultures"
+        "Do stories from far-apart places ever feel alike?",
+        "Why might a trickster appear in stories from many lands?"
       ],
       "explanation": "Traditional stories across cultures often share common themes and patterns (heroes, tricksters, journeys).",
       "version": 1
@@ -356,8 +356,8 @@
       "subtopic": "Keeping stories alive",
       "standard": "CCSS.ELA-LITERACY.SL.5.4",
       "hints": [
-        "Pass it on",
-        "Alive for the future"
+        "What happens to a story nobody tells any more?",
+        "Who will hear the story if you tell it today?"
       ],
       "explanation": "Telling a traditional story keeps it alive and passes it to the next generation.",
       "version": 1
@@ -377,8 +377,8 @@
       "subtopic": "Cross-cultural telling",
       "standard": "CCSS.ELA-LITERACY.SL.6.6",
       "hints": [
-        "Learn + respect",
-        "Tell it faithfully"
+        "What should you do before telling a story from someone else's culture?",
+        "Should you change it to suit yourself, or tell it as they would?"
       ],
       "explanation": "When telling a story from another culture, learn about it and tell it respectfully and accurately.",
       "version": 1
@@ -398,8 +398,8 @@
       "subtopic": "Roots of modern storytelling",
       "standard": "CCSS.ELA-LITERACY.SL.5.4",
       "hints": [
-        "Ancient roots",
-        "Oral tradition first"
+        "How old is the habit of telling stories?",
+        "What came before books, films and games?"
       ],
       "explanation": "Modern storytelling in books, films, and games grew from the ancient human tradition of telling stories aloud.",
       "version": 1
@@ -419,8 +419,8 @@
       "subtopic": "Learning from tradition",
       "standard": "CCSS.ELA-LITERACY.SL.5.4",
       "hints": [
-        "Time-tested tools",
-        "Learn from the past"
+        "Why learn tricks that tellers have used for centuries?",
+        "What can old tellers teach a new one?"
       ],
       "explanation": "Understanding oral tradition helps a storyteller appreciate and use techniques proven over generations.",
       "version": 1
@@ -461,7 +461,7 @@
       "subtopic": "Tall tale",
       "standard": "CCSS.ELA-LITERACY.SL.5.4",
       "hints": [
-        "Exaggerated for fun",
+        "Could a man really dig a lake with one scoop? What kind of story says so?",
         "Paul Bunyan-style"
       ],
       "explanation": "A tall tale is a story wildly exaggerated for humor and fun (like Paul Bunyan).",
@@ -482,8 +482,8 @@
       "subtopic": "Trickster",
       "standard": "CCSS.ELA-LITERACY.SL.5.4",
       "hints": [
-        "Clever + sly",
-        "Outwits others"
+        "How does a trickster win when they aren't the strongest?",
+        "Who comes out on top in a trickster story, and how?"
       ],
       "explanation": "A trickster is a common folktale character who uses cleverness and mischief to outwit others.",
       "version": 1
@@ -503,7 +503,7 @@
       "subtopic": "Purposes of oral stories",
       "standard": "CCSS.ELA-LITERACY.SL.5.4",
       "hints": [
-        "Teach + entertain + preserve",
+        "Name three reasons people told stories long ago.",
         "Many roles"
       ],
       "explanation": "Oral stories served to teach lessons, entertain, and preserve a culture's history and values.",
@@ -524,8 +524,8 @@
       "subtopic": "Universal storytelling",
       "standard": "CCSS.ELA-LITERACY.SL.5.4",
       "hints": [
-        "Everyone tells stories",
-        "Universal"
+        "Do people in only one part of the world tell stories?",
+        "What does it mean if every culture has stories?"
       ],
       "explanation": "Folktales exist in every culture, showing that storytelling is a universal human practice.",
       "version": 1

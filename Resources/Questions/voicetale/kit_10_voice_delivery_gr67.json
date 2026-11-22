@@ -62,8 +62,8 @@
       "subtopic": "Using volume",
       "standard": "CCSS.ELA-LITERACY.SL.5.5",
       "hints": [
-        "Loud + soft",
-        "Emphasis + suspense"
+        "What can a teller do by getting louder, or quieter?",
+        "Why might a teller shout one line and whisper the next?"
       ],
       "explanation": "Volume — getting louder or softer — emphasizes moments and can build suspense.",
       "version": 1
@@ -83,8 +83,8 @@
       "subtopic": "Soft voice",
       "standard": "CCSS.ELA-LITERACY.SL.5.5",
       "hints": [
-        "Quiet draws them in",
-        "Intimacy/suspense"
+        "When a teller speaks very quietly, what do listeners do?",
+        "How does a whisper change the feeling in a room?"
       ],
       "explanation": "Speaking softly can draw listeners closer, creating intimacy or suspense.",
       "version": 1
@@ -105,7 +105,7 @@
       "standard": "CCSS.ELA-LITERACY.SL.5.5",
       "hints": [
         "High vs low",
-        "Characters + emotion"
+        "How could a high squeak and a deep rumble help a telling?"
       ],
       "explanation": "Varying pitch helps distinguish characters and express emotions.",
       "version": 1
@@ -168,7 +168,7 @@
       "standard": "CCSS.ELA-LITERACY.SL.5.5",
       "hints": [
         "Stress the key word",
-        "Highlight it"
+        "What does stressing one word tell the listener about it?"
       ],
       "explanation": "Emphasizing a key word highlights its importance to listeners.",
       "version": 1
@@ -188,8 +188,8 @@
       "subtopic": "Energy",
       "standard": "CCSS.ELA-LITERACY.SL.5.5",
       "hints": [
-        "Energy spreads",
-        "Contagious"
+        "If the teller seems bored, how do the listeners feel?",
+        "Does a teller's excitement stay with the teller, or travel?"
       ],
       "explanation": "A teller's energy and enthusiasm are contagious — they help the audience get excited too.",
       "version": 1
@@ -231,7 +231,7 @@
       "standard": "CCSS.ELA-LITERACY.SL.5.5",
       "hints": [
         "Voice fits the mood",
-        "Believable"
+        "Does a story feel more real when the voice fits the feeling?"
       ],
       "explanation": "Matching your tone of voice to the story's mood makes the telling more believable and immersive.",
       "version": 1
@@ -272,7 +272,7 @@
       "subtopic": "Confident delivery",
       "standard": "CCSS.ELA-LITERACY.SL.5.4",
       "hints": [
-        "Know it + practice",
+        "Where does steady confidence on stage usually come from?",
         "Confidence follows"
       ],
       "explanation": "Confident delivery comes from knowing the story well and practicing it.",
@@ -294,7 +294,7 @@
       "standard": "CCSS.ELA-LITERACY.SL.5.5",
       "hints": [
         "Distinct voices",
-        "Follow the speakers"
+        "If every character sounds the same, can listeners tell who is talking?"
       ],
       "explanation": "Giving characters different voices helps listeners follow who is speaking.",
       "version": 1
@@ -356,8 +356,8 @@
       "subtopic": "Delivery goal",
       "standard": "CCSS.ELA-LITERACY.SL.5.5",
       "hints": [
-        "Serve the story",
-        "Help them experience it"
+        "Who is delivery really for?",
+        "What should listeners get from a well-delivered story?"
       ],
       "explanation": "The goal of delivery is to help the audience experience the story, not to show off.",
       "version": 1
@@ -377,8 +377,8 @@
       "subtopic": "Facial expression",
       "standard": "CCSS.ELA-LITERACY.SL.5.5",
       "hints": [
-        "Show the feeling",
-        "Reinforce emotion"
+        "Picture telling a scary part with a big grin. What goes wrong?",
+        "What does a face add when it matches the moment?"
       ],
       "explanation": "Facial expressions reinforce the emotion of a moment, supporting vocal delivery.",
       "version": 1
@@ -399,7 +399,7 @@
       "standard": "CCSS.ELA-LITERACY.SL.5.5",
       "hints": [
         "All the vocal tools",
-        "Pitch/pace/volume/tone"
+        "Name all the ways your voice can change."
       ],
       "explanation": "Vocal variety means changing pitch, pace, volume, and tone for effect.",
       "version": 1
@@ -482,7 +482,7 @@
       "subtopic": "Pace as delivery",
       "standard": "CCSS.ELA-LITERACY.SL.5.5",
       "hints": [
-        "Delivery includes pace",
+        "Is speed something a teller controls with the voice?",
         "Vary the speed"
       ],
       "explanation": "Varying your pace within a telling is part of expressive vocal delivery.",

@@ -20,8 +20,8 @@
       "subtopic": "Refrain",
       "standard": "CCSS.ELA-LITERACY.SL.5.5",
       "hints": [
-        "A repeated line",
-        "Comes back again"
+        "Think of the part of a song everyone joins in on.",
+        "Why might listeners join in at certain points of a story?"
       ],
       "explanation": "A refrain is a line or phrase that repeats throughout a story (like 'I'll huff and I'll puff...').",
       "version": 1
@@ -62,8 +62,8 @@
       "subtopic": "Refrain + participation",
       "standard": "CCSS.ELA-LITERACY.SL.6.6",
       "hints": [
-        "They can say it too",
-        "Join in"
+        "If listeners know the line, what might they do when it comes round?",
+        "What does a line everyone knows let listeners do?"
       ],
       "explanation": "A refrain invites the audience to join in, saying the repeated line with the teller.",
       "version": 1
@@ -125,8 +125,8 @@
       "subtopic": "Repetition as memory aid",
       "standard": "CCSS.ELA-LITERACY.SL.5.4",
       "hints": [
-        "Aids memory",
-        "Easier to remember"
+        "Before writing, where did long stories live?",
+        "What's hard about telling a long story with no book?"
       ],
       "explanation": "Repetition and patterns helped oral storytellers remember and pass down long stories accurately.",
       "version": 1
@@ -146,8 +146,8 @@
       "subtopic": "Signature phrase",
       "standard": "CCSS.ELA-LITERACY.SL.5.5",
       "hints": [
-        "A memorable tagline",
-        "Signature"
+        "Think of a phrase you'd recognise anywhere as belonging to one story.",
+        "What does a phrase become when people link it to one story?"
       ],
       "explanation": "A repeated phrase can become a story's signature — the line everyone remembers.",
       "version": 1
@@ -188,8 +188,8 @@
       "subtopic": "Call and response",
       "standard": "CCSS.ELA-LITERACY.SL.6.6",
       "hints": [
-        "Teller calls, audience answers",
-        "Interactive"
+        "What does the word 'response' mean?",
+        "In this kind of telling, what does the audience do?"
       ],
       "explanation": "Call-and-response has the teller say a line and the audience answer, a lively participation pattern.",
       "version": 1
@@ -210,7 +210,7 @@
       "standard": "CCSS.ELA-LITERACY.SL.5.5",
       "hints": [
         "Parallel structure",
-        "Satisfying pattern"
+        "How does it feel when the third character faces the same test as the first two?"
       ],
       "explanation": "Repeated structures — each character facing the same test — create a satisfying, followable pattern.",
       "version": 1
@@ -230,8 +230,8 @@
       "subtopic": "Refrain placement",
       "standard": "CCSS.ELA-LITERACY.SL.5.5",
       "hints": [
-        "At key beats",
-        "Transitions"
+        "When would a repeated line do the most work?",
+        "Where would a repeated line help listeners feel the story moving on?"
       ],
       "explanation": "A refrain often appears at key moments or transitions, marking the story's rhythm.",
       "version": 1
@@ -251,8 +251,8 @@
       "subtopic": "Pattern payoff",
       "standard": "CCSS.ELA-LITERACY.SL.5.5",
       "hints": [
-        "Break the pattern",
-        "The payoff"
+        "Think about the third little pig's house.",
+        "How do you feel when a long buildup is over at last?"
       ],
       "explanation": "Repetition sets up a pattern, and breaking or resolving it delivers a satisfying payoff.",
       "version": 1
@@ -293,7 +293,7 @@
       "subtopic": "Catchy refrain",
       "standard": "CCSS.ELA-LITERACY.SL.5.5",
       "hints": [
-        "Short + catchy",
+        "Would a long, complicated line be easy to join in with?",
         "Easy to remember"
       ],
       "explanation": "A refrain works best when it's short and catchy, easy for the audience to remember and repeat.",
@@ -314,7 +314,7 @@
       "subtopic": "Repetition benefits",
       "standard": "CCSS.ELA-LITERACY.SL.5.5",
       "hints": [
-        "Engage + remember",
+        "What does a repeated line do for the listeners, and for the teller?",
         "Two benefits"
       ],
       "explanation": "Repetition helps a teller engage the audience (they join in) and stay on track (a built-in memory aid).",
@@ -356,8 +356,8 @@
       "subtopic": "Rhythm",
       "standard": "CCSS.ELA-LITERACY.SL.5.5",
       "hints": [
-        "A story beat",
-        "Rhythm"
+        "Read a nursery rhyme aloud and listen to how it sounds.",
+        "What does saying something again and again give a story?"
       ],
       "explanation": "Repetition creates a sense of rhythm — a beat that carries a told story along.",
       "version": 1
@@ -377,8 +377,8 @@
       "subtopic": "Refrain + theme",
       "standard": "CCSS.ELA-LITERACY.SL.5.5",
       "hints": [
-        "The repeated idea",
-        "Theme in a line"
+        "What could a line repeated through the story be trying to say?",
+        "Could a repeated line carry the big idea of the story?"
       ],
       "explanation": "A refrain can carry a story's theme or lesson, driving it home each time it repeats.",
       "version": 1
@@ -398,8 +398,8 @@
       "subtopic": "Varying the refrain",
       "standard": "CCSS.ELA-LITERACY.SL.5.5",
       "hints": [
-        "A changed refrain",
-        "Signals change"
+        "What would it mean if the line everyone knows came out a little different at the end?",
+        "Why might a teller change a familiar line in the last scene?"
       ],
       "explanation": "Changing a refrain slightly at the end can powerfully signal that something has changed in the story.",
       "version": 1
@@ -419,7 +419,7 @@
       "subtopic": "Purpose",
       "standard": "CCSS.ELA-LITERACY.SL.5.5",
       "hints": [
-        "Memorable + rhythmic + interactive",
+        "Name three things repetition does for a told story.",
         "Three benefits"
       ],
       "explanation": "Repetition and refrain make stories memorable, rhythmic, and participatory.",
@@ -524,8 +524,8 @@
       "subtopic": "Refrain + heart",
       "standard": "CCSS.ELA-LITERACY.SL.5.5",
       "hints": [
-        "The core idea",
-        "Heart of the story"
+        "What does a well-chosen repeated line often sum up?",
+        "If you had to say the story in one line, would it be the repeated one?"
       ],
       "explanation": "A well-chosen refrain often captures the heart or main idea of the story, driving it home.",
       "version": 1
