@@ -20,8 +20,8 @@
       "subtopic": "Setting",
       "standard": "CCSS.ELA-LITERACY.W.5.3",
       "hints": [
-        "Place + time",
-        "Where + when"
+        "Think about the backdrop of a story, not the people in it.",
+        "If you were filming it, what would you need to build and when would you set it?"
       ],
       "explanation": "The setting is where and when a story takes place.",
       "version": 1
@@ -41,8 +41,8 @@
       "subtopic": "Vivid setting",
       "standard": "CCSS.ELA-LITERACY.W.5.3.D",
       "hints": [
-        "Paint the picture",
-        "See it clearly"
+        "When you close your eyes during a good telling, what appears?",
+        "Can listeners imagine a place the teller never describes?"
       ],
       "explanation": "A vivid setting helps listeners picture the story in their imaginations.",
       "version": 1
@@ -62,8 +62,8 @@
       "subtopic": "Vivid setting example",
       "standard": "CCSS.ELA-LITERACY.W.5.3.D",
       "hints": [
-        "Specific + sensory",
-        "Rain + tin roof"
+        "Which line lets you hear and see one exact spot?",
+        "Which option gives you something to hear and something to touch?"
       ],
       "explanation": "Specific, sensory details like 'rain hammered the tin roof' set a scene far more vividly than vague words.",
       "version": 1
@@ -104,8 +104,8 @@
       "subtopic": "Selective setting",
       "standard": "CCSS.ELA-LITERACY.W.5.3.D",
       "hints": [
-        "Key details only",
-        "What matters"
+        "Does a listener need every chair and cup described?",
+        "Which details would change how the story goes?"
       ],
       "explanation": "You only need the details that matter — a few well-chosen ones bring a setting to life without overloading listeners.",
       "version": 1
@@ -146,8 +146,8 @@
       "subtopic": "Early setting",
       "standard": "CCSS.ELA-LITERACY.W.5.3",
       "hints": [
-        "Ground them",
-        "Set the stage first"
+        "Where do listeners feel lost if they don't know where they are?",
+        "Should the stage come before the action, or after?"
       ],
       "explanation": "Establishing the setting early grounds listeners so they can picture where the story unfolds.",
       "version": 1
@@ -272,8 +272,8 @@
       "subtopic": "Seasonal setting",
       "standard": "CCSS.ELA-LITERACY.W.5.3.D",
       "hints": [
-        "Show the cold",
-        "Fog + crunching snow"
+        "Which option makes you feel the cold instead of being told about it?",
+        "Which line gives you something to see and something to hear?"
       ],
       "explanation": "Showing breath turning to fog and snow crunching sets a winter scene vividly through sensory detail.",
       "version": 1
@@ -335,8 +335,8 @@
       "subtopic": "Unusual settings",
       "standard": "CCSS.ELA-LITERACY.W.5.3",
       "hints": [
-        "Novelty intrigues",
-        "Wonder"
+        "How do you feel when a story takes you somewhere you've never been?",
+        "What does a strange new place make you want to do?"
       ],
       "explanation": "An unusual setting can spark curiosity and wonder, drawing listeners into a new world.",
       "version": 1
@@ -356,8 +356,8 @@
       "subtopic": "Purposeful setting",
       "standard": "CCSS.ELA-LITERACY.SL.5.5",
       "hints": [
-        "Serve the story",
-        "Reinforce mood"
+        "Should details just be decoration?",
+        "Would a sunny meadow suit a spooky story?"
       ],
       "explanation": "The best setting details support the story and reinforce its mood.",
       "version": 1
@@ -377,7 +377,7 @@
       "subtopic": "Efficient setting",
       "standard": "CCSS.ELA-LITERACY.W.5.3.D",
       "hints": [
-        "A couple strong details",
+        "Can a teller paint a place with very few words?",
         "Suggest, don't list"
       ],
       "explanation": "One or two strong, specific details can suggest a whole setting efficiently.",
@@ -440,8 +440,8 @@
       "subtopic": "Immersive setting",
       "standard": "CCSS.ELA-LITERACY.W.5.3.D",
       "hints": [
-        "Real + immersive",
-        "Draws them in"
+        "When a scene is well set, how close does it feel?",
+        "Do you feel like you're inside the story, or watching from far away?"
       ],
       "explanation": "A well-set scene makes the story feel real and immersive.",
       "version": 1
@@ -482,8 +482,8 @@
       "subtopic": "Setting affects plot",
       "standard": "CCSS.ELA-LITERACY.W.5.3",
       "hints": [
-        "Place shapes events",
-        "Obstacle or opportunity"
+        "Can a place change what the characters are able to do?",
+        "Think of a flooded bridge or a secret tunnel: how could that change the story?"
       ],
       "explanation": "A setting can shape the plot — a raging river, a locked castle — creating obstacles or opportunities.",
       "version": 1
@@ -503,8 +503,8 @@
       "subtopic": "Establishing setting",
       "standard": "CCSS.ELA-LITERACY.W.5.3.D",
       "hints": [
-        "Early + woven in",
-        "Not a front-loaded list"
+        "Should listeners know where they are near the start, or at the end?",
+        "Is a long description before anything happens the best way?"
       ],
       "explanation": "Establish the setting early, but weave it into the action rather than pausing for a long description.",
       "version": 1

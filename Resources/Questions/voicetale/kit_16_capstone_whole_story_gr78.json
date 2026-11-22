@@ -20,7 +20,7 @@
       "subtopic": "Whole telling",
       "standard": "CCSS.ELA-LITERACY.SL.5.4",
       "hints": [
-        "Story + structure + delivery",
+        "What three things make a whole telling work?",
         "All together"
       ],
       "explanation": "Telling a whole story well combines a strong story, clear structure, and expressive delivery.",
@@ -41,8 +41,8 @@
       "subtopic": "First step",
       "standard": "CCSS.ELA-LITERACY.SL.5.4",
       "hints": [
-        "Pick a good one",
-        "Worth telling"
+        "What do you need before you think about voice and gestures?",
+        "Would a story you don't care about be the right place to start?"
       ],
       "explanation": "The first step is choosing a story worth telling — one that interests you and your audience.",
       "version": 1
@@ -62,8 +62,8 @@
       "subtopic": "Open with a hook",
       "standard": "CCSS.ELA-LITERACY.SL.5.4",
       "hints": [
-        "Grab attention first",
-        "The hook"
+        "What should the very first moment do?",
+        "What do we call the line that grabs listeners at the start?"
       ],
       "explanation": "A strong telling opens with a hook that grabs the audience's attention.",
       "version": 1
@@ -83,8 +83,8 @@
       "subtopic": "Build to climax",
       "standard": "CCSS.ELA-LITERACY.W.5.3",
       "hints": [
-        "Rising tension",
-        "Toward the peak"
+        "Should the worry in a story grow, shrink or stay flat?",
+        "Where is that growing worry heading?"
       ],
       "explanation": "Across a telling, the teller builds tension toward the climax.",
       "version": 1
@@ -104,7 +104,7 @@
       "subtopic": "Delivering key moments",
       "standard": "CCSS.ELA-LITERACY.SL.5.5",
       "hints": [
-        "Slow + expressive",
+        "At a big emotional moment, should you rush or take your time?",
         "Let them land"
       ],
       "explanation": "At key emotional moments, a teller slows down and uses expression to let them land.",
@@ -188,7 +188,7 @@
       "subtopic": "The teller's toolkit",
       "standard": "CCSS.ELA-LITERACY.SL.5.5",
       "hints": [
-        "Voice + pace + gesture + face",
+        "Name everything a teller can use besides the words.",
         "All the tools"
       ],
       "explanation": "A teller's tools include voice, pacing, gesture, and facial expression — all working together.",
@@ -209,7 +209,7 @@
       "subtopic": "Complete journey",
       "standard": "CCSS.ELA-LITERACY.W.5.3",
       "hints": [
-        "Beginning to end",
+        "Does a whole story stop in the middle?",
         "A whole"
       ],
       "explanation": "A well-told story feels like a complete journey — a beginning, a middle, and a satisfying end.",
@@ -230,7 +230,7 @@
       "subtopic": "The heart of it",
       "standard": "CCSS.ELA-LITERACY.SL.5.4",
       "hints": [
-        "Connect + move them",
+        "What should listeners take home from a great telling?",
         "The point"
       ],
       "explanation": "The heart of storytelling is connecting with and moving the audience.",
@@ -314,8 +314,8 @@
       "subtopic": "Revising a telling",
       "standard": "CCSS.ELA-LITERACY.SL.5.4",
       "hints": [
-        "Refine it",
-        "Improve with practice"
+        "Does a told story stay the same forever, or get better?",
+        "What happens to a story each time you tell it and notice what worked?"
       ],
       "explanation": "Revising a told story means improving it as you practice and learn what works.",
       "version": 1
@@ -335,7 +335,7 @@
       "subtopic": "Fresh telling",
       "standard": "CCSS.ELA-LITERACY.SL.6.6",
       "hints": [
-        "Alive each time",
+        "Should the hundredth telling feel tired?",
         "Adapt + engage"
       ],
       "explanation": "A great storyteller makes each telling feel fresh and alive, adapting to the moment and audience.",
@@ -398,8 +398,8 @@
       "subtopic": "Confidence",
       "standard": "CCSS.ELA-LITERACY.SL.5.4",
       "hints": [
-        "Prepare + practice",
-        "Know your story"
+        "What do you do before the telling that makes you feel ready?",
+        "Think about a performance you felt ready for. Why were you?"
       ],
       "explanation": "Confidence comes from preparation, practice, and truly knowing your story.",
       "version": 1
@@ -419,8 +419,8 @@
       "subtopic": "Transfer",
       "standard": "CCSS.ELA-LITERACY.SL.5.4",
       "hints": [
-        "Choose + prepare + tell",
-        "The full craft"
+        "Look back at everything this app covered.",
+        "What can you do now that you couldn't at the start?"
       ],
       "explanation": "The capstone goal: choose, prepare, and tell a whole story aloud with structure and expression.",
       "version": 1
@@ -483,7 +483,7 @@
       "standard": "CCSS.ELA-LITERACY.SL.5.5",
       "hints": [
         "Delivery matters too",
-        "Flat without it"
+        "What happens to a great story told in one dull voice?"
       ],
       "explanation": "A well-structured story falls flat if delivered in a lifeless monotone — delivery matters as much as content.",
       "version": 1
@@ -503,8 +503,8 @@
       "subtopic": "Improving",
       "standard": "CCSS.ELA-LITERACY.SL.5.4",
       "hints": [
-        "Practice + reflect",
-        "Tell often"
+        "How do athletes and musicians get better?",
+        "What do you do with what went wrong last time?"
       ],
       "explanation": "The best way to improve is to tell stories often and learn from each telling.",
       "version": 1
@@ -524,8 +524,8 @@
       "subtopic": "Measuring success",
       "standard": "CCSS.ELA-LITERACY.SL.6.6",
       "hints": [
-        "Did it connect + move?",
-        "Audience response"
+        "How do you know a telling worked?",
+        "Whose reaction matters most?"
       ],
       "explanation": "A storyteller's success is measured by how the audience responds and feels — whether the story connected and moved them.",
       "version": 1

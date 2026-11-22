@@ -20,8 +20,8 @@
       "subtopic": "Three parts",
       "standard": "CCSS.ELA-LITERACY.W.5.3",
       "hints": [
-        "Start, middle, finish",
-        "The three parts"
+        "Think about how most stories are shaped, from first word to last.",
+        "How many parts does that shape have?"
       ],
       "explanation": "A basic story has a beginning, a middle, and an end.",
       "version": 1
@@ -41,8 +41,8 @@
       "subtopic": "Beginning",
       "standard": "CCSS.ELA-LITERACY.W.5.3",
       "hints": [
-        "Set up",
-        "Meet characters + situation"
+        "What do listeners need before anything can go wrong?",
+        "Who are we following, and what's going on, before the trouble?"
       ],
       "explanation": "The beginning introduces the characters and the situation, setting up the story.",
       "version": 1
@@ -62,8 +62,8 @@
       "subtopic": "Middle",
       "standard": "CCSS.ELA-LITERACY.W.5.3",
       "hints": [
-        "Rising action",
-        "Build the problem"
+        "Is this where things get calmer, or harder?",
+        "What happens to the trouble in the long stretch after the start?"
       ],
       "explanation": "The middle develops the problem and builds tension — the rising action.",
       "version": 1
@@ -104,8 +104,8 @@
       "subtopic": "Climax",
       "standard": "CCSS.ELA-LITERACY.W.5.3",
       "hints": [
-        "The peak",
-        "Highest tension"
+        "Think of a rollercoaster: where is the top of the climb?",
+        "Where do listeners hold their breath most?"
       ],
       "explanation": "The climax is the story's peak — the moment of greatest tension or excitement.",
       "version": 1
@@ -146,8 +146,8 @@
       "subtopic": "Sequence",
       "standard": "CCSS.ELA-LITERACY.SL.5.4",
       "hints": [
-        "Logical order",
-        "Easy to follow"
+        "Can a listener rewind if they get lost?",
+        "Would jumping around in time help or hurt someone hearing it once?"
       ],
       "explanation": "Events should be told in a clear, logical order so listeners can follow the story.",
       "version": 1
@@ -167,8 +167,8 @@
       "subtopic": "No structure",
       "standard": "CCSS.ELA-LITERACY.W.5.3",
       "hints": [
-        "Hard to follow",
-        "Aimless"
+        "Without a clear shape, does a listener know where it's heading?",
+        "What does it feel like to wander without a map?"
       ],
       "explanation": "Without a clear structure, a story can feel confusing or aimless.",
       "version": 1
@@ -293,8 +293,8 @@
       "subtopic": "Cliffhanger",
       "standard": "CCSS.ELA-LITERACY.SL.5.4",
       "hints": [
-        "Pause at the tension",
-        "Leave them hanging"
+        "Think about how a TV episode ends so you'll watch the next one.",
+        "Why do some chapters end in the middle of the action?"
       ],
       "explanation": "A cliffhanger pauses at a suspenseful moment, making listeners eager to hear what happens next.",
       "version": 1
@@ -398,8 +398,8 @@
       "subtopic": "Rising action",
       "standard": "CCSS.ELA-LITERACY.W.5.3",
       "hints": [
-        "Build up",
-        "Toward the peak"
+        "What comes between the trouble starting and the biggest moment?",
+        "Where is that stretch of the story heading?"
       ],
       "explanation": "The rising action builds tension and events toward the climax.",
       "version": 1
@@ -419,8 +419,8 @@
       "subtopic": "Subplot",
       "standard": "CCSS.ELA-LITERACY.W.5.3",
       "hints": [
-        "A side story",
-        "Smaller thread"
+        "Think about a second thread you've followed alongside the main plot of a long book or show.",
+        "Think of the 'sub-' in submarine: under or alongside the main thing."
       ],
       "explanation": "A subplot is a smaller secondary story woven alongside the main plot.",
       "version": 1
@@ -503,8 +503,8 @@
       "subtopic": "Inciting incident",
       "standard": "CCSS.ELA-LITERACY.W.5.3",
       "hints": [
-        "Starts the trouble",
-        "Kicks off the plot"
+        "What's the moment that changes the character's ordinary day?",
+        "What's different for the character before and after this event?"
       ],
       "explanation": "The inciting incident is the event that sets the story's main problem in motion.",
       "version": 1

@@ -20,8 +20,8 @@
       "subtopic": "Twist",
       "standard": "CCSS.ELA-LITERACY.W.5.3",
       "hints": [
-        "The unexpected",
-        "A surprising turn"
+        "Think of a story ending that made you gasp.",
+        "What does the story do at that moment?"
       ],
       "explanation": "A twist is an unexpected turn in the story that surprises the listener.",
       "version": 1
@@ -41,7 +41,7 @@
       "subtopic": "Good twist",
       "standard": "CCSS.ELA-LITERACY.W.5.3",
       "hints": [
-        "Surprising + earned",
+        "Should a big surprise come out of nowhere, or make sense once you think about it?",
         "Makes sense after"
       ],
       "explanation": "A good twist is surprising yet believable — it makes sense once you look back.",
@@ -63,7 +63,7 @@
       "standard": "CCSS.ELA-LITERACY.W.5.3",
       "hints": [
         "Needs setup",
-        "No setup = cheap"
+        "How does a surprise feel if nothing led up to it?"
       ],
       "explanation": "A twist with no setup feels cheap or confusing; the best twists are quietly prepared.",
       "version": 1
@@ -83,8 +83,8 @@
       "subtopic": "Foreshadowing a twist",
       "standard": "CCSS.ELA-LITERACY.W.5.3",
       "hints": [
-        "Plant hints",
-        "Earn the surprise"
+        "Think about rereading a mystery: what do you notice the second time?",
+        "Why does a good surprise make you say 'of course!'?"
       ],
       "explanation": "Foreshadowing plants subtle hints so a twist feels earned rather than random.",
       "version": 1
@@ -125,8 +125,8 @@
       "subtopic": "Surprise ending",
       "standard": "CCSS.ELA-LITERACY.W.5.3",
       "hints": [
-        "Fit the story",
-        "Earned + coherent"
+        "What happens if an ending contradicts everything before it?",
+        "Think about a twist that felt like cheating. Why did it?"
       ],
       "explanation": "A surprise ending should still make sense with everything that came before.",
       "version": 1
@@ -209,8 +209,8 @@
       "subtopic": "Delivering a twist",
       "standard": "CCSS.ELA-LITERACY.SL.5.5",
       "hints": [
-        "Pause, then reveal",
-        "Build anticipation"
+        "Think about how a magician acts just before showing the trick.",
+        "How do you make listeners lean in?"
       ],
       "explanation": "A pause right before the reveal builds anticipation and heightens a twist's impact.",
       "version": 1
@@ -230,7 +230,7 @@
       "subtopic": "Predictable twist",
       "standard": "CCSS.ELA-LITERACY.W.5.3",
       "hints": [
-        "No surprise = no twist",
+        "If everyone sees it coming, is it really a twist?",
         "Must be unexpected"
       ],
       "explanation": "If listeners see it coming, a 'twist' isn't surprising — and a twist needs to be unexpected.",
@@ -251,8 +251,8 @@
       "subtopic": "Purposeful twist",
       "standard": "CCSS.ELA-LITERACY.W.5.3",
       "hints": [
-        "Serve the story",
-        "Not just shock"
+        "Think of a twist that surprised you but made no sense.",
+        "What should a twist do for the story, beyond the gasp?"
       ],
       "explanation": "A twist should serve the story's meaning, not exist merely to shock.",
       "version": 1
@@ -272,8 +272,8 @@
       "subtopic": "Rewatchable twist",
       "standard": "CCSS.ELA-LITERACY.W.5.3",
       "hints": [
-        "'It was there all along!'",
-        "See the clues"
+        "What did you do after the twist in your favorite mystery?",
+        "Why do people rewatch a movie that has a twist?"
       ],
       "explanation": "A satisfying twist makes listeners want to look back and spot the clues they missed.",
       "version": 1
@@ -314,8 +314,8 @@
       "subtopic": "Small surprises",
       "standard": "CCSS.ELA-LITERACY.W.5.3",
       "hints": [
-        "Little surprises too",
-        "Keep it fresh"
+        "Think of a small joke halfway through a long story.",
+        "What do small surprises do to a listener's attention?"
       ],
       "explanation": "Small surprises throughout, not just one big twist, keep listeners engaged and the story fresh.",
       "version": 1
@@ -356,8 +356,8 @@
       "subtopic": "Controlling information",
       "standard": "CCSS.ELA-LITERACY.W.5.3",
       "hints": [
-        "Manage the reveal",
-        "What they know, when"
+        "Think of a magic trick: what does the magician hide, and for how long?",
+        "How does a teller keep listeners guessing?"
       ],
       "explanation": "The key to a surprise is controlling what the listener knows and when they learn it.",
       "version": 1
@@ -377,7 +377,7 @@
       "subtopic": "Best twist ending",
       "standard": "CCSS.ELA-LITERACY.W.5.3",
       "hints": [
-        "Surprising + satisfying",
+        "Is shock enough, or should it also feel right?",
         "Both"
       ],
       "explanation": "The best twist ending feels both surprising and satisfying — earned by the story.",
@@ -398,8 +398,8 @@
       "subtopic": "Planning a twist",
       "standard": "CCSS.ELA-LITERACY.W.5.3",
       "hints": [
-        "Plant the clues",
-        "Plan ahead"
+        "Think about how a mystery writer works on the ending.",
+        "When you reread a twist story, what do you spot?"
       ],
       "explanation": "A good twist shows the teller planned ahead, hiding clues in plain sight.",
       "version": 1
@@ -420,7 +420,7 @@
       "standard": "CCSS.ELA-LITERACY.W.5.3",
       "hints": [
         "Keep it unexpected",
-        "Fresh + exciting"
+        "How does a story feel when you can't predict it?"
       ],
       "explanation": "Surprise keeps storytelling fresh and exciting, resisting predictability.",
       "version": 1
@@ -482,7 +482,7 @@
       "subtopic": "Rewarding attention",
       "standard": "CCSS.ELA-LITERACY.W.5.3",
       "hints": [
-        "Clues were there",
+        "Who gets the most out of a twist?",
         "Reward the attentive"
       ],
       "explanation": "The best twists reward attentive listeners — the clues were there to be noticed.",
@@ -503,8 +503,8 @@
       "subtopic": "Fair twists",
       "standard": "CCSS.ELA-LITERACY.W.5.3",
       "hints": [
-        "Play fair",
-        "Give a chance to guess"
+        "Think of a mystery solved by something never mentioned before.",
+        "Why does that ending feel like cheating?"
       ],
       "explanation": "A fair twist doesn't rely on hidden information the listener never had — it plants clues to be found.",
       "version": 1
@@ -524,7 +524,7 @@
       "subtopic": "Twist payoff",
       "standard": "CCSS.ELA-LITERACY.W.5.3",
       "hints": [
-        "Surprise + 'aha'",
+        "What two things happen in your head at a great reveal?",
         "It clicks"
       ],
       "explanation": "A twist's payoff comes from surprise plus the sudden 'aha' of understanding.",

@@ -20,8 +20,8 @@
       "subtopic": "Pacing",
       "standard": "CCSS.ELA-LITERACY.SL.5.4",
       "hints": [
-        "Speed of the story",
-        "Fast vs slow"
+        "Think of a chase scene next to a quiet morning scene.",
+        "Which part of a story makes your heart race, and which lets you breathe?"
       ],
       "explanation": "Pacing is how fast or slow a story moves — both its events and its telling.",
       "version": 1
@@ -41,7 +41,7 @@
       "subtopic": "Slow pace",
       "standard": "CCSS.ELA-LITERACY.SL.5.5",
       "hints": [
-        "Linger on the big moments",
+        "Which parts of a story deserve extra time?",
         "Let them land"
       ],
       "explanation": "Slowing the pace lets important or emotional moments land and gives listeners time to feel them.",
@@ -62,8 +62,8 @@
       "subtopic": "Fast pace",
       "standard": "CCSS.ELA-LITERACY.SL.5.5",
       "hints": [
-        "Quicken for action",
-        "Excitement"
+        "When characters are running, should the telling crawl or race?",
+        "How does a quick telling make your heart feel?"
       ],
       "explanation": "Speeding up the pace suits action and exciting moments, building energy.",
       "version": 1
@@ -105,7 +105,7 @@
       "standard": "CCSS.ELA-LITERACY.SL.5.5",
       "hints": [
         "Silence has power",
-        "Emphasis + suspense"
+        "What does a moment of silence make a listener do?"
       ],
       "explanation": "A well-placed pause can add emphasis or suspense — silence is a pacing tool.",
       "version": 1
@@ -167,8 +167,8 @@
       "subtopic": "Matching pace",
       "standard": "CCSS.ELA-LITERACY.SL.5.5",
       "hints": [
-        "Fit the moment",
-        "Speed to importance"
+        "Should every part of a story move at the same speed?",
+        "Which parts deserve more time, and which can move quickly?"
       ],
       "explanation": "Good pacing matches the speed of telling to each moment's importance and energy.",
       "version": 1
@@ -209,7 +209,7 @@
       "subtopic": "Pace + resolution",
       "standard": "CCSS.ELA-LITERACY.W.5.3",
       "hints": [
-        "Slow to wrap up",
+        "After the biggest moment, do things rush on or settle?",
         "Wind down"
       ],
       "explanation": "After the climax, the pace often slows to wind down toward the resolution.",
@@ -230,7 +230,7 @@
       "subtopic": "Sentence length + pace",
       "standard": "CCSS.ELA-LITERACY.SL.5.5",
       "hints": [
-        "Short = fast, long = slow",
+        "Read 'He ran. He jumped. He fell.' aloud, then a long winding sentence. Which feels quicker?",
         "Sentence rhythm"
       ],
       "explanation": "Short sentences feel fast and punchy; longer ones feel slower — sentence length shapes pace.",
@@ -251,8 +251,8 @@
       "subtopic": "Pacing tools",
       "standard": "CCSS.ELA-LITERACY.SL.5.5",
       "hints": [
-        "Speed + pauses + length",
-        "Multiple tools"
+        "Which tools does a teller have for speeding up and slowing down?",
+        "Picture a teller slowing down for a spooky part. List everything they might do."
       ],
       "explanation": "A teller controls pace through speech speed, pauses, and sentence length.",
       "version": 1
@@ -272,8 +272,8 @@
       "subtopic": "Why pacing matters",
       "standard": "CCSS.ELA-LITERACY.SL.5.5",
       "hints": [
-        "Control the experience",
-        "Time + tension"
+        "Who decides how long a moment feels to the listener?",
+        "What does stretching or rushing a moment do to the listener's nerves?"
       ],
       "explanation": "Pacing lets a teller control how listeners experience time and tension in a story.",
       "version": 1
@@ -294,7 +294,7 @@
       "standard": "CCSS.ELA-LITERACY.SL.5.5",
       "hints": [
         "Build anticipation",
-        "Heighten the reveal"
+        "What does a breath of silence before a big reveal do to that reveal?"
       ],
       "explanation": "A dramatic pause right before a reveal heightens its impact by building anticipation.",
       "version": 1
@@ -314,8 +314,8 @@
       "subtopic": "Where to slow down",
       "standard": "CCSS.ELA-LITERACY.SL.5.5",
       "hints": [
-        "The big emotional beat",
-        "Slow the climax"
+        "Which moment would you least want listeners to miss?",
+        "Where should a teller take the most time?"
       ],
       "explanation": "The emotional climax or key moment deserves the slowest, most careful pace so it lands fully.",
       "version": 1
@@ -336,7 +336,7 @@
       "standard": "CCSS.ELA-LITERACY.SL.5.4",
       "hints": [
         "Rehearse the rhythm",
-        "Find the pacing"
+        "What do you discover about the rhythm of a story only when you say it out loud?"
       ],
       "explanation": "Practicing aloud helps a teller discover a story's natural pacing.",
       "version": 1
@@ -399,7 +399,7 @@
       "standard": "CCSS.ELA-LITERACY.SL.5.5",
       "hints": [
         "Vary it",
-        "Alive"
+        "Does a story told at one steady speed feel lively or flat?"
       ],
       "explanation": "Changing pace throughout keeps a story feeling alive and dynamic.",
       "version": 1
@@ -419,7 +419,7 @@
       "subtopic": "Purposeful pacing",
       "standard": "CCSS.ELA-LITERACY.SL.5.5",
       "hints": [
-        "Emphasis in the right places",
+        "Does every moment deserve the same weight?",
         "Serve the story"
       ],
       "explanation": "Good pacing serves the story by placing emphasis where it belongs — slow for the big moments, quick for the rest.",
@@ -461,8 +461,8 @@
       "subtopic": "Slow for emotion",
       "standard": "CCSS.ELA-LITERACY.SL.5.5",
       "hints": [
-        "Let feeling land",
-        "Time to feel"
+        "What do listeners need at a sad moment?",
+        "Why might a teller slow down when something sad happens?"
       ],
       "explanation": "Slowing the pace at a sad moment gives listeners time to feel the emotion fully.",
       "version": 1
@@ -482,7 +482,7 @@
       "subtopic": "Short sentences + pace",
       "standard": "CCSS.ELA-LITERACY.SL.5.5",
       "hints": [
-        "Short = fast",
+        "Read 'Run. Duck. Jump!' aloud. Does it feel slow or quick?",
         "Action pace"
       ],
       "explanation": "Quick, short sentences during action create a fast, exciting pace.",
@@ -524,7 +524,7 @@
       "subtopic": "Fixing lost listeners",
       "standard": "CCSS.ELA-LITERACY.SL.6.6",
       "hints": [
-        "Slow + clarify",
+        "If listeners look confused, should you rush on or ease off?",
         "Bring them back"
       ],
       "explanation": "If listeners seem lost, slowing down and clarifying usually brings them back.",
